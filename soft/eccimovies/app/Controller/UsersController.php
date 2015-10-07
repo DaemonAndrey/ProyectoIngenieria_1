@@ -67,7 +67,7 @@ class UsersController extends AppController {
     }
 	
 	// Se pasa a la vista de REGISTRO
-	public function registrar()
+	public function signup()
 	{	
 		// Por si falla el INSERT
 		try

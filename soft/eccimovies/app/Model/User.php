@@ -11,47 +11,66 @@ class User extends AppModel {
 	// Valida los campos de la tabla a la hora de registrar
     public $validate = array(
         'username' => array( 
-						'required' => array(
-											'rule' => 'notBlank',
-											'message' => 'No es un correo válido.'
+							'regla1' => array
+											(
+												'rule' => array('notBlank'),
+												'message' => 'Debe escribir un correo electrónico.'
+											),
+							'regla2' => array
+											(
+												'rule' => array('isUnique'),
+												'message' => 'Este correo ya ha sido registrado.'
 											)
 							),
         'password' => array(
-							'required' => array(
+							'regla1' => array(
 											'rule' => 'notBlank',
+											'message' => 'Debe escribir una contaseña.'
+											),
+							'regla2' => array(
+											'rule' => array('minLength', '8'),
 											'message' => 'Debe tener al menos 8 caracteres.'
 											)
 						),
-		'nombre_pila' => array(
-							'required' => array(
+		'first_name' => array(
+							'regla1' => array(
 											'rule' => 'notBlank',
-											'message' => 'Sólo se permiten letras.'
-											)
-						),
-		'apellidos' => array(
-							'required' => array(
-											'rule' => 'notBlank',
-											'message' => 'Sólo se permiten letras.'
+											'message' => 'Debe escribir su nombre de pila.'
+											),
+							'regla2' => array(
+											'rule'    => array('custom', '/^[a-zA-Z \-]*$/'),
+											'message' => 'No se permiten caracteres especiales.'
 											)
 							),
-		'fecha_nacimiento' => array(
-									'required' => array(
-													'rule' => 'date',
-													'message' => 'No puedes dejar este campo vacío.'
-													)
-								),
-		'sexo' => array(
-						'required' => array(
+		'last_name' => array(
+							'regla1' => array(
+											'rule' => 'notBlank',
+											'message' => 'Debe escribir sus apellidos.'
+											),
+							'regla2' => array(
+											'rule'    => array('custom', '/^[a-zA-Z \-]*$/'),
+											'message' => 'No se permiten caracteres especiales.'
+											)
+							),
+		'birthday' => array(
+							'regla1' => array(
+											'rule' => 'date',
+											'allowEmpty' => false,
+											'message' => 'Debe seleccionar su fecha de nacimiento.'
+											)
+							),
+		'gender' => array(
+						'regla1' => array(
 										'rule' => array('inList', array(1, 0)),
-										'message' => 'Debes seleccionar uno.',
-										'allowEmpty' => false
+										'allowEmpty' => false,
+										'message' => 'Debes seleccionar uno.'
 										)
 						),
-        'rol' => array(
+        'role' => array(
 					'valid' => array(
 								'rule' => array('inList', array('Comprador', 'Administrador', 'Gerente')),
-								'message' => 'Debes seleccionar uno.',
-								'allowEmpty' => false
+								'allowEmpty' => false,
+								'message' => 'Debes seleccionar uno.'
 								)
 					)	
     );
