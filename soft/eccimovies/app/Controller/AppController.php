@@ -50,8 +50,12 @@ class AppController extends Controller {
 															),
 										'authorize' => array('Controller'),
 										'flash' => array('element' => 'auth_error')
+                                
 										)
 							);
+    
+
+
 	
     public function beforeFilter() {
         $this->Auth->allow();
