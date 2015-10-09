@@ -57,7 +57,7 @@
                                         </li>
                                                                                 
                                         <li>
-                                            <?php echo $this->Html->link('<span class="glyphicon glyphicon-user"></span> SIGN UP',                                                                                                     array('controller'=>'users', 'action'=>'registrar'),array('escape'=>false));?>
+                                            <?php echo $this->Html->link('<span class="glyphicon glyphicon-user"></span> SIGN UP',                                                                                                     array('controller'=>'users', 'action'=>'signup'),array('escape'=>false));?>
                                         </li> 
                                    
                                         <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"> MI CARRITO</span></a></li>

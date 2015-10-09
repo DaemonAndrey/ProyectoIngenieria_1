@@ -9,7 +9,7 @@ class UsersController extends AppController {
 	
 	public function beforeFilter() {
         parent::beforeFilter();
-        $this->Auth->allow('registrar', 'logout', 'logged');
+        $this->Auth->allow('signup', 'logout', 'logged');
     }
 	
 	public function logged()
@@ -67,7 +67,7 @@ class UsersController extends AppController {
     }
 	
 	// Se pasa a la vista de REGISTRO
-	public function registrar()
+	public function signup()
 	{	
 		// Por si falla el INSERT
 		try
