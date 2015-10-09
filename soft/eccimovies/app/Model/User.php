@@ -61,14 +61,22 @@ class User extends AppModel {
 							),
 		'gender' => array(
 						'regla1' => array(
+<<<<<<< HEAD
 										'rule' => array('inList', array('M', 'F')),
+=======
+										'rule' => array('inList', array(1, 0)),
+>>>>>>> bc95873fc318bae3dd4d63cbd91d7440ee2b8cc7
 										'allowEmpty' => false,
 										'message' => 'Debes seleccionar uno.'
 										)
 						),
         'role' => array(
 					'valid' => array(
+<<<<<<< HEAD
 								'rule' => array('inList', array(0, 1, 2)),
+=======
+								'rule' => array('inList', array('Comprador', 'Administrador', 'Gerente')),
+>>>>>>> bc95873fc318bae3dd4d63cbd91d7440ee2b8cc7
 								'allowEmpty' => false,
 								'message' => 'Debes seleccionar uno.'
 								)

@@ -32,16 +32,27 @@
 									);
 			echo $this->Form->input('gender', array(
 													'options' => array(
+<<<<<<< HEAD
 																		'M' => 'Hombre',
 																		'F' => 'Mujer'
+=======
+																		1 => 'Hombre',
+																		0 => 'Mujer'
+>>>>>>> bc95873fc318bae3dd4d63cbd91d7440ee2b8cc7
 																	  )
 													)
 									);
 			/*echo $this->Form->input('role', array(
 												'options' => array(
+<<<<<<< HEAD
 																0 => 'Comprador',
 																0 => 'Administrador',
 																0 => 'Gerente'
+=======
+																'Comprador' => 'Comprador',
+																'Administrador' => 'Administrador',
+																'Gerente' => 'Gerente'
+>>>>>>> bc95873fc318bae3dd4d63cbd91d7440ee2b8cc7
 																)
 												)
 									);
