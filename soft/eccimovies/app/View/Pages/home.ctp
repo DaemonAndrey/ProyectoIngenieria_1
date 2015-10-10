@@ -25,7 +25,7 @@
                                                 <?php
                                                     //$var = utf8_encode($cat['Page']['category_name']);
                                                    // echo $var;
-                                                    echo $this->Html->link(utf8_encode($cat['Page']['category_name']), array('controller' => 'pages', 'action'=> 'view',$cat['Page']['id']));
+                                                    echo $this->Html->link(utf8_encode($cat['Page']['category_name']), array('controller' => 'categories', 'action'=> 'view',$cat['Page']['id']));
 
                                                 ?>
                                             </a>

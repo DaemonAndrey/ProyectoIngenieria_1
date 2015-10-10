@@ -43,7 +43,7 @@
                         <div class="col-md-2">
                               
                             <?php echo $this->Html->link($this->Html->image('movies-logo.jpg', array('alt' => 'Bienvenido a ECCI Movies', 'class' => 'img-                                                                                rounded', 'style' => 'width:200px', 'id' => 'principal-header-img')),
-                                                    					     array('controller'=>'pages','action' => 'display', 'home'),
+                                                    					     array('controller'=>'pages','action' => 'home', 'display'),
                                                      					     array('target' => '_self', 'escape' => false));
                             ?>  <!--Imagen con link  a la página principal.-->    
                             
@@ -69,7 +69,7 @@
                                         </li>
                                                                                 
                                         <li>
-                                            <?php echo $this->Html->link('<span class="glyphicon glyphicon-user"></span> SIGN UP',                                                                                                     array('controller'=>'users', 'action'=>'registrar'),array('escape'=>false));?>
+                                            <?php echo $this->Html->link('<span class="glyphicon glyphicon-user"></span> SIGN UP',                                                                                                     array('controller'=>'users', 'action'=>'signup'),array('escape'=>false));?>
                                         </li> 
                                    
                                         <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"> MI CARRITO</span></a></li>

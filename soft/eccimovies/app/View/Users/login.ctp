@@ -24,7 +24,7 @@
 	  <tr>
 		<td><?php echo $this->Form->end(__('Ingresar')); ?> </td>
 		<td><label for="Registrar" style="font-size: 12px;">¿Aún no tienes una cuenta?</label>
-			<input type="submit" name="Registrar" id="Registrar" value="Regístrese" style="font-size: 16px;" onclick="window.location='/eccimovies/users/signup';" /></td> 
+			<input type="submit" name="Registrar" id="Registrar" value="Regístrese" style="font-size: 16px;" onclick="window.location='signup';" /></td> 
 	  </tr>
 	</table>
 </div>
