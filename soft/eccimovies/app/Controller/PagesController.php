@@ -29,6 +29,9 @@ App::uses('AppController', 'Controller');
  * @link http://book.cakephp.org/2.0/en/controllers/pages-controller.html
  */
 class PagesController extends AppController {
+    
+    public $helpers = array('Html', 'Form', 'Flash');
+	public $components = array('Flash');
 
 /**
  * This controller does not use a model
@@ -37,6 +40,11 @@ class PagesController extends AppController {
  */
 	public $uses = array();
 
+    
+    public function home()
+    {
+        $this->set('catego',$this->Page->find('all'));
+    }
 /**
  * Displays a view
  *
@@ -44,6 +52,7 @@ class PagesController extends AppController {
  * @throws NotFoundException When the view file could not be found
  *	or MissingViewException in debug mode.
  */
+    
 	public function display() {
 		$path = func_get_args();
 
@@ -73,4 +82,6 @@ class PagesController extends AppController {
 			throw new NotFoundException();
 		}
 	}
+    
+
 }

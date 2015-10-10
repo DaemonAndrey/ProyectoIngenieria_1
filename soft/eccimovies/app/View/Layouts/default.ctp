@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<?php echo $this->Html->charset(); ?>
+
+    
+
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,13 +15,23 @@
 	<?php
 		echo $this->Html->meta('icon');
 		echo $this->Html->css('cake.generic');
-        echo $this->Html->css('bootstrap.min');
-        echo $this->Html->script('bootstrap.min');
+
+
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
 		echo $this->fetch('script');
     
 	?>
+    
+        <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+   
 </head>
 <body>
 	<div class="container">
@@ -57,7 +69,7 @@
                                         </li>
                                                                                 
                                         <li>
-                                            <?php echo $this->Html->link('<span class="glyphicon glyphicon-user"></span> SIGN UP',                                                                                                     array('controller'=>'users', 'action'=>'signup'),array('escape'=>false));?>
+                                            <?php echo $this->Html->link('<span class="glyphicon glyphicon-user"></span> SIGN UP',                                                                                                     array('controller'=>'users', 'action'=>'registrar'),array('escape'=>false));?>
                                         </li> 
                                    
                                         <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"> MI CARRITO</span></a></li>

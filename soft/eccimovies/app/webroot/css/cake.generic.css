@@ -51,8 +51,23 @@
     padding-bottom: 50px;
 }
 
+.scrollable-menu
+{
+    height: auto;
+    max-height: 200px;
+    overflow-x: hidden;
+    border-radius: 3px;
+    color: lightgray;
+}
+
 .container{
     background-color:black;
 }
 
+@media (min-width: 768px)
+{
+    .dropdown:hover .dropdown-menu{
+        display: block;
+    }
+}
 
