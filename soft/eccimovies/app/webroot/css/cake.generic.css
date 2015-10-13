@@ -12,7 +12,8 @@
     padding-top: 10px;
     text-align: left;
     padding-left: 30px;
-    color:aliceblue;
+
+    color:white;
     font-family: 'Ubuntu', sans-serif;
     font-style: normal;
 }
@@ -55,6 +56,7 @@
 #header-nav > ul > li:hover > a {
   color: rgb( 255, 255, 255 );
   text-decoration: none;
+
 }
 
 
@@ -137,7 +139,7 @@
     max-height: 200px;
     overflow-x: hidden;
     border-radius: 3px;
-    color: lightgray;
+   
 }
 
 .container{
