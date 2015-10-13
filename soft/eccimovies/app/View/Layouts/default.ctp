@@ -15,7 +15,7 @@
 	<?php
 		echo $this->Html->meta('icon');
 		echo $this->Html->css('cake.generic');
-
+       
 
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
@@ -25,6 +25,7 @@
     
         <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    
 
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

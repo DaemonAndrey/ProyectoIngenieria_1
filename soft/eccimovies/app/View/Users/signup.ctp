@@ -1,53 +1,115 @@
+<?php echo $this->Html->css('signup'); ?>
+
+<header id="principal-header-text-signup">
+    <h2> Formulario de registro </h2>
+</header>
+
+
+
 <div class="users form">
-<?php echo $this->Form->create('User'); ?>
-    <fieldset>
-        <legend><?php echo __('Formulario de Registro'); ?></legend>
+    <?php echo $this->Form->create('User'); ?>
 		
-		<?php  // Campos para llenar informacion
-			echo $this->Form->input('username', array(
-														'label' => 'Correo Electrónico',
-														'type' => 'email'
-													 )
-									);
-			echo $this->Form->input('password', array(
-														'label' => 'Contraseña',
-														'type' => 'password',
-														'rule' => array('minLength', '8')
-														)
-									);
-			echo $this->Form->input('first_name', array(
-														'label' => 'Nombre de Pila'
-														)
-									);
-			echo $this->Form->input('last_name', array(
-														'label' => 'Apellidos'
-														)
-									);
-			echo $this->Form->input('birthday', array(
-														'label' => 'Fecha de Nacimiento',
-														'dateFormat' => 'DMY',
-														'minYear' => date('Y') - 100,
-														'maxYear' => date('Y')
-														)
-									);
-			echo $this->Form->input('gender', array(
+    <div class="row">
+        <div class="col-md-9">
+            <div class="form-group">
+                <?php // Campos para llenar informacion
+				    echo $this->Form->input('username',array(
+														      'label' => 'Email: ',
+														      'type' => 'email',
+                                                              'placeholder' => 'username@mail.com'
+                                                            )
+                                            );
+                ?>
+            </div>
+        </div>    
+    </div>
+
+    <div class="row">
+        <div class="col-md-5">
+            <div class="form-group">
+                <?php // Campos para llenar informacion
+				    echo $this->Form->input('first_name',array(
+														      'label' => 'Nombre: ',
+                                                              'placeholder' => 'Juan'
+                                                            )
+                                            );
+                ?>
+            </div>
+        </div>   
+        
+        <div class="col-md-5">
+            <div class="form-group">
+                <?php // Campos para llenar informacion
+				    echo $this->Form->input('last_name',array(
+														      'label' => 'Apellidos: ',
+                                                              'placeholder' => 'Rojas'
+                                                            )
+                                            );
+                ?>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-9">
+            <div class="form-group">
+                <?php // Campos para llenar informacion
+				    echo $this->Form->input('password',array(
+														      'label' => 'Contraseña: ',
+														      'type' => 'password',
+                                                               array('minLength', '8')
+                                                            )
+                                            );
+                ?>
+            </div>
+        </div>    
+    </div>
+    
+    <div class="row">
+        <div class="col-md-9">
+            <div class="form-group">
+                <?php // Campos para llenar informacion
+				    echo $this->Form->input('birthday',array(   
+                                                              'type' => 'date',
+														      'label' => 'Fecha de Nacimiento: ',
+                                                              'dateFormat' => 'DMY',
+                                                              'minYear' => date('Y') - 100,
+                                                              'maxYear' => date('Y')
+                                                             )
+                                            );
+                ?>
+            </div>
+        </div>    
+    </div>
+    
+    <div class="row">
+        <div class="col-md-9">
+            <div class="form-group id = "form"">
+                <?php // Campos para llenar informacion
+				    echo $this->Form->input('gender',array(
+                                                    'label' => 'Género: ',
 													'options' => array(
 																		'M' => 'Hombre',
 																		'F' => 'Mujer'
 																	  )
 													)
-									);
-			/*echo $this->Form->input('role', array(
-												'options' => array(
-																0 => 'Comprador',
-																0 => 'Administrador',
-																0 => 'Gerente'
-																)
-												)
-									);
-			*/
-		?>
-		
-    </fieldset>
-<?php echo $this->Form->end(__('Registrar')); ?>
+                                            );
+                ?>
+            </div>
+        </div>    
+    </div>
+    
+    <div class="row">
+            <div class="col-md-5">
+                    <?php echo $this->Form->button('Crear cuenta!',                                                                                                                                                                   array(
+                                                        'type'=>'submit',
+                                                        'id' => 'button-signup',
+                                                        'action'=>'login'),
+                                                        array(
+                                                            'escape'=>false
+                                                             )
+                                                        );
+                   ?>
+            </div> 
+        </div>  
 </div>
