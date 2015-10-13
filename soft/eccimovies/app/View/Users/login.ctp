@@ -55,12 +55,13 @@
         <div class="row text-right">          
              <div class="col-md-6">
                 <label for="Reg" id="label-signup">¿Aún no tienes cuenta?</label>
-            </div>
+            </div>onclick="window.location='signup';"
             <div class="col-md-2">
                     <?php echo $this->Form->button('Regístrate aquí!',                                                                                                                                                                   array(
                                                         'type'=>'submit',
                                                         'id' => 'button-signup',
-                                                        'onclick' => "window.location = 'signup'"),
+                                                        
+                                                        'action'=>'signup'),
                                                         array(
                                                             'escape'=>false
                                                              )
