@@ -8,6 +8,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
+
+   <link href='https://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
+
 	<title>
 		<?php echo 'ECCI Movies' ?>:
 		<?php echo $this->fetch('title'); ?>
@@ -59,24 +62,21 @@
                         </div>
                         
                         <div class="col-md-5" id="principal-header-nav">
-                            <div role="navigation">
-                                <div class="container-fluid navbar-right">
-                                    
-                                    <ul class="nav navbar-nav">
-                                        
-                                        <li>
-                                            <?php echo $this->Html->link('<span class="glyphicon glyphicon-log-in"></span> LOGIN',                                                                                                     array('controller'=>'users', 'action'=>'login'),array('escape'=>false));?>
-                                        </li>
-                                                                                
-                                        <li>
-                                            <?php echo $this->Html->link('<span class="glyphicon glyphicon-user"></span> SIGN UP',                                                                                                     array('controller'=>'users', 'action'=>'signup'),array('escape'=>false));?>
-                                        </li> 
-                                   
-                                        <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"> MI CARRITO</span></a></li>
-                                    </ul>
-                                   
-                                </div>
-                            </div>
+                            <nav id = "header-nav">
+                                <ul>
+                                    <li id = "login">
+                                    <?php echo $this->Html->link('<span class="glyphicon glyphicon-log-in"></span> LOGIN ',                                                                                                     array('controller'=>'users', 'action'=>'login'),array('escape'=>false));?>
+                                    </li>
+
+                                    <li id = "signup">
+                                        <?php echo $this->Html->link('<span class="glyphicon glyphicon-user"></span>SIGN UP ',                                                                                                     array('controller'=>'users', 'action'=>'signup'),array('escape'=>false));?>
+                                    </li>
+
+                                    <li>
+                                        <a href="#"><span class="glyphicon glyphicon-shopping-cart"> MI CARRITO</span></a>
+                                    </li>
+                                </ul>
+                            </nav>
                         </div> <!-- Esto hay que pasarlo al resto de las páginas; No todas tienen login! -->
   
                         <div class="row" id="principal-header-nav-form">

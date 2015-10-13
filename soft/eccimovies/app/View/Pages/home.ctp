@@ -14,18 +14,16 @@
                         
                       <div class="navbar-collapse collapse">
                             <ul class="nav navbar-nav">
-                                <li class="active"><a href="#">NUEVOS LANZAMIENTOS</a></li>
+                                <li class="active" style="color:#E05151"><a href="#" >NUEVOS LANZAMIENTOS</a></li>
                                 <li class="dropdown">
-                                    <a class="dropdown-toggle" data-toggle="dropdown">CATÁLOGO<span class="caret"></span></a>
+                                    <a class="dropdown-toggle" data-toggle="dropdown" style="color:white">CATÁLOGO<span class="caret"></span></a>
                                     <ul class="dropdown-menu scrollable-menu" role="menu">
                                         <?php foreach ($catego as $cat): ?>
                                         
                                         <li>
-                                            <a href="#">
                                                 <?php
-                                                    //$var = utf8_encode($cat['Page']['category_name']);
-                                                   // echo $var;
-                                                    echo $this->Html->link(utf8_encode($cat['Page']['category_name']), array('controller' => 'categories', 'action'=> 'view',$cat['Page']['id']));
+ 
+                                                    echo $this->Html->link(utf8_encode($cat['Page']['category_name']), array('controller' => 'categories', 'action'=> 'view',$cat['Page']['id']), array('id' => 'dropdown-categories'));
 
                                                 ?>
                                             </a>
