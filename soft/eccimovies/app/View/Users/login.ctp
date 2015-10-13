@@ -60,7 +60,7 @@
                     <?php echo $this->Form->button('Regístrate aquí!',                                                                                                                                                                   array(
                                                         'type'=>'submit',
                                                         'id' => 'button-signup',
-                                                        'action'=>'signup'),
+                                                        'onclick' => "window.location = 'signup'"),
                                                         array(
                                                             'escape'=>false
                                                              )
