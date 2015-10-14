@@ -20,6 +20,11 @@ class User extends AppModel {
 											(
 												'rule' => array('isUnique'),
 												'message' => 'Este correo ya ha sido registrado.'
+											),
+                            'regla3' => array
+											(
+												'rule' => array('isUnique'),
+												'message' => 'Este correo ya ha sido registrado.'
 											)
 							),
         'password' => array(
@@ -32,6 +37,16 @@ class User extends AppModel {
 											'message' => 'Debe tener al menos 8 caracteres.'
 											)
 						),
+        'repass' => array(
+                                            'equaltofield' => array(
+                                            'rule' => array('equaltofield','password'),
+                                            'message' => 'La contraseña no coincide.',
+                                            //'allowEmpty' => false,
+                                            //'required' => false,
+                                            //'last' => false, // Stop validation after this rule
+                                            'on' => 'create', // Limit validation to 'create' or 'update' operations
+                                            )                                
+                        ),   
 		'first_name' => array(
 							'regla1' => array(
 											'rule' => 'notBlank',
@@ -86,6 +101,18 @@ class User extends AppModel {
 		}
 		return true;
 	}
+    
+    function equaltofield($check,$otherfield)
+    {
+        //get name of field
+        $fname = '';
+        foreach ($check as $key => $value){
+            $fname = $key;
+            break;
+        }
+        return $this->data[$this->name][$otherfield] === $this->data[$this->name][$fname];
+    } 
+
 }
 
 ?>

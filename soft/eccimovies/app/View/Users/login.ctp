@@ -57,15 +57,7 @@
                 <label for="Reg" id="label-signup">¿Aún no tienes cuenta?</label>
             </div>
             <div class="col-md-2">
-                    <?php echo $this->Form->button('Regístrate aquí!',                                                                                                                                                                   array(
-                                                        'type'=>'submit',
-                                                        'id' => 'button-signup',
-                                                        'action'=>'signup'),
-                                                        array(
-                                                            'escape'=>false
-                                                             )
-                                                        );
-                   ?>
+                   <button id="button-signup" onclick="window.location.href='<?php echo Router::url(array( 'action'=>'signup'))?>'">Regístrese aquí!</button>;
             </div> 
         </div>
     

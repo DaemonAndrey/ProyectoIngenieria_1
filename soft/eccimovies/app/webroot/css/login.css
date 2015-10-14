@@ -49,7 +49,7 @@ color: grey !important;
     border: none;
     font-family:sans-serif;
     text-shadow: 1px 1px 1px darkgrey;
-    border-radius: 3px;
+    border-radius: 7px;
     font-weight: bold;
     color : white;
     margin-top: 25px;
@@ -76,7 +76,7 @@ color: grey !important;
     border: none;
     font-family:sans-serif;
     text-shadow: 1px 1px 1px darkgrey;
-    border-radius: 3px;
+    border-radius: 7px;
     font-weight: bold;
     color : white;
     box-shadow: 1px 1px 1px darkgrey;
@@ -87,3 +87,12 @@ color: grey !important;
     width: 130px;
     height: 30px;
 }
+
+.message{
+    color: orangered;
+    margin-left: 200px;
+    font-weight: bold;
+    font-size: 200%;
+}
+
+

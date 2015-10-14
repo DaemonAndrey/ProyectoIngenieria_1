@@ -3,17 +3,16 @@
     padding-left: 30px;
     color:lightgrey;
     font-family: sans-serif;
-    text-align:left;
-    float:left;
     text-shadow: 1px 1px 1px black;
+    margin-bottom: 30px;
+    margin-left: 170px;
 }
 
 label {
 	font-size: 110%;
 	margin-bottom:3px;
-    color:lightgrey;
-    float: left;
-    width: 100px;
+    color:lightgray;
+    width: 200px;
     line-height: 40px;
     padding-right: 10px;
     padding-top: 10px;
@@ -21,8 +20,7 @@ label {
     text-align: right;
     letter-spacing: 1px;
     font-family: sans-serif;
-    margin-top: 10px;
-    
+    margin-top: 10px;  
 }
 
 input {
@@ -54,6 +52,21 @@ select {
 
 }
 
+#UserBirthdayDay, #UserBirthdayMonth,  #UserBirthdayYear {
+      padding: 0 10px;
+      height: 40px;
+      color: black;
+      text-shadow: 1px 1px 1px darkgrey;
+      background:#d3d3d3;
+      border: 0;
+      border-radius: 5px;
+      -webkit-box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.06);
+      box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.06);
+      margin-top: 35px;
+      margin-left: 10px
+}
+
+
 #button-signup{
     background: deepskyblue;
     border: none;
@@ -64,9 +77,21 @@ select {
     color : white;
     box-shadow: 1px 1px 1px grey;
     margin-bottom: 20px;
-    margin-left: 270px;
+    margin-left: 370px;
     padding-right = 1px;
     width: 120px;
     height: 50px;
     
+}
+
+.error-message{
+    color: orange;
+    margin-left: 200px;
+}
+
+.message{
+    color: orangered;
+    margin-left: 200px;
+    font-weight: bold;
+    font-size: 200%;
 }

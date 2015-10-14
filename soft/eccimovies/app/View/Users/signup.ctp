@@ -25,7 +25,7 @@
     </div>
 
     <div class="row">
-        <div class="col-md-5">
+        <div class="col-md-9">
             <div class="form-group">
                 <?php // Campos para llenar informacion
 				    echo $this->Form->input('first_name',array(
@@ -34,10 +34,13 @@
                                                             )
                                             );
                 ?>
+                
             </div>
         </div>   
-        
-        <div class="col-md-5">
+    </div>   
+
+    <div class="row">
+        <div class="col-md-9">
             <div class="form-group">
                 <?php // Campos para llenar informacion
 				    echo $this->Form->input('last_name',array(
@@ -57,6 +60,7 @@
 				    echo $this->Form->input('password',array(
 														      'label' => 'Contraseña: ',
 														      'type' => 'password',
+                                                              'placeholder' => 'Debe tener al menos 8 caractéres',
                                                                array('minLength', '8')
                                                             )
                                             );
@@ -69,8 +73,25 @@
         <div class="col-md-9">
             <div class="form-group">
                 <?php // Campos para llenar informacion
+				    echo $this->Form->input('repass',array(
+														      'label' => 'Confirmar contraseña  : ',
+                                                              'type' => 'password',
+                                                              'placeholder' => 'Debe coincidir con la contraseña',
+                                                               array('minLength', '8')
+                                                          )
+                                            );
+                ?>
+                
+            </div>
+        </div>  
+    </div>
+    
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <?php // Campos para llenar informacion
 				    echo $this->Form->input('birthday',array(   
-                                                              'type' => 'date',
+                                                              'type' => 'date',            
 														      'label' => 'Fecha de Nacimiento: ',
                                                               'dateFormat' => 'DMY',
                                                               'minYear' => date('Y') - 100,
@@ -98,11 +119,10 @@
             </div>
         </div>    
     </div>
-    
     <div class="row">
             <div class="col-md-5">
-                    <?php echo $this->Form->button('Crear cuenta!',                                                                                                                                                                   array(
-                                                        'type'=>'submit',
+                    <?php echo $this->Form->link('Crear cuenta!',                                                                                                                                                                   array(
+                                                        'type' => 'submit',
                                                         'id' => 'button-signup',
                                                         'action'=>'login'),
                                                         array(
