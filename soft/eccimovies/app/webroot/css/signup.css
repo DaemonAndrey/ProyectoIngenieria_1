@@ -1,7 +1,7 @@
 #principal-header-text-signup{
     padding-top: 15px;
     padding-left: 30px;
-    color:lightgrey;
+    color:white;
     font-family: sans-serif;
     text-shadow: 1px 1px 1px black;
     margin-bottom: 30px;
@@ -11,7 +11,7 @@
 label {
 	font-size: 110%;
 	margin-bottom:3px;
-    color:lightgray;
+    color:white;
     width: 200px;
     line-height: 40px;
     padding-right: 10px;
@@ -28,7 +28,6 @@ input {
       width: 300px;
       height: 40px;
       color: black;
-      text-shadow: 1px 1px 1px darkgrey;
       background:#d3d3d3;
       border: 0;
       border-radius: 5px;
@@ -36,6 +35,10 @@ input {
       box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.06);
       margin-top: 20px;
 
+}
+
+input::-webkit-input-placeholder {
+color: grey !important;
 }
 
 select {
@@ -71,11 +74,9 @@ select {
     background: deepskyblue;
     border: none;
     font-family:sans-serif;
-    text-shadow: 1px 1px 1px darkgrey;
     border-radius: 7px;
     font-weight : bold;
     color : white;
-    box-shadow: 1px 1px 1px grey;
     margin-bottom: 20px;
     margin-left: 370px;
     padding-right = 1px;
@@ -94,4 +95,10 @@ select {
     margin-left: 200px;
     font-weight: bold;
     font-size: 200%;
+}
+
+hr{
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(255, 255, 255, 0.75), rgba(0, 0, 0, 0));
 }

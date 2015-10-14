@@ -1,3 +1,6 @@
+<hr>
+
+
 <?php echo $this->Html->css('login'); ?>
 
 <header id="principal-header-text-login">
@@ -57,7 +60,7 @@
                 <label for="Reg" id="label-signup">¿Aún no tienes cuenta?</label>
             </div>
             <div class="col-md-2">
-                   <button id="button-signup" onclick="window.location.href='<?php echo Router::url(array( 'action'=>'signup'))?>'">Regístrese aquí!</button>;
+                   <button id="button-signup" onclick="window.location.href='<?php echo Router::url(array( 'action'=>'signup'))?>'">Regístrese aquí!</button>
             </div> 
         </div>
     

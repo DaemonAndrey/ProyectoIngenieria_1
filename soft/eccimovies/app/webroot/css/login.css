@@ -1,7 +1,7 @@
 #principal-header-text-login{
     padding-top: 15px;
     padding-left: 30px;
-    color:lightgrey;
+    color:white;
     font-family: sans-serif;
     text-align:center;
     text-shadow: 1px 1px 1px black;
@@ -10,7 +10,7 @@
 label[for=UserUsername], label[for=UserPassword] {
 	font-size: 110%;
 	margin-bottom:3px;
-    color:lightgrey;
+    color:white;
     width: 100px;
     line-height: 40px;
     padding-right: 1px;
@@ -61,7 +61,7 @@ color: grey !important;
 
 #label-signup{
 	font-size: 90%;
-    color:lightgrey;
+    color:white;
     line-height: 40px;
     font-weight: 100;
     text-align: right;
@@ -75,11 +75,9 @@ color: grey !important;
     background: deepskyblue;
     border: none;
     font-family:sans-serif;
-    text-shadow: 1px 1px 1px darkgrey;
     border-radius: 7px;
     font-weight: bold;
     color : white;
-    box-shadow: 1px 1px 1px darkgrey;
     margin-top: 35px;
     margin-bottom: 50px;
     margin-right: 15px;
@@ -95,4 +93,9 @@ color: grey !important;
     font-size: 200%;
 }
 
+hr{
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(255, 255, 255, 0.75), rgba(0, 0, 0, 0));
+}
 

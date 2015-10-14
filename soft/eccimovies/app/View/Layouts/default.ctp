@@ -102,7 +102,7 @@
 		</div>
 		<div id="footer">
 			
-		
+		      <hr>
 		</div>
 	</div>
 	<?php echo $this->element('sql_dump'); ?>

@@ -1,3 +1,5 @@
+<hr>
+
 <?php echo $this->Html->css('signup'); ?>
 
 <header id="principal-header-text-signup">
