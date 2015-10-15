@@ -47,7 +47,7 @@ class UsersController extends AppController {
 		}
 		catch( Exception $e )
 		{
-			$this->Flash->set(__('Invalid username or password, try again'));
+			$this->Flash->set(__('Correo o contraseña inválido'));
 		}
 	}
 	
@@ -61,7 +61,7 @@ class UsersController extends AppController {
 	{
         $this->User->id = $id;
         if (!$this->User->exists()) {
-            throw new NotFoundException(__('Invalid user'));
+            throw new NotFoundException(__('Correo inválido'));
         }
         $this->set('user', $this->User->findById($id));
     }

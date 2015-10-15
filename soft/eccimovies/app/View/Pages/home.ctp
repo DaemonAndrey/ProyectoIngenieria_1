@@ -12,17 +12,36 @@
                             </button>
                         </div>
                         
-                        <div class="navbar-collapse collapse">
+                      <div class="navbar-collapse collapse">
                             <ul class="nav navbar-nav">
-                                <li class="active"><a href="#">NUEVOS LANZAMIENTOS</a></li>
-                                <li><a href="#">CATÁLOGO</a></li>
+                                <li class="active" style="color:#E05151"><a href="#" >NUEVOS LANZAMIENTOS</a></li>
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" style="color:white">CATÁLOGO<span class="caret"></span></a>
+                                    <ul class="dropdown-menu scrollable-menu" role="menu">
+                                        <?php foreach ($catego as $cat): ?>
+                                        
+                                        <li>
+                                                <?php
+ 
+                                                    echo $this->Html->link(utf8_encode($cat['Page']['category_name']), array('controller' => 'categories', 'action'=> 'viewcategory',$cat['Page']['id']), array('id' => 'dropdown-categories'));
+
+                                                ?>
+                                            </a>
+                                        </li>
+
+                                       <?php endforeach; ?>
+                                       <?php unset($cat);?>
+                            
+                                    </ul>
+                                </li>
+                                
                                 <li><a href="#">BLU-RAY</a></li>
                                 <li><a href="#">DVD</a></li>
                                 <li><a href="#">PRÓXIMAMENTE</a></li>
                                 <li><a href="#">LO MÁS VENDIDO</a></li>
                                 <li><a href="#">LO MÁS BUSCADO</a></li>
                             </ul>
-                        </div>
+                        </div> 
                     </div>
                 
                 </div>

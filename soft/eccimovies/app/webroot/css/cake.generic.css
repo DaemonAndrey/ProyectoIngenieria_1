@@ -1,4 +1,9 @@
 
+.page{
+    padding-top: 20px;
+    padding-bottom: 10px;
+
+}
 
 #principal-header-img {
     padding-top: 10px;
@@ -7,8 +12,51 @@
     padding-top: 10px;
     text-align: left;
     padding-left: 30px;
-    color:aliceblue;
-    font-family: "Times New Roman";
+
+    color:white;
+    font-family: 'Ubuntu', sans-serif;
+    font-style: normal;
+}
+
+/** Header de la página**/
+
+#header-nav {
+    float: right;
+    
+}
+
+#header-nav ul {
+	margin: 0;
+	padding: 0;
+}
+
+
+#header-nav ul li {
+    display: inline-block;
+    list-style-type: none;
+    border-radius: 8px;
+    margin-right: 5px;
+        
+}
+
+
+#header-nav > ul > li > a {
+    color:white;
+    display: block;
+    line-height: 56px;
+    padding: 0 20px 0 20px;
+    text-decoration: none;
+}
+
+
+#header-nav > ul > li:hover {
+    background-color: rgb( 40, 44, 47 );
+}
+
+#header-nav > ul > li:hover > a {
+  color: rgb( 255, 255, 255 );
+  text-decoration: none;
+
 }
 
 
@@ -18,18 +66,51 @@
     padding-right: 30px;
 }
 
+#signup{
+    background-color: #E05151;
+}
+
+#login{
+    border: 1px solid;
+    border-color: white;
+}
+
+
 @media screen and (max-width:350px)
 {
     #principal-header-nav-form{
         float: left;
         padding-left: 30px;
     }
+    
+    #header-nav ul li{
+        display:block;
+    }
+    
+    #header-nav{
+        float: left;
+        padding-bottom: 20px;
+        padding-top: 20px;
+    }
 }
 
+
+/** Fin Header de la página**/
+
+
+
+
 #principal-nav{
-    font-style: normal;
-    font-family: Arial;
-    font-weight: bold;
+    font-family: 'Ubuntu', sans-serif;
+    background-color: #D94119;
+}
+
+.navbar .container-fluid .navbar-collapse li a{
+    color: white;
+}
+
+#dropdown-categories{
+    color: black;
 }
 
 #movie-info
@@ -45,14 +126,37 @@
     margin-right: 30px;
     background-color: #C9C9C9;
     border-radius: 5px;
+     font-family: 'Ubuntu', sans-serif;
 }
 
 .header{
     padding-bottom: 50px;
 }
 
+.scrollable-menu
+{
+    height: auto;
+    max-height: 200px;
+    overflow-x: hidden;
+    border-radius: 3px;
+   
+}
+
 .container{
     background-color:black;
+}
+
+@media (min-width: 768px)
+{
+    .dropdown:hover .dropdown-menu{
+        display: block;
+    }
+}
+
+hr{
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(255, 255, 255, 0.75), rgba(0, 0, 0, 0));
 }
 
 
