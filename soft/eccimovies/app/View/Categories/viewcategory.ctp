@@ -27,7 +27,7 @@
 						<div class="col-md-3">
 						 
 						
-							<?php echo $this->Html->link($this->Html->image(($product['Product']['id'].'.jpg'), array('alt' =>  $product['Product']['name'], 'class' => 'img-rounded', 'style' => 'width:200px; height:300px', 'id' => 'movies-picture-img')),
+							<?php echo $this->Html->link($this->Html->image(($product['Product']['code'].'.jpg'), array('alt' =>  $product['Product']['name'], 'class' => 'img-rounded', 'style' => 'width:200px; height:300px', 'code' => 'movies-picture-img')),
                                                     					     array('controller'=>'Products','action' => 'admin_view', $product['Product']['id']),
                                                      					     array('target' => '_self', 'escape' => false));?>
 																			 
@@ -37,7 +37,7 @@
     
 
 																		 
-						
+
 							<p id="details-movie">
 								<?php echo $this->Html->link(
 									$product['Product']['name'],

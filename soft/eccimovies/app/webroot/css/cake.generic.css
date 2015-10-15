@@ -106,8 +106,9 @@
 }
 
 .navbar .container-fluid .navbar-collapse li a{
-    color: white;
+    color: black;
 }
+
 
 #dropdown-categories{
     color: black;

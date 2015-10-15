@@ -1,4 +1,7 @@
 <?php
+
+App::uses('AppController', 'Controller');
+
 class SubcategoriesController extends AppController {
 	public $helpers = array('Html', 'Form');
 	public $components = array('Flash');

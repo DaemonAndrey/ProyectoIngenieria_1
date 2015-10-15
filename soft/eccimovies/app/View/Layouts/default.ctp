@@ -74,19 +74,14 @@
                                     </li>
 
                                     <li>
-                                        <a href="#"><span class="glyphicon glyphicon-shopping-cart"> MI CARRITO</span></a>
+                                        <?php echo $this->Html->link('<span class="glyphicon glyphicon-shopping-cart"></span>Carrito ',                                                                                                      array('controller'=>'pages','action' => 'home', 'display'),
+                                                     					     array('target' => '_self', 'escape' => false))?>
                                     </li>
                                 </ul>
                             </nav>
                         </div> <!-- Esto hay que pasarlo al resto de las páginas; No todas tienen login! -->
   
-                        <div class="row" id="principal-header-nav-form">
-                            <form role="form">
-                                <div class="form-group">
-                                    <input type="search" placeholder="Buscar" class="form-control">
-                                </div>                                    
-                            </form>
-                        </div>
+
                             
                 
                     </div>

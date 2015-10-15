@@ -23,7 +23,7 @@
                                         <li>
                                                 <?php
  
-                                                    echo $this->Html->link(utf8_encode($cat['Page']['category_name']), array('controller' => 'categories', 'action'=> 'viewcategory',$cat['Page']['id']), array('id' => 'dropdown-categories'));
+                                                    echo $this->Html->link($cat['Page']['category_name'], array('controller' => 'categories', 'action'=> 'viewcategory',$cat['Page']['category_name']), array('category_name' => 'dropdown-categories'));
 
                                                 ?>
                                             </a>
@@ -48,39 +48,39 @@
                 
                 <div class="row text-center" id="movie-info">
                     <div class="col-md-3">
-                        <img src="img/american-sniper.jpg" alt="Poster de American Sniper" class="img-rounded" style="width: 200px; height: 300px;">
-                        <p id="details-movie">American Sniper</p>
+                        <img src="img/BRP-6633.jpg" alt="Poster de American Sniper" class="img-rounded" style="width: 200px; height: 300px;">
+                        <p id="details-movie">Ted 2</p>
                     </div>
                     <div class="col-md-3">
-                        <img src="img/the-avengers.jpg" alt="Poster de The Avengers" class="img-rounded" style="width: 200px; height: 300px;">
+                        <img src="img/AQA-4470.jpg" alt="Poster de The Avengers" class="img-rounded" style="width: 200px; height: 300px;">
                         <p id="details-movie">The Avengers</p>
                     </div>
                     <div class="col-md-3">
-                        <img src="img/inglorious-bastards.jpg" alt="Poster de Inglorious Bastards" class="img-rounded" style="width: 200px; height: 300px;">
-                        <p id="details-movie">Inglorious Bastards</p>
+                        <img src="img/ALV-3267.jpg" alt="Poster de Inglorious Bastards" class="img-rounded" style="width: 200px; height: 300px;">
+                        <p id="details-movie">Avatar</p>
                     </div>
                     <div class="col-md-3">
-                        <img src="img/monsters-inc.jpg" alt="Poster de Monsters, Inc." class="img-rounded" style="width: 200px; height: 300px;">
-                        <p id="details-movie">Monsters, Inc.</p>
+                        <img src="img/HWO-7576.jpg" alt="Poster de Monsters, Inc." class="img-rounded" style="width: 200px; height: 300px;">
+                        <p id="details-movie">Intouchables</p>
                     </div>
                 </div>
                 
                 <div class="row text-center" id="movie-info">
                     <div class="col-md-3">
-                        <img src="img/the-artist.jpg" alt="Poster de The Artist" class="img-rounded" style="width: 200px; height: 300px;">
-                        <p id="details-movie">The Artist</p>
+                        <img src="img/IEB-8949.jpg" alt="Poster de The Artist" class="img-rounded" style="width: 200px; height: 300px;">
+                        <p id="details-movie">Gravity</p>
                     </div>
                     <div class="col-md-3">
-                        <img src="img/american-history-x.jpg" alt="Poster de American History X" class="img-rounded" style="width: 200px; height: 300px;">
-                        <p id="details-movie">American History X</p>
+                        <img src="img/JQC-7000.jpg" alt="Poster de American History X" class="img-rounded" style="width: 200px; height: 300px;">
+                        <p id="details-movie">American Sniper</p>
                     </div>
                     <div class="col-md-3">
-                        <img src="img/" alt="Poster de " class="img-rounded" style="width: 200px; height: 300px;">
-                        <p id="details-movie">Pelicula 7</p>
+                        <img src="img/CJZ-1370.jpg" alt="Poster de American History X" class="img-rounded" style="width: 200px; height: 300px;">
+                        <p id="details-movie">Sueños de Libertad</p>
                     </div>
                     <div class="col-md-3">
-                        <img src="img/" alt="Poster de " class="img-rounded" style="width: 200px; height: 300px;">
-                        <p id="details-movie">Pelicula 8</p>
+                        <img src="img/CBV-0812.jpg" alt="Poster de American History X" class="img-rounded" style="width: 200px; height: 300px;">
+                        <p id="details-movie">Life of Pi</p>
                     </div>
                 </div>
                 
