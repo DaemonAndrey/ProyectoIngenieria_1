@@ -28,14 +28,13 @@
         </legend>
             
             <?php
-                echo $this->Form->input('Product.id', array(
+                echo $this->Form->input('Product.code', array(
                                             'div' => 'form-group', 
                                             'label' => array(
                                                 'class' => 'control-label col-sm-2',
                                                 'text' => 'Código'
                                             ),
-                                            'placeholder' => 'ABC-1234',
-                                            'type' => 'text'
+                                            'placeholder' => 'ABC-1234'
                                         )
                            );
                 echo $this->Form->input('Product.name', array(

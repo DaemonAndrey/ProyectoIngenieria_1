@@ -23,7 +23,7 @@
 		<?php foreach ($products as $product): ?>
 			<?php if($product['Product']['subcategory_id']==$subcategory['Subcategory']['id']): ?>
 				<div class="col-md-3">
-					<?php echo $this->Html->link($this->Html->image(($product['Product']['id'].'.jpg'), array('alt' =>  $product['Product']['name'], 'class' => 'img-rounded', 'style' => 'width:200px; height:300px', 'id' => 'movies-picture-img')),
+					<?php echo $this->Html->link($this->Html->image(($product['Product']['code'].'.jpg'), array('alt' =>  $product['Product']['name'], 'class' => 'img-rounded', 'style' => 'width:200px; height:300px', 'id' => 'movies-picture-img')),
                                                     					     array('controller'=>'Products','action' => 'admin_view', $product['Product']['id']),
                                                      					     array('target' => '_self', 'escape' => false));
 					?>											 

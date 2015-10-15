@@ -2,7 +2,6 @@
 
 <?php echo $this->Html->css('product.css'); ?>
 
-
 <div id= "edit_body">
     <nav class="navbar navbar-inverse">
       <div class="container-fluid">

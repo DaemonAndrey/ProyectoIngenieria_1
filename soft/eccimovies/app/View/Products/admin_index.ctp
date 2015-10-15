@@ -2,8 +2,6 @@
 
 <?php echo $this->Html->css('product.css'); ?>
 
-
-
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div>
@@ -32,7 +30,7 @@
         <tr>
             <th>
                 <?php
-                    echo $this->Paginator->sort('id', 'Código ');
+                    echo $this->Paginator->sort('code', 'Código ');
                     echo $this->Html->tag('span', null, array('class' => 'glyphicon glyphicon-sort-by-alphabet'));
                 ?>
             </th>
@@ -57,7 +55,7 @@
             echo "<tr>";
                 echo "<td>";
                     echo $this->Html->link(
-                                            $product['Product']['id'],
+                                            $product['Product']['code'],
                                             array('action' => 'admin_view', $product['Product']['id'])
                                           );
                 echo "</td>";

@@ -24,12 +24,12 @@
 
     <table class="table">
         <?php
-            $image = $post['Product']['id'].'.jpg';
+            $image = $post['Product']['code'].'.jpg';
 
             echo $this->Html->tableCells(
                     array(
                             array('Carátula', $this->Html->image(($image), array('alt' => $post['Product']['name'], 'width' => '300px'))),
-                            array('Código:', h($post['Product']['id'])),
+                            array('Código:', h($post['Product']['code'])),
                             array('Precio:', h($post['Product']['price'])),
                             array('Inventario:', h($post['Product']['stock_quantity'])),
                             array('Formato:', h($post['Product']['format'])),
