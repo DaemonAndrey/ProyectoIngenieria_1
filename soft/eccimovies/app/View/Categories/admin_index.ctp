@@ -1,5 +1,7 @@
 <hr>
 
+<?php echo $this->Html->css('category_index'); ?>
+
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div>
