@@ -151,7 +151,7 @@ class ProductsController extends AppController
 
         if( $this->request->is(array('post', 'put')) )
         {
-            if( $this->Product->updateAll(array("enable" => "0"),array("id" => "$id")) )
+            if( $this->Product->updateAll(array("enable" => "0"),array("Product.id" => "$id")) )
             {
                 $this->Flash->success(__('El producto ha sido eliminado correctamente.'));
                 return $this->redirect(array('action' => 'admin_index'));
