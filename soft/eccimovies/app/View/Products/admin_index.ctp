@@ -2,7 +2,7 @@
 
 <?php echo $this->Html->css('product.css'); ?>
 
-<hr>
+
 
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
@@ -21,14 +21,14 @@
     <h1>
         Productos
     </h1>
-
+<hr>
     <p>
         <?php
             echo $this->Html->link('Agregar producto', array('action' => 'add'));
         ?>
     </p>
 
-    <table class="table table-hover">
+    <table class="table">
         <tr>
             <th>
                 <?php

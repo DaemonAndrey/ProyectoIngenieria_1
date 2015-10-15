@@ -1,0 +1,28 @@
+/**add**/
+
+#add h1{
+    color: white;
+}
+
+#add label{
+    color: white;
+    margin: 20px 20px 20px 0;
+}
+
+#SubcategorySubcategoryName{
+    border-radius: 7px;
+}
+
+#add input[type="submit"]{
+    margin: 100px 20px 0 0;
+
+}
+
+/**Fin add**/
+
+/**admin_index**/
+#admin_index{
+    color:white;
+}
+
+/**Fin admin_index**/

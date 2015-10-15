@@ -1,6 +1,9 @@
-<hr>
+<?php echo $this->Html->css('subcategories'); ?>
 
-<h1>Subcategorías</h1>
+
+<div id="admin_index">
+    <h1>Subcategorías</h1>
+<hr>
 <table>
 	<tr>
 		<th>Subcategoría</th>
@@ -15,3 +18,6 @@
 	<?php endforeach; ?>
 	<?php unset($subcategory); ?>
 </table>
+
+
+</div>

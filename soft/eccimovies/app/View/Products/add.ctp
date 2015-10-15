@@ -2,9 +2,9 @@
 
 <?php echo $this->Html->css('product.css'); ?>
 
-<hr>
 
-<nav class="navbar navbar-inverse">
+
+<nav class="navbar navbar-inverse" id = "nav-add">
   <div class="container-fluid">
     <div>
       <ul class="nav nav-pills nav-justified" role="tablist">
