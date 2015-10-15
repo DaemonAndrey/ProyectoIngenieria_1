@@ -1,0 +1,44 @@
+label
+{
+    font-family: sans-serif;
+    color: lightgrey;
+}
+
+.
+{
+    width: 50%;
+}
+
+.btn
+{
+    display: inline;
+    margin: auto;
+}
+
+.message
+{
+    color: lightgrey;
+    font-family: sans-serif;
+    font-size: 35px;
+    margin: 10px;
+}
+
+h1
+{
+    padding-top: 2%;
+    padding-bottom: 2%;
+}
+
+.table
+{
+}
+
+input[type="text"], input[type="number"], select
+{
+	width: 250px;
+}
+
+textarea
+{
+	width: 250px;
+}

@@ -1,0 +1,74 @@
+#cabeza_tabla_categories{
+	color: 	#20B2AA;
+	width:200pt;
+	font-size:28pt;
+	margin:20pt;
+}
+#tabla_categorias ul, li, li li {
+    margin: 0;
+    padding: 0;
+
+}
+#tabla_categorias {
+	background-color:black;
+    width: 200px;
+	line-height:32px;
+	margin-left:35px;
+	margin-bottom:20px;
+}
+
+#tabla_categorias ul{
+    line-height: 25px;
+}
+
+#tabla_categorias li {
+	color: #483D8B;
+	font-size:14pt;
+    list-style: none;
+	margin-left:10pt;
+	position: relative;
+
+}
+
+ #tabla_categorias li li {
+	list-style: none;
+	position: relative;
+	line-height:32px;
+	margin:0;
+	left: 198px;
+	top: -27px;
+}
+
+#tabla_categorias ul li a {
+	width: 210px;
+	height: 35px;
+	display: block;
+	text-decoration: none;
+	color:#87CEFA;
+}
+
+#tabla_categorias ul ul {
+	position: absolute;
+	visibility: hidden;
+	top: 27px;
+}
+
+#tabla_categorias ul li:hover ul {
+	visibility: visible;
+}
+
+#tabla_categorias li:hover {
+	
+}
+
+#tabla_categorias ul li:hover ul li a:hover {
+	color:#2F4F4F;
+}
+
+#tabla_categorias a:hover {
+	font-size:20pt;
+	color: #2F4F4F;
+	font-weight: bold;
+}
+
+ 

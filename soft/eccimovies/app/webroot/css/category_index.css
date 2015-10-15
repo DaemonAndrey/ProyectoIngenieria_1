@@ -1,0 +1,14 @@
+.categoria {
+	display: inline-block;
+	width: 30%;
+}
+
+.tabulada {
+	display: inline-block;
+	width: 10%;
+	text-align: center;
+}
+
+.sinpunto {
+	list-style-type: none;
+}
