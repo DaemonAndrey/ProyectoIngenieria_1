@@ -174,5 +174,61 @@ class ProductsController extends AppController
 		$this->set('subcategories', $subcategories);
 		$this->layout = 'ajax';
 	}
+    
+    public function index()
+    {
+        $this->Product->recursive = 0;
+        $this->Paginator->settings = $this->paginate;
+        $this->set('products', $this->Paginator->paginate());
+    }
+    
+     public function view( $id = null )
+    {
+        if( !$id )
+        {
+            throw new NotFoundException(__('Producto inválido.'));
+        }
+
+        $product = $this->Product->findById($id);
+
+        if( !$product )
+        {
+            throw new NotFoundException(__('Producto inválido.'));
+        }
+
+        $this->set('post', $product);
+    }
+    
+    public function buscar()
+    {
+    
+		if($this->request->is('post')){
+			
+			$condition=explode(' ', trim($this->request->data('name')));
+			$condition=array_diff($condition,array(''));
+            
+
+			foreach($condition as $tconditions){
+				$conditions[] = array('Product.name LIKE '=>'%'.$tconditions.'%');
+                $products=$this->Product->find('all', array('recursive'=>-1, 'conditions'=>$conditions));
+			}
+            if(count($products)>0){
+                $this->set('Product',$products);
+            }else{
+                $this->Flash->set(__('No se encontraron coincidencias'));
+                return $this->redirect(array('action' => 'index'));
+                
+            }
+                /*$this->loadModel('ActorsProduct');
+                
+				$conditionsa[] = array('ActorsProduct.actor_id LIKE '=>'%'.$tconditions.'%');
+                $actors=$this->ActorsProduct->find('all', array('recursive'=>-1, 'conditions'=>$conditionsa));
+                $this->set('ActorsProduct',$actors);
+                $conditionsb[] = array('ActorsProduct.actor_id = '=>'%'.$tconditions.'%');
+                $acpro  =$this->ActorsProduct->find('ActorsProduct.product_id', array('recursive'=>-1, 'conditions'=>$conditionsb));
+                $this->set('Product',$this->Product->find('all'));*/
+                
+        }    
+    }
 }
 ?>
