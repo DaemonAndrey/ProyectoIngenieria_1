@@ -6,7 +6,7 @@
     
 <table class="table">
     <?php
-        $image = $post['Product']['id'].'.jpg';
+        $image = $post['Product']['code'].'.jpg';
         
         echo $this->Html->tableCells(
                 array(

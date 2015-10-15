@@ -8,15 +8,24 @@
             <div class="col-md-3">
         <?php
         
-			$image = $product['Product']['id'].'.jpg';
+			$image = $product['Product']['code'].'.jpg';
              echo "<tr>";
-				 echo $this->Html->link($this->Html->image(($image), array('alt' => $product['Product']['name'], 'class' => 'img-rounded', 'style' => 'width:300px00px', 'id' => 'movie-picture-img')),
-                                                    					     array('action' => 'view', $product['Product']['id']),
+				 echo $this->Html->link($this->Html->image(($image), array('alt' => $product['Product']['name'], 'class' => 'img-rounded', 'style' => 'width:200p ; height:300px', 'code' => 'movie-picture-img')),
+                                                    					     array('action' => 'admin_view', $product['Product']['id']),
                                                      					     array('target' => '_self', 'escape' => false));
                
-            echo "</tr>";
+            echo "</tr>"
+                
         
         ?>
+                
+                      <p id="details-movie">
+						<?php echo $this->Html->link(
+							$product['Product']['name'],
+							array('controller'=>'Products','action' => 'admin_view', $product['Product']['id'])
+							);
+						?>
+					</p>
                 
 		      </div>
             <?php endforeach; ?>
@@ -28,9 +37,9 @@
                 <?php foreach ($Product as $product): ?>
 						<?php if( $product['Product']['id'] == $actors_product['ActorsProduct']['product_id'] ):?>
 							<div class="col-md-3">
-								<?php $image = $product['Product']['id'].'.jpg';
-									echo $this->Html->link($this->Html->image(($image), array('alt' => $product['Product']['name'], 'class' => 'img-rounded', 'style' => 'width:200px; height:300px', 'id' => 'movie-picture-img')),
-																							array('action' => 'view', $product['Product']['id']),
+								<?php $image = $product['Product']['code'].'.jpg';
+									echo $this->Html->link($this->Html->image(($image), array('alt' => $product['Product']['name'], 'class' => 'img-rounded', 'style' => 'width:200px; height:300px', 'code' => 'movie-picture-img')),
+																							array('action' => 'admin_view', $product['Product']['id']),
 																							 array('target' => '_self', 'escape' => false));  
 								?>
 							</div>
