@@ -64,6 +64,8 @@ class SubcategoriesController extends AppController {
 				return $this->redirect(array('controller' => 'categories', 'action' => 'admin_index'));
 			}
 			$this->Flash->error(__('No pudo modificar la subcategoría.'));
+		} else {
+			$this->set('categories', $this->Subcategory->Category->find('list', array('fields' => 'category_name')));
 		}
 
 		if (!$this->request->data) {
