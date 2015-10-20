@@ -60,11 +60,15 @@
 }
 
 
-#principal-header-nav-form{
-    float: right;
-    padding-top: 15px;
-    padding-right: 30px;
+
+
+#principal-nav-search{
+    display:inline-table;
+    margin-top: 5%;
+ 
 }
+
+
 
 #signup{
     background-color: #E05151;
