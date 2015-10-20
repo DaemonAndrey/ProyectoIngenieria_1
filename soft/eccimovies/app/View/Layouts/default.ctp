@@ -122,8 +122,8 @@
                               echo "<div class='form-group'>";
 
                               echo $this->Form->input(' ',array(
-                                    'options' => array('Actor','Director'),
-                                    'empty' => 'Title',
+                                    'options' => array('Title','Actor','Director'),
+                                    'empty' => 'Filter by',
                                     'class'=>'form-control',
                                     'name'=>'filter'
                                

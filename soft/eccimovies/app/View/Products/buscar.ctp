@@ -1,7 +1,9 @@
 <div class="search_product">
     <h1>
         Resultados de la búsqueda: 
-        <?php echo $this->request->data['name'] ?>
+        <?php echo $this->request->data['name'];
+            echo $this->request->data['filter'];
+        ?>
     </h1>
         <div class="row text-center" id="movie-info">
         <?php foreach ($Product as $product): ?>
