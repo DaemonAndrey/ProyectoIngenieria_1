@@ -81,10 +81,72 @@
                             </nav>
                         </div> <!-- Esto hay que pasarlo al resto de las páginas; No todas tienen login! -->
   
+                        <div class="row" id="principal-header-nav-form">
 
+                                <div class="col-md-8">
+                                    
+                                                               <?php
+                               echo $this->Form->create('Product', array('url'=> array('controller' => 'products', 'action'=>'buscar'), 'type' => 'post', 'id' => 'indexform'));  
+                            
+                            echo $this->Form->input('', array('name' => 'name', 'type' => 'search', 'class'=> 'form-control', 'placeholder'=>'Buscar'));                        
+                     
+                            echo $this->Form->end();?>
+                            </div> 
+                                
+                            
+                            <div class="col-md-2">   
+                                <div class="input-group-btn">
+                                    <div class="btn-group" role="group">
+                                        <div class="dropdown dropdown-lg">
+                                            <button type="button" class=" btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
+                                            
+                                            <div class="dropdown-menu dropdown-menu-right" role="menu">
+                                                <form class="form-horizontal" role="form">
+                                                    <div class="form-group">
+                                                        <label for="filter">Filter by</label>
+                                                        <select class="form-control">
+                                                            <option value="0" selected>Title</option>
+                                                            <option value="1">Actor</option>
+                                                            <option value="2">Director</option>
+                                                        </select>
+                                                    </div>
+                                                </form>
+                                            
+                                            
+                                            </div>
+                                                      
+                                            
+                                        </div>
+                                        
+
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-2">
+                                    
+                            <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                            </div>      
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                </div>
+
+                            </div>
+
+
+                        </div>
                             
                 
-                    </div>
+                  
                     
            </header>
         
