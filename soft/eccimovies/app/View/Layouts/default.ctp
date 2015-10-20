@@ -45,7 +45,7 @@
                 
                 <!-- LOGO DE LA PÁGINA -->
                 
-                <div class="col-md-4">
+                <div class="col-md-2">
                    <?php echo $this->Html->link($this->Html->image('movies-logo.jpg', array('alt' => 'Bienvenido a ECCI Movies', 'class' => 'img-rounded', 'style' => 'width:200px', 'id' => 'principal-header-img')),
                     array('controller'=>'pages','action' => 'home', 'display'), array('target' => '_self', 'escape' => false));
                      ?>
@@ -54,7 +54,7 @@
                     
                 <!-- NOMBRE DE LA PÁGINA -->     
                 
-                <div class="col-md-4" id="principal-header-text">
+                <div class="col-md-6" id="principal-header-text">
                     
                     <div class="row">
                         <div class="col-md-12">
@@ -63,7 +63,7 @@
                     </div> 
                     <div class="row">
                         <div class="col-md-12">
-                            <h3>All you're looking at a click</h3>
+                            <h3>All you're looking at one click</h3>
                         </div>
                     </div>      
                     
@@ -98,7 +98,7 @@
                                     
                                     <!--CARRITO-->
                                     <li>
-                                       <?php echo $this->Html->link('<span class="glyphicon glyphicon-shopping-                                          cart"></span>Carrito ',array('controller'=>'pages','action' => 'home',                                             'display'), array('target' => '_self', 'escape' => false))
+                                       <?php echo $this->Html->link('<span class="glyphicon glyphicon-shopping-                                          cart"></span>Cart ',array('controller'=>'pages','action' => 'home',                                             'display'), array('target' => '_self', 'escape' => false))
                                         ?>
                                         
                                     </li>
@@ -121,17 +121,19 @@
                             
                               echo "<div class='form-group'>";
 
-                              echo $this->Form->input('', array('name' => 'name', 'type' => 'search', 'class'=>                                     'form-control', 'placeholder'=>'Buscar', 'id' => 'search-text'));                        
                               echo $this->Form->input(' ',array(
                                     'options' => array('Actor','Director'),
                                     'empty' => 'Title',
-                                    'class'=>'form-control'
+                                    'class'=>'form-control',
+                                    'name'=>'filter'
                                
                               ));
 
+                              echo $this->Form->input('', array('name' => 'name', 'type' => 'search', 'class'=>                                     'form-control', 'placeholder'=>'Search', 'id' => 'search-text'));                       
+
                              echo "</div>";
                      
-                             echo $this->Form->button('<span class="glyphicon glyphicon-search" aria-hidden="true"></span>',array('type'=>'button', 'class'=>'btn btn-primary'));
+                             echo $this->Form->button('<span class="glyphicon glyphicon-search" aria-hidden="true"></span>',array('type'=>'submit', 'class'=>'btn btn-primary'));
                               echo $this->Form->end();
                             ?>
 

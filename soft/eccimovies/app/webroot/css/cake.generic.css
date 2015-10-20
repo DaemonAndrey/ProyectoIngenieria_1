@@ -1,7 +1,7 @@
 
 .page{
     padding-top: 20px;
-    padding-bottom: 10px;
+    padding-bottom: 3%;
 
 }
 
@@ -11,7 +11,7 @@
 #principal-header-text{
     padding-top: 10px;
     text-align: left;
-    padding-left: 30px;
+    padding-left: 5%;
 
     color:white;
     font-family: 'Ubuntu', sans-serif;
@@ -63,8 +63,9 @@
 
 
 #principal-nav-search{
-    display:inline-table;
-    margin-top: 5%;
+    float: left;
+    
+    margin: 5% 1% 0 10%;
  
 }
 
@@ -82,9 +83,9 @@
 
 @media screen and (max-width:350px)
 {
-    #principal-header-nav-form{
-        float: left;
-        padding-left: 30px;
+    #principal-nav-search{
+        
+        
     }
     
     #header-nav ul li{
