@@ -123,9 +123,11 @@
 
                               echo $this->Form->input(' ',array(
                                     'options' => array('Title','Actor','Director'),
-                                    'empty' => 'Filter by',
-                                    'class'=>'form-control',
-                                    'name'=>'filter'
+                                    'empty' => 'All',
+                                    'class'=>'form-control btn btn-default dropdown-toggle',
+                                    'data-toggle'=> 'dropdown',
+                                    'name'=>'filter',
+                                    'id'=>'search-filter'
                                
                               ));
 
@@ -138,13 +140,7 @@
                             ?>
 
                         </div>
-                    
-                    
-                    
-                    
-                    
-                    
-                    
+                         
                     
                 </div>
  

@@ -204,31 +204,84 @@ class ProductsController extends AppController
     
 		if($this->request->is('post')){
 			
-			$condition=explode(' ', trim($this->request->data('name')));
-			$condition=array_diff($condition,array(''));
+			$condition = explode(' ', trim($this->request->data('name')));
+			$condition = array_diff($condition,array(''));
             
-
-			foreach($condition as $tconditions){
-				$conditions[] = array('Product.name LIKE '=>'%'.$tconditions.'%');
-                $products=$this->Product->find('all', array('recursive'=>-1, 'conditions'=>$conditions));
-			}
+            switch($this->request->data['filter'])
+            {
+                    
+                case "0": //Title
+                     $products = $this->searchTitle($condition);
+                    break;
+                case "1": //Actor
+                    $products = $this->searchActor($condition);
+                    
+                    break;
+                case "2": //Director
+                    $products = $this->searchDirector($condition);
+                    
+                    break;
+                    
+                    
+                    
+                 default: //All
+                    $products = array_merge($this->searchTitle($condition), $this->searchActor($condition), $this->searchDirector($condition));           
+                    
+            }
+            
+            
             if(count($products)>0){
                 $this->set('Product',$products);
-            }else{
+            } else 
+            {
                 $this->Flash->set(__('No se encontraron coincidencias'));
                 return $this->redirect(array('action' => 'index'));
                 
             }
-                /*$this->loadModel('ActorsProduct');
-                
-				$conditionsa[] = array('ActorsProduct.actor_id LIKE '=>'%'.$tconditions.'%');
-                $actors=$this->ActorsProduct->find('all', array('recursive'=>-1, 'conditions'=>$conditionsa));
-                $this->set('ActorsProduct',$actors);
-                $conditionsb[] = array('ActorsProduct.actor_id = '=>'%'.$tconditions.'%');
-                $acpro  =$this->ActorsProduct->find('ActorsProduct.product_id', array('recursive'=>-1, 'conditions'=>$conditionsb));
-                $this->set('Product',$this->Product->find('all'));*/
+            
+            
                 
         }    
     }
+    
+    
+    function searchTitle($condition)
+    {
+        foreach($condition as $rules){
+            $conditions[] = array('Product.name LIKE '=>$rules.'%');
+            $products= $this->Product->find('all', array('recursive'=>-1, 'conditions'=>$conditions));
+         } 
+        
+        return $products;
+    }
+    
+    function searchActor($condition)
+    {
+        $this->loadModel('ActorsProduct');
+        $this->ActorsProduct->recursive = -1;
+
+        foreach($condition as $rules)
+        {
+            $options['joins'] = array(array('table' => 'actors_products', 'alias' => 'Actors', 
+                                      'type' => 'LEFT', 
+                                      'conditions' => array('Product.id = Actors.product_id')));
+            $options['conditions'] = array('Actors.actor_id LIKE '=> '%'.$rules.'%');
+
+            $products =$this->Product->find('all', $options);
+        }
+        
+        return $products;
+    }
+    
+    function searchDirector($condition)
+    {
+        foreach($condition as $rules){
+            $conditions[] = array('Product.more_details LIKE '=> 'Director'.'%'.$rules.'%');
+            $products= $this->Product->find('all', array('recursive'=>-1, 'conditions'=>$conditions));
+         } 
+        
+        return $products;
+    }
+    
 }
 ?>

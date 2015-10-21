@@ -80,6 +80,10 @@
     border-color: white;
 }
 
+#search-filter{
+    width: 37%;
+    background: #D8D8D8;
+}
 
 @media screen and (max-width:350px)
 {
