@@ -35,6 +35,8 @@
 
     <!-- Latest compiled JavaScript -->
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    
+
    
 </head>
 <body>
@@ -131,14 +133,17 @@
                                
                               ));
 
-                              echo $this->Form->input('', array('name' => 'name', 'type' => 'search', 'class'=>                                     'form-control', 'placeholder'=>'Search', 'id' => 'search-text'));                       
+                              echo $this->Form->input('search', array('name' => 'name', 'type' => 'search', 'class'=>                                     'form-control', 'placeholder'=>'Search', 'id' => 'search-text'));                       
 
                              echo "</div>";
                      
-                             echo $this->Form->button('<span class="glyphicon glyphicon-search" aria-hidden="true"></span>',array('type'=>'submit', 'class'=>'btn btn-primary'));
+                             echo $this->Form->button('<span class="glyphicon glyphicon-search" aria-hidden="true"></span>',array('type'=>'search', 'class'=>'btn btn-primary'));
                               echo $this->Form->end();
-                            ?>
 
+                              echo "<p id = 'text'> </p>"
+                            ?>
+                            
+                            
                         </div>
                          
                     

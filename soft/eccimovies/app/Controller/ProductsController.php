@@ -204,7 +204,10 @@ class ProductsController extends AppController
     
 		if($this->request->is('post')){
 			
+          
+            
 			$condition = explode(' ', trim($this->request->data('name')));
+
 			$condition = array_diff($condition,array(''));
             
             switch($this->request->data['filter'])
@@ -241,7 +244,8 @@ class ProductsController extends AppController
             
             
                 
-        }    
+        }
+
     }
     
     
