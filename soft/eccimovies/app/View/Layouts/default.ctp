@@ -166,7 +166,7 @@
 
         
         <footer>
-            <!--PENDIENTE -->
+                 
         </footer>
 	</div>
 	<?php echo $this->element('sql_dump'); ?>
