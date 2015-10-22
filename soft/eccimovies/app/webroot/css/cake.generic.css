@@ -60,16 +60,11 @@
 }
 
 
-
-
 #principal-nav-search{
     float: left;
-    
     margin: 5% 1% 0 10%;
  
 }
-
-
 
 #signup{
     background-color: #E05151;
@@ -78,11 +73,6 @@
 #login{
     border: 1px solid;
     border-color: white;
-}
-
-#search-filter{
-    width: 37%;
-    background: #D8D8D8;
 }
 
 @media screen and (max-width:350px)
@@ -103,21 +93,62 @@
     }
 }
 
+/* Empieza la modificacion de estilo de search */
+#search-filter{
+    width: 45%;
+    background: #D8D8D8;
+    margin-bottom: 10px;
+    margin-left: 15px;
+    margin-top: 20px;
+    font-size: 90%;
+    position: absolute;
+    font-family: sans-serif;
+}
+
+.btn-default{
+    margin-right: 50px;
+    position: absolute;
+    margin-top: 20px;
+    margin-left: 75px;
+}
+
+#search-text{
+    width: 180px;  
+    margin-left: 100px;
+    margin-top: 20px;
+    font-family: sans-serif;
+}
+
+#search {
+    position: relative;
+    width: 200px;
+}
+
+/* Termina la modificacion de estilo de search */
 
 /** Fin Header de la página**/
-
-
-
 
 #principal-nav{
     font-family: 'Ubuntu', sans-serif;
     background-color: #D94119;
 }
 
-.navbar .container-fluid .navbar-collapse li a{
+.navbar .container-fluid .navbar-collapse  li a{
     color: black;
 }
 
+.navbar .container-fluid .navbar-collapse li  a:hover {
+    background-color: firebrick;
+}
+
+.navbar .container-fluid .navbar-collapse li.active a:hover {
+    background-color: firebrick;
+}
+
+.navbar .container-fluid .navbar-collapse li.active a  {
+    background-color: darkorange;
+    color: white;
+}
 
 #dropdown-categories{
     color: black;
@@ -168,5 +199,6 @@ hr{
     height: 1px;
     background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(255, 255, 255, 0.75), rgba(0, 0, 0, 0));
 }
+
 
 

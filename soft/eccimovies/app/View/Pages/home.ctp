@@ -14,7 +14,7 @@
                         
                       <div class="navbar-collapse collapse">
                             <ul class="nav navbar-nav">
-                                <li class="active" style="color:#E05151"><a href="#" >NUEVOS LANZAMIENTOS</a></li>
+                                <li class="active"><a href="#" >NEW RELEASES</a></li>
                                 <li class="dropdown">
                                     <a class="dropdown-toggle" data-toggle="dropdown" style="color:white">CATÁLOGO<span class="caret"></span></a>
                                     <ul class="dropdown-menu scrollable-menu" role="menu">
@@ -37,9 +37,9 @@
                                 
                                 <li><a href="#">BLU-RAY</a></li>
                                 <li><a href="#">DVD</a></li>
-                                <li><a href="#">PRÓXIMAMENTE</a></li>
-                                <li><a href="#">LO MÁS VENDIDO</a></li>
-                                <li><a href="#">LO MÁS BUSCADO</a></li>
+                                <li><a href="#">COMING SOON</a></li>
+                                <li><a href="#">TRENDING BLU-RAY</a></li>
+                                <li><a href="#">TOP 10 SELLERS</a></li>
                             </ul>
                         </div> 
                     </div>
