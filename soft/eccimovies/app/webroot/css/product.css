@@ -12,13 +12,6 @@
     margin-top: 20px;
 }
 
-
- .btn{
-    position: relative;
-    left: 230px;
-
-}
-
 input{
     border-radius: 7px;
 }
@@ -74,11 +67,6 @@ label
     width: 50%;
 }
 
-.btn
-{
-    display: inline;
-    margin:auto;
-}
 
 .message
 {

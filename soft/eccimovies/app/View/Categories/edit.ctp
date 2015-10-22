@@ -2,6 +2,7 @@
 <?php echo $this->Html->css('signup'); ?>
 <?php echo $this->Html->css('subcategories'); ?>
 <?php echo $this->Html->css('category_index'); ?>
+<?php echo $this->Html->css('cake.generic'); ?>
 
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">

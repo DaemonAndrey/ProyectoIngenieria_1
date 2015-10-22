@@ -1,12 +1,13 @@
-<hr>
 
 <?php
+echo $this->Html->css('cake.generic');
 echo $this->Html->css('categories');
 echo $this->Html->css('products');
 echo $this->Html->css('signup');
 echo $this->Html->css('category_index');
 echo $this->Html->script('http://code.jquery.com/jquery.min.js');
 echo $this->Html->script('categories');
+
 ?>
 
 <nav class="navbar navbar-inverse">
@@ -22,7 +23,8 @@ echo $this->Html->script('categories');
   </div>
 </nav>
 
-<h1>Administración de categorías</h1>
+<h1 text-align="center">Administración de categorías</h1>
+
 <hr>
 
 <table>
@@ -125,3 +127,5 @@ echo $this->Html->script('categories');
 	<?php unset($category); ?>
 	</tbody>
 </table>
+
+<hr>

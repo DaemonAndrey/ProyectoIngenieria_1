@@ -18,6 +18,13 @@ class Product extends AppModel
 
     // Valida los campos de la tabla Productos a la hora de agregar
     public $validate = array(
+        'search'          => array(
+                                        'regla1' => array(
+                                                            'rule' => array('notBlank'),
+                                                            'message' => 'Debe escribir algo antes.'
+                                                          )
+                                  ),
+        
         'id'              => array(
                                         'regla1' => array(
                                                             'rule' => 'isUnique',
