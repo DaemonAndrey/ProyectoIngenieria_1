@@ -91,14 +91,14 @@
                                     
                                     <li id="signup">
                                         
-                                        <?php echo $this->Html->link('<span class="glyphicon glyphicon-user">                                                </span>SIGN UP ',                                                                                              array('controller'=>'users','action'=>'signup'),array('escape'=>false));
+                                        <?php echo $this->Html->link('<span class="glyphicon glyphicon-user" id="signup-button">                                                </span>SIGN UP ',                                                                                              array('controller'=>'users','action'=>'signup'),array('escape'=>false));
                                         ?>
                                                      
                                     </li>
                                     
                                     <!--CARRITO-->
                                     <li>
-                                       <?php echo $this->Html->link('<span class="glyphicon glyphicon-shopping-                                          cart"></span>Cart ',array('controller'=>'pages','action' => 'home',                                             'display'), array('target' => '_self', 'escape' => false))
+                                        <?php echo $this->Html->link('<span class="glyphicon glyphicon-shopping-cart"></span>Cart ',array('controller'=>'pages','action' => 'home','display'), array('target' => '_self', 'escape' => false))
                                         ?>
                                         
                                     </li>
@@ -119,7 +119,7 @@
                            <?php
                                echo $this->Form->create('Product', array('url'=> array('controller' => 'products',                                  'action'=>'buscar'), 'type' => 'post', 'id' => 'indexform', 'class'=>'form-inline', 'inputDefaults' => array('label'=>false, 'div'=>false)));  
                             
-                              echo "<div class='form-group'>";
+                              echo "<div class='form-group' id='search'>";
 
                               echo $this->Form->input(' ',array(
                                     'options' => array('Title','Actor','Director'),
@@ -135,7 +135,7 @@
 
                              echo "</div>";
                      
-                             echo $this->Form->button('<span class="glyphicon glyphicon-search" aria-hidden="true"></span>',array('type'=>'submit', 'class'=>'btn btn-primary'));
+                             echo $this->Form->button('<span class="glyphicon glyphicon-search" aria-hidden="true" id="search-btn"></span>',array('type'=>'submit', 'class'=>'btn btn-default'));
                               echo $this->Form->end();
                             ?>
 
