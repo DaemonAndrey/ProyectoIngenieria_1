@@ -1,5 +1,5 @@
 ﻿use BD_ECCIMovies;
-/*
+
 CREATE TABLE users
 (
 	id			INT				UNSIGNED AUTO_INCREMENT,
@@ -83,7 +83,7 @@ CREATE TABLE subcategories
 	PRIMARY KEY ( id )/*,
 	FOREIGN KEY ( category_id ) REFERENCES categories ( id )
 		ON UPDATE CASCADE
-		ON DELETE SET DEFAULT
+		ON DELETE SET DEFAULT*/
 );
 
 CREATE TABLE products
@@ -251,7 +251,7 @@ FOR EACH ROW
 	UPDATE subcategories
 	SET category_id = 1
 	WHERE category_id = old.id;
-*/
+
 -- Trigger para actualizar el subtotal en carrito cuando se agrega producto 
 DELIMITER //
 CREATE TRIGGER on_insert_product_update_subtotal
@@ -349,7 +349,9 @@ BEGIN
 							FROM valid_accounts V
 							WHERE	V.issuer = NEW.issuer
 							AND	V.account = NEW.account
+							AND	V.name_card = NEW.name_card
 							AND V.expiration = NEW.expiration
+							AND	V.security_code = NEW.security_code
 							);
 	END IF;
 	-- si la cantidad de tuplas es diferente de 1

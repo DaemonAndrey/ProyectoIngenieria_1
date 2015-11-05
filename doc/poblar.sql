@@ -1,4 +1,4 @@
-﻿INSERT INTO `users` (`id`, `username`, `password`, `first_name`, `last_name`, `gender`, `birthday`, `role`, `enable`) VALUES
+INSERT INTO `users` (`id`, `username`, `password`, `first_name`, `last_name`, `gender`, `birthday`, `role`, `enable`) VALUES
 ('1',	'adaly.mcmaho6893@mail2web.com',	'$2a$10$yKyJ7kGclKPI61B8PGR2oug98aNGq762/Q.WLOPH6MHggMmlHInmC', 'Adalynn',		'Mcmahon', 		'F', '1980-09-14', 0, '1'),
 ('2',	'add.rho5638@hushmail.com', 	 	'$2a$10$t.KKhPVabMcdlGEaN4dtPO8gRs7667k6JQVDhzpdlLYh2jZFqjc8u', 'Addison', 		'Rhodes', 		'F', '1994-09-02', 0, '1'),
 ('3',	'ala.est7801@gmail.com', 			'$2a$10$VbJs..Jbn9bZLCy6v3Cu8e12abk8zxpsJq7xlMI/qlgjdzr1CeKn6', 'Alani', 		'Estes', 		'F', '1966-12-21', 0, '1'),
@@ -132,11 +132,19 @@ INSERT INTO valid_accounts ( issuer, account, name_Card, expiration, security_co
 
 -- Este solo inserta valid_accounts para PayPal
 INSERT INTO valid_accounts ( issuer, account, password,  funds ) VALUES
-	(	'PayPal',	'adaly.mcmaho6893@mail2web.com',	'adalynn',	'5000.32'),
-	(	'PayPal',	'alan.calderon@paypal.com',	'Alan Calderón', '5000.32');
-  
-
-		
+	(	'PayPal',	'adaly.mcmaho6893@mail2web.com',	'adalynn',	'5000.32');
+	
+INSERT INTO payment_methods ( issuer, account, name_card, expiration, security_code ) VALUES
+	(	'Visa', 			'1111111111111111', 'Nombre Uno',	'2020-7-01',	'111'	),
+	(	'Visa', 			'2222222222222222', 'Nombre Dos',	'2020-7-01',	'222'	),
+	(	'Visa', 			'3333333333333333', 'Nombre Tres',	'2020-7-01',	'333'	),
+	(	'MasterCard', 		'4444444444444444', 'Nombre Cuatro','2020-7-01',	'444'	),
+	(	'MasterCard', 		'5555555555555555', 'Nombre Cinco',	'2020-7-01',	'555'	),
+	(	'MasterCard', 		'6666666666666666', 'Nombre Seis',	'2020-7-01',	'666'	),
+	(	'AmericanExpress', 	'7777777777777777', 'Nombre Siete',	'2020-7-01',	'777'	),
+	(	'AmericanExpress', 	'8888888888888888', 'Nombre Ocho',	'2020-7-01',	'888'	),
+	(	'AmericanExpress', 	'9999999999999999', 'Nombre Nueve',	'2020-7-01',	'999'	);
+    
 INSERT INTO categories ( category_name ) VALUES
 	(	'Unsorted'		),
 	(	'Action'		),
@@ -200,7 +208,7 @@ INSERT INTO products ( code, name, price, stock_quantity, format, languages, sub
 	(	'LCY-8134', 'Lucy', 										21.35,	75, 	'Blu-Ray', 	'English',								'English, Spanish, Portugues',			2014,	89,		3,	1,	'Directed by: ; Produced by: ; Story by: ; Music by: ; Sinopsis:'	),
 	(	'WWZ-6547', 'World War Z', 									25.38,	47, 	'Blu-Ray', 	'English',								'English, Spanish, Portugues',			2013,	116,	3,	1,	'Directed by: ; Produced by: ; Story by: ; Music by: ; Sinopsis:'	),
 	(	'IOH-3814', 'Inside Out', 									26.84,	2, 		'Blu-Ray', 	'English',								'English, Spanish',						2015,	94,		4,	1,	'Directed by: ; Produced by: ; Story by: ; Music by: ; Sinopsis:'	),
-	(	'JVN-4888',	'The King Lion',								48.80,	107,	'DVD', 		'English,Spanish',					 	'English, Spanish, German, Polish',		1994,	89,		4,	1,	'Directed by: ; Produced by: ; Story by: ; Music by: ; Sinopsis:'	),
+	(	'JVN-4888',	'The Lion King',								48.80,	107,	'DVD', 		'English,Spanish',					 	'English, Spanish, German, Polish',		1994,	89,		4,	1,	'Directed by: ; Produced by: ; Story by: ; Music by: ; Sinopsis:'	),
 	(	'NYE-2004', 'Frozen', 										12.60,	9, 		'Blu-Ray', 	'English',								'English, Spanish, Portugues',			2013,	102,	4,	1,	'Directed by: ; Produced by: ; Story by: ; Music by: ; Sinopsis:'	),
 	(	'GDR-6548', 'Big Hero 6', 									17.88,	65, 	'Blu-Ray', 	'English,Spanish, French, Portuguese',	'English,Spanish, French, Portuguese',	2014,	102,	4,	1,	'Directed by: ; Produced by: ; Story by: ; Music by: ; Sinopsis:'	),
 	(	'ZZJ-1203', 'Aladdin', 										34.22,	75, 	'DVD',	 	'English,Spanish, French, Portuguese',	'English,Spanish, French, Portuguese',	1992,	90,		4,	1,	'Directed by: ; Produced by: ; Story by: ; Music by: ; Sinopsis:'	),
