@@ -1,5 +1,5 @@
 ﻿use BD_ECCIMovies;
-
+/*
 CREATE TABLE users
 (
 	id			INT				UNSIGNED AUTO_INCREMENT,
@@ -83,7 +83,7 @@ CREATE TABLE subcategories
 	PRIMARY KEY ( id )/*,
 	FOREIGN KEY ( category_id ) REFERENCES categories ( id )
 		ON UPDATE CASCADE
-		ON DELETE SET DEFAULT*/
+		ON DELETE SET DEFAULT
 );
 
 CREATE TABLE products
@@ -251,7 +251,7 @@ FOR EACH ROW
 	UPDATE subcategories
 	SET category_id = 1
 	WHERE category_id = old.id;
-/*
+*/
 -- Trigger para actualizar el subtotal en carrito cuando se agrega producto 
 DELIMITER //
 CREATE TRIGGER on_insert_product_update_subtotal
@@ -359,4 +359,4 @@ BEGIN
 			SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'The account is not valid.';
 	END IF;
 END; //
-DELIMITER ;*/
+DELIMITER ;
