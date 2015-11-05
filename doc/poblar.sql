@@ -120,30 +120,23 @@ INSERT INTO valid_accounts ( issuer, account, name_Card, expiration, security_co
 	(	'MasterCard', 		'36770040421295', 	'Ari Daugherty',	'2024-06-01',	'678',	780.55		),
 	(	'AmericanExpress', '340957385013644', 	'Arielle Benjamin',	'2029-10-01',	'789',	450.58		),
 	(	'MasterCard', 		'5138697811192977', 'Armani Dorsey',	'2025-07-01',	'890',	20.25		),
-	(	'Visa', 			'1111111111111111', 'Alan Calderón',	'2020-7-01',	'111',	10000.00	),
-	(	'Visa', 			'2222222222222222', 'Alan Calderón',	'2020-7-01',	'222',	10000.00	),
-	(	'Visa', 			'3333333333333333', 'Alan Calderón',	'2020-7-01',	'333',	10000.00	),
-	(	'MasterCard', 		'4444444444444444', 'Alan Calderón',	'2020-7-01',	'444',	10000.00	),
-	(	'MasterCard', 		'5555555555555555', 'Alan Calderón',	'2020-7-01',	'555',	10000.00	),
-	(	'MasterCard', 		'6666666666666666', 'Alan Calderón',	'2020-7-01',	'666',	10000.00	),
-	(	'AmericanExpress', 	'7777777777777777', 'Alan Calderón',	'2020-7-01',	'777',	10000.00	),
-	(	'AmericanExpress', 	'8888888888888888', 'Alan Calderón',	'2020-7-01',	'888',	10000.00	),
-	(	'AmericanExpress', 	'9999999999999999', 'Alan Calderón',	'2020-7-01',	'999',	10000.00	);
+	(	'Visa', 			'1111111111111111', 'Nombre Uno',		'2020-7-01',	'111',	10000.00	),
+	(	'Visa', 			'2222222222222222', 'Nombre Dos',		'2020-7-01',	'222',	10000.00	),
+	(	'Visa', 			'3333333333333333', 'Nombre Tres',		'2020-7-01',	'333',	10000.00	),
+	(	'MasterCard', 		'4444444444444444', 'Nombre Cuatro',	'2020-7-01',	'444',	10000.00	),
+	(	'MasterCard', 		'5555555555555555', 'Nombre Cinco',		'2020-7-01',	'555',	10000.00	),
+	(	'MasterCard', 		'6666666666666666', 'Nombre Seis',		'2020-7-01',	'666',	10000.00	),
+	(	'AmericanExpress', 	'7777777777777777', 'Nombre Siete',		'2020-7-01',	'777',	10000.00	),
+	(	'AmericanExpress', 	'8888888888888888', 'Nombre Ocho',		'2020-7-01',	'888',	10000.00	),
+	(	'AmericanExpress', 	'9999999999999999', 'Nombre Nueve',		'2020-7-01',	'999',	10000.00	);
 
 -- Este solo inserta valid_accounts para PayPal
 INSERT INTO valid_accounts ( issuer, account, password,  funds ) VALUES
-	(	'PayPal',	'adaly.mcmaho6893@mail2web.com',	'adalynn',	'5000.32');
-	
-INSERT INTO payment_methods ( issuer, account, name_card, expiration, security_code ) VALUES
-	(	'Visa', 			'1111111111111111', 'Nombre Uno',	'2020-7-01',	'111'	),
-	(	'Visa', 			'2222222222222222', 'Nombre Dos',	'2020-7-01',	'222'	),
-	(	'Visa', 			'3333333333333333', 'Nombre Tres',	'2020-7-01',	'333'	),
-	(	'MasterCard', 		'4444444444444444', 'Nombre Cuatro','2020-7-01',	'444'	),
-	(	'MasterCard', 		'5555555555555555', 'Nombre Cinco',	'2020-7-01',	'555'	),
-	(	'MasterCard', 		'6666666666666666', 'Nombre Seis',	'2020-7-01',	'666'	),
-	(	'AmericanExpress', 	'7777777777777777', 'Nombre Siete',	'2020-7-01',	'777'	),
-	(	'AmericanExpress', 	'8888888888888888', 'Nombre Ocho',	'2020-7-01',	'888'	),
-	(	'AmericanExpress', 	'9999999999999999', 'Nombre Nueve',	'2020-7-01',	'999'	);
+	(	'PayPal',	'nombre.uno@paypal.com',	'nombreuno',	'10000.00'),
+	(	'PayPal',	'nombre.dos@paypal.com',	'nombredos',	'10000.00'),
+	(	'PayPal',	'nombre.tres@paypal.com',	'nombretres',	'10000.00'),
+	(	'PayPal',	'nombre.cuatro@paypal.com',	'nombrecuatro',	'10000.00'),
+	(	'PayPal',	'nombre.cinco@paypal.com',	'nombrecinco',	'10000.00'),
     
 INSERT INTO categories ( category_name ) VALUES
 	(	'Unsorted'		),
