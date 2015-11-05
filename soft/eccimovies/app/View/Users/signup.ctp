@@ -1,22 +1,18 @@
 <hr>
 
-<?php echo $this->Html->css('signup'); ?>
+<?php echo $this->Html->css('signup_original'); ?>
 
-<header id="principal-header-text-signup">
-    <h2> Formulario de registro </h2>
-</header>
+    <h2 id="principal-header-text-signup"> Registration Form </h2>
 
-
-
-<div class="users form">
+<div class="users form" style="text-align:center">
     <?php echo $this->Form->create('User'); ?>
 		
     <div class="row">
-        <div class="col-md-9">
+        <div class="col-md-12">
             <div class="form-group">
                 <?php // Campos para llenar informacion
 				    echo $this->Form->input('username',array(
-														      'label' => 'Email: ',
+														      'label' => 'E-mail: ',
 														      'type' => 'email',
                                                               'placeholder' => 'username@mail.com'
                                                             )
@@ -27,11 +23,11 @@
     </div>
 
     <div class="row">
-        <div class="col-md-9">
+        <div class="col-md-12">
             <div class="form-group">
                 <?php // Campos para llenar informacion
 				    echo $this->Form->input('first_name',array(
-														      'label' => 'Nombre: ',
+														      'label' => 'First Name: ',
                                                               'placeholder' => 'Juan'
                                                             )
                                             );
@@ -42,12 +38,12 @@
     </div>   
 
     <div class="row">
-        <div class="col-md-9">
+        <div class="col-md-12">
             <div class="form-group">
                 <?php // Campos para llenar informacion
 				    echo $this->Form->input('last_name',array(
-														      'label' => 'Apellidos: ',
-                                                              'placeholder' => 'Rojas'
+														      'label' => 'Last Name: ',
+                                                              'placeholder' => 'Rojas Fernández'
                                                             )
                                             );
                 ?>
@@ -56,13 +52,13 @@
     </div>
     
     <div class="row">
-        <div class="col-md-9">
+        <div class="col-md-12">
             <div class="form-group">
                 <?php // Campos para llenar informacion
 				    echo $this->Form->input('password',array(
-														      'label' => 'Contraseña: ',
+														      'label' => 'Password: ',
 														      'type' => 'password',
-                                                              'placeholder' => 'Debe tener al menos 8 caractéres',
+                                                              'placeholder' => 'At least 8 characters long',
                                                                array('minLength', '8')
                                                             )
                                             );
@@ -72,13 +68,13 @@
     </div>
     
     <div class="row">
-        <div class="col-md-9">
+        <div class="col-md-12">
             <div class="form-group">
                 <?php // Campos para llenar informacion
 				    echo $this->Form->input('repass',array(
-														      'label' => 'Confirmar contraseña  : ',
+														      'label' => 'Confirm password: ',
                                                               'type' => 'password',
-                                                              'placeholder' => 'Debe coincidir con la contraseña',
+                                                              'placeholder' => 'Passwords must match',
                                                                array('minLength', '8')
                                                           )
                                             );
@@ -94,7 +90,7 @@
                 <?php // Campos para llenar informacion
 				    echo $this->Form->input('birthday',array(   
                                                               'type' => 'date',            
-														      'label' => 'Fecha de Nacimiento: ',
+														      'label' => 'Birthday: ',
                                                               'dateFormat' => 'DMY',
                                                               'minYear' => date('Y') - 100,
                                                               'maxYear' => date('Y')
@@ -106,14 +102,15 @@
     </div>
     
     <div class="row">
-        <div class="col-md-9">
-            <div class="form-group id = "form"">
+        <div class="col-md-12">
+            <div class="form-group id = 'form'">
                 <?php // Campos para llenar informacion
 				    echo $this->Form->input('gender',array(
-                                                    'label' => 'Género: ',
+                                                    'id' => 'gender-select',
+                                                    'label' => 'Gender: ',
 													'options' => array(
-																		'M' => 'Hombre',
-																		'F' => 'Mujer'
+																		'M' => 'Male',
+																		'F' => 'Female'
 																	  )
 													)
                                             );
@@ -121,16 +118,37 @@
             </div>
         </div>    
     </div>
+	<?php
+	if( $user_id != null && $admin )
+	{ ?>
+	<div class="row">
+        <div class="col-md-12">
+            <div class="form-group id = "form"">
+                <?php // Campos para llenar informacion
+				    echo $this->Form->input('role',array(
+                                                    'label' => 'Role: ',
+													'options' => array(
+																		0 => 'Customer',
+																		1 => 'Administrator',
+																		2 => 'Manager'
+																	  )
+													)
+                                            );
+                ?>
+            </div>
+        </div>    
+    </div>
+	<?php
+	} ?>
+	
     <div class="row">
-            <div class="col-md-5">
-                    <?php echo $this->Form->link('Crear cuenta!',                                                                                                                                                                   array(
-                                                        'type' => 'submit',
-                                                        'id' => 'button-signup',
-                                                        'action'=>'login'),
-                                                        array(
-                                                            'escape'=>false
-                                                             )
-                                                        );
+            <div class="col-md-12">
+                    <?php echo $this->Form->button(	'Sign up!',                                                                                                                                                                   array(
+													'type' => 'submit',
+													'id' => 'button-signup',
+													'action'=>'login'),
+													array('escape'=>false)
+                                                );
                    ?>
             </div> 
         </div>  

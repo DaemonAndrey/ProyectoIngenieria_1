@@ -1,38 +1,57 @@
-<?php echo $this->Html->css('products'); ?>
-<?php echo $this->Html->css('signup'); ?>
-<?php echo $this->Html->css('subcategories'); ?>
-<?php echo $this->Html->css('category_index'); ?>
-
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div>
-      <ul class="nav nav-pills nav-justified" role="tablist">
-        <li><?php echo $this->Html->link('Catálogo', array('controller' => 'products', 'action' => 'admin_index')); ?></li>
-        <li class="active"><?php echo $this->Html->link('Categorías', array('action' => 'admin_index')); ?></li>
-        <li><a href="#">Usuarios</a></li>
-        <li><a href="#">Entidades financieras</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
-<div class="caja">
-
-<h1>Agregar subcategoría nueva</h1>
-<hr>
-
+<?php echo $this->Html->css('addresses'); ?>
+<?php echo $this->Html->css('signup'); 
+echo $this->Html->css('general');?>
 <?php
-	echo $this->Form->create('Subcategory');
-	echo $this->Form->input(
-		'subcategory_name',
-		array(
-			'label' => 'Subcategoría nueva',
-			'autofocus' => 'autofocus',
-			'placeholder' => 'Nombre de la subcategoría'
-		)
-	);
-	echo $this->Form->input('category_id', array('label' => '<h4>Bajo categoría </h4>'));
+// Si soy administrador
+if($user_id != null && $admin)
+{ 	
+	?>
+    <nav class="navbar navbar-inverse" id="navigation-bar">
+      <div class="container-fluid">
+        <div>
+          <ul class="nav nav-pills nav-justified" role="tablist">
+            <li><?php echo $this->Html->link('Products', array('controller' => 'products', 'action' => 'index')); ?></li>
+            <li class="active"><?php echo $this->Html->link('Categories', array('controller' => 'categories', 'action' => 'index')); ?></li>
+            <li><a href="#">Users</a></li> 
+            <li><a href="#">Financial Entities</a></li>  
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <hr>
+
+    <div class="title">
+    <h2> <?php echo __('Add Subcategory'); ?> </h2>
+    </div>
+
+    <hr>
+
+    <?php echo $this->Form->create('Subcategory'); ?>
+    <div class="addCategory_form">
+        <?php
+            echo $this->Form->input(
+                'subcategory_name',
+                array(
+                    'label' => 'Name',
+                    'autofocus' => 'autofocus',
+                    'placeholder' => 'Name of subcategory'
+                )
+            );
+            echo $this->Form->input('category_id', array('label' => 'Under category'));
+        ?>
+    </div>
+    <hr>
+    <div id= "action" style="text-align:center">
+        <?php echo $this->Form->submit(__('Add', true), array('name' => 'ok', 'div' => false)); ?>
+        &nbsp;
+        <?php echo $this->Form->submit(__('Cancel', true), array('name' => 'cancel', 'formnovalidate' => true, 'div' => false)); ?>
+    </div>
+    <?php echo $this->Form->end(); ?>
+    <?php
+}
+// Si no estoy loggeado o si no soy admin
+else
+{
+	?> <h1> NOTHING TO SEE HERE... </h1> <?php
+}
 ?>
-	<?php echo $this->Form->submit(__('Agregar', true), array('name' => 'ok', 'div' => false)); ?>
-	<?php echo $this->Form->submit(__('Cancelar', true), array('name' => 'cancel', 'formnovalidate' => true,'div' => false)); ?>
-<?php echo $this->Form->end();?>
-</div>

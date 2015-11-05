@@ -3,10 +3,6 @@
 
 <?php echo $this->Html->css('login'); ?>
 
-<header id="principal-header-text-login">
-    <h2> Ingresa a tu cuenta </h2>
-</header>
-
 <div class="users form">
 	<?php echo $this->Session->flash('auth'); ?>
 	<?php echo $this->Form->create('User'); ?>
@@ -17,7 +13,7 @@
                 <div class="form-group">
                    <?php // Campos para llenar informacion
 				        echo $this->Form->input('username',array(
-														      'label' => 'Email: ',
+														      'label' => 'E-mail:  ',
 														       'type' => 'email',
                                                               'placeholder' => 'username@mail.com'
                                                                 )
@@ -32,7 +28,7 @@
                 <div class="form-group">
                    <?php // Campos para llenar informacion
 				        echo $this->Form->input('password',array(
-														      'label' => 'Contraseña:',
+														      'label' => 'Password:  ',
 														       'type' => 'password'
                                                                 )
                                                );
@@ -57,10 +53,10 @@
     
         <div class="row text-right">          
              <div class="col-md-6">
-                <label for="Reg" id="label-signup">¿Aún no tienes cuenta?</label>
+                <label for="Reg" id="label-signup">New to ECCI Movies?</label>
             </div>
             <div class="col-md-2">
-                   <button id="button-signup" onclick="window.location.href='<?php echo Router::url(array( 'action'=>'signup'))?>'">Regístrese aquí!</button>
+                   <button id="button-signup" onclick="window.location.href='<?php echo Router::url(array( 'action'=>'signup'))?>'">Create account</button>
             </div> 
         </div>
     

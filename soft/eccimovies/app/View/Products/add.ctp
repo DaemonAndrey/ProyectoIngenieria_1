@@ -1,134 +1,134 @@
-<!-- File: /app/View/Catalogs/add.ctp -->
+<?php echo $this->Html->css('addresses'); ?>
+<?php echo $this->Html->css('signup'); 
+echo $this->Html->css('general');?>
+<?php
+// Si soy administrador
+if($user_id != null && $admin)
+{ 	
+	?>
+    <nav class="navbar navbar-inverse" id="navigation-bar">
+      <div class="container-fluid">
+        <div>
+          <ul class="nav nav-pills nav-justified" role="tablist">
+            <li class="active"><?php echo $this->Html->link('Products', array('controller' => 'products', 'action' => 'index')); ?></li>
+            <li><?php echo $this->Html->link('Categories', array('controller' => 'categories', 'action' => 'index')); ?></li>
+            <li><a href="#">Users</a></li> 
+            <li><a href="#">Financial Entities</a></li>  
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <hr>
 
-<?php echo $this->Html->css('product.css'); ?>
-
-
-
-<nav class="navbar navbar-inverse" id = "nav-add">
-  <div class="container-fluid">
-    <div>
-      <ul class="nav nav-pills nav-justified" role="tablist">
-        <li class="active"><?php echo $this->Html->link('Catálogo', array('action' => 'admin_index')); ?></li>
-        <li><?php echo $this->Html->link('Categorías', array('controller' => 'categories', 'action' => 'admin_index')); ?></li>
-        <li><a href="#">Usuarios</a></li> 
-        <li><a href="#">Entidades financieras</a></li> 
-      </ul>
+    <div class="title">
+    <h2> <?php echo __('Add Product'); ?> </h2>
     </div>
-  </div>
-</nav>
 
-<div class="product_add">
-    <?php 
-        echo $this->Form->create('Product', array('class' => 'form-horizontal', 'role' => 'form')); 
-    ?>
-    
-    <fieldset>
-        <legend>
-            <?php echo __('Agregar producto'); ?>
-        </legend>
-            
-            <?php
-                echo $this->Form->input('Product.code', array(
-                                            'div' => 'form-group', 
-                                            'label' => array(
-                                                'class' => 'control-label col-sm-2',
-                                                'text' => 'Código'
-                                            ),
-                                            'placeholder' => 'ABC-1234'
-                                        )
-                           );
-                echo $this->Form->input('Product.name', array(
-                                            'div' => 'form-group', 
-                                            'label' => array(
-                                                'class' => 'control-label col-sm-2',
-                                                'text' => 'Nombre'
-                                            ),
-                                            'placeholder' => 'Nombre de la película'
-                                        )
-                           );
-                echo $this->Form->input('Product.price', array(
-                                            'div' => 'form-group', 
-                                            'label' => array(
-                                                'class' => 'control-label col-sm-2',
-                                                'text' => 'Precio'
-                                            ),
-                                            'placeholder' => 'Precio en dólares'
-                                        )
-                           );
-                echo $this->Form->input('Product.stock_quantity', array(
-                                            'div' => 'form-group', 
-                                            'label' => array(
-                                                'class' => 'control-label col-sm-2',
-                                                'text' => 'Cantidad'
-                                            ),
-                                            'placeholder' => 'Cantidad en inventario'
-                                        )
-                           );
-                echo $this->Form->input('Product.format', array(
-                                            'div' => 'form-group', 
-                                            'label' => array(
-                                                'class' => 'control-label col-sm-2',
-                                                'text' => 'Formato'
-                                            ),
-                                            'options' => array(
-                                                'Blu-ray' => 'Blu-ray',
-                                                'DVD' => 'DVD'
-                                            )
-                                        )
-                           );
-                echo $this->Form->input('Product.languages', array(
-                                            'div' => 'form-group', 
-                                            'label' => array(
-                                                'class' => 'control-label col-sm-2',
-                                                'text' => 'Idiomas'
-                                            ),
-                                            'placeholder' => 'Inglés, Español, ...'
-                                        )
-                           );
-                echo $this->Form->input('Product.subtitles', array(
-                                            'div' => 'form-group', 
-                                            'label' => array(
-                                                'class' => 'control-label col-sm-2',
-                                                'text' => 'Subtítulos'
-                                            ),
-                                            'placeholder' => 'Inglés, Español, ...'
-                                        )
-                           );
-                echo $this->Form->input('Product.release_year', array(
-                                            'div' => 'form-group',
-                                            'type' => 'text',
-                                            'label' => array(
-                                                'class' => 'control-label col-sm-2',
-                                                'text' => 'Año de lanzamiento',
-                                                'dateFormat' => 'Y'
-                                            ),
-                                            'placeholder' => 'Solamente el año'
-                                        )
-                           );
-                echo $this->Form->input('Product.runtime', array(
-                                            'div' => 'form-group', 
-                                            'label' => array(
-                                                'class' => 'control-label col-sm-2',
-                                                'text' => 'Duración'
-                                            ),
-                                            'placeholder' => 'Tiempo en minutos'
-                                        )
-                           );
-                echo $this->Form->input('Product.more_details', array(
-                                            'div' => 'form-group', 
-                                            'type' => 'textarea',
-                                            'label' => array(
-                                                'class' => 'control-label col-sm-2',
-                                                'text' => 'Más detalles'
-                                            ),
-                                            'placeholder' => 'Agregue director, productor, sinopsis, ...'
-                                        )
-                           );
-                
-                echo $this->Form->submit(__('Agregar', true), array('name' => 'ok', 'div' => false, 'class' => 'btn btn-default'));
-                echo $this->Form->submit(__('Cancelar', true), array('name' => 'cancel', 'formnovalidate' => true,'div' => false, 'class' => 'btn btn-default'));
-        ?>
-    </fieldset>
-    
+    <hr>
+
+    <?php echo $this->Form->create('Product', array('class' => 'form-horizontal', 'role' => 'form'));?>
+    <div class="addProduct_form">
+        <?php
+				echo $this->Form->input('Product.code', array('div' => 'form-group',
+                                                              'label' => array(
+															                     'class' => 'control-label col-sm-2',
+															                     'text' => 'Código'
+														                      ),
+														      'placeholder' => 'ABC-1234'
+													       )
+									   );
+				echo $this->Form->input('Product.name', array('div' => 'form-group', 
+											                  'label' => array(
+												                                'class' => 'control-label col-sm-2',
+												                                'text' => 'Name'
+											                                 ),
+											                 'placeholder' => 'Name of the movie'
+										                      )
+                                        );
+				echo $this->Form->input('Product.price', array('div' => 'form-group', 
+									                           'label' => array(
+                                                                                'class' => 'control-label col-sm-2',
+                                                                                'text' => 'Price'
+									                                           ),
+                                                                'placeholder' => 'Price in dollars'
+                                                            )
+                                        );
+				echo $this->Form->input('Product.stock_quantity', array('div' => 'form-group', 
+                                                                        'label' => array(
+                                                                                        'class' => 'control-label col-sm-2',
+                                                                                        'text' => 'In Stock'
+                                                                                    ),
+                                                                        'placeholder' => '# of copies in stock'
+                                                                       )
+                                     );
+				echo $this->Form->input('Product.format', array('div' => 'form-group', 
+                                                                'label' => array(
+                                                                                'class' => 'control-label col-sm-2',
+                                                                                'text' => 'Format'
+                                                                                ),
+                                                                'options' => array(
+                                                                                'Blu-ray' => 'Blu-ray',
+                                                                                'DVD' => 'DVD'
+                                                                                )
+								                                )
+                                       );
+				echo $this->Form->input('Product.runtime', array('div' => 'form-group', 
+									                             'label' => array(
+                                                                                    'class' => 'control-label col-sm-2',
+                                                                                    'text' => 'Run Time'
+                                                                                ),
+                                                                 'placeholder' => 'Time in minutes'
+                                                                )
+                                       );
+				echo $this->Form->input('Product.languages', array('div' => 'form-group', 
+									                               'label' => array(
+                                                                                        'class' => 'control-label col-sm-2',
+                                                                                        'text' => 'Languages'
+                                                                                    ),
+									                               'placeholder' => 'English, Spanish ...'
+								                                )
+                                       );
+				echo $this->Form->input('Product.subtitles', array('div' => 'form-group', 
+									                               'label' => array(
+                                                                                    'class' => 'control-label col-sm-2',
+                                                                                    'text' => 'Subtitles'
+									                                               ),
+                                                                    'placeholder' => 'English, Spanish ...'
+                                                                )
+                                       );
+				echo $this->Form->input('Product.release_year', array('div' => 'form-group',
+									                                 'type' => 'text',
+                                                                     'label' => array(
+                                                                                        'class' => 'control-label col-sm-2',
+                                                                                        'text' => 'Release Year',
+                                                                                        'dateFormat' => 'Y'
+                                                                                    ),
+									                                 'placeholder' => 'Year only'
+								                                    )
+                                       );
+			   echo $this->Form->input('Product.more_details', array('div' => 'form-group', 
+                                                                     'type' => 'textarea',
+                                                                     'label' => array(
+                                                                                        'class' => 'control-label col-sm-2',
+                                                                                        'text' => 'More Details'
+                                                                                    ),
+                                                                     'placeholder' => 'Add director, producer, synopsis, ...'
+                                                                    )
+                                    );
+				?>
+    </div>
+    <hr>
+    <div id= "action" style="text-align:center">
+        <?php echo $this->Form->submit(__('Add', true), array('name' => 'ok', 'div' => false)); ?>
+        &nbsp;
+        <?php echo $this->Form->submit(__('Cancel', true), array('name' => 'cancel', 'formnovalidate' => true, 'div' => false)); ?>
+    </div>
     <?php echo $this->Form->end(); ?>
-</div>
+    <?php
+}
+// Si no estoy loggeado o si no soy admin
+else
+{
+	?> <h1> NOTHING TO DO HERE... </h1> <?php
+}
+?>

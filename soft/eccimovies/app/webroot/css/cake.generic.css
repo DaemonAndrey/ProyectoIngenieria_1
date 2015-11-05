@@ -1,36 +1,38 @@
+.container{
+    color: white;
+    font-family: 'Ubuntu', sans-serif;
+    font-style: normal;
+    background-color: black;
+}
 
-.page{
+*{
+    box-sizing: border-box;
+}
+
+/**Header principal **/
+
+header{
     padding-top: 20px;
     padding-bottom: 3%;
 
 }
 
-#principal-header-img {
-    padding-top: 10px;
-}
+
+/**Este es el texto del header principal **/
+
 #principal-header-text{
-    padding-top: 10px;
+    padding: 0 0 0 3%;
     text-align: left;
-    padding-left: 5%;
 
-    color:white;
-    font-family: 'Ubuntu', sans-serif;
-    font-style: normal;
 }
 
-/** Header de la página**/
 
+/**Botones LOGIN, SIGNUP, CART **/
 #header-nav {
-    float: right;
-    
+    float: right;   
 }
 
-#header-nav ul {
-	margin: 0;
-	padding: 0;
-}
-
-
+/**Botones LOGIN, SIGNUP, CART **/
 #header-nav ul li {
     display: inline-block;
     list-style-type: none;
@@ -39,27 +41,30 @@
         
 }
 
-
 #header-nav > ul > li > a {
     color:white;
     display: block;
-    line-height: 56px;
-    padding: 0 20px 0 20px;
+    line-height: 66px;
+    padding: 0 10px 0 10px;
     text-decoration: none;
 }
 
+/**Botones LOGIN, SIGNUP, CART **/
+#header-nav > ul > li > a{
+    color:white;
+    display: block;
+    line-height: 50px;
+    text-decoration: none;
+    font-family: sans-serif;
+}
 
+/**Botones LOGIN, SIGNUP, CART **/
 #header-nav > ul > li:hover {
-    background-color: rgb( 40, 44, 47 );
-}
-
-#header-nav > ul > li:hover > a {
-  color: rgb( 255, 255, 255 );
-  text-decoration: none;
-
+    background-color:#6E6E6E;
 }
 
 
+/** Barra de búsqueda **/
 #principal-nav-search{
     float: left;
     margin: 5% 1% 0 10%;
@@ -70,46 +75,109 @@
     background-color: #D94119;
 }
 
-#login{
-    border: 1px solid;
+#account{
+    background-color: deepskyblue;
     border-color: white;
 }
 
-@media screen and (max-width:350px)
-{
-    #principal-nav-search{
-        
-        
-    }
-    
-    #header-nav ul li{
-        display:block;
-    }
-    
-    #header-nav{
-        float: left;
-        padding-bottom: 20px;
-        padding-top: 20px;
-    }
+#shoppingCart{
+    background-color: yellowgreen;
+    border-color: white;
 }
+
+#adminButton{
+    background-color: yellowgreen;
+    border-color: white;
+}
+
+#logout{
+    background-color: #D94119;
+    border-color: white;
+}
+
+#login{
+    background-color: yellowgreen;
+}
+
+
+@media screen and (max-width:768px)
+{
+    
+    
+    #header-nav > ul
+    {
+        padding: 0;
+    }
+    
+    
+    #header-nav 
+    {
+        padding: 0;
+        float: left;
+        margin-right: 30%;
+    }
+    
+    #principal-nav-search{
+        margin: 0;
+        padding: 0;
+    }
+    
+    #header-nav > ul > li {
+       margin-top: 5%;
+    }
+    
+    #search
+    {
+        margin: 0;
+    }
+    
+    #search-text
+    {
+        float: right;
+        width: 50%;
+        margin-left: 0;
+    }
+
+    select#search-filter
+    {
+        visibility: hidden;
+        display: none;
+    }
+    
+    .btn-default
+    {
+        display: none;
+       visibility: hidden;
+        margin: 0;
+       
+    }
+
+}
+
+/* ESTILOS DE CAROUSEL */
+.carousel-inner> .item> a > img
+{
+    margin: auto;
+}
+
+#home_carousel{
+    height: 200%;
+}
+
 
 /* Empieza la modificacion de estilo de search */
 #search-filter{
     width: 45%;
     background: #D8D8D8;
-    margin-bottom: 10px;
-    margin-left: 15px;
-    margin-top: 20px;
+    margin: 20px 0 10px 15px;
     font-size: 90%;
     position: absolute;
-    font-family: sans-serif;
+    font-family: 'Ubuntu',sans-serif;
 }
 
 .btn-default{
-    margin-right: 50px;
     position: absolute;
-    margin-top: 20px;
-    margin-left: 75px;
+    margin: 20px 50px 0 75px;
 }
 
 #search-text{
@@ -129,7 +197,6 @@
 /** Fin Header de la página**/
 
 #principal-nav{
-    font-family: 'Ubuntu', sans-serif;
     background-color: #D94119;
 }
 
@@ -154,25 +221,8 @@
     color: black;
 }
 
-#movie-info
-{
-    margin-top: 30px; 
-}
 
-#details-movie
-{
-    padding: 5px;
-    margin-top: 10px;
-    margin-left: 30px;
-    margin-right: 30px;
-    background-color: #C9C9C9;
-    border-radius: 5px;
-     font-family: 'Ubuntu', sans-serif;
-}
 
-.header{
-    padding-bottom: 50px;
-}
 
 .scrollable-menu
 {
@@ -183,9 +233,6 @@
    
 }
 
-.container{
-    background-color:black;
-}
 
 @media (min-width: 768px)
 {
@@ -203,7 +250,7 @@ hr{
 footer{
 
     clear: both;
-    height: 70px;
+    height: 50px;
     width: 100%;
     text-align: center;
     margin: 0;
@@ -217,12 +264,7 @@ footer{
 
 }
 
-/* Características generales de la página */
 
-h1,h2,h3,h4,h5,h6 {
-  color: white;
-  font-family: sans-serif;
-}
 
 
 

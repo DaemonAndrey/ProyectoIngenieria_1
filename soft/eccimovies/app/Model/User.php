@@ -80,14 +80,7 @@ class User extends AppModel {
 										'allowEmpty' => false,
 										'message' => 'Debes seleccionar uno.'
 										)
-						),
-        'role' => array(
-					'valid' => array(
-								'rule' => array('inList', array(0, 1, 2)),
-								'allowEmpty' => false,
-								'message' => 'Debes seleccionar uno.'
-								)
-					)	
+						)	
     );
 	
 	public function beforeSave($options = array())
@@ -112,7 +105,5 @@ class User extends AppModel {
         }
         return $this->data[$this->name][$otherfield] === $this->data[$this->name][$fname];
     } 
-
 }
-
 ?>

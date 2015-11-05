@@ -32,19 +32,55 @@ class PagesController extends AppController {
     
     public $helpers = array('Html', 'Form', 'Flash');
 	public $components = array('Flash');
+    
 
 /**
  * This controller does not use a model
  *
  * @var array
  */
+    public function beforeFilter()
+	{
+        parent::beforeFilter();
+        $this->Auth->allow();
+		$this->Auth->authError = 'Please login to view that page';
+		$this->set('custom',$this->_isCustomer());
+		$this->set('admin',$this->_isAdmin());
+		$this->set('manager',$this->_isManager());
+		$this->set('user_id', $this->Auth->User('id'));
+		$this->set('username', $this->Auth->User('username'));
+    }
+    
 	public $uses = array();
 
     
     public function home()
     {
         $this->set('catego',$this->Page->find('all'));
+        
+        $products = $this->getNewReleases();
+        
+        $this->set('Product', $products);
     }
+    
+    /**
+    Esta función devuelve las películas más recientes
+    **/
+    private function getNewReleases()
+    {
+        $this->loadModel('Product');
+        
+        /**La siguiente instrucción es para obtener cuál es el año más reciente**/
+        
+        $lastYear = $this->Product->find('all', array( 'fields'=>array('MAX(Product.release_year)')));
+        
+        /**La siguiente instrucción utiliza el dato obtenido anteriormente para filtrar la consulta**/
+        $products = $this->Product->find('all',array('recursive' => -1, 'conditions' => array('Product.release_year '=>$lastYear[0][0]), 'fields'=>array('Product.id','Product.name', 'Product.code')));
+        
+        return $products;
+        
+    }
+    
 /**
  * Displays a view
  *

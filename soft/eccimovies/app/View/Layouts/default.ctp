@@ -1,14 +1,9 @@
 <!DOCTYPE html>
 <html>
-<head>
-
-    
-
-    
+<head> 
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-
    <link href='https://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
 
 	<title>
@@ -18,28 +13,25 @@
 	<?php
 		echo $this->Html->meta('icon');
 		echo $this->Html->css('cake.generic');
-       
-
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
 		echo $this->fetch('script');
-    
 	?>
     
         <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     
-
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-
+    
     <!-- Latest compiled JavaScript -->
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     
-
+        <?php echo $this->Js->writeBuffer(array('cache'=>TRUE));?>
    
 </head>
 <body>
+   
 	<div class="container">
 		 
         <header class="page">
@@ -74,43 +66,120 @@
                    
                 <!-- FORMULARIO -->
                 
-                <div class="col-md-4">
-                    
-
-                    <div class="row">
-                        <div class="col-md-12" id="principal-header-nav">
+                 <div class="col-md-4">
+                         <div class="row">
+                        <div class="col-md-14" id="principal-header-nav">
                             <nav id="header-nav">
                                 <ul>
-                                    <!--LOGIN -->
-                                    <li id="login">
+								
+                                    <?php if($user_id == null)
+                                    { 
+										?>
+										<!--LOGIN -->
+										<li id="login">
+											<?php echo $this->Html->link(	'<span class="glyphicon glyphicon-log-in"> </span> LOGIN ',
+																			array(	'controller'=>'users',
+																					'action'=>'login'
+																				),
+																			array('escape'=>false)
+																		);
+											?>  
+										</li>
+
+										<!-- SIGNUP -->
+ 
+										<li id="signup">
+											<?php echo $this->Html->link(	'<span class="glyphicon glyphicon-user" id="signup-button"> </span>SIGN UP ',
+																			array(	'controller'=>'users',
+																					'action'=>'signup'
+																				),
+																			array('escape'=>false)
+																		);
+											?>		 
+										</li>
+										<?php
+									}
+									?>                                       
                                     
-                                        <?php echo $this->Html->link('<span class="glyphicon glyphicon-log-in">                                             </span> LOGIN ',   array('controller'=>'users',                                                                    'action'=>'login'),array('escape'=>false));
-                                        ?>
+                                    <?php if($user_id != null)
+									{ 
+										// Si soy cliente
+										if($custom)
+										{
+											?>
+											<!--CART-->
+<!--CART-->
+											<li id="shoppingCart">
+												<?php
                                             
-                                    </li>
+												echo $this->Html->link(	'<span class="glyphicon glyphicon-shopping-cart"></span> CART ',
+																		array('controller'=>'carts','action' => 'edit', $_SESSION['Auth']['User']['cart']),
+																		array('target' => '_self', 'escape' => false)
+																	)
+												?>
+											</li>
+											<?php
+										}
+										// Si soy administrador
+										if($admin)
+										{
+											?>
+											<!--MANAGE-->
+											<li id="shoppingCart">
+												<?php
+												echo $this->Html->link(	'<span class="glyphicon glyphicon-tasks"></span> MANAGE ',
+																		array('controller'=>'users','action' => 'manage'),
+																		array('target' => '_self', 'escape' => false)
+																	)
+												?>
+											</li>
+											<?php
+										}
+										// Si soy manager
+										if($manager)
+										{
+											?>
+											<!--CHARTS-->
+											<li id="shoppingCart">
+												<?php
+												echo $this->Html->link(	'<span class="glyphicon glyphicon-stats"></span> STATS ',
+																		array('controller'=>'pages','action' => 'home'),
+																		array('target' => '_self', 'escape' => false)
+																	)
+												?>
+											</li>
+											<?php
+										}
+										?>
+
+										<!-- MY ACCOUNT -->									
+										<li id="account">
+											<?php
+											echo $this->Html->link(	'<span class="glyphicon glyphicon-cog" id="account-button"></span> MY ACCOUNT ',
+																	array('controller'=>'users','action' => 'index'),
+																	array('target' => '_self', 'escape' => false)
+																)
+											?>                                  
+										</li>
+										
+										<!--LOGOUT-->
+										<li id="logout">
+											<?php
+											echo $this->Html->link(	'<span class="glyphicon glyphicon-log-out"></span> LOGOUT ',
+																	array('controller'=>'users','action' => 'logout','display'),
+																	array('target' => '_self', 'escape' => false)
+																)
+											?>
+										</li>
+										<?php
+									}
+									?> 
                                     
-                                    <!-- SIGNUP -->
-                                    
-                                    <li id="signup">
-                                        
-                                        <?php echo $this->Html->link('<span class="glyphicon glyphicon-user" id="signup-button">                                                </span>SIGN UP ',                                                                                              array('controller'=>'users','action'=>'signup'),array('escape'=>false));
-                                        ?>
-                                                     
-                                    </li>
-                                    
-                                    <!--CARRITO-->
-                                    <li>
-                                        <?php echo $this->Html->link('<span class="glyphicon glyphicon-shopping-cart"></span>Cart ',array('controller'=>'pages','action' => 'home','display'), array('target' => '_self', 'escape' => false))
-                                        ?>
-                                        
-                                    </li>
                                 </ul>
                             
                             </nav>
                         </div>
                     </div>
-                    
-                    
                     
                     <!--BUSCAR -->
                     
@@ -170,5 +239,6 @@
         </footer>
 	</div>
 	<?php echo $this->element('sql_dump'); ?>
+	
 </body>
 </html>

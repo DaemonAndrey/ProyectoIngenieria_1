@@ -46,9 +46,34 @@ background-color:#222;
 	list-style-type: none;
 }
 
-.caja {
-	width: 35em;
-	text-align: center;
-	margin: 0 auto;
-	padding: 20 px;
+.catHeader h2{
+    color:white;
+    text-align: center;
+}
+
+.caja h2{
+    color: yellowgreen;
+    text-align: center;
+}
+
+#fom-button{
+    display: inline-block;
+    list-style-type: none;
+    border-radius: 8px;
+    margin-left: 525px;
+	background-color: yellowgreen;
+    border-color: white;
+    
+}
+
+
+#fom-button:hover{
+	background-color:#6E6E6E;
+}
+
+#fom-button a{
+	text-decoration:none;
+	line-height: 30px;
+	color: white;
+	padding: 5px;
 }

@@ -33,11 +33,12 @@ input {
       border-radius: 5px;
       -webkit-box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.06);
       box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.06);
+	  vertical-
 
 }
 
 input::-webkit-input-placeholder {
-color: grey !important;
+	color: grey !important;
 }
 
 select {
@@ -79,8 +80,7 @@ select {
     margin-left: 370px;
     padding-right = 1px;
     width: 120px;
-    height: 50px;
-    
+    height: 50px; 
 }
 
 .error-message{

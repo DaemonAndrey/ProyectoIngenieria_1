@@ -2,60 +2,59 @@
 
 App::uses('AppController', 'Controller');
 
-class UsersController extends AppController {
+class UsersController extends AppController 
+{
 	public $helpers = array('Html', 'Form', 'Flash');
 	public $components = array('Flash');
 	
-	
-	public function beforeFilter() {
+	public function beforeFilter()
+	{
         parent::beforeFilter();
-        $this->Auth->allow('signup', 'logout', 'logged');
+        $this->Auth->allow('signup');
+		$this->Auth->authError = 'Please login to view that page';
+		$this->set('custom',$this->_isCustomer());
+		$this->set('admin',$this->_isAdmin());
+		$this->set('manager',$this->_isManager());
+		$this->set('user_id', $this->Auth->User('id'));
+		$this->set('username', $this->Auth->User('username'));
     }
 	
-	public function logged()
+	function _isCustomer()
 	{
-		//return $this->redirect(array('action' => 'logged')); 
+		$custom = FALSE;
+		if ($this->Auth->User('role') == 0)
+		{
+			$custom = TRUE;
+		}
+		return $custom;
 	}
 	
+	function _isAdmin()
+	{
+		$admin = FALSE;
+		if ($this->Auth->User('role') == 1)
+		{
+			$admin = TRUE;
+		}
+		return $admin;
+	}
 	
+	function _isManager()
+	{
+		$manager = FALSE;
+		if ($this->Auth->User('role') == 2)
+		{
+			$manager = TRUE;
+		}
+		return $manager;
+	}
+
 	// Se pasa a la vista de HOME
 	public function index()
 	{
         $this->User->recursive = 0;
         $this->set('Pagina Principal', $this->paginate());
     }
-	
-	// Se pasa a la vista de LOGIN
-	public function login()
-	{
-		// Por si falla el INSERT
-		try
-		{
-			if ($this->request->is('post'))
-			{
-				// Si pudo autenticar
-				if ($this->Auth->login())
-				{
-					return $this->redirect($this->Auth->redirectURL());
-					//return $this->redirect(array('action' => 'view')); // Se pasa a la vista de LOGEADO
-				}
-				else
-				{
-					throw new Exception('Exception');
-				}
-			}
-		}
-		catch( Exception $e )
-		{
-			$this->Flash->set(__('Correo o contraseña inválido'));
-		}
-	}
-	
-	// Se deslogea
-	public function logout()
-	{
-		return $this->redirect($this->Auth->logout($this->data));
-	}
 	
 	public function view($id = null)
 	{
@@ -102,7 +101,46 @@ class UsersController extends AppController {
 				$this->Flash->set(__('Oops ! Algo ha salido mal. Inténtalo de nuevo.') );
 			}
 		}
-		
     }
+	
+	// Se pasa a la vista de LOGIN
+	public function login()
+	{
+		// Por si falla el INSERT
+		try
+		{
+			if ($this->request->is('post'))
+			{
+				// Si pudo autenticar
+				if ($this->Auth->login())
+				{
+					return $this->redirect($this->Auth->redirectURL());
+					//return $this->redirect(array('action' => 'view')); // Se pasa a la vista de LOGEADO
+				}
+				else
+				{
+					throw new Exception('Exception');
+				}
+			}
+		}
+		catch( Exception $e )
+		{
+			$this->Flash->set(__('Correo o contraseña inválido'));
+		}
+	}
+	
+	// Hace logout
+	public function logout()
+	{
+		if($this->Auth->User('id') != null)
+		{
+			return $this->redirect($this->Auth->logout($this->data));
+		}
+	}
+	
+	// Para administrar
+	public function manage()
+	{
+	}
 }
 ?>

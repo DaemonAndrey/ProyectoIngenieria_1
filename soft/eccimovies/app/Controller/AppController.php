@@ -38,11 +38,12 @@ class AppController extends Controller {
 							'Session',
 							'Auth' => array(
 										'loginRedirect' => array(
-															'action' => 'logged'
+															'controller' => 'pages',
+															'action' => 'home', 'display'
 															),
 										'logoutRedirect' => array(
 															'controller' => 'pages',
-															'action' => 'display','home'
+															'action' => 'home', 'display'
 															),
 										'authenticate' => array(
 															'Form' => array(
@@ -54,12 +55,65 @@ class AppController extends Controller {
                                 
 										)
 							);
-    
+							
+	public function isAuthorized($user)
+	{
+		// Admin can access every action
+		if (isset($user['role']) && $user['role'] === 1)
+		{
+			return true;
+		}
 
-
+		// Default deny
+		return false;
+	}
 	
-    public function beforeFilter() {
+// Se deslogea
+	public function logout()
+	{
+		return $this->redirect($this->Auth->logout($this->data));
+	}
+    
+    public function beforeFilter()
+	{
+        parent::beforeFilter();
         $this->Auth->allow();
+		$this->Auth->authError = 'Please login to view that page';
+		$this->set('custom',$this->_isCustomer());
+		$this->set('admin',$this->_isAdmin());
+		$this->set('manager',$this->_isManager());
+		$this->set('user_id', $this->Auth->User('id'));
+		$this->set('username', $this->Auth->User('username'));
     }
+    
+    function _isCustomer()
+	{
+		$custom = FALSE;
+		if ($this->Auth->User('role') == 0)
+		{
+			$custom = TRUE;
+		}
+		return $custom;
+	}
+    
+	function _isAdmin()
+	{
+		$admin = FALSE;
+		if ($this->Auth->User('role') == 1)
+		{
+			$admin = TRUE;
+		}
+		return $admin;
+	}
+	
+	function _isManager()
+	{
+		$manager = FALSE;
+		if ($this->Auth->User('role') == 2)
+		{
+			$manager = TRUE;
+		}
+		return $manager;
+	}
 	
 }
