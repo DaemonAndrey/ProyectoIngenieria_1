@@ -57,7 +57,7 @@ INSERT INTO `users` (`id`, `username`, `password`, `first_name`, `last_name`, `g
 
 INSERT INTO addresses ( user_id, type, country, state, zipcode, full_address ) VALUES
 	(	1,		'Entrega',		'United States',	'Massachusetts',	'02086',	'2956 Princeton, Boston, Massachusetts, United States, 02086'							),
-	(	1,		'Entrega',		'United States',	'Texas',			'02087',	'2957 Hawthorne, Dallas, Texas, United States, 02087'									),	
+	(	1,		'Entrega',		'United States',	'Texas',			'02087',	'2957 Hawthorne, Dallas, Texas, United States, 02087'									),
 	(	2,		'Domicilio',	'United States',	'Iowa', 			'50339',	'258 122nd, Des Moines, Iowa, United States, 50339'									 	),
 	(	3,		'Entrega',		'United States',	'Texas', 			'78232',	'9156 Bryn Mawr Av, Corpus Christi, Texas, United States, 78232'						),
 	(	4,		'Entrega',		'United States',	'California', 		'94074',	'4802 Morse, Oakland, California, United States, 94074'									),
@@ -136,8 +136,8 @@ INSERT INTO valid_accounts ( issuer, account, password,  funds ) VALUES
 	(	'PayPal',	'nombre.dos@paypal.com',	'nombredos',	'10000.00'),
 	(	'PayPal',	'nombre.tres@paypal.com',	'nombretres',	'10000.00'),
 	(	'PayPal',	'nombre.cuatro@paypal.com',	'nombrecuatro',	'10000.00'),
-	(	'PayPal',	'nombre.cinco@paypal.com',	'nombrecinco',	'10000.00'),
-    
+	(	'PayPal',	'nombre.cinco@paypal.com',	'nombrecinco',	'10000.00');
+
 INSERT INTO categories ( category_name ) VALUES
 	(	'Unsorted'		),
 	(	'Action'		),
@@ -196,7 +196,7 @@ INSERT INTO products ( code, name, price, stock_quantity, format, languages, sub
 	(	'TDK-7456', 'The Dark Knight', 								24.70,	95, 	'Blu-Ray', 	'English',								'English, Spanish, Portugues, Italian',	2008,	152,	2,	1,	'Directed by: Christopher Nolan; Produced by: Emma Thomas, Charles Roven, Christopher Nolan; Story by: Christopher Nolan, David S. Goyer; Music by: Hans Zimmer, James Newton Howard; Sinopsis: When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, the caped crusader must come to terms with one of the greatest psychological tests of his ability to fight injustice.'	),
 	(	'TEZ-5478', 'The Equalizer', 								17.50,	78, 	'Blu-Ray', 	'English,Spanish',						'English, Spanish, Portugues',			2014,	132,	2,	1,	'Directed by: Antoine Fuqua; Produced by: Todd Black, Jason Blumenthal, Denzel Washington, Alex Siskin, Steve Tisch, Mace Neufeld, Tony Eldridge, Michael Sloan; Story by: Michael Sloan, Richard Lindheim; Music by: Harry Gregson-Williams; Sinopsis: A man believes he has put his mysterious past behind him and has dedicated himself to beginning a new, quiet life. But when he meets a young girl under the control of ultra-violent Russian gangsters, he cant stand idly by - he has to help her.'	),
 	(	'SHP-0354', 'Sherlock Holmes', 								24.95,	97, 	'DVD', 		'English, Spanish, Italian',			'English',								2009,	128,	2,	1,	'Directed by: Guy Ritchie; Produced by: Joel Silver, Lionel Wigram, Susan Downey, Dan Lin; Story by: Lionel Wigram, Michael Robert Johnson; Music by: Hans Zimmer; Sinopsis: Detective Sherlock Holmes and his stalwart partner Watson engage in a battle of wits and brawn with a nemesis whose plot is a threat to all of England.'	),
-	(	'JQC-7000', 'American Sniper', 								28.75,	85, 	'Blu-Ray', 	'English',								'English, Spanish, Portugues, French',	2014,	133,	3,	1,	'Directed by: Clint Eastwood; Produced by: Clint Eastwood, Robert Lorenz, Andrew Lazar, Bradley Cooper, Peter Morgan; Story by: Jason Hall; Sinopsis: Navy S.E.A.L. sniper Chris Kyles pinpoint accuracy saves countless lives on the battlefield and turns him into a legend. Back home to his wife and kids after four tours of duty, however, Chris finds that it is the war he cant leave behind.'	),	
+	(	'JQC-7000', 'American Sniper', 								28.75,	85, 	'Blu-Ray', 	'English',								'English, Spanish, Portugues, French',	2014,	133,	3,	1,	'Directed by: Clint Eastwood; Produced by: Clint Eastwood, Robert Lorenz, Andrew Lazar, Bradley Cooper, Peter Morgan; Story by: Jason Hall; Sinopsis: Navy S.E.A.L. sniper Chris Kyles pinpoint accuracy saves countless lives on the battlefield and turns him into a legend. Back home to his wife and kids after four tours of duty, however, Chris finds that it is the war he cant leave behind.'	),
 	(	'BVZ-1927', 'Inception', 									40.30,	46, 	'DVD', 		'English',								'English, Spanish, Portugues',			2010,	148,	3,	1,	'Directed by: ; Produced by: ; Story by: ; Music by: ; Sinopsis:'	),
 	(	'LCY-8134', 'Lucy', 										21.35,	75, 	'Blu-Ray', 	'English',								'English, Spanish, Portugues',			2014,	89,		3,	1,	'Directed by: ; Produced by: ; Story by: ; Music by: ; Sinopsis:'	),
 	(	'WWZ-6547', 'World War Z', 									25.38,	47, 	'Blu-Ray', 	'English',								'English, Spanish, Portugues',			2013,	116,	3,	1,	'Directed by: ; Produced by: ; Story by: ; Music by: ; Sinopsis:'	),
@@ -497,7 +497,7 @@ INSERT INTO actors ( full_name ) VALUES
 	( 	'Jared Leto'			),
 	( 	'Elliot Cowan'			);
 
-    
+
 INSERT INTO actors_products ( actor_id, product_id ) VALUES
 	(	1,		1		),
 	(	2,		1		),
@@ -674,12 +674,11 @@ INSERT INTO actors_products ( actor_id, product_id ) VALUES
 	(	156,	37		),
 	(	157,	37		),
 	(	158,	37		);
-    
+
 INSERT INTO carts ( user_id, subtotal ) VALUES
 	(	1,	80.46 );
-	
+
 INSERT INTO carts_products ( cart_id, product_id, quantity ) VALUES
 	(	1,	1, 3 	),
 	(	1,	2, 2 	),
 	(	1,	3, 1 	);
-	
