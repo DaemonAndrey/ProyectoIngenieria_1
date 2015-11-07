@@ -13,15 +13,16 @@
     echo "</div>";
 
     echo "<div class = 'row'>";
-
       echo "<label class='col-md-3 control-label col-xs-12'>First Name: </label>";
-
-      echo "<div class='form-group col-md-3 col-xs-12'>";
+      echo "<div class='form-group col-md-9 col-xs-12'>";
       echo $this->Form->input('first_name',array( 'class'=>'form-control','placeholder' => 'Juan' ) );
       echo "</div>";
+    echo "</div>";
+
+    echo "<div class = 'row'>";
 
       echo "<label class='col-md-3 control-label col-xs-12'>Last Name: </label>";
-      echo "<div class='form-group col-md-3 col-xs-12'>";
+      echo "<div class='form-group col-md-9 col-xs-12'>";
       echo $this->Form->input('last_name',array( 'class'=>'form-control','class'=>'form-control','placeholder' => 'Rojas Fernández' ));
       echo "</div>";
 
@@ -35,8 +36,8 @@
     echo "</div>";
 
     echo "<div class = 'row'>";
-      echo "<label class='col-md-4 control-label col-xs-12'>Confirm Password: </label>";
-      echo "<div class='form-group col-md-8 col-xs-12'>";
+      echo "<label class='col-md-5 control-label col-xs-12'>Confirm Password: </label>";
+      echo "<div class='form-group col-md-7 col-xs-12'>";
       echo $this->Form->input('repass',array('class'=>'form-control','id'=>'repass_id','type' => 'password','placeholder' => 'Passwords must match',array('minLength', '8')));
       echo "</div>";
     echo "</div>";

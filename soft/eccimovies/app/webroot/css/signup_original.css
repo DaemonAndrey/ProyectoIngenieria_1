@@ -4,7 +4,7 @@
   font-weight: 100;
   letter-spacing:1px;
   font-size: 125%;
-  width: 650px;
+  width: 450px;
   margin: auto;
 }
 
@@ -35,11 +35,12 @@
 }
 
 #UserFirstName{
-  width: 165px;
+  width: 98%;
+  margin: auto;
 }
 
 #UserLastName{
-  width: 165px;
+  width: 98%;
 }
 
 #pass_id{
@@ -66,7 +67,6 @@
 
 #button-signup{
   margin-left: 50%;
-
   background: deepskyblue;
   border: none;
   font-family:sans-serif;
