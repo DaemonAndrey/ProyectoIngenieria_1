@@ -1,0 +1,200 @@
+#principal-header-text-invoice{
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 30px;
+    color:white;
+    font-family: sans-serif;
+    text-shadow: 1px 1px 1px black;
+}
+
+label {
+    font-size: 110%;
+    margin-bottom:3px;
+    color:white;
+    width: 150px;
+    line-height: 40px;
+    padding-right: 10px;
+    padding-top: 10px;
+    font-weight: 100;
+    text-align: right;
+    letter-spacing: 1px;
+    font-family: sans-serif;
+    margin-top: 10px;  
+}
+
+input {
+      padding: 0 10px;
+      width: 300px;
+      height: 40px;
+      color: black;
+      background:#d3d3d3;
+      border: 0;
+      border-radius: 5px;
+      -webkit-box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.06);
+      box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.06);
+}
+
+input::-webkit-input-placeholder {
+color: grey !important;
+}
+
+select {
+      padding: 0 10px;
+      height: 40px;
+      color: black;
+      text-shadow: 1px 1px 1px darkgrey;
+      background:#d3d3d3;
+      border: 0;
+      border-radius: 5px;
+      -webkit-box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.06);
+      box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.06);
+
+}
+
+#button-buy{
+    background: deepskyblue;
+    border: none;
+    font-family:sans-serif;
+    border-radius: 7px;
+    font-weight : bold;
+    color : white;
+    margin-bottom: 20px;
+    margin-left: 370px;
+    padding-right = 1px;
+    width: 120px;
+    height: 50px;
+    
+}
+
+.error-message{
+    color: orange;
+    margin-left: 200px;
+}
+
+#nothing{
+    color: red;
+    margin-left: 330px;
+}
+
+.message{
+    color: orangered;
+    margin-left: 200px;
+    weight: bold;
+    font-size: 200%;
+}
+
+hr{
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(255, 255, 255, 0.75), rgba(0, 0, 0, 0));
+}
+
+th{
+    color: white;
+    font-family: sans-serif;
+    font-size: 17pt;
+    letter-spacing: 1px;
+    text-align: center;
+    background-color: #D94119;
+
+}
+
+td{
+    color: white;
+    font-family: sans-serif;
+    font-size: 14pt;
+    letter-spacing: 1px;
+    text-align: center;
+    background-color: darkcyan;
+}
+
+p{
+    text-align: right;
+    font-family: sans-serif;
+    font-size: 14pt;
+    color: white;
+}
+
+table {
+    width: 40%;
+    margin-top: 20px;
+}
+
+#totalAmmount{
+    font-family: sans-serif;
+    font-size: 200%;
+    color: deepskyblue;
+    margin-right: 95px;
+}
+
+#pay-button{
+    background: yellowgreen;
+    border: none;
+    font-family:sans-serif;
+    text-shadow: 1px 1px 1px darkgrey;
+    border-radius: 7px;
+    font-weight: bold;
+    color : white;
+    width: 180px;
+    height: 50px;
+    font-size: 120%;
+    margin-right: 100px;
+    margin-top: 10px;
+}
+
+#continue-button{
+    background: yellowgreen;
+    border: none;
+    font-family:sans-serif;
+    text-shadow: 1px 1px 1px darkgrey;
+    border-radius: 7px;
+    font-weight: bold;
+    color : white;
+    width: 180px;
+    height: 50px;
+    font-size: 120%;
+    margin-left: 50px;
+}
+
+.label-class{
+    font-size: 110%;
+    color:white;
+    font-size: 14pt;
+    text-align: right;
+    letter-spacing: 1px;
+    font-family: sans-serif;
+}
+
+#purchase-h
+{
+    color: greenyellow;
+    margin-left: 20px;
+}
+
+#purchase-h2
+{
+    margin-left: 20px;
+}
+
+.label-class1{ 
+    text-align: left; 
+}
+
+.ammount-class{
+    font-size: 110%;
+    color:white;
+    font-size: 14pt;
+    text-align: left;
+    letter-spacing: 1px;
+    font-family: sans-serif;
+}
+
+@media only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 1024px)  {
+
+	/* Force table to not be like tables anymore */
+	table, thead, tbody, th, td, tr { 
+		display: block; 
+}
+    
+    

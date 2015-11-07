@@ -1,0 +1,183 @@
+    hr{
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(255, 255, 255, 0.75), rgba(0, 0, 0, 0));
+}
+
+#fom-button{
+    display: inline-block;
+    list-style-type: none;
+    border-radius: 8px;
+    margin-left: 525px;
+	background-color: yellowgreen;
+    border-color: white;
+    
+}
+
+
+#fom-button:hover{
+	background-color:#6E6E6E;
+}
+
+#fom-button a{
+	text-decoration:none;
+	line-height: 30px;
+	color: white;
+	padding: 5px;
+}
+
+.actions{
+    width: 5%;
+}
+caption {
+  padding: 0.3em;
+  color: #fff;
+  background: #000;
+}
+
+tbody tr:nth-child(odd) {
+  background: #111;
+}
+
+label
+{
+    font-family: sans-serif;
+    color: lightgrey;
+}
+
+h1
+{
+    padding-top: 2%;
+    padding-bottom: 2%;
+}
+
+#img-product{
+    margin-left: 100px;
+    margin-right: 30px;
+    margin-top: 50px;
+}
+
+table tr th>a, th, tr td a{
+    color: white;
+}
+
+td{
+    color: white;
+    font-family: sans-serif;
+    font-size: 12pt;
+    letter-spacing: 1px;
+    background-color: #1C1C1C;
+}
+
+#addCartBtn
+{
+    background: yellowgreen;
+    border: none;
+    font-family:sans-serif;
+    text-shadow: 1px 1px 1px darkgrey;
+    border-radius: 7px;
+    font-weight: bold;
+    color : white;
+    width: 128px;
+    height: 34px;
+    font-size: 80%;
+    margin-right: 200px;
+    margin-left: 5px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    
+}
+
+#message{
+    color: greenyellow;
+    font-family: sans-serif;
+}
+
+@media only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 1024px)  {
+
+	/* Force table to not be like tables anymore */
+	table, thead, tbody, th, td, tr { 
+		display: block; 
+}
+    
+table { width: 100%; 
+border-collapse: collapse;}
+
+input::-webkit-input-placeholder {
+	color: grey !important;
+}
+
+label {
+	font-size: 110%;
+	margin-bottom:3px;
+    color:white;
+    width: 200px;
+    line-height: 40px;
+    padding-right: 10px;
+    padding-top: 10px;
+    font-weight: 100;
+    text-align: right;
+    letter-spacing: 1px;
+    font-family: sans-serif;
+	vertical-align: middle;
+}
+
+input {
+      padding: 0 10px;
+      width: 300px;
+      height: 50px;
+      color: black;
+      background:#d3d3d3;
+      border: 0;
+      border-radius: 5px;
+      -webkit-box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.06);
+      box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.06);
+	  vertical-align: middle;
+      margin-top: 100px;
+      margin-left: 30px;
+      margin-right: 30px;
+      margin-bottom: 30px;
+}
+
+select {
+      padding: 0 10px;
+      height: 40px;
+      color: black;
+      text-shadow: 1px 1px 1px darkgrey;
+      background:#d3d3d3;
+      border: 0;
+      border-radius: 5px;
+      -webkit-box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.06);
+      box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.06);
+	  vertical-align: middle;
+}
+
+input{
+    border-radius: 7px;
+}
+
+textarea{
+    border-radius: 7px;
+}
+
+/**admin_index.ctp**/
+
+.product_index>h1, .product_index>p>a{
+    color:white;
+}
+
+.
+{
+    width: 50%;
+}
+
+input[type="text"], input[type="number"], select
+{
+	width: 300px;
+}
+
+.product_add form fieldset textarea
+{
+	width: 250px;
+}

@@ -1,0 +1,2 @@
+$(document).ready(function () {$("#submit-403596071").bind("click", function (event) {$.ajax({data:$("#submit-403596071").closest("form").serialize(), type:"post", url:"\/Movies\/soft\/eccimovies\/Products\/view\/1"});
+return false;});});
