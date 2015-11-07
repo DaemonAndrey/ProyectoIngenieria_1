@@ -54,19 +54,20 @@
 
 #UserBirthdayDay, #UserBirthdayMonth, #UserBirthdayYear {
   display: inline;
-  width: 145px;
+  width: auto;
   margin:30px 2px 0 2px;
   background-color: #d3d3d3;
 }
 
 #gender-select{
-  width: 170px;
+  width: 145px;
   margin-top: 30px;
   background-color: #d3d3d3;
+  float: left;
 }
 
 #button-signup{
-  margin-left: 50%;
+  margin-left: 40%;
   background: deepskyblue;
   border: none;
   font-family:sans-serif;
