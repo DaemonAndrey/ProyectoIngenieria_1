@@ -39,7 +39,7 @@ h2{
 
 }
 
- #tabla_categorias li li {
+#tabla_categorias li li {
 	list-style: none;
 	position: relative;
 	line-height:32px;
@@ -106,4 +106,9 @@ hr{
     margin-left: 450px;
     margin-top: 10px;
     margin: center;
+}
+
+#details-movie{
+    margin-top: -10px;
+    padding-bottom: 10px;
 }

@@ -65,7 +65,7 @@
                 <td>
                     <?php
                         $image = $post['Product']['code'].'.jpg';
-                        echo $this->Html->image($image, array('alt' => $post['Product']['name'], 'width' => '400px', 'id' => 'img-product'));
+                        echo $this->Html->image($image, array('alt' => $post['Product']['name'], 'class' => 'img-rounded', 'width' => '400px', 'id' => 'img-product'));
                     ?>
                 </td>
                 <td>
