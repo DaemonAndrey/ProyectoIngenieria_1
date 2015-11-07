@@ -3,7 +3,7 @@
 <h2 id="principal-header-text-signup"> Registration Form </h2>
 <?php
     echo $this->Html->css('signup_original');
-    echo $this->Form->create('User', array('url'=> array('action'=>'login'), 'type' => 'post', 'class'=>'form-horizontal', 'inputDefaults' => array('label'=>false, 'div'=>false)));
+    echo $this->Form->create('User', array('url'=> array('action'=>'signup'), 'type' => 'post', 'class'=>'form-horizontal', 'inputDefaults' => array('label'=>false, 'div'=>false)));
 
     echo "<div class = 'row'>";
       echo "<label class='col-md-3 control-label col-xs-12'>E-mail: </label>";
