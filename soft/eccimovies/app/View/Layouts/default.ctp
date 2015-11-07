@@ -115,7 +115,7 @@
 
 
                                $options = array('controller'=>'carts','action' => 'edit', -1);
-
+                              
                               if(isset($_SESSION['Auth']['User']['cart']))
                               {
                                 $options = array('controller'=>'carts','action' => 'edit', $_SESSION['Auth']['User']['cart']);
