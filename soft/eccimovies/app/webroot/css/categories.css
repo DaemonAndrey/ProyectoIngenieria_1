@@ -107,3 +107,8 @@ hr{
     margin-top: 10px;
     margin: center;
 }
+
+#details-movie{
+    margin-top: -10px;
+    padding-bottom: 10px;
+}

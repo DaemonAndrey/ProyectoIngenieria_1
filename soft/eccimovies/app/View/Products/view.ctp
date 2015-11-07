@@ -7,7 +7,7 @@
                 <span class="sr-only">Toggle Navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
+                <span class="icon-bar"></span> 
             </button>
         </div>
 
@@ -31,7 +31,7 @@
                                 </a>
                             </li>
 
-                           <?php
+                           <?php 
                         }
                         endforeach; ?>
                        <?php unset($cat);?>
@@ -45,7 +45,7 @@
                 <li><a href="#">TRENDING BLU-RAY</a></li>
                 <li><a href="#">TOP 10 SELLERS</a></li>
             </ul>
-        </div>
+        </div> 
     </div>
 
 </div>
@@ -59,13 +59,16 @@
 </div>
 
 <div class="row">
-    <div class="col-md-12">
-        <table class="table table-responsive">
+    <div class="col-md-12">    
+        <table class="table table-responsive">  
             <tr>
                 <td>
-                    <?php
+                    <?php 
                         $image = $post['Product']['code'].'.jpg';
-                        echo $this->Html->image($image, array('alt' => $post['Product']['name'], 'width' => '400px', 'id' => 'img-product'));
+                        echo $this->Html->image($image, array('alt' => $post['Product']['name'],
+                                                              'class' => 'img-rounded',
+                                                              'width' => '400px', 
+                                                              'id' => 'img-product'));
                     ?>
                 </td>
                 <td>
@@ -113,12 +116,12 @@
             </tr>
         </table>
     </div>
-</div>
+</div> 
 <hr>
 
 <p>
     <?php
-    echo "<li id = 'fom-button'>";
+    echo "<li id = 'fom-button'>"; 
     echo $this->Html->link(	'<span class="glyphicon glyphicon-home"></span> HOME ',
                             array('controller'=>'pages','action' => 'display', 'home'),
                             array('target' => '_self', 'escape' => false)
@@ -138,21 +141,13 @@ $this->Js->get('#CartsViewForm')->event('submit',
 															array(	'action' => 'ajaxRequest', 'controller' => 'carts'),
 															array(	'update' => '#message',
 																	'data' => '{subtotal:0, user_id:'.$user_id.', product_id:'.$post['Product']['id'].',quantity:$("#cartCant").val()}',
-																	'async' => true,
+																	'async' => true,    
 																	'dataExpression'=>true,
-																	'method' => 'POST',
-                                  'complete' => 'self.setInterval("updateSession()",1000);'
+																	'method' => 'POST'
 																)
 														  )
 									);
 
 
-echo $this->Js->writeBuffer();
+echo $this->Js->writeBuffer(); 
 ?>
-
-<script>
-  function updateSession()
-  {
-    location.reload();
-  }
-</script>

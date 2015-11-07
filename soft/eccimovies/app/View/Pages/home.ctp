@@ -80,7 +80,7 @@
                             <?php
                                 $temp = $Product[0];
                                 $image = $temp['Product']['code'].'.jpg';
-                                $totalImage = $this->Html->image(($image), array('alt'=>$temp['Product']['name'], 'style'=>'width:400px; height:500px')); 
+                                $totalImage = $this->Html->image(($image), array('alt'=>$temp['Product']['name'], 'style'=>'width:400px; height:600px')); 
 
                                 echo $this->Html->link($totalImage,array('controller'=> 'Products','action' => 'view', $temp['Product']['id']), array('target' => '_self', 'escape' => false));
 
@@ -103,7 +103,7 @@
                                 $image = $temp['Product']['code'].'.jpg';
 
                                 echo "<div class = 'item'>";
-                                $totalImage = $this->Html->image(($image), array('alt'=>$temp['Product']['name'], 'style'=>'width:400px; height:500px')); 
+                                $totalImage = $this->Html->image(($image), array('alt'=>$temp['Product']['name'], 'style'=>'width:400px; height:600px')); 
                                 echo $this->Html->link($totalImage,array('controller'=> 'Products','action' => 'view', $temp['Product']['id']), array('target' => '_self', 'escape' => false));
                                 
                                 

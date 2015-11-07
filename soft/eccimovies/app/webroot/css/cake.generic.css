@@ -29,7 +29,7 @@ header{
 
 /**Botones LOGIN, SIGNUP, CART **/
 #header-nav {
-    float: right;
+    float: right;   
 }
 
 /**Botones LOGIN, SIGNUP, CART **/
@@ -38,7 +38,7 @@ header{
     list-style-type: none;
     border-radius: 8px;
     margin-right: 5px;
-
+        
 }
 
 #header-nav > ul > li > a {
@@ -68,7 +68,7 @@ header{
 #principal-nav-search{
     float: left;
     margin: 5% 1% 0 10%;
-
+ 
 }
 
 #signup{
@@ -102,35 +102,35 @@ header{
 
 @media screen and (max-width:768px)
 {
-
-
+    
+    
     #header-nav > ul
     {
         padding: 0;
     }
-
-
-    #header-nav
+    
+    
+    #header-nav 
     {
         padding: 0;
         float: left;
         margin-right: 30%;
     }
-
+    
     #principal-nav-search{
         margin: 0;
         padding: 0;
     }
-
+    
     #header-nav > ul > li {
        margin-top: 5%;
     }
-
+    
     #search
     {
         margin: 0;
     }
-
+    
     #search-text
     {
         float: right;
@@ -143,13 +143,13 @@ header{
         visibility: hidden;
         display: none;
     }
-
+    
     .btn-default
     {
         display: none;
        visibility: hidden;
         margin: 0;
-
+       
     }
 
 }
@@ -181,7 +181,7 @@ header{
 }
 
 #search-text{
-    width: 180px;
+    width: 180px;  
     margin-left: 100px;
     margin-top: 20px;
     font-family: sans-serif;
@@ -230,7 +230,7 @@ header{
     max-height: 200px;
     overflow-x: hidden;
     border-radius: 3px;
-
+   
 }
 
 
@@ -264,8 +264,7 @@ footer{
 
 }
 
-.blink{
-  color:red !important;
-  background: #FC79CE !important;
 
-}
+
+
+

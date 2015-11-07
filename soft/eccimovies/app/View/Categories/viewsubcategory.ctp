@@ -73,7 +73,37 @@ if($user_id != null && $admin)
 					<?php echo $this->Html->link($this->Html->image(($product['Product']['code'].'.jpg'), array('alt' =>  $product['Product']['name'], 'class' => 'img-rounded', 'style' => 'width:200px; height:300px', 'id' => 'movies-picture-img')),
                                                     					     array('controller'=>'Products','action' => 'view', $product['Product']['id']),
                                                      					     array('target' => '_self', 'escape' => false));
-					?>											 
+					?>	
+                    <?php
+                            if($product['Product']['format'] === 'DVD')
+                            {
+                                ?>
+                                <p>
+                                    <?php echo $this->Html->image('!DVD.png', 
+                                                                  array('alt' => 'DVD format',
+                                                                        'class' => 'img-rounded',
+                                                                        'style' => 'width:200px; height:25px; margin-top:-20px', 
+                                                                        'id' => 'dvd-format'
+                                                                       )
+                                                                 ); ?>
+                                </p>
+                                <?php
+                            }
+                            else
+                            {
+                                ?>
+                                <p>
+                                    <?php echo $this->Html->image('!Bluray.png', 
+                                                                  array('alt' => 'Blu-ray format',
+                                                                        'class' => 'img-rounded',
+                                                                        'style' => 'width:200px; height:25px; margin-top:-20px', 
+                                                                        'id' => 'bluray-format'
+                                                                       )
+                                                                 ); ?>
+                                </p>
+                                <?php
+                            }
+                            ?>
 					<p id="details-movie">
 						<?php echo $this->Html->link(
 							$product['Product']['name'],
