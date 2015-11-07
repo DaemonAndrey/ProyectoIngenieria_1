@@ -2,7 +2,8 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport" content="width=device-width,user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 
    <link href='https://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
 
@@ -39,7 +40,7 @@
 
                 <!-- LOGO DE LA PÁGINA -->
 
-                <div class="col-md-2">
+                <div class="col-xs-12 col-md-2">
                    <?php echo $this->Html->link($this->Html->image('movies-logo.jpg', array('alt' => 'Bienvenido a ECCI Movies', 'class' => 'img-rounded', 'style' => 'width:200px', 'id' => 'principal-header-img')),
                     array('controller'=>'pages','action' => 'home', 'display'), array('target' => '_self', 'escape' => false));
                      ?>
@@ -48,15 +49,15 @@
 
                 <!-- NOMBRE DE LA PÁGINA -->
 
-                <div class="col-md-6" id="principal-header-text">
+                <div class="col-xs-12 col-md-6" id="principal-header-text">
 
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-xs-12 col-md-12">
                             <h1>ECCI Movies</h1>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-xs-12 col-md-12">
                             <h3>All you're looking at one click</h3>
                         </div>
                     </div>
@@ -66,9 +67,9 @@
 
                 <!-- FORMULARIO -->
 
-                 <div class="col-md-4">
+                 <div class="col-xs-12 col-md-4">
                          <div class="row">
-                        <div class="col-md-14" id="principal-header-nav">
+                        <div class="col-xs-12 col-md-14" id="principal-header-nav">
                             <nav id="header-nav">
                                 <ul>
 
@@ -191,7 +192,7 @@
                     <!--BUSCAR -->
 
                     <div class="row">
-                        <div class="col-md-12" id="principal-nav-search">
+                        <div class="col-xs-12 col-md-12" id="principal-nav-search">
 
                          <!-- BOTÓN DE BUSCAR -->
                            <?php
