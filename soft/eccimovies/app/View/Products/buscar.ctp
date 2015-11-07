@@ -9,7 +9,6 @@
             <?php foreach ($Product as $product): ?>
                 <div class="col-md-3">
                     <?php
-
                         $image = $product['Product']['code'].'.jpg';
                         echo "<tr>";
 
@@ -18,7 +17,6 @@
 
                         echo "</tr>"
                     ?>
-
                  <p id="details-movie">
                      <?php 
                         echo $this->Html->link(

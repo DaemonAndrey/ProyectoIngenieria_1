@@ -6,7 +6,7 @@ class CartsController extends AppController
 {
     public $helpers = array('Html', 'Form', 'Flash', 'Js');
     public $components = array('Flash','RequestHandler');
-
+    
 	public function beforeFilter()
 	{
         parent::beforeFilter();
@@ -18,7 +18,7 @@ class CartsController extends AppController
 		$this->set('user_id', $this->Auth->User('id'));
 		$this->set('username', $this->Auth->User('username'));
     }
-
+	
 	function _isCustomer()
 	{
 		$custom = FALSE;
@@ -28,7 +28,7 @@ class CartsController extends AppController
 		}
 		return $custom;
 	}
-
+	
 	function _isAdmin()
 	{
 		$admin = FALSE;
@@ -38,7 +38,7 @@ class CartsController extends AppController
 		}
 		return $admin;
 	}
-
+	
 	function _isManager()
 	{
 		$manager = FALSE;
@@ -47,16 +47,16 @@ class CartsController extends AppController
 			$manager = TRUE;
 		}
 		return $manager;
-	}
-
+	}	
+	
     public function index()
     {
         $this->Cart->recursive = 0;
-
+        
         // Muestra todos los carritos
         $this->set('carts', $this->Cart->find('all'));
     }
-
+    
     public function add()
     {
         // Por si falla el INSERT
@@ -64,16 +64,16 @@ class CartsController extends AppController
         {
             // Si el método que se utiliza es post
             if( $this->request->is('post') )
-            {
+            {           
                 // Se crea el nuevo carrito
                 $this->Cart->create();
-
+                
                 // Si se pudo agregar el carrito
                 if( $this->Cart->save($this->request->data) )
                 {
                     // Se pone un mensaje indicando que se creó el carrito exitosamente
                     $this->Flash->set(__('The cart has been created successfully!'));
-
+                    
                     // Se redirige a la página principal de este controlador
                     return $this->redirect( array( 'action' => 'index' ) );
                 }
@@ -100,9 +100,9 @@ class CartsController extends AppController
             }
         }
     }
-
+    
 	public function ajaxRequest()
-    {
+    { 
         if ($this->request->is('ajax'))
         {
             try
@@ -115,58 +115,56 @@ class CartsController extends AppController
                    $this->Cart->create();
 
                    if ($this->Cart->save($this->request->data))
-                   {
+                   {   
                        //Ahora obtenemos el carrito del usuario para guardarlo en el session
                        $cartId = $this->Cart->field('id',array('user_id' => $this->request->data['user_id']));
                        $_SESSION['Auth']['User']['cart'] = $cartId;
-                       $this->set('id',$cartId);
                        $this->addToCart($this->request->data);
                    }
                    else
                    {
                        throw new Exception('Exception');
                        render('view');
-                   }
-
-
+                   }   
                }
                else
                {
                    $this->addToCart($this->request->data);
                }
-
-              $this->render('success');
             }
             catch (Exception $e)
             {
             }
-        }
+        }	
     }
-
+	
 	public function addToCart($data)
     {
-        $user = $this->Cart->field('id',array('user_id' => $this->request->data['user_id']));
-
+        $user = $_SESSION['Auth']['User']['cart'];
+                
         $this->loadModel('CartProduct');
         $this->CartProduct->id = $this->CartProduct->field(	'id',
 															array('product_id'=> $data['product_id'],
 															'cart_id'=>$user)
 														);
-
+														
         if($this->CartProduct->id)
         {
             $this->CartProduct->saveField('quantity', $data['quantity']);
+            $this->render('success'); 
         }
         else
         {
             $finalData = array(	'cart_id' => $user,
 								'product_id' => $data['product_id'],
-								'quantity' => $data['quantity']
+								'quantity' => $data['quantity']          
 							);
             try
             {
-                $this->CartProduct->save($finalData);
-
+                if($this->CartProduct->save($finalData))
+                {
+                    $this->render('success');                             
+                }
             }
             catch (Exception $e)
             {
@@ -174,7 +172,7 @@ class CartsController extends AppController
             }
         }
     }
-
+	
     public function delete( $id = null )
     {
         // Si se intenta utilizar el método get para hacer la eliminación
@@ -182,7 +180,7 @@ class CartsController extends AppController
         {
             throw new MethodNotAllowedException();
         }
-
+        
         // Si se pudo eliminar el carrito
         if( $this->Cart->delete( $id ) )
         {
@@ -195,7 +193,7 @@ class CartsController extends AppController
             // Se pone un mensaje indicando que no se pudo eliminar el carrito
             $this->Flash->error(__('There has been an error while we were trying to delete your cart!'));
         }
-
+                      
         // Se redirige a la página principal de este controlador
         return $this->redirect( array( 'action' => 'index' ) );
     }
@@ -206,19 +204,19 @@ class CartsController extends AppController
         {
             throw new NotFoundException(__('Invalid request!'));
         }
-
+        
         $this->loadModel('CartProduct');
         $cartProduct = $this->CartProduct->findById( $idCartProduct );
         $idCart = $cartProduct['Cart']['id'];
         //$quantity = $cartProduct['quantity'];
-
+        
         if( !$cartProduct )
         {
             throw new NotFoundException(__('Invalid product!'));
         }
-
+        
         if( $this->request->is( array('post', 'put') ) )
-        {
+        {    
             //if( $this->CartProduct->save( $this->request->data, false ) )
             $data = $this->request->data;
             $this->CartProduct->id = $idCartProduct;
@@ -235,7 +233,7 @@ class CartsController extends AppController
             }
         }
     }
-
+    
     public function edit( $id = null )
     {
         // Si no se pasa un id por parámetro
@@ -243,20 +241,20 @@ class CartsController extends AppController
         {
             throw new NotFoundException(__('Invalid cart!'));
         }
-
+        
         // Se busca el carrito asociado a ese id
         $this->Cart->recursive = 2;
         $cart = $this->Cart->findById( $id );
         //debug($cart);
-
+        
         // Si el id del carrito no es válido
         if( !$cart )
         {
-            return $this->redirect(array('controller' => 'pages', 'action'=>'home'));
+            throw new NotFoundException(__('Invalid cart!'));
         }
-
+        
 		$this->set('post', $cart);
-
+		
         // Si la solicitud se hace por medio de los métodos post o put
         if( $this->request->is('post', 'put'))
         {
@@ -265,20 +263,20 @@ class CartsController extends AppController
             {
                 // Se pone un mensaje indicando que se canceló la acción
                 $this->Flash->success(__('The action was cancelled!'));
-
+                
                 // Se redirige a la página principal de este controlador
                 return $this->redirect( array( 'action' => 'index' ) );
             }
-
+            
             // Se pasa el id que se quiere actualizar
             $this->Cart->id = $id;
-
+            
             // Si se pudo guardar
             if( $this->Cart->save( $this->request->data ) )
             {
                 // Se pone un mensaje indicando que se editó exitosamente
                 $this->Flash->success(__('The cart has been updated successfully!'));
-
+                
                 // Se redirige a la página principal de este controlador
                 return $this->redirect(array( 'action' => 'index' ) );
             }
@@ -286,13 +284,13 @@ class CartsController extends AppController
             else
             {
                 $this->Flash->error(__('There has been an error while we were trying to update your cart!'));
-            }
+            }    
         }
         else
         {
             $this->request->data = $cart;
         }
-
+        
         // Si no hay datos nuevos
         if( !$this->request->data )
         {
@@ -300,7 +298,7 @@ class CartsController extends AppController
             $this->request->data = $cart;
         }
     }
-
+    
     public function view( $id = null )
     {
         // Si no se pasa un id por parámetro
@@ -308,20 +306,20 @@ class CartsController extends AppController
         {
             throw new NotFoundException(__('Invalid cart!'));
         }
-
+        
         // Se busca el carrito asociado a ese id
         $cart = $this->Cart->findById( $id );
-
+        
         // Si el id del carrito no es válido
         if( !$cart )
         {
             throw new NotFoundException(__('The cart you are trying to access does not exist!'));
         }
-
+        
         // Si se pasa un id y es válido entonces muestra el carrito
         $this->set('post', $cart);
     }
-
+    
     public function removeProductFromCart( $idCartProduct = null, $idCart = null )
     {
         // Si se intenta utilizar el método get para hacer la eliminación
@@ -329,23 +327,23 @@ class CartsController extends AppController
         {
             throw new MethodNotAllowedException();
         }
-
+		
         // Si el id del item en el carrito es válido
         if( $idCartProduct && $idCart )
         {
             // Se crea un ¿¿¿¿¿modelo temporal????? para CartsProducts
             $cartProduct = ClassRegistry::init('CartsProducts');
-
+            
             // Si se pudo borrar el item del carrito
             if( $cartProduct->delete( $idCartProduct, false) )
-            {
+            {   
                 // Consulta que devuelve la cantidad de items de un carrito
                 $consulta = 'SELECT COUNT(cart_id) FROM carts_products WHERE cart_id = '.$idCart;
                 $resultado = $cartProduct->query($consulta);
-
+                
                 // Cantidad de items en el carrito
                 //$conditions = array('carts_products.cart_id' => $idCart);
-                //$cantidad = $cartProduct->find('count', array('conditions' => $conditions));
+                //$cantidad = $cartProduct->find('count', array('conditions' => $conditions));                
                 $cantidad = $resultado[0][0]['COUNT(cart_id)'];
 
                 // Si ya no hay items en el carrito
@@ -370,7 +368,7 @@ class CartsController extends AppController
                     // Se redirige a la vista del carrito
                     return $this->redirect( array( 'action' => 'edit', $idCart ) );
                 }
-
+                
                 // Se pone un mensaje indicando que se eliminó el carrito exitosamente
                 $this->Flash->success(__('The product has been removed from your cart successfully!'));
             }

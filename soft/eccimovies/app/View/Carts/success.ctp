@@ -1,4 +1,1 @@
-
-<?php
-  echo "<p>Your product has been saved succefully</p>";
- ?>
+<p>Your product has been saved succefully</p>

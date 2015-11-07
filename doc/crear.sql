@@ -90,7 +90,7 @@ CREATE TABLE products
 (
 	id				INT	UNSIGNED AUTO_INCREMENT,
 	code			VARCHAR( 8 ) UNIQUE,
-	name			VARCHAR( 32 )	NOT NULL,
+	name			VARCHAR( 64 )	NOT NULL,
 	price			DECIMAL( 5, 2 )	NOT NULL DEFAULT 0,
 	stock_quantity	INT DEFAULT 0,
 	format			VARCHAR( 32 ),
