@@ -1,6 +1,6 @@
 <hr>
 
-<h2 id="principal-header-text-signup"> Registration Form </h2>
+<h2 id="principal-header-text-signup">Registration Form </h2>
 <?php
     echo $this->Html->css('signup_original');
     echo $this->Form->create('User', array('url'=> array('action'=>'signup'), 'type' => 'post', 'class'=>'form-horizontal', 'inputDefaults' => array('label'=>false, 'div'=>false)));

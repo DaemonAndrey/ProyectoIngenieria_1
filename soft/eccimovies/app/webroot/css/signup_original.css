@@ -8,6 +8,9 @@
 
 .container #content input{
   margin: 30px 0 0 0;
+  background-color: #d3d3d3;
+  color: black;
+  font-weight: bold;
 }
 
 .container #content h2{
@@ -46,12 +49,13 @@
   display: inline;
   width: 152px;
   margin:30px 2px 0 2px;
-
+  background-color: #d3d3d3;
 }
 
 #gender-select{
   width: 170px;
   margin-top: 30px;
+  background-color: #d3d3d3;
 }
 
 #button-signup{
@@ -75,7 +79,6 @@
 }
 
 label{
-  float: left;
   padding-left: 0px;
   margin: 30px 0 0 0;
 }
@@ -83,6 +86,7 @@ label{
 
 select {
       text-shadow: 1px 1px 1px darkgrey;
+
 }
 
 
