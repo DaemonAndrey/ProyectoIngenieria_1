@@ -1,0 +1,19 @@
+#navigation-bar
+{
+   background-color: #D94119;
+   color: white;
+   font-family: sans-serif;
+}
+
+.nav-buttons
+{
+    color:white;
+}
+
+a{
+    color:white;
+}
+
+.center_pagination a{
+    color:black;
+}

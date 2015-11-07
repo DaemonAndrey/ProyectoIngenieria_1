@@ -1,0 +1,109 @@
+h2{
+    color:white;
+    text-align: center;
+}
+
+.product_index a{
+    color: white;
+}
+#cabeza_tabla_categories{
+	font-family:sans-serif;
+	color: 	white;
+	width:400pt;
+	font-size:28pt;
+	margin:20pt;
+}
+#tabla_categorias ul, li, li li {
+    margin: 0;
+    padding: 0;
+
+}
+#tabla_categorias {
+	background-color:black;
+    width: 200px;
+	line-height:32px;
+	margin-left:35px;
+	margin-bottom:20px;
+}
+
+#tabla_categorias ul{
+    line-height: 25px;
+}
+
+#tabla_categorias li {
+	color: #483D8B;
+	font-size:14pt;
+    list-style: none;
+	margin-left:10pt;
+	position: relative;
+
+}
+
+ #tabla_categorias li li {
+	list-style: none;
+	position: relative;
+	line-height:32px;
+	margin:0;
+	left: 198px;
+	top: -27px;
+}
+
+#tabla_categorias ul li a {
+	width: 210px;
+	height: 35px;
+	display: block;
+	text-decoration: none;
+	color:#87CEFA;
+}
+
+#tabla_categorias ul ul {
+	position: absolute;
+	visibility: hidden;
+	top: 27px;
+}
+
+#tabla_categorias ul li:hover ul {
+	visibility: visible;
+}
+
+#tabla_categorias li:hover {
+	
+}
+
+#tabla_categorias ul li:hover ul li a:hover {
+	color:#2F4F4F;
+}
+
+#tabla_categorias a:hover {
+	font-size:20pt;
+	color: #2F4F4F;
+	font-weight: bold;
+}
+
+#tituloSubCategoria{
+    font-family:sans-serif;
+	color:deepskyblue;
+    font-size: 30px;
+	text-align:center;
+}
+hr{
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(255, 255, 255, 0.75), rgba(0, 0, 0, 0));
+}
+ 
+#addCategory-button{
+    border: none;
+    font-family:sans-serif;
+    text-shadow: 1px 1px 1px black;
+    border-radius: 7px;
+    font-weight: bold;
+    color : yellowgreen;
+    width: 180px;
+    height: 50px;
+    font-size: 120%;
+    margin-right: -400px;
+    margin-left: 450px;
+    margin-top: 10px;
+    margin: center;
+}
