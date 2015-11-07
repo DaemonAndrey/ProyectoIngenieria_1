@@ -6,6 +6,14 @@
   margin: auto;
 }
 
+.container #content input{
+  margin: 30px 0 0 0;
+}
+
+.container #content h2{
+  text-align: center;
+}
+
 .form-control{
   width: 175px;
   margin:auto;
@@ -13,78 +21,70 @@
 }
 
 #email_id{
-  width: 475px;
-  float: right;
+  width: 98%;
+  margin: auto;
+}
+
+#UserFirstName{
+  width: 170px;
+}
+
+#UserLastName{
+  width: 170px;
 }
 
 #pass_id{
-  width: 485px;
+  width: 98%;
 }
 
 #repass_id{
-  width: 430px;
+  width: 98%;
 
 }
 
 #UserBirthdayDay, #UserBirthdayMonth, #UserBirthdayYear {
   display: inline;
-  width: 165px;
+  width: 152px;
+  margin:30px 2px 0 2px;
+
+}
+
+#gender-select{
+  width: 170px;
+  margin-top: 30px;
+}
+
+#button-signup{
+  margin-left: 50%;
+
+  background: deepskyblue;
+  border: none;
+  font-family:sans-serif;
+  border-radius: 7px;
+  font-weight : bold;
+  color : white;
+  padding-right = 1px;
+  width: 170px;
+  height: 40px;
+
+}
+
+.control-label{
+
+    padding-left: 0px;
 }
 
 label{
   float: left;
+  padding-left: 0px;
+  margin: 30px 0 0 0;
 }
 
-@media screen and (max-width:400px)
-{
-  .form-control{
-    width: 270px;
-  }
-}
-
-/**
-input {
-      padding: 0 10px;
-      width: 300px;
-      height: 40px;
-      color: black;
-      background:#d3d3d3;
-      border: 0;
-      border-radius: 5px;
-      -webkit-box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.06);
-      box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.06);
-      margin-right: 150px;
-
-}
-
-input::-webkit-input-placeholder {
-	color: grey !important;
-}
 
 select {
-      padding: 0 10px;
-      height: 40px;
-      color: black;
       text-shadow: 1px 1px 1px darkgrey;
-      background:#d3d3d3;
-      border: 0;
-      border-radius: 5px;
-      -webkit-box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.06);
-      box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.06);
-
 }
 
-#button-signup{
-    background: deepskyblue;
-    border: none;
-    font-family:sans-serif;
-    border-radius: 7px;
-    font-weight : bold;
-    color : white;
-    padding-right = 1px;
-    width: 140px;
-    height: 40px;
-}
 
 
 .error-message{
@@ -108,113 +108,44 @@ hr{
 
 
 #principal-header-text-signup{
-    padding-top: 15px;
-    padding-left: 30px;
     color:white;
     font-family: sans-serif;
     text-shadow: 1px 1px 1px black;
-    margin-bottom: 30px;
-    margin-left: 435px;
 }
 
 
-label {
-  font-size: 110%;
-  margin-bottom:3px;
-    color:white;
-    width: 200px;
-    line-height: 40px;
-    padding-top: 10px;
-    padding-right: 5px;
-    font-weight: 100;
-    text-align: right;
-    letter-spacing: 1px;
-    font-family: sans-serif;
+
+
+@media screen and (max-width:400px)
+{
+  #content{
+    width:inherit;
+  }
+
+  .container #content input{
+    width: 100%;
+    margin-left: 5%;
     margin-top: 10px;
-}
+  }
 
-input {
-      padding: 0 10px;
-      width: 300px;
-      height: 40px;
-      color: black;
-      background:#d3d3d3;
-      border: 0;
-      border-radius: 5px;
-      -webkit-box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.06);
-      box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.06);
-      margin-right: 150px;
+  label{
+    margin-top: 10px;
+  }
 
-}
+  #UserBirthdayDay, #UserBirthdayMonth, #UserBirthdayYear {
+    width: 100%;
+    margin-left: 5%;
+    margin-top: 10px;
+  }
 
-input::-webkit-input-placeholder {
-	color: grey !important;
-}
-
-select {
-      padding: 0 10px;
-      height: 40px;
-      color: black;
-      text-shadow: 1px 1px 1px darkgrey;
-      background:#d3d3d3;
-      border: 0;
-      border-radius: 5px;
-      -webkit-box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.06);
-      box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.06);
+  #button-signup{
+    margin-left: 5%;
+    width: 100%;
+  }
+  #gender-select{
+    width: 100%;
+    margin-left: 5%;
+    margin-top: 10px;
+  }
 
 }
-
-#UserBirthdayDay, #UserBirthdayMonth,  #UserBirthdayYear {
-      padding: 0 10px;
-      height: 40px;
-      color: black;
-      text-shadow: 1px 1px 1px darkgrey;
-      background:#d3d3d3;
-      border: 0;
-      border-radius: 5px;
-      -webkit-box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.06);
-      box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.06);
-      margin-top: 35px;
-      margin-left: 10px
-}
-
-#UserBirthdayYear {
-    margin-right: 165px;
-}
-
-#gender-select {
-    margin-right: 370px;
-}
-
-#button-signup{
-    background: deepskyblue;
-    border: none;
-    font-family:sans-serif;
-    border-radius: 7px;
-    font-weight : bold;
-    color : white;
-    margin-bottom: 20px;
-    margin-left: 130px;
-    padding-right = 1px;
-    width: 120px;
-    height: 50px;
-}
-
-.error-message{
-    color: orange;
-    margin-left: 200px;
-}
-
-.message{
-    color: orangered;
-    margin-left: 200px;
-    font-weight: bold;
-    font-size: 200%;
-}
-
-hr{
-    border: 0;
-    height: 1px;
-    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(255, 255, 255, 0.75), rgba(0, 0, 0, 0));
-}
-**/
