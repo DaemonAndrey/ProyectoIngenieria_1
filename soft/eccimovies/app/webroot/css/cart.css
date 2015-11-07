@@ -50,7 +50,7 @@ table
     margin-top: 20px;
 }
 
-#proceed-to-checkout
+
 {
     background: yellowgreen;
     border: none;
@@ -85,5 +85,11 @@ input[type=number]
 
 #updateCart-btn
 {
+  
+}
+
+#updateCart-btn1
+{
     color: yellowgreen;
 }
+

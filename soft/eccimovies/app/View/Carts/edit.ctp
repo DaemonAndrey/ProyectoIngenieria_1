@@ -42,7 +42,7 @@
                         echo $this->Form->input('id', array('type' => 'hidden'));
 
                         echo $this->Form->input('quantity', array('type' => 'number', 'label' => false, 'min' => 1, 'max' => $cartProduct['Product']['stock_quantity'], 'value'=>$cartProduct['quantity']));
-                        echo $this->Form->button('<span class="glyphicon glyphicon-ok" id="updateCart-btn"></span>',array('type'=>'submit', 'class'=>'btn btn-default'));
+                        echo $this->Form->button('<span class="glyphicon glyphicon-ok" id="updateCart-btn1"></span>',array('type'=>'submit', 'id' => 'updateCart-btn'));
 
                         echo $this->Form->end();
                     ?>
