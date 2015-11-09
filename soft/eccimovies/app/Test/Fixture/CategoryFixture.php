@@ -3,10 +3,10 @@ class CategoryFixture extends CakeTestFixture {
 
 	public $useDbConfig = 'test';
 	public function truncate($db){ return null;	}
-    public function drop($db){ return null; }
-	
+	public function drop($db){ return null; }
+
 	public $fields = array('id' => array('type' => 'integer', 'key' => 'primary'),
-		                   'category_name' => array(
+						   'category_name' => array(
 												   'type' => 'string',
 												   'length' => 32,
 													),
