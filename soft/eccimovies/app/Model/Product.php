@@ -4,10 +4,20 @@ App::uses( 'AppModel', 'Model' );
 
 class Product extends AppModel
 {
-    
-    public $hasAndBelongsToMany = array
+
+	public $belongsTo = array(
+		'Subcategory' => array(
+			'className' => 'Subcategory',
+			'foreignKey' => 'subcategory_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		)
+	);
+
+	public $hasAndBelongsToMany = array
 	(
-        'Actor' => array(	'className' => 'Actor',
+		'Actor' => array(	'className' => 'Actor',
 							'joinTable' => 'actors_products',
 							'foreignKey' => 'product_id',
 							'associationForeignKey' => 'actor_id',
@@ -19,12 +29,12 @@ class Product extends AppModel
 							'offset' => '',
 							'finderQuery' => '',
 						)
-    );
-    
-    public $hasMany = array('CartProduct');
-	
-    /**
-    public $belongsTo = array ('Subcategory' => array(	'className' => 'Subcategory',
+	);
+
+	public $hasMany = array('CartProduct');
+
+	/**
+	public $belongsTo = array ('Subcategory' => array(	'className' => 'Subcategory',
 														'foreignKey' => 'subcategory_id'
 													),
 								'Category' => array(	'className' => 'Category',
@@ -33,13 +43,13 @@ class Product extends AppModel
 													)
 							);
 	**/
-	
-    // Valida los campos de la tabla Productos a la hora de agregar
-    public $validate = array(	'search' => array( 'regla1' => array(	'rule' => array('notBlank'),
+
+	// Valida los campos de la tabla Productos a la hora de agregar
+	public $validate = array(	'search' => array( 'regla1' => array(	'rule' => array('notBlank'),
 																		'message' => 'Debe escribir algo antes.'
 																	)
 												),
-								
+
 								'id' => array( 'regla1' => array(	'rule' => 'isUnique',
 																	'on' => 'create',
 																	'message' => 'Este código ya está registrado.'
@@ -102,7 +112,7 @@ class Product extends AppModel
 																			'message' => 'Agregue la información adicional para este producto.'
 																		),
 														)
-    );
+	);
 }
 
 ?>

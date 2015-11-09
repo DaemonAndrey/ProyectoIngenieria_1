@@ -4,26 +4,21 @@ App::uses('AppController', 'Controller');
 class AddressesController extends AppController
 {
 
-	public $helpers = array('Html', 'Form', 'Flash');
+	public $helpers = array('Js');
 	public $components = array('Paginator', 'Flash', 'Session');
-	
-	public $paginate = array(
-        'limit' => 5,
-        'order' => array('PaymentMethod.account' => 'asc')
-    );
-	
+
 	public function beforeFilter()
 	{
-        parent::beforeFilter();
-        $this->Auth->allow();
+		parent::beforeFilter();
+		$this->Auth->allow();
 		$this->Auth->authError = 'Please login to view that page';
 		$this->set('custom',$this->_isCustomer());
 		$this->set('admin',$this->_isAdmin());
 		$this->set('manager',$this->_isManager());
 		$this->set('user_id', $this->Auth->User('id'));
 		$this->set('username', $this->Auth->User('username'));
-    }
-	
+	}
+
 	function _isCustomer()
 	{
 		$custom = FALSE;
@@ -33,7 +28,7 @@ class AddressesController extends AppController
 		}
 		return $custom;
 	}
-	
+
 	function _isAdmin()
 	{
 		$admin = FALSE;
@@ -43,7 +38,7 @@ class AddressesController extends AppController
 		}
 		return $admin;
 	}
-	
+
 	function _isManager()
 	{
 		$manager = FALSE;
@@ -60,9 +55,7 @@ class AddressesController extends AppController
  */
 	public function index()
 	{
-		//$this->Address->recursive = 0;
-		//$this->Paginator->settings = $this->paginate;
-		$this->set('addresses', $this->Address->find('all'));
+		$this->set('addresses', $this->Address->find('all', array('recursive' => 2)));
 	}
 
 /**
@@ -78,14 +71,14 @@ class AddressesController extends AppController
 		{
 			throw new NotFoundException(__('Invalid address'));
 		}
-		$address = $this->Address->findById($id);
-		
-		if( !$address )
-        {
-            throw new NotFoundException(__('Invalid address.'));
-        }
+		$address = $this->Address->find('first', array('conditions' => array('Address.id' => $id), 'recursive' => 2));
 
-        $this->set('address', $address);
+		if( !$address )
+		{
+			throw new NotFoundException(__('Invalid address.'));
+		}
+
+		$this->set('address', $address);
 	}
 
 /**
@@ -112,26 +105,30 @@ class AddressesController extends AppController
 					return $this->redirect(array('action' => 'index'));
 				}
 				// Si no puedo agregar
-                else
-                {
-                    throw new Exception('Exception');
-                }
+				else
+				{
+					throw new Exception('Exception');
+				}
+			} else {
+				$countries = $this->Address->State->Country->find('list');
+				$states = $this->Address->State->find('list');
+				$this->set(compact('countries', 'states'));
 			}
 		}
 		catch( Exception $e )
-        {
-            // Si la excepción es por PRIMARY KEY
-            if( $e->getCode() == 23000 )
-            {
-                $this->Flash->set(__('This address is already registered!'));
-            }
-            // Si la excepción es por otra cosa
-            else
-            {
+		{
+			// Si la excepción es por PRIMARY KEY
+			if( $e->getCode() == 23000 )
+			{
+				$this->Flash->set(__('This address is already registered!'));
+			}
+			// Si la excepción es por otra cosa
+			else
+			{
 				echo $e->getCode();
-                $this->Flash->set(__('Oops! Something went wrong. Try again.'));
-            }
-        }
+				$this->Flash->set(__('Oops! Something went wrong. Try again.'));
+			}
+		}
 	}
 
 /**
@@ -143,15 +140,15 @@ class AddressesController extends AppController
  */
 	public function edit($id = null)
 	{
-        
+
 		if (!$this->Address->exists($id))
 		{
 			throw new NotFoundException(__('Invalid address'));
 		}
-        $address = $this->Address->findById($id);
+		$address = $this->Address->findById($id);
 
-        $this->set('address', $address);
-        
+		$this->set('address', $address);
+
 		if ($this->request->is(array('post', 'put')))
 		{
 			if (isset( $this->request->data['cancel']))
@@ -171,8 +168,12 @@ class AddressesController extends AppController
 		}
 		else
 		{
-			$options = array('conditions' => array('Address.' . $this->Address->primaryKey => $id));
+			$countries = $this->Address->State->Country->find('list');
+			$states = $this->Address->State->find('list');
+			$this->set(compact('countries', 'states'));
+			$options = array('conditions' => array('Address.' . $this->Address->primaryKey => $id), 'recursive' => 2);
 			$this->request->data = $this->Address->find('first', $options);
+			$this->request->data['Address']['country_id'] = $this->request->data['State']['country_id'];
 		}
 	}
 

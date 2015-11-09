@@ -6,7 +6,7 @@ class SubcategoriesController extends AppController
 {
 	public $helpers = array('Html', 'Form');
 	public $components = array('Flash');
-	
+
 	public function beforeFilter()
 	{
         parent::beforeFilter();
@@ -18,7 +18,7 @@ class SubcategoriesController extends AppController
 		$this->set('user_id', $this->Auth->User('id'));
 		$this->set('username', $this->Auth->User('username'));
     }
-	
+
 	function _isCustomer()
 	{
 		$custom = FALSE;
@@ -28,7 +28,7 @@ class SubcategoriesController extends AppController
 		}
 		return $custom;
 	}
-	
+
 	function _isAdmin()
 	{
 		$admin = FALSE;
@@ -38,7 +38,7 @@ class SubcategoriesController extends AppController
 		}
 		return $admin;
 	}
-	
+
 	function _isManager()
 	{
 		$manager = FALSE;
@@ -61,11 +61,11 @@ class SubcategoriesController extends AppController
         }
 
         $subcategory = $this->Subcategory->findById($id);
-		
+
         if (!$subcategory) {
             throw new NotFoundException(__('Invalid subcategory'));
         }
-		
+
         $this->set('subcategory', $subcategory);
     }
 
@@ -78,15 +78,15 @@ class SubcategoriesController extends AppController
 				$this->Flash->success(__('Acción cancelada.', true));
 				return $this->redirect(array('controller' => 'categories', 'action' => 'index'));
 			}
-			
+
 			$this->Subcategory->create();
-			
+
 			if ($this->Subcategory->save($this->request->data))
 			{
 				$this->Flash->success(__('Ha creado una nueva subcategoría.'));
 				return $this->redirect(array('controller' => 'categories', 'action' => 'index'));
 			}
-			
+
 			$this->Flash->error(__('No se pudo crear la subcategoría.'));
 		}
 		else
@@ -104,7 +104,7 @@ class SubcategoriesController extends AppController
 		}
 
 		$subcategory = $this->Subcategory->findById($id);
-		
+
 		if (!$subcategory)
 		{
 			throw new NotFoundException(__('Subcategoría no válida'));
@@ -117,15 +117,15 @@ class SubcategoriesController extends AppController
 				$this->Flash->success(__('Acción cancelada.', true));
 				return $this->redirect(array('controller' => 'categories', 'action' => 'index'));
 			}
-			
+
 			$this->Subcategory->id = $id;
-			
+
 			if ($this->Subcategory->save($this->request->data))
 			{
 				$this->Flash->success(__('Ha modificado la subcategoría.'));
 				return $this->redirect(array('controller' => 'categories', 'action' => 'index'));
 			}
-			
+
 			$this->Flash->error(__('No pudo modificar la subcategoría.'));
 		}
 		else
@@ -148,7 +148,7 @@ class SubcategoriesController extends AppController
 
 		$this->Subcategory->id = $id;
 		$name = $this->Subcategory->field('subcategory_name');
-		
+
 		if ($this->Subcategory->delete($id))
 		{
 			$this->Flash->success(__('Ha borrado la subcategoría: %s.', $name));
@@ -160,5 +160,15 @@ class SubcategoriesController extends AppController
 
 		return $this->redirect(array('controller' => 'categories', 'action' => 'index'));
 	}
+
+	public function getByCategory() {
+		$category_id = $this->request->data['Product']['category_id'];
+		$subcategories = $this->Subcategory->find('list', array(
+			'conditions' => array('Subcategory.category_id' => $category_id),
+			'recursive' => -1));
+		$this->set('subcategories', $subcategories);
+		$this->layout = 'ajax';
+	}
+
 }
 ?>

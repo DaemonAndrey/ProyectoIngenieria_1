@@ -1,10 +1,10 @@
 <?php echo $this->Html->css('addresses'); ?>
-<?php echo $this->Html->css('signup'); 
+<?php echo $this->Html->css('signup');
 echo $this->Html->css('general');?>
 <?php
 // Si soy administrador
 if($user_id != null && $admin)
-{ 	
+{
 	?>
     <nav class="navbar navbar-inverse" id="navigation-bar">
       <div class="container-fluid">
@@ -12,8 +12,8 @@ if($user_id != null && $admin)
           <ul class="nav nav-pills nav-justified" role="tablist">
             <li class="active"><?php echo $this->Html->link('Products', array('controller' => 'products', 'action' => 'index')); ?></li>
             <li><?php echo $this->Html->link('Categories', array('controller' => 'categories', 'action' => 'index')); ?></li>
-            <li><a href="#">Users</a></li> 
-            <li><a href="#">Financial Entities</a></li>  
+            <li><a href="#">Users</a></li>
+            <li><a href="#">Financial Entities</a></li>
           </ul>
         </div>
       </div>
@@ -30,32 +30,32 @@ if($user_id != null && $admin)
     <div class="updateProduct_form">
         <?php
                 echo $this->Form->input('code', array(  'type' => 'hidden',
-                                                        'div' => 'form-group', 
+                                                        'div' => 'form-group',
                                                         'label' => array('class' => 'control-label col-sm-2')
                                                     )
                                        );
-                echo $this->Form->input('name', array(  'div' => 'form-group', 
+                echo $this->Form->input('name', array(  'div' => 'form-group',
                                                         'label' => array(
                                                                             'class' => 'control-label col-sm-2',
                                                                             'text' => 'Name'
                                                                         )
                                                     )
                                        );
-                echo $this->Form->input('price', array( 'div' => 'form-group', 
+                echo $this->Form->input('price', array( 'div' => 'form-group',
                                                         'label' => array(
                                                                             'class' => 'control-label col-sm-2',
                                                                             'text' => 'Price'
                                                                         )
                                                     )
                                        );
-                echo $this->Form->input('stock_quantity', array('div' => 'form-group', 
+                echo $this->Form->input('stock_quantity', array('div' => 'form-group',
                                                                 'label' => array(
                                                                                     'class' => 'control-label col-sm-2',
                                                                                     'text' => 'In Stock'
                                                                                 )
                                                                 )
                                        );
-                echo $this->Form->input('format', array('div' => 'form-group', 
+                echo $this->Form->input('format', array('div' => 'form-group',
                                                         'label' => array(
                                                                             'class' => 'control-label col-sm-2',
                                                                             'text' => 'Format'
@@ -66,21 +66,21 @@ if($user_id != null && $admin)
                                                                         )
                                                     )
                                        );
-                echo $this->Form->input('languages', array( 'div' => 'form-group', 
+                echo $this->Form->input('languages', array( 'div' => 'form-group',
                                                             'label' => array(
                                                                                 'class' => 'control-label col-sm-2',
                                                                                 'text' => 'Languages'
                                                                             )
                                                             )
                                        );
-                echo $this->Form->input('subtitles', array( 'div' => 'form-group', 
+                echo $this->Form->input('subtitles', array( 'div' => 'form-group',
                                                             'label' => array(
                                                                                 'class' => 'control-label col-sm-2',
                                                                                 'text' => 'Subtitles'
                                                                             )
                                                           )
                                        );
-                echo $this->Form->input('release_year', array(  'div' => 'form-group', 
+                echo $this->Form->input('release_year', array(  'div' => 'form-group',
                                                                 'type' => 'text',
                                                                 'label' => array(
                                                                                     'class' => 'control-label col-sm-2',
@@ -89,14 +89,34 @@ if($user_id != null && $admin)
                                                                                 )
                                                             )
                                        );
-                echo $this->Form->input('runtime', array(   'div' => 'form-group', 
+                echo $this->Form->input('runtime', array(   'div' => 'form-group',
                                                             'label' => array(
                                                                                 'class' => 'control-label col-sm-2',
                                                                                 'text' => 'Run Time'
                                                                             )
                                                         )
                                        );
-                echo $this->Form->input('category_id', array(   'div' => 'form-group',
+				echo $this->Form->input(
+					'Product.category_id',
+					array(
+						'empty' => '-Pick Category-',
+						'div' => 'form-group',
+						'label' => array(
+							'class' => 'control-label col-sm-2',
+						)
+					)
+				);
+				echo $this->Form->input(
+					'Product.subcategory_id',
+					array(
+						'empty' => '-No Category Selected-',
+						'div' => 'form-group',
+						'label' => array(
+							'class' => 'control-label col-sm-2',
+						)
+					)
+				);
+/*                echo $this->Form->input('category_id', array(   'div' => 'form-group',
                                                                 'label' => array(
                                                                                     'class' => 'control-label col-sm-2',
                                                                                     'text' => 'Category'
@@ -111,7 +131,7 @@ if($user_id != null && $admin)
                                                                                     )
                                                                 )
                                        );
-                echo $this->Form->input('more_details', array(  'div' => 'form-group', 
+*/                echo $this->Form->input('more_details', array(  'div' => 'form-group',
                                                                 'type' => 'textarea',
                                                                 'label' => array(
                                                                                     'class' => 'control-label col-sm-2',
@@ -135,4 +155,22 @@ else
 {
 	?> <h1> NOTHING TO DO HERE... </h1> <?php
 }
+
+	$this->Js->get('#ProductCategoryId')->event('change',
+	$this->Js->request(array(
+		'controller'=>'subcategories',
+		'action'=>'getByCategory'
+		), array(
+		'update'=>'#ProductSubcategoryId',
+		'async' => true,
+		'method' => 'post',
+		'dataExpression'=>true,
+		'data'=> $this->Js->serializeForm(array(
+			'isForm' => true,
+			'inline' => true
+			))
+		))
+	);
 ?>
+<?php echo $this->Html->script('//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js');
+echo $this->Js->writeBuffer(); ?>

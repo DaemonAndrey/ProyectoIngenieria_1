@@ -11,21 +11,37 @@ CREATE TABLE users
 	birthday	DATE            NOT NULL,
 	role		INT( 1 )		DEFAULT 0,	-- 0 = Comprador, 1 = Administrador, 2 = Gerente
 	enable		BIT( 1 )		DEFAULT 1,	-- 1 = Activo, 0 = Inactivo
+
 	PRIMARY KEY ( id )
+);
+
+CREATE TABLE countries (
+	id 			INT 			UNSIGNED AUTO_INCREMENT,
+	name 		VARCHAR( 20 ) 	NOT NULL,
+
+	PRIMARY KEY ( id )
+);
+
+CREATE TABLE states (
+	id 			INT 			UNSIGNED AUTO_INCREMENT,
+	country_id	INT 			UNSIGNED NOT NULL,
+	name		VARCHAR( 40 ) 	NOT NULL,
+
+	PRIMARY KEY ( id ),
+	FOREIGN KEY	( country_id ) REFERENCES countries ( id )
 );
 
 CREATE TABLE addresses
 (
-	id				INT		UNSIGNED AUTO_INCREMENT,
-	user_id			INT		UNSIGNED,
-	type			VARCHAR( 32 ),
-	country			VARCHAR( 32 ),
-	state			VARCHAR( 32 ),
-	zipcode			VARCHAR( 16 ),
-	full_address	TEXT,
+	id				INT				UNSIGNED AUTO_INCREMENT,
+	user_id			INT				UNSIGNED NOT NULL,
+	type			VARCHAR( 32 ) 	NOT NULL,
+	state_id		INT				UNSIGNED NOT NULL,
+	full_address	TEXT			NOT NULL,
 
 	PRIMARY KEY ( id ),
-	FOREIGN KEY	( user_id ) REFERENCES users ( id )
+	FOREIGN KEY	( user_id ) REFERENCES users ( id ),
+	FOREIGN KEY	( state_id ) REFERENCES states ( id )
 );
 
 -- Tabla de métodos de pago de usuarios
@@ -34,13 +50,13 @@ CREATE TABLE payment_methods
 	id				INT				UNSIGNED AUTO_INCREMENT,
 	user_id			INT		 		UNSIGNED NOT NULL,
 	issuer			VARCHAR( 32 ) 	NOT NULL, 		-- Paypal, Visa, MasterCard, AmericanExpress
-	account			VARCHAR( 32 ) 	UNIQUE NOT NULL,		-- card_number or paypal_account 
+	account			VARCHAR( 32 ) 	UNIQUE NOT NULL,		-- card_number or paypal_account
 	password		VARCHAR( 32 )	DEFAULT NULL,	-- password for paypal account
 	name_card		VARCHAR( 32 )	DEFAULT NULL,   -- name_on_card
 	expiration		DATE			DEFAULT NULL,	-- expiration_date
 	security_code	CHAR( 3 )		DEFAULT NULL,
 	enable			BIT( 1 )		DEFAULT 1,		-- 1 = Activo, 0 = Inactivo
-	
+
 	PRIMARY KEY ( id ),
 	FOREIGN KEY	( user_id ) REFERENCES users ( id )
 		ON UPDATE CASCADE
@@ -49,17 +65,17 @@ CREATE TABLE payment_methods
 CREATE TABLE invoices
 (
 	id		INT	UNSIGNED AUTO_INCREMENT,
-    shippping_price DECIMAL (8,2),
-    tax     DECIMAL (8,2),
-    total   DECIMAL (8,2) DEFAULT 0,
+	shippping_price DECIMAL (8,2),
+	tax     DECIMAL (8,2),
+	total   DECIMAL (8,2) DEFAULT 0,
 	payment_method_id	INT	UNSIGNED NOT NULL,
-    address_id INT	UNSIGNED NOT NULL,
+	address_id INT	UNSIGNED NOT NULL,
 	date	DATE,
 
 	PRIMARY KEY ( id ),
 	FOREIGN KEY ( payment_method_id ) REFERENCES payment_methods ( id ),
-    FOREIGN KEY ( address_id ) REFERENCES addresses ( id ),  
-    CHECK ( total >= 0 )
+	FOREIGN KEY ( address_id ) REFERENCES addresses ( id ),
+	CHECK ( total >= 0 )
 );
 
 CREATE TABLE categories
@@ -199,7 +215,7 @@ CREATE TABLE valid_accounts
 (
 	id				INT	UNSIGNED AUTO_INCREMENT,
 	issuer			VARCHAR( 32 ) 	NOT NULL, 		-- Paypal, Visa, MasterCard, AmericanExpress
-	account			VARCHAR( 32 ) 	UNIQUE NOT NULL,		-- card_number or paypal_account 
+	account			VARCHAR( 32 ) 	UNIQUE NOT NULL,		-- card_number or paypal_account
 	password		VARCHAR( 32 )	DEFAULT NULL,	-- password for paypal account
 	name_card		VARCHAR( 32 )	DEFAULT NULL,   -- name_on_card
 	expiration		DATE			DEFAULT NULL,	-- expiration_date
@@ -212,10 +228,10 @@ CREATE TABLE valid_accounts
 CREATE TABLE historic_invoices
 (
 	id		INT	UNSIGNED AUTO_INCREMENT,
-    shippping_price DECIMAL (8,2) DEFAULT 0,
-    tax     DECIMAL (8,2) DEFAULT 0,
-    total   DECIMAL (8,2) DEFAULT 0,
-    payment_method_account	VARCHAR( 32 ) 	NOT NULL,
+	shippping_price DECIMAL (8,2) DEFAULT 0,
+	tax     DECIMAL (8,2) DEFAULT 0,
+	total   DECIMAL (8,2) DEFAULT 0,
+	payment_method_account	VARCHAR( 32 ) 	NOT NULL,
 	address_full_address	TEXT,
 
 	PRIMARY KEY ( id )
@@ -228,7 +244,7 @@ CREATE TABLE historic_products
 	product_price			DECIMAL( 8, 2 ) DEFAULT 0,
 	product_name 			VARCHAR( 32 ),
 	product_format 			VARCHAR( 32 ),
-	
+
 	PRIMARY KEY ( id )
 );
 
@@ -237,22 +253,30 @@ CREATE TABLE historic_invoices_historic_products
 	id						INT	UNSIGNED AUTO_INCREMENT,
 	historic_invoice_id		INT UNSIGNED NOT NULL,
 	historic_product_id		INT UNSIGNED NOT NULL,
-	
+
 	PRIMARY KEY ( id ),
 	FOREIGN KEY ( historic_invoice_id ) REFERENCES historic_invoices ( id ),
 	FOREIGN KEY ( historic_product_id ) REFERENCES historic_products ( id )
 );
 
 -- Trigger para poder borrar una categoría y que se reubiquen las subcategorías en un tipo de categoría "Sin Categoría"
-CREATE TRIGGER `on_delete_set_default`
+CREATE TRIGGER on_delete_set_default
 BEFORE DELETE
-ON `categories`
+ON categories
 FOR EACH ROW
 	UPDATE subcategories
 	SET category_id = 1
 	WHERE category_id = old.id;
 
--- Trigger para actualizar el subtotal en carrito cuando se agrega producto 
+CREATE TRIGGER on_delete_set_default_subcat
+BEFORE DELETE
+ON subcategories
+FOR EACH ROW
+	UPDATE products
+	SET subcategory_id = 1
+	WHERE subcategory_id = old.id;
+
+-- Trigger para actualizar el subtotal en carrito cuando se agrega producto
 DELIMITER //
 CREATE TRIGGER on_insert_product_update_subtotal
 AFTER INSERT
@@ -266,14 +290,14 @@ BEGIN
 	SET subtotal_anterior = ( SELECT c.subtotal FROM carts c WHERE c.id = NEW.cart_id );
 	SET precio = ( SELECT p.price FROM products p WHERE p.id = NEW.product_id );
 	SET cantidad = ( SELECT cp.quantity FROM carts_products cp WHERE cp.id = NEW.id );
-	
+
 	UPDATE carts
 	SET subtotal = subtotal_anterior + ( precio * cantidad )
-	WHERE id = NEW.cart_id;	
+	WHERE id = NEW.cart_id;
 END; //
 DELIMITER ;
 
--- Trigger para actualizar el subtotal en carrito cuando se actualiza producto 
+-- Trigger para actualizar el subtotal en carrito cuando se actualiza producto
 DELIMITER //
 CREATE TRIGGER on_update_cart_update_subtotal
 AFTER UPDATE
@@ -285,25 +309,25 @@ BEGIN
 	DECLARE subtotal_nuevo DECIMAL(8,2);
 	DECLARE cantidad_nueva INT;
 	DECLARE precio DECIMAL(8,2);
-	
+
 	SET subtotal_anterior = ( SELECT c.subtotal FROM carts c WHERE c.id = NEW.cart_id );
 	SET cantidad_anterior = ( SELECT OLD.quantity FROM carts_products cp WHERE cp.id = NEW.id );
 	SET cantidad_nueva = ( SELECT cp.quantity FROM carts_products cp WHERE cp.id = NEW.id );
 	SET precio = ( SELECT p.price FROM products p WHERE p.id = NEW.product_id );
-		
+
 	IF cantidad_nueva > cantidad_anterior THEN
 		SET subtotal_nuevo = subtotal_anterior + ( precio * ( cantidad_nueva - cantidad_anterior ) );
 	ELSEIF cantidad_nueva < cantidad_anterior THEN
 		SET subtotal_nuevo = subtotal_anterior - ( precio * ( cantidad_anterior - cantidad_nueva ) );
 	END IF;
-	
+
 	UPDATE carts
 	SET subtotal = subtotal_nuevo
 	WHERE id = NEW.cart_id;
 END; //
 DELIMITER ;
 
--- Trigger para actualizar el subtotal en carrito cuando se elimina producto 
+-- Trigger para actualizar el subtotal en carrito cuando se elimina producto
 DELIMITER //
 CREATE TRIGGER on_delete_product_update_subtotal
 BEFORE DELETE
@@ -314,13 +338,13 @@ BEGIN
 	DECLARE cantidad_anterior INT;
 	DECLARE subtotal_nuevo DECIMAL(8,2);
 	DECLARE precio DECIMAL(8,2);
-	
+
 	SET subtotal_anterior = ( SELECT c.subtotal FROM carts c WHERE c.id = OLD.cart_id );
 	SET cantidad_anterior = ( SELECT cp.quantity FROM carts_products cp WHERE cp.id = OLD.id );
 	SET precio = ( SELECT p.price FROM products p WHERE p.id = OLD.product_id );
 
 	SET subtotal_nuevo = subtotal_anterior - ( precio * cantidad_anterior );
-	
+
 	UPDATE carts
 	SET subtotal = subtotal_nuevo
 	WHERE id = OLD.cart_id;

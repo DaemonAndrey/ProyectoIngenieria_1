@@ -1,5 +1,4 @@
 <?php echo $this->Html->css('addresses'); ?>
-<?php echo $this->Html->css('general'); ?>
 
 <?php
 
@@ -9,25 +8,12 @@ $address_user_id = h($address['Address']['user_id']);
 if($user_id != null && $custom && $user_id == $address_user_id)
 { 	
 	?>
-    <nav class="navbar navbar-inverse" id="navigation-bar">
-      <div class="container-fluid">
-        <div>
-          <ul class="nav nav-pills nav-justified" role="tablist">
-            <li><a href="#" class="nav-buttons">Account Settings</a></li> 
-            <li><?php echo $this->Html->link('Your Orders',array('controller' => 'invoices', 'action' => 'my_invoices'), array('class' => 'nav-buttons')); ?></li>
-            <li><?php echo $this->Html->link('Payment Methods',array('controller' => 'paymentMethods', 'action' => 'index'), array('class' => 'nav-buttons')); ?></li>
-            <li class="active"><?php echo $this->Html->link('Address Book', array('controller' => 'addresses', 'action' => 'index'), array('class' => 'nav-buttons')); ?></li>
-            <li><a href="#", class="nav-buttons">Wishlist</a></li>  
-          </ul>
-        </div>
-      </div>
-    </nav>
     <hr>
     <table cellpadding="0" cellspacing="0">
         <?php echo $this->Html->tableCells(
-                                        array(	array('Zipcode:', h($address['Address']['zipcode'])),
-                                                array('Country:', h($address['Address']['country'])),
-                                                array('State:', h($address['Address']['state'])),
+                                        array(	
+                                                array('Country:', h($address['State']['Country']['name'])),
+                                                array('State:', h($address['State']['name'])),
                                                 array('Full Address:', h($address['Address']['full_address'])),
                                                 array('Type:', h($address['Address']['type']))
                                             )

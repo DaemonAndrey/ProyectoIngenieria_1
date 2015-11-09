@@ -1,24 +1,9 @@
 <?php echo $this->Html->css('addresses'); ?>
-<?php echo $this->Html->css('general'); ?>
 <?php
 // Si soy cliente
 if($user_id != null && $custom)
 {
 	?>
-    
-    <nav class="navbar navbar-inverse" id="navigation-bar">
-      <div class="container-fluid">
-        <div>
-          <ul class="nav nav-pills nav-justified" role="tablist">
-            <li><a href="#" class="nav-buttons">Account Settings</a></li> 
-            <li><?php echo $this->Html->link('Your Orders',array('controller' => 'invoices', 'action' => 'my_invoices'), array('class' => 'nav-buttons')); ?></li>
-            <li><?php echo $this->Html->link('Payment Methods',array('controller' => 'paymentMethods', 'action' => 'index'), array('class' => 'nav-buttons')); ?></li>
-            <li class="active"><?php echo $this->Html->link('Address Book', array('controller' => 'addresses', 'action' => 'index'), array('class' => 'nav-buttons')); ?></li>
-            <li><a href="#", class="nav-buttons">Wishlist</a></li>  
-          </ul>
-        </div>
-      </div>
-    </nav>
 	
 	<div class="_index">
         <hr>
@@ -42,7 +27,6 @@ if($user_id != null && $custom)
 		<table cellpadding="0" cellspacing="0">
 			<thead>
 				<tr>
-					<th><?php echo ('Zipcode'); ?></th>
 					<th><?php echo ('Country'); ?></th>
 					<th><?php echo ('State'); ?></th>
 		<!--
@@ -62,9 +46,8 @@ if($user_id != null && $custom)
                 {
                     ?>
                     <tr>
-					<td><?php echo h($uaddress['Address']['zipcode']); ?>&nbsp;</td>
-					<td><?php echo h($uaddress['Address']['country']); ?>&nbsp;</td>
-					<td><?php echo h($uaddress['Address']['state']); ?>&nbsp;</td>
+					<td><?php echo h($uaddress['State']['Country']['name']); ?>&nbsp;</td>
+					<td><?php echo h($uaddress['State']['name']); ?>&nbsp;</td>
 					<td><?php echo h($uaddress['Address']['type']); ?>&nbsp;</td>
 					<td>
 						<?php
