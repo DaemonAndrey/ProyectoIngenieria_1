@@ -23,10 +23,10 @@ class CartsControllerTest extends ControllerTestCase {
  *
  * @return void
  */
-	public function testIndex() {
+/*	public function testIndex() {
 		$result = $this->testAction('/carts/index');
 		debug($result);
-	}
+	}*/
 
 /**
  * testAdd method
@@ -43,20 +43,20 @@ class CartsControllerTest extends ControllerTestCase {
  *
  * @return void
  */
-	public function testAjaxRequest() {
+/*	public function testAjaxRequest() {
 		$result = $this->testAction('/carts/ajax_request');
 		debug($result);
-	}
+	}*/
 
 /**
  * testAddToCart method
  *
  * @return void
  */
-	public function testAddToCart() {
-		$result = $this->testAction('/carts/AddToCart');
+/*	public function testAddToCart() {
+		$result = $this->testAction('/carts/AddToCart/2');
 		debug($result);
-	}
+	}*/
 
 /**
  * testDelete method
@@ -73,30 +73,30 @@ class CartsControllerTest extends ControllerTestCase {
  *
  * @return void
  */
-	public function testEditCartProduct() {
+/*	public function testEditCartProduct() {
 		$result = $this->testAction('/carts/EditCartProduct');
 		debug($result);
-	}
+	}*/
 
 /**
  * testEdit method
  *
  * @return void
  */
-	public function testEdit() {
+/*	public function testEdit() {
 		$result = $this->testAction('/carts/edit/1');
 		debug($result);
-	}
+	}*/
 
 /**
  * testView method
  *
  * @return void
  */
-	public function testView() {
+/*	public function testView() {
 		$result = $this->testAction('/carts/view/1');
 		debug($result);
-	}
+	}*/
 
 /**
  * testRemoveProductFromCart method

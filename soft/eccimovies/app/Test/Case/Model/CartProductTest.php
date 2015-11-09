@@ -14,7 +14,7 @@ class CartProductTest extends CakeTestCase {
 	public $fixtures = array(
 		'app.cart_product',
 		'app.cart',
-		'app.product',
+//		'app.product',
 	);
 
 /**

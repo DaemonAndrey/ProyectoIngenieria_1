@@ -13,13 +13,13 @@ class InvoicesControllerTest extends ControllerTestCase {
  */
 	public $fixtures = array(
 		'app.invoice',
-/*		'app.address',
-		'app.payment_method',
-		'app.user',
-		'app.product',
+		'app.address',
+//		'app.payment_method',
+//		'app.user',
+//		'app.product',
 		'app.cart_product',
 		'app.cart',
-//		'app.invoice_product'*/
+//		'app.invoice_product'
 	);
 
 /**
@@ -27,20 +27,20 @@ class InvoicesControllerTest extends ControllerTestCase {
  *
  * @return void
  */
-	public function testIndex() {
+/*	public function testIndex() {
 		$result = $this->testAction('/invoices/index');
 		debug($result);
-	}
+	}*/
 
 /**
  * testView method
  *
  * @return void
  */
-	public function testView() {
+/*	public function testView() {
 		$result = $this->testAction('/invoices/view/1');
 		debug($result);
-	}
+	}*/
 
 /**
  * testAdd method
@@ -57,20 +57,20 @@ class InvoicesControllerTest extends ControllerTestCase {
  *
  * @return void
  */
-	public function testEdit() {
+/*	public function testEdit() {
 		$result = $this->testAction('/invoices/edit/1');
 		debug($result);
-	}
+	}*/
 
 /**
  * testDelete method
  *
  * @return void
  */
-	public function testDelete() {
+/*	public function testDelete() {
 		$result = $this->testAction('/invoices/delete/1');
 		debug($result);
-	}
+	}*/
 
 /**
  * testCheck method
@@ -87,19 +87,19 @@ class InvoicesControllerTest extends ControllerTestCase {
  *
  * @return void
  */
-	public function testMyInvoices() {
+/*	public function testMyInvoices() {
 		$result = $this->testAction('/invoices/my_invoices');
 		debug($result);
-	}
+	}*/
 
 /**
  * testViewInvoice method
  *
  * @return void
  */
-	public function testViewInvoice() {
+/*	public function testViewInvoice() {
 		$result = $this->testAction('/invoices/view_invoice');
 		debug($result);
-	}
+	}*/
 
 }

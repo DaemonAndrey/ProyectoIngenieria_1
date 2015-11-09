@@ -13,15 +13,15 @@ class InvoiceTest extends CakeTestCase {
  */
 	public $fixtures = array(
 		'app.invoice',
-		'app.address',
+/*		'app.address',
 		'app.state',
 		'app.country',
-	//	'app.payment_method',
+		'app.payment_method',
 		'app.user',
-		'app.product',
+//		'app.product',
 		'app.cart_product',
 		'app.cart',
-		'app.invoices_product'
+		'app.invoices_product'*/
 	);
 
 /**

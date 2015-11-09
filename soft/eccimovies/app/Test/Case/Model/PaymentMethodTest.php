@@ -18,7 +18,7 @@ class PaymentMethodTest extends CakeTestCase {
 	}
 
 	public function testPaymentMethodModel() {
-		//$result = $this->loadFixtures('PaymentMethod');
+		$result = $this->loadFixtures('PaymentMethod');
 	}
 
 	public function tearDown() {
