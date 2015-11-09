@@ -1,12 +1,12 @@
 <?php
 
-class AddressFixture extends CakeTestFixture {
+class PaymentMethodFixture extends CakeTestFixture {
 
 	public $useDbConfig = 'test';
 
 	public $import = array(
 		'connection' => 'default',
-		'model' => 'Address',
+		'model' => 'PaymentMethod',
 		'records' => true
 	);
 

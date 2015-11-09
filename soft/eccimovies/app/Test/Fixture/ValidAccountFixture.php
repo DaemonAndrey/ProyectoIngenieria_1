@@ -1,12 +1,12 @@
 <?php
 
-class AddressFixture extends CakeTestFixture {
+class ValidAccountFixture extends CakeTestFixture {
 
 	public $useDbConfig = 'test';
 
 	public $import = array(
 		'connection' => 'default',
-		'model' => 'Address',
+		'model' => 'ValidAccount',
 		'records' => true
 	);
 
