@@ -33,7 +33,7 @@ class Address extends AppModel {
 		'state_id' => array(
 			'notBlank' => array(
 				'rule' => array('notBlank'),
-				'message' => 'You must enter your full address',
+				'message' => 'Select a country first and then the state',
 				'allowEmpty' => false,
 				'required' => true,
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
@@ -42,7 +42,7 @@ class Address extends AppModel {
 		'type' => array(
 			'notBlank' => array(
 				'rule' => array('notBlank'),
-				'message' => 'You must enter your full address',
+				'message' => 'Select shipping or billing',
 				'allowEmpty' => false,
 				'required' => true,
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
