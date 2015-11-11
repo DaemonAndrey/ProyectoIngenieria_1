@@ -41,6 +41,13 @@ class Address extends AppModel {
  * @var array
  */
 	public $belongsTo = array(
+		'State' => array(
+			'className' => 'State',
+			'foreignKey' => 'state_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
 		'User' => array(
 			'className' => 'User',
 			'foreignKey' => 'user_id',
@@ -49,6 +56,7 @@ class Address extends AppModel {
 			'order' => ''
 		)
 	);
+
 
 /**
  * hasMany associations
