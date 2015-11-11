@@ -21,16 +21,33 @@ class Address extends AppModel {
  * @var array
  */
 	public $validate = array(
-		'user_id' => array(
+		'full_address' => array(
 			'notBlank' => array(
 				'rule' => array('notBlank'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
+				'message' => 'You must enter your full address',
+				'allowEmpty' => false,
+				'required' => true,
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
+		'state_id' => array(
+			'notBlank' => array(
+				'rule' => array('notBlank'),
+				'message' => 'You must enter your full address',
+				'allowEmpty' => false,
+				'required' => true,
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+		),
+		'type' => array(
+			'notBlank' => array(
+				'rule' => array('notBlank'),
+				'message' => 'You must enter your full address',
+				'allowEmpty' => false,
+				'required' => true,
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+		)
 	);
 
 	// The Associations below have been created with all possible keys, those that are not needed can be removed
