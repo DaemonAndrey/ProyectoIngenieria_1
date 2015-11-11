@@ -176,6 +176,11 @@ class InvoicesController extends AppController {
             $conditions8[] = array('User.id'=> $id);
             $users=  $this->User->find('first', array ('recursive'=> -1, 'conditions'=> $conditions8, 'fields' => array('User.gender','User.first_name','User.last_name')));
             $this->set('users',$users);
+            
+            date_default_timezone_set('America/Costa_Rica');
+            $date = date('Y-m-d H:i:s');
+            
+            $status = "Preparing for shipment";
         
  
             $this->ValidAccount->id=$validAccount_account['ValidAccount']['id'];
@@ -197,6 +202,8 @@ class InvoicesController extends AppController {
                 $this->request->data['HistoricInvoice']['user_gender'] = $users['User']['gender'];
                 $this->request->data['HistoricInvoice']['user_first_name'] = $users['User']['first_name'];
                 $this->request->data['HistoricInvoice']['user_last_name'] = $users['User']['last_name'];
+                $this->request->data['HistoricInvoice']['invoice_date'] = $date;
+                $this->request->data['HistoricInvoice']['invoice_status'] = $status;
                 $this->HistoricInvoice->save($this->request->data);
             
                 foreach ($carts_products as $carts_product): 

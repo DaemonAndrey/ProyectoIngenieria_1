@@ -236,6 +236,8 @@ CREATE TABLE historic_invoices
     user_gender CHAR (1),
     user_first_name VARCHAR (32),
     user_last_name VARCHAR (32),
+    invoice_date DATETIME,
+    invoice_status varchar (32),
 
 	PRIMARY KEY ( id )
 );
