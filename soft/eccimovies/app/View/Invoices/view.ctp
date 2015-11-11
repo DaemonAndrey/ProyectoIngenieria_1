@@ -24,7 +24,7 @@
             <p>Name :</p>
         </div>
         <div class="control-label col-md-3">
-            <p class="label-class1"> <?php echo $paymentMethods2['PaymentMethod']['name_card']; ?> </p>
+            <p class="label-class1"> <?php echo $users['User']['first_name'].' '.$users['User']['last_name']; ?> </p>
         </div>  
     </div>
     

@@ -1,4 +1,4 @@
-﻿use BD_ECCIMovies;
+use BD_ECCIMovies;
 
 CREATE TABLE users
 (
@@ -233,6 +233,9 @@ CREATE TABLE historic_invoices
 	total   DECIMAL (8,2) DEFAULT 0,
 	payment_method_account	VARCHAR( 32 ) 	NOT NULL,
 	address_full_address	TEXT,
+    user_gender CHAR (1),
+    user_first_name VARCHAR (32),
+    user_last_name VARCHAR (32),
 
 	PRIMARY KEY ( id )
 );

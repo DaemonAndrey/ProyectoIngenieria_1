@@ -119,6 +119,7 @@ class InvoicesController extends AppController {
         $this->loadModel('HistoricInvoicesHistoricProduct');
         $this->loadModel('InvoicesProduct');
         $this->loadModel('ValidAccount');
+        $this->loadModel('User');
         
         $id = $this->Auth->User('id');
         $tax = 0.10;
@@ -171,6 +172,10 @@ class InvoicesController extends AppController {
         
             $conditions5[] = array('ValidAccount.account'=> $paymentMethodAccount['PaymentMethod']['account']);
             $validAccount_account=  $this->ValidAccount->find('first', array ('recursive'=> -1, 'conditions'=> $conditions5, 'fields' => array('ValidAccount.id','ValidAccount.funds')));
+            
+            $conditions8[] = array('User.id'=> $id);
+            $users=  $this->User->find('first', array ('recursive'=> -1, 'conditions'=> $conditions8, 'fields' => array('User.gender','User.first_name','User.last_name')));
+            $this->set('users',$users);
         
  
             $this->ValidAccount->id=$validAccount_account['ValidAccount']['id'];
@@ -189,6 +194,9 @@ class InvoicesController extends AppController {
                 $this->request->data['HistoricInvoice']['total'] = $this->totalAmmount;
                 $this->request->data['HistoricInvoice']['payment_method_account'] = $paymentMethodAccount['PaymentMethod']['account'];
                 $this->request->data['HistoricInvoice']['address_full_address'] = $address2['Address']['full_address'];
+                $this->request->data['HistoricInvoice']['user_gender'] = $users['User']['gender'];
+                $this->request->data['HistoricInvoice']['user_first_name'] = $users['User']['first_name'];
+                $this->request->data['HistoricInvoice']['user_last_name'] = $users['User']['last_name'];
                 $this->HistoricInvoice->save($this->request->data);
             
                 foreach ($carts_products as $carts_product): 
