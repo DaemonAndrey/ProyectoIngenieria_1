@@ -17,6 +17,7 @@ class UsersController extends AppController
 		$this->set('manager',$this->_isManager());
 		$this->set('user_id', $this->Auth->User('id'));
 		$this->set('username', $this->Auth->User('username'));
+		
     }
 	
 	function _isCustomer()
@@ -114,6 +115,8 @@ class UsersController extends AppController
 				// Si pudo autenticar
 				if ($this->Auth->login())
 				{
+							$this->loadModel('Cart');
+							$_SESSION['Auth']['User']['cart'] = $this->Cart->field('id',array('user_id' => $this->Auth->User('id')));
 					return $this->redirect($this->Auth->redirectURL());
 					//return $this->redirect(array('action' => 'view')); // Se pasa a la vista de LOGEADO
 				}

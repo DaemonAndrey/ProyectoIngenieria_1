@@ -103,6 +103,7 @@ class CartsController extends AppController
 
 	public function ajaxRequest()
     {
+
         if ($this->request->is('ajax'))
         {
             try
@@ -241,7 +242,7 @@ class CartsController extends AppController
         // Si no se pasa un id por parámetro
         if( !$id )
         {
-            throw new NotFoundException(__('Invalid cart!'));
+			 return $this->redirect(array('controller' => 'pages', 'action'=>'home'));
         }
 
         // Se busca el carrito asociado a ese id
