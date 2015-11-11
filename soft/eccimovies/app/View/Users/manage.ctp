@@ -11,6 +11,7 @@ if( $user_id != null && $admin )
             <li><?php echo $this->Html->link('Products', array('controller' => 'products', 'action' => 'index')); ?></li>
             <li><?php echo $this->Html->link('Categories', array('controller' => 'categories', 'action' => 'index')); ?></li>
             <li><a href="#">Users</a></li> 
+            <li><?php echo $this->Html->link('Orders', array('controller' => 'invoices', 'action' => 'my_invoices')); ?></li>
             <li><a href="#">Financial Entities</a></li>  
           </ul>
         </div>
