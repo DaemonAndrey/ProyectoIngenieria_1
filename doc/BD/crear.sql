@@ -127,6 +127,24 @@ CREATE TABLE products
 	CHECK ( runtime >= 0 )
 );
 
+CREATE TABLE combos
+(
+	id				INT	UNSIGNED AUTO_INCREMENT,
+	code			VARCHAR( 8 ) UNIQUE,
+	discount		DECIMAL( 5, 2 )	NOT NULL DEFAULT 0,
+	PRIMARY KEY ( id )
+);
+
+CREATE TABLE combos_products
+(
+	id				INT	UNSIGNED AUTO_INCREMENT,
+	combo_id		INT	UNSIGNED,
+	product_id		INT	UNSIGNED,
+	PRIMARY KEY ( id ),
+	FOREIGN KEY ( combo_id ) REFERENCES combos ( id ),
+	FOREIGN KEY ( product_id ) REFERENCES products ( id )
+);
+
 CREATE TABLE actors
 (
 	id			INT	UNSIGNED AUTO_INCREMENT,
