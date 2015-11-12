@@ -245,17 +245,17 @@ CREATE TABLE valid_accounts
 
 CREATE TABLE historic_invoices
 (
-	id		INT	UNSIGNED AUTO_INCREMENT,
-	shippping_price DECIMAL (8,2) DEFAULT 0,
-	tax     DECIMAL (8,2) DEFAULT 0,
-	total   DECIMAL (8,2) DEFAULT 0,
-	payment_method_account	VARCHAR( 32 ) 	NOT NULL,
+	id						INT					UNSIGNED AUTO_INCREMENT,
+	shippping_price 		DECIMAL( 8, 2 ) 	DEFAULT 0,
+	tax     				DECIMAL( 8, 2 ) 	DEFAULT 0,
+	total					DECIMAL( 8, 2 ) 	DEFAULT 0,
+	payment_method_account	VARCHAR( 32 ) 		NOT NULL,
 	address_full_address	TEXT,
-    user_gender CHAR (1),
-    user_first_name VARCHAR (32),
-    user_last_name VARCHAR (32),
-    invoice_date DATETIME,
-    invoice_status varchar (32),
+    user_gender 			CHAR( 1 ),
+    user_first_name 		VARCHAR( 32 ),
+    user_last_name 			VARCHAR( 32 ),
+    invoice_date 			DATETIME,
+    invoice_status 			VARCHAR( 32 ),
 
 	PRIMARY KEY ( id )
 );
