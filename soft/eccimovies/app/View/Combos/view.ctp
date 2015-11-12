@@ -7,11 +7,6 @@
 <div class="combos view">
 <h2><?php echo __('Combo'); ?></h2>
 	<dl>
-		<dt><?php echo __('Id'); ?></dt>
-		<dd>
-			<?php echo h($combo['Combo']['id']); ?>
-			&nbsp;
-		</dd>
 		<dt><?php echo __('Code'); ?></dt>
 		<dd>
 			<?php echo h($combo['Combo']['code']); ?>
@@ -30,7 +25,6 @@
 	<?php if (!empty($combo['Product'])): ?>
 	<table cellpadding = "0" cellspacing = "0">
 	<tr>
-		<th><?php echo __('Id'); ?></th>
 		<th><?php echo __('Code'); ?></th>
 		<th><?php echo __('Name'); ?></th>
 		<th><?php echo __('Price'); ?></th>
@@ -40,14 +34,11 @@
 		<th><?php echo __('Subtitles'); ?></th>
 		<th><?php echo __('Release Year'); ?></th>
 		<th><?php echo __('Runtime'); ?></th>
-		<th><?php echo __('More Details'); ?></th>
 		<th><?php echo __('Subcategory Id'); ?></th>
-		<th><?php echo __('Enable'); ?></th>
 		<th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>
 	<?php foreach ($combo['Product'] as $product): ?>
 		<tr>
-			<td><?php echo $product['id']; ?></td>
 			<td><?php echo $product['code']; ?></td>
 			<td><?php echo $product['name']; ?></td>
 			<td><?php echo $product['price']; ?></td>
@@ -57,9 +48,7 @@
 			<td><?php echo $product['subtitles']; ?></td>
 			<td><?php echo $product['release_year']; ?></td>
 			<td><?php echo $product['runtime']; ?></td>
-			<td><?php echo $product['more_details']; ?></td>
 			<td><?php echo $product['subcategory_id']; ?></td>
-			<td><?php echo $product['enable']; ?></td>
 			<td class="actions">
 				<?php echo $this->Html->link(__('View'), array('controller' => 'products', 'action' => 'view', $product['id'])); ?>
 				<?php echo $this->Html->link(__('Edit'), array('controller' => 'products', 'action' => 'edit', $product['id'])); ?>
@@ -70,15 +59,16 @@
 	</table>
 <?php endif; ?>
 
+	<hr>
 	<p>
 	<?php 
-		echo "<li id = 'fom-button'>"; 
+		echo "<div id = 'goBack'>"; 
 		echo $this->Html->link(
-			'<span class="glyphicon glyphicon-arrow-left"></span> Back ',
+			'<span class="glyphicon glyphicon-arrow-left"></span> Go back',
 			array('action' => 'index'),
-			array('target' => '_self', 'escape' => false)
+			array('class' => 'btn btn-default', 'target' => '_self', 'escape' => false)
 		);
-		echo "</li>";
+		echo "</div>";
 	?>
 	</p>
 
