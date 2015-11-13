@@ -114,14 +114,15 @@ header{
     #header-nav > ul
     {
         padding: 0;
+
     }
 
 
     #header-nav
     {
         padding: 0;
-        float: left;
-        margin-right: 30%;
+        float: right;
+
     }
 
     #principal-nav-search{
@@ -131,19 +132,29 @@ header{
 
     #header-nav > ul > li {
        margin-top: 5%;
+      margin-right: 15px;
     }
 
+    form.form-inline{
+
+        border-color: white;
+
+        width: auto;
+    }
     #search
     {
         margin: 0;
     }
 
-    #search-text
-    {
-        float: right;
-        width: 50%;
-        margin-left: 0;
+
+
+    input#search-text.form-control{
+      margin-bottom: 10px;
+      float: left;
+
     }
+
+
 
     select#search-filter
     {
@@ -173,6 +184,13 @@ header{
 
 
 /* Empieza la modificacion de estilo de search */
+
+form.form-inline{
+    float: right;
+    border-color: white;
+    margin-right: 10%;
+}
+
 #search-filter{
     width: 45%;
     background: #D8D8D8;
@@ -182,9 +200,10 @@ header{
     font-family: 'Ubuntu',sans-serif;
 }
 
+
 .btn-default{
     position: absolute;
-    margin: 20px 50px 0 75px;
+    margin: 20px 50px 10px 0px;
 }
 
 #search-text{
