@@ -247,7 +247,7 @@ CREATE TABLE historic_products
 	id						INT	UNSIGNED AUTO_INCREMENT,
 	product_quantity		INT DEFAULT 0,
 	product_price			DECIMAL( 8, 2 ) DEFAULT 0,
-	product_name 			VARCHAR( 32 ),
+	product_name 			VARCHAR( 64 ),
 	product_format 			VARCHAR( 32 ),
 
 	PRIMARY KEY ( id )
