@@ -71,8 +71,9 @@ if($user_id != null && ($admin || ($custom && $user_id == $invoice_user)))
 
     <div class="_index">
         <h2><?php echo __('Order # ' . h($post['HistoricInvoice']['id'])); ?></h2>
+        <hr>
+        <h3><?php echo __(h($post['HistoricInvoice']['invoice_status'])); ?></h3>
     </div>
-    <hr>
     <table cellpadding="0" cellspacing="0">
          <tr>
             <th>Quantity</th>
@@ -127,7 +128,9 @@ if($user_id != null && ($admin || ($custom && $user_id == $invoice_user)))
     <table cellpadding="0" cellspacing="0">
         <?php 
             echo $this->Html->tableCells(
-                                        array(  array('Shipping Address :', h($post['HistoricInvoice']['address_full_address'])),
+                                        array(  array('Order placed :', h($post['HistoricInvoice']['invoice_date'])),
+                                                array('Full name :', h($post['HistoricInvoice']['user_first_name']) . ' ' . h($post['HistoricInvoice']['user_last_name'])),
+                                                array('Shipping Address :', h($post['HistoricInvoice']['address_full_address'])),
                                                 array('Account :', h($post['HistoricInvoice']['payment_method_account'])),
                                                 array('Taxes :', '$ '.h($post['HistoricInvoice']['tax'])),
                                                 array('Shipping Price :', '$ '.h($post['HistoricInvoice']['shippping_price'])),
