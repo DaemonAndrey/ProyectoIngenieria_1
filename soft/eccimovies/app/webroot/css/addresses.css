@@ -17,6 +17,11 @@ hr{
 	text-align: center;
 }
 
+._index h3
+{
+	text-align: center;
+}
+
 /** FORM.ctp **/
 
 .addAddress_form hr, .updateAddress_form hr, .addCard_form hr, .addPayPal_form hr, .addCategory_form hr, .updateCategory_form hr, .addProduct_form hr, updateProduct_form hr{
