@@ -7,8 +7,6 @@ class HistoricInvoicesController extends AppController
 	public $helpers = array('Html', 'Form', 'Flash','Js');
     public $components = array('Flash', 'Paginator');
 
-
-
 	public function beforeFilter()
 	{
         parent::beforeFilter();
@@ -49,32 +47,5 @@ class HistoricInvoicesController extends AppController
 			$manager = TRUE;
 		}
 		return $manager;
-	}
-
-	public function isAuthorized($user) {
-		// All registered users can add posts
-		if ($this->action === 'add') {
-			return true;
-		}
-
-		// The owner of a post can edit and delete it
-		if (in_array($this->action, array('edit', 'delete'))) {
-			$postId = (int) $this->request->params['pass'][0];
-			if ($this->PaymentMethod->isOwnedBy($postId, $user['id'])) {
-				return true;
-			}
-		}
-
-		return parent::isAuthorized($user);
-	}
-
-	public function isOwnedBy($paymentMethod, $user) {
-		return $this->field('id', array('id' => $paymentMethod, 'user_id' => $user)) !== false;
-	}
-
-
-	public function view()
-	{
-
 	}
 }
