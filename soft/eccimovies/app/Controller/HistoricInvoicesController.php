@@ -48,4 +48,47 @@ class HistoricInvoicesController extends AppController
 		}
 		return $manager;
 	}
+    
+    public function edit_status( $id = null )
+	{
+		if( !$id )
+		{
+			throw new NotFoundException(__('Invalid invoice.'));
+		}
+        
+		$hInvoice = $this->HistoricInvoice->findById($id);
+        
+		if( !$hInvoice )
+		{
+			throw new NotFoundException(__('Invalid invoice.'));
+		}
+        
+        $this->set('thisInvoice', $this->HistoricInvoice->findById($id));
+        
+		if($this->request->is(array('post', 'put')))
+		{
+			if(isset($this->request->data['cancel']))
+			{
+				$this->Flash->success(__('Action canceled.', true));
+				return $this->redirect(array('controller' => 'invoices', 'action' => 'view_invoice', $id));
+			}
+    
+			$this->HistoricInvoice->id = $id;
+            
+			if( $this->HistoricInvoice->save( $this->request->data ) )
+			{
+				$this->Flash->success(__('Invoice updated successfully.'));
+				return $this->redirect(array('controller' => 'invoices', 'action' => 'view_invoice', $id));
+			}
+			else
+			{
+				//debug($this->Product->validationErrors);
+				$this->Flash->error(__('Could not update invoice.'));
+			}
+		}
+		if(!$this->request->data)
+		{
+			$this->request->data = $hInvoice;
+		}
+	}
 }
