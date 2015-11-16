@@ -199,17 +199,14 @@ CREATE TABLE carts_products
 	CHECK ( quantity > 0 )
 );
 
-CREATE TABLE products_wishlists
+CREATE TABLE wishlists_products
 (
 	id			INT	UNSIGNED AUTO_INCREMENT,
 	wishlist_id	INT	UNSIGNED NOT NULL,
-	user_id		INT	UNSIGNED NOT NULL,
 	product_id	INT	UNSIGNED NOT NULL,
 
 	PRIMARY KEY ( id ),
 	FOREIGN KEY ( wishlist_id ) REFERENCES wishlists ( id ),
-	FOREIGN KEY ( user_id ) REFERENCES users ( id )
-		ON UPDATE CASCADE,
 	FOREIGN KEY ( product_id ) REFERENCES products ( id )
 );
 
