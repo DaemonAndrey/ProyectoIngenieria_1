@@ -4,6 +4,8 @@ DROP TABLE carts_products;
 DROP TABLE products_wishlists;
 DROP TABLE actors_products;
 DROP TABLE invoices_products;
+DROP TABLE combos_products;
+DROP TABLE combos;
 DROP TABLE products;
 DROP TABLE subcategories;
 DROP TABLE categories;
@@ -20,4 +22,3 @@ DROP TABLE addresses;
 DROP TABLE states;
 DROP TABLE countries;
 DROP TABLE users;
-
