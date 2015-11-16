@@ -3,7 +3,7 @@
 <?php
 
 // Si soy cliente
-if($user_id != null)
+if($user_id != null && ($admin || $custom))
 {
 	?>
     <?php
