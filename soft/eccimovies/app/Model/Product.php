@@ -1,22 +1,7 @@
 <?php
 App::uses('AppModel', 'Model');
-/**
- * Product Model
- *
- * @property Subcategory $Subcategory
- * @property Actor $Actor
- * @property Cart $Cart
- * @property Combo $Combo
- * @property Invoice $Invoice
- * @property Wishlist $Wishlist
- */
 class Product extends AppModel {
 
-/**
- * Validation rules
- *
- * @var array
- */
 	public $validate = array(
 		'name' => array(
 			'notBlank' => array(
@@ -40,13 +25,6 @@ class Product extends AppModel {
 		),
 	);
 
-	//The Associations below have been created with all possible keys, those that are not needed can be removed
-
-/**
- * belongsTo associations
- *
- * @var array
- */
 	public $belongsTo = array(
 		'Subcategory' => array(
 			'className' => 'Subcategory',
@@ -57,11 +35,6 @@ class Product extends AppModel {
 		)
 	);
 
-/**
- * hasAndBelongsToMany associations
- *
- * @var array
- */
 	public $hasAndBelongsToMany = array(
 		'Actor' => array(
 			'className' => 'Actor',

@@ -1,18 +1,7 @@
 <?php
 App::uses('AppModel', 'Model');
-/**
- * State Model
- *
- * @property Country $Country
- * @property Address $Address
- */
 class State extends AppModel {
 
-/**
- * Validation rules
- *
- * @var array
- */
 	public $validate = array(
 		'country_id' => array(
 			'numeric' => array(
@@ -36,13 +25,6 @@ class State extends AppModel {
 		),
 	);
 
-	//The Associations below have been created with all possible keys, those that are not needed can be removed
-
-/**
- * belongsTo associations
- *
- * @var array
- */
 	public $belongsTo = array(
 		'Country' => array(
 			'className' => 'Country',
@@ -53,11 +35,6 @@ class State extends AppModel {
 		)
 	);
 
-/**
- * hasMany associations
- *
- * @var array
- */
 	public $hasMany = array(
 		'Address' => array(
 			'className' => 'Address',

@@ -1,21 +1,7 @@
 <?php
 App::uses('AppModel', 'Model');
-/**
- * User Model
- *
- * @property Address $Address
- * @property Cart $Cart
- * @property PaymentMethod $PaymentMethod
- * @property ProductsWishlist $ProductsWishlist
- * @property Wishlist $Wishlist
- */
 class User extends AppModel {
 
-/**
- * Validation rules
- *
- * @var array
- */
 	public $validate = array(
 		'password' => array(
 			'notBlank' => array(
@@ -69,13 +55,6 @@ class User extends AppModel {
 		),
 	);
 
-	//The Associations below have been created with all possible keys, those that are not needed can be removed
-
-/**
- * hasMany associations
- *
- * @var array
- */
 	public $hasMany = array(
 		'Address' => array(
 			'className' => 'Address',

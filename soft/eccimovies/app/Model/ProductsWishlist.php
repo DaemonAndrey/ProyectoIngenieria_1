@@ -1,19 +1,7 @@
 <?php
 App::uses('AppModel', 'Model');
-/**
- * ProductsWishlist Model
- *
- * @property Wishlist $Wishlist
- * @property User $User
- * @property Product $Product
- */
 class ProductsWishlist extends AppModel {
 
-/**
- * Validation rules
- *
- * @var array
- */
 	public $validate = array(
 		'wishlist_id' => array(
 			'numeric' => array(
@@ -47,13 +35,6 @@ class ProductsWishlist extends AppModel {
 		),
 	);
 
-	//The Associations below have been created with all possible keys, those that are not needed can be removed
-
-/**
- * belongsTo associations
- *
- * @var array
- */
 	public $belongsTo = array(
 		'Wishlist' => array(
 			'className' => 'Wishlist',

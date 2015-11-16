@@ -1,17 +1,7 @@
 <?php
 App::uses('AppModel', 'Model');
-/**
- * Country Model
- *
- * @property State $State
- */
 class Country extends AppModel {
 
-/**
- * Validation rules
- *
- * @var array
- */
 	public $validate = array(
 		'name' => array(
 			'notBlank' => array(
@@ -25,13 +15,6 @@ class Country extends AppModel {
 		),
 	);
 
-	//The Associations below have been created with all possible keys, those that are not needed can be removed
-
-/**
- * hasMany associations
- *
- * @var array
- */
 	public $hasMany = array(
 		'State' => array(
 			'className' => 'State',

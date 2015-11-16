@@ -1,18 +1,7 @@
 <?php
 App::uses('AppModel', 'Model');
-/**
- * PaymentMethod Model
- *
- * @property User $User
- * @property Invoice $Invoice
- */
 class PaymentMethod extends AppModel {
 
-/**
- * Validation rules
- *
- * @var array
- */
 	public $validate = array(
 		'user_id' => array(
 			'numeric' => array(
@@ -46,13 +35,6 @@ class PaymentMethod extends AppModel {
 		),
 	);
 
-	//The Associations below have been created with all possible keys, those that are not needed can be removed
-
-/**
- * belongsTo associations
- *
- * @var array
- */
 	public $belongsTo = array(
 		'User' => array(
 			'className' => 'User',
@@ -63,11 +45,6 @@ class PaymentMethod extends AppModel {
 		)
 	);
 
-/**
- * hasMany associations
- *
- * @var array
- */
 	public $hasMany = array(
 		'Invoice' => array(
 			'className' => 'Invoice',

@@ -1,21 +1,7 @@
 <?php
 App::uses('AppModel', 'Model');
-/**
- * Subcategory Model
- *
- * @property Category $Category
- * @property Product $Product
- */
 class Subcategory extends AppModel {
 
-
-	//The Associations below have been created with all possible keys, those that are not needed can be removed
-
-/**
- * belongsTo associations
- *
- * @var array
- */
 	public $belongsTo = array(
 		'Category' => array(
 			'className' => 'Category',
@@ -26,11 +12,6 @@ class Subcategory extends AppModel {
 		)
 	);
 
-/**
- * hasMany associations
- *
- * @var array
- */
 	public $hasMany = array(
 		'Product' => array(
 			'className' => 'Product',

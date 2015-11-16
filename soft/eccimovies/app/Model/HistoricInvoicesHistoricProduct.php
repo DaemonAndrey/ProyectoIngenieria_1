@@ -1,18 +1,7 @@
 <?php
 App::uses('AppModel', 'Model');
-/**
- * HistoricInvoicesHistoricProduct Model
- *
- * @property HistoricInvoice $HistoricInvoice
- * @property HistoricProduct $HistoricProduct
- */
 class HistoricInvoicesHistoricProduct extends AppModel {
 
-/**
- * Validation rules
- *
- * @var array
- */
 	public $validate = array(
 		'historic_invoice_id' => array(
 			'numeric' => array(
@@ -36,13 +25,6 @@ class HistoricInvoicesHistoricProduct extends AppModel {
 		),
 	);
 
-	//The Associations below have been created with all possible keys, those that are not needed can be removed
-
-/**
- * belongsTo associations
- *
- * @var array
- */
 	public $belongsTo = array(
 		'HistoricInvoice' => array(
 			'className' => 'HistoricInvoice',

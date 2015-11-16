@@ -1,16 +1,7 @@
 <?php
 App::uses('AppModel', 'Model');
-/**
- * ValidAccount Model
- *
- */
 class ValidAccount extends AppModel {
 
-/**
- * Validation rules
- *
- * @var array
- */
 	public $validate = array(
 		'issuer' => array(
 			'notBlank' => array(
