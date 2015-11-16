@@ -73,11 +73,30 @@ if($user_id != null)
 		
 		<table cellpadding="0" cellspacing="0">
 				<tr>
+                    <?php
+                    if($admin)
+                    {
+                        ?>
+                        <th>
+						<?php echo ('Username '); ?>
+                        </th>
+                        <?php
+                    }
+                    ?>
+                    <th>
+						<?php echo ('Order Placed '); ?>
+					</th>
 					<th>
 						<?php echo ('Order # '); ?>
 					</th>
 					<th>
 						<?php echo ('Total '); ?>
+					</th>
+                    <th>
+						<?php echo ('Status '); ?>
+					</th>
+                    <th>
+						<?php echo ('Details '); ?>
 					</th>
 				</tr>
                 
@@ -96,14 +115,23 @@ if($user_id != null)
                             <tr>
                                 <td>
                                 <?php
-                                echo $this->Html->link($hInvoice['HistoricInvoice']['id'],
-                                                   array('action' => 'view_invoice', $hInvoice['HistoricInvoice']['id'])
-                                                    );
+                                echo $hInvoice['HistoricInvoice']['invoice_date'];
                                 ?>
                                 </td>
                                 <td>
-                                <?php
-                                echo '$ '.$hInvoice['HistoricInvoice']['total'];
+                                <?php echo $hInvoice['HistoricInvoice']['id']; ?>
+                                </td>
+                                <td>
+                                <?php echo '$ '.$hInvoice['HistoricInvoice']['total']; ?>
+                                </td>
+                                <td>
+                                <?php echo $hInvoice['HistoricInvoice']['invoice_status']; ?>
+                                </td>
+                                <td>
+                                <?php echo $this->Html->link('<i class="glyphicon glyphicon-eye-open"></i>',
+                                                             array('action' => 'view_invoice', $hInvoice['HistoricInvoice']['id']),
+                                                             array('escape' => false)
+                                                            );
                                 ?>
                                 </td>
                             </tr>
@@ -127,15 +155,25 @@ if($user_id != null)
                             ?>
                             <tr>
                                 <td>
-                                <?php
-                                echo $this->Html->link($hInvoice['HistoricInvoice']['id'],
-                                                   array('action' => 'view_invoice', $hInvoice['HistoricInvoice']['id'])
-                                                    );
-                                ?>
+                                <?php echo $hInvoice['HistoricInvoice']['user_first_name'] . ' ' . $hInvoice['HistoricInvoice']['user_last_name']; ?>
                                 </td>
                                 <td>
-                                <?php
-                                echo '$ '.$hInvoice['HistoricInvoice']['total'];
+                                <?php echo $hInvoice['HistoricInvoice']['invoice_date'];?>
+                                </td>
+                                <td>
+                                <?php echo $hInvoice['HistoricInvoice']['id']; ?>
+                                </td>
+                                <td>
+                                <?php echo '$ '.$hInvoice['HistoricInvoice']['total']; ?>
+                                </td>
+                                <td>
+                                <?php echo $hInvoice['HistoricInvoice']['invoice_status']; ?>
+                                </td>
+                                <td>
+                                <?php echo $this->Html->link('<i class="glyphicon glyphicon-eye-open"></i>',
+                                                             array('action' => 'view_invoice', $hInvoice['HistoricInvoice']['id']),
+                                                             array('escape' => false)
+                                                            );
                                 ?>
                                 </td>
                             </tr>
@@ -150,6 +188,11 @@ if($user_id != null)
                 ?>   
                 
 			</table>
+        <div class="center_pagination">
+        <ul class="pagination">
+            <li><?php echo $this->Paginator->numbers(array('separator' => '')); ?></li>
+        </ul>
+    </div>
         <hr>
 	</div>
 	<?php
