@@ -100,8 +100,8 @@ if($user_id != null && ( $admin || ($custom && $user_id == $invoice_user)))
             <?php    
             if($post['HistoricInvoice']['invoice_status'] !== 'Delivered')
             {
-                echo "<li id = 'fom-button'>"; 
-                echo $this->Html->link(	'<span class="glyphicon glyphicon-pencil"></span>',
+                echo "<li id = 'editStatus-button'>"; 
+                echo $this->Html->link(	'Update <span class="glyphicon glyphicon-pencil"></span>',
                                         array('controller'=>'historicInvoices','action' => 'edit_status', $post['HistoricInvoice']['id']),
                                         array('target' => '_self', 'escape' => false)
                                     );
