@@ -3,12 +3,39 @@ App::uses('AppModel', 'Model');
 /**
  * Invoice Model
  *
- * @property Address $Address
  * @property PaymentMethod $PaymentMethod
+ * @property Address $Address
  * @property Product $Product
  */
 class Invoice extends AppModel {
 
+/**
+ * Validation rules
+ *
+ * @var array
+ */
+	public $validate = array(
+		'payment_method_id' => array(
+			'numeric' => array(
+				'rule' => array('numeric'),
+				//'message' => 'Your custom message here',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+		),
+		'address_id' => array(
+			'numeric' => array(
+				'rule' => array('numeric'),
+				//'message' => 'Your custom message here',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+		),
+	);
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
@@ -18,16 +45,16 @@ class Invoice extends AppModel {
  * @var array
  */
 	public $belongsTo = array(
-		'Address' => array(
-			'className' => 'Address',
-			'foreignKey' => 'address_id',
+		'PaymentMethod' => array(
+			'className' => 'PaymentMethod',
+			'foreignKey' => 'payment_method_id',
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
 		),
-		'PaymentMethod' => array(
-			'className' => 'PaymentMethod',
-			'foreignKey' => 'payment_method_id',
+		'Address' => array(
+			'className' => 'Address',
+			'foreignKey' => 'address_id',
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
@@ -52,8 +79,6 @@ class Invoice extends AppModel {
 			'limit' => '',
 			'offset' => '',
 			'finderQuery' => '',
-			'deleteQuery' => '',
-			'insertQuery' => ''
 		)
 	);
 

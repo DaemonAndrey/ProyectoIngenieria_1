@@ -8,21 +8,14 @@ App::uses('AppModel', 'Model');
 class Combo extends AppModel {
 
 /**
- * Display field
- *
- * @var string
- */
-	public $displayField = 'code';
-
-/**
  * Validation rules
  *
  * @var array
  */
 	public $validate = array(
-		'id' => array(
-			'notBlank' => array(
-				'rule' => array('notBlank'),
+		'discount' => array(
+			'decimal' => array(
+				'rule' => array('decimal'),
 				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
 				//'required' => false,

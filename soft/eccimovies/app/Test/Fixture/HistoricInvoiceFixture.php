@@ -1,25 +1,27 @@
 <?php
-/**
- * HistoricInvoice Fixture
- */
+
 class HistoricInvoiceFixture extends CakeTestFixture {
 
-/**
- * Import
- *
- * @var array
- */
-	public $import = array('model' => 'HistoricInvoice', 'records' => true);
+	public $import = array(
+		'connection' => 'default',
+		'model' => 'Address',
+		'records' => true
+	);
 
 	public $records = array(
 		array(
-			'id'				=> 1,
-			'shippping_price'			=> 10.00,
-			'tax'			=> 22.38,
-			'total'			=> 246.20,
-			'payment_method_account'			=> '6496041476353349',
-			'address_full_address'			=> '2956 Princeton, Boston, Massachusetts, United States, 02086',
-		)
+			'id' => 1,
+			'shippping_price' => '',
+			'tax' => '',
+			'total' => '',
+			'payment_method_account' => 'Lorem ipsum dolor sit amet',
+			'address_full_address' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
+			'user_gender' => 'Lorem ipsum dolor sit ame',
+			'user_first_name' => 'Lorem ipsum dolor sit amet',
+			'user_last_name' => 'Lorem ipsum dolor sit amet',
+			'invoice_date' => '2015-11-16 02:40:49',
+			'invoice_status' => 'Lorem ipsum dolor sit amet'
+		),
 	);
 
 }

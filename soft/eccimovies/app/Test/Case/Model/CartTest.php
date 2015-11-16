@@ -1,42 +1,27 @@
 <?php
 App::uses('Cart', 'Model');
 
-/**
- * Cart Test Case
- */
 class CartTest extends CakeTestCase {
 
-/**
- * Fixtures
- *
- * @var array
- */
 	public $fixtures = array(
 		'app.cart',
-		'app.cart_product',
-//		'app.product'
+		'app.user',
+		'app.product',
+		'app.carts_product'
 	);
 
-/**
- * setUp method
- *
- * @return void
- */
-	public function setUp() {
-		parent::setUp();
-		$this->Cart = ClassRegistry::init('Cart');
-	}
+	public $autoFixtures = false;
 
 	public function testCartModel() {
 		$result = $this->loadFixtures('Cart');
 		debug($result);
 	}
 
-/**
- * tearDown method
- *
- * @return void
- */
+	public function setUp() {
+		parent::setUp();
+		$this->Cart = ClassRegistry::init('Cart');
+	}
+
 	public function tearDown() {
 		unset($this->Cart);
 

@@ -1,13 +1,20 @@
-
 <?php
-	App::uses('AppModel', 'Model');
-
-
+App::uses('AppModel', 'Model');
+/**
+ * Category Model
+ *
+ * @property Subcategory $Subcategory
+ */
 class Category extends AppModel {
-	public $useTable = 'categories';
 
-	public $displayField = 'category_name';
 
+	//The Associations below have been created with all possible keys, those that are not needed can be removed
+
+/**
+ * hasMany associations
+ *
+ * @var array
+ */
 	public $hasMany = array(
 		'Subcategory' => array(
 			'className' => 'Subcategory',
@@ -24,13 +31,4 @@ class Category extends AppModel {
 		)
 	);
 
-	public $validate = array(
-		'category_name' => array(
-			'rule' => 'notBlank'
-		)
-	);
 }
-?>
-
-
-
