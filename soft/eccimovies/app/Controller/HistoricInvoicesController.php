@@ -91,4 +91,22 @@ class HistoricInvoicesController extends AppController
 			$this->request->data = $hInvoice;
 		}
 	}
+    
+    public function view()
+	{
+		//$var = $this->HistoricInvoice->field('invoice_date');
+		//debug($var);
+
+		$this->loadModel('Category');
+		 $this->set('categories', $this->Category->find('all', array('conditions' => array('category_name != '=>'Unclassified'))));
+		 $this->loadModel('Subcategory');
+		 $this->Subcategory->recursive = 0;
+
+		 $this->set('subcategories', $this->Subcategory->find('all'));
+	}
+
+	public function printData()
+	{
+		
+	}
 }

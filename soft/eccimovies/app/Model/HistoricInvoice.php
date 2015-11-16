@@ -7,8 +7,5 @@ App::uses('AppModel', 'Model');
  */
 class HistoricInvoice extends AppModel {
 
-
-
-
-
+	
 }
