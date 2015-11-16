@@ -71,9 +71,10 @@ CREATE TABLE invoices
 	payment_method_id	INT	UNSIGNED NOT NULL,
 	address_id INT	UNSIGNED NOT NULL,
 	date	DATE,
-
+    
 	PRIMARY KEY ( id ),
-	FOREIGN KEY ( payment_method_id ) REFERENCES payment_methods ( id ),
+	FOREIGN KEY ( payment_method_id ) REFERENCES payment_methods ( id )
+        ON DELETE CASCADE,
 	FOREIGN KEY ( address_id ) REFERENCES addresses ( id ),
 	CHECK ( total >= 0 )
 );
@@ -204,7 +205,8 @@ CREATE TABLE invoices_products
 	price		DECIMAL( 8, 2 ) DEFAULT 0,
 
 	PRIMARY KEY ( id ),
-	FOREIGN KEY ( invoice_id ) REFERENCES invoices ( id ),
+	FOREIGN KEY ( invoice_id ) REFERENCES invoices ( id )
+            ON DELETE CASCADE,
 	FOREIGN KEY ( product_id ) REFERENCES products ( id ),
 	CHECK ( quantity > 0 ),
 	CHECK ( price >= 0 )
@@ -391,3 +393,12 @@ BEGIN
 	END IF;
 END; //
 DELIMITER ;
+
+-- Trigger que borra métodos de pago de un cliente 
+CREATE TRIGGER on_delete_valid_account_delete_payment_method
+BEFORE DELETE ON valid_accounts
+FOR EACH ROW
+    DELETE FROM payment_methods
+    WHERE account = old.account;
+
+

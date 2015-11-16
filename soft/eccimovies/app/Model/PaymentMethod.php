@@ -5,13 +5,6 @@ App::uses('BlowfishPasswordHasher', 'Controller/Component/Auth');
 
 class PaymentMethod extends AppModel
 {
-    public $belongsTo = array('User' => array(
-											'className'  => 'User',
-											'foreignKey' => false,
-											'conditions' => 'PaymentMethod.user_id = User.username'
-											),
-							);
-
     // Valida los campos de la tabla Productos a la hora de agregar
     public $validate = array(	
 							'issuer' => array(
@@ -26,7 +19,7 @@ class PaymentMethod extends AppModel
 												'regla1' => array
 																(
 																'rule' => array('notBlank'),
-																'message' => 'Introduce your card number or paypal account.'
+																'message' => 'Introduce a card number or paypal account.'
 																)
 											)
 							);

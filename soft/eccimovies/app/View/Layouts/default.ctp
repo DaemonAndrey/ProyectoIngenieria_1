@@ -71,7 +71,7 @@
                          <div class="row">
                         <div class="col-xs-12 col-md-14" id="principal-header-nav">
                             <nav id="header-nav">
-                                <ul>
+                                <ul style="padding-left: 0px">
 
                                     <?php if($user_id == null)
                                     {

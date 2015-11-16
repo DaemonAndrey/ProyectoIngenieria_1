@@ -798,11 +798,4 @@ INSERT INTO actors_products ( actor_id, product_id ) VALUES
 	(	157,	37		),
 	(	158,	37		);
 
-INSERT INTO carts ( user_id, subtotal ) VALUES
-	(	1,	80.46 );
-
-INSERT INTO carts_products ( cart_id, product_id, quantity ) VALUES
-	(	1,	1, 3 	),
-	(	1,	2, 2 	),
-	(	1,	3, 1 	);
 

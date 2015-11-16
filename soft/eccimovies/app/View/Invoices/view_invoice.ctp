@@ -15,57 +15,23 @@ if( $pMethod['PaymentMethod']['account'] === $invoice_account)
 endforeach;
 unset($pMethod);
 
-// Si soy admin, o soy cliente y me pertenece la orden
-if($user_id != null && ($admin || ($custom && $user_id == $invoice_user)))
+// Si soy cliente y me pertenece la cuenta
+if($user_id != null && $custom && $user_id == $invoice_user)
 { 	
-    ?>
-	<?php
-    if($custom)
-    {
-        ?>
-        <nav class="navbar navbar-inverse" id="navigation-bar">
-          <div class="container-fluid">
-            <div>
-              <ul class="nav nav-pills nav-justified" role="tablist">
-                <li><a href="#" class="nav-buttons">Account Settings</a></li> 
-                <li class="active"><?php echo $this->Html->link('Your Orders',
-                                                                array('controller' => 'invoices',
-                                                                      'action' => 'my_invoices'),
-                                                                array('class' => 'nav-buttons')); ?></li>
-                <li><?php echo $this->Html->link('Payment Methods',
-                                                 array('controller' => 'paymentMethods',
-                                                       'action' => 'index'),
-                                                 array('class' => 'nav-buttons')); ?></li>
-                <li><?php echo $this->Html->link('Address Book',
-                                                 array('controller' => 'addresses',
-                                                       'action' => 'index'),
-                                                 array('class' => 'nav-buttons')); ?></li>
-                <li><a href="#", class="nav-buttons">Wishlist</a></li>  
-              </ul>
-            </div>
-          </div>
-        </nav>
-        <?php
-    }
-    if($admin)
-    {
-        ?>
-        <nav class="navbar navbar-inverse" id="navigation-bar">
-          <div class="container-fluid">
-            <div>
-              <ul class="nav nav-pills nav-justified" role="tablist">
-                <li><?php echo $this->Html->link('Products', array('controller' => 'products', 'action' => 'index')); ?></li>
-                <li><?php echo $this->Html->link('Categories', array('controller' => 'categories', 'action' => 'index')); ?></li>
-                <li><a href="#">Users</a></li> 
-                <li class="active"><?php echo $this->Html->link('Orders', array('controller' => 'invoices', 'action' => 'my_invoices')); ?></li>
-                <li><a href="#">Financial Entities</a></li>  
-              </ul>
-            </div>
-          </div>
-        </nav>
-        <?php
-    }
-    ?>
+	?>
+    <nav class="navbar navbar-inverse" id="navigation-bar">
+      <div class="container-fluid">
+        <div>
+          <ul class="nav nav-pills nav-justified" role="tablist">
+            <li><a href="#" class="nav-buttons">Account Settings</a></li> 
+            <li class="active"><?php echo $this->Html->link('Your Orders',array('controller' => 'invoices', 'action' => 'my_invoices'), array('class' => 'nav-buttons')); ?></li>
+            <li><?php echo $this->Html->link('Payment Methods',array('controller' => 'paymentMethods', 'action' => 'index'), array('class' => 'nav-buttons')); ?></li>
+            <li><?php echo $this->Html->link('Address Book', array('controller' => 'addresses', 'action' => 'index'), array('class' => 'nav-buttons')); ?></li>
+            <li><a href="#", class="nav-buttons">Wishlist</a></li>  
+          </ul>
+        </div>
+      </div>
+    </nav>
 
     <hr>
 
@@ -143,8 +109,8 @@ if($user_id != null && ($admin || ($custom && $user_id == $invoice_user)))
 	
 	<?php
 }
-// Si no estoy loggeado
-if($user_id == null || ($user_id != null && ($manager || ($custom && $user_id != $invoice_user))))
+// Si no estoy loggeado, o soy administrador o gerente
+else
 {
 	?> <h1> NOTHING TO SEE HERE... </h1> <?php
 }

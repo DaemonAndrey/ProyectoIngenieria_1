@@ -111,7 +111,7 @@ class AddressesController extends AppController
 				}
 			} else {
 				$countries = $this->Address->State->Country->find('list');
-				$states = array(); // $this->Address->State->find('list');
+				$states = $this->Address->State->find('list');
 				$this->set(compact('countries', 'states'));
 			}
 		}
