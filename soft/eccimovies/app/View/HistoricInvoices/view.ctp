@@ -26,108 +26,129 @@
 
 <div class="row">
 
-    <div class="col-md-4 col-xs-12" id="category-id">
+    <div class="col-md-4 col-xs-12" id="category-id" style="padding-left:40px">
       <h5>CATEGORIES</h5>
-      <form>
+
         <?php
+        echo  $this->Form->create();
+             foreach ($categories as $category)
+             {
 
-         foreach ($categories as $category)
-         {
-            echo "<label>";
-              echo"<input type = 'checkbox' name = ".$category['Category']['category_name'] . "> " .$category['Category']['category_name'];
-            echo "</label>";
-            echo "<br>";
-         }
+               echo $this->Form->input($category['Category']['category_name'], array('hiddenField'=>false,'type'=>'checkbox','name'=>$category['Category']['category_name'], 'value'=>$category['Category']['category_name']));
 
+             }
+
+          echo $this->Form->end();
+          unset($category);
          ?>
-
-      </form>
     </div>
-    
+
     <div class="col-md-4 col-xs-12" id="subcategory-id">
     <h5>SUBCATEGORIES</h5>
-      <?php foreach ($category['Subcategory'] as $subcategory){
+      <?php
+        echo $this->Form->create('subcat');
+          $sub = $this->Session->read('subcategories');
 
-        echo $subcategory['subcategory_name'];
-        echo "<br>";
-      }
-         
-        unset($subcategory);
-        unset($category);
+          for($i = 0; $i < count($sub); ++$i)
+          {
+            for($j = 0; $j < count($sub[$i]['Subcategory']); ++$j)
+            {
+              $name = $sub[$i]['Subcategory'][$j]['subcategory_name'];
+               echo $this->Form->input($name, array('hiddenField'=>false,'type'=>'checkbox','name'=>$name, 'value'=>$name));
+
+            }
+          }
+        echo  $this->Form->end();
+
+
       ?>
     </div>
 
     <div class="col-md-4 col-xs-12" id="product-id">
     <h5>PRODUCTS</h5>
-      
+
+        <?php
+            echo $this->Form->create('product');
+                $pro = $this->Session->read('products');
+
+                for($i = 0; $i < count($pro); ++$i)
+                {
+                  for($j = 0; $j < count($pro[$i]['Product']); ++$j)
+                  {
+                    $name = $pro[$i]['Product'][$j]['name'];
+                     echo $this->Form->input($name, array('hiddenField'=>false,'type'=>'checkbox','name'=>$name, 'value'=>$name));
+
+                  }
+                }
+
+            echo $this->Form->end();
+
+         ?>
     </div>
 </div>
 
 <div id="message">
-  
+  <?php
+
+   ?>
 </div>
 
+
+<?php
+// JsHelper should be loaded in $helpers in controller
+// Form ID: #ContactsContactForm
+// Div to use for AJAX response: #contactStatus
+$data = $this->Js->get('#HistoricInvoiceViewForm input[type=checkbox]')->serializeForm(array('isForm' => true, 'inline' => true));
+$this->Js->get('#HistoricInvoiceViewForm input[type=checkbox]')->event(
+   'change',
+   $this->Js->request(
+    array('action' => 'printData', 'controller' => 'HistoricInvoices'),
+    array(
+        'update' => '#message',
+        'data' => $data,
+        'async' => true,
+        'dataExpression'=>true,
+        'method' => 'POST',
+        'complete'=> 'self.setInterval("updateSubcat()",100);'
+    )
+  )
+);
+echo $this->Js->writeBuffer();
+?>
+
 <script>
-
-var selected = "";
-
-$( "input[type=checkbox]" ).on( "click", getData);
-
-
-function getData()
-{
-    selected = [];
-
-   $('input[type=checkbox]').each(function() {
-     if ($(this).is(":checked")) {
-         selected.push($(this).attr('name')+" , ");
-     }
-    })
-
-   sendData();
-}
-
-function sendData()
-{
-
-
-  alert(selected.toString());
-
-
-      var xmlhttp = new XMLHttpRequest();
-      xmlhttp.onreadystatechange = function() {
-          if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-              document.getElementById("message").innerHTML = "Hola";
-          }
-      };
-      xmlhttp.open("GET", "/Tienda/soft/eccimovies/historicinvoices/printData?q=" + selected, true);
-      xmlhttp.send();
-      
-}
-
- /**
-$( "input[type=checkbox]" ).on( "click", m );
-
-var selected = [];
-function m()
-{
-  selected.length = 0;
-
- $('input[type=checkbox]').each(function() {
-   if ($(this).is(":checked")) {
-       selected.push($(this).attr('name'));
-   }
-  })
-
-  myfun();
-}
-
-
-
-function myfun()
-{
-   alert(selected);
-}**/
+  function updateSubcat()
+  {
+    $("#subcategory-id").load(location.href+" #subcategory-id");
+  }
 </script>
 
 
+<?php
+// JsHelper should be loaded in $helpers in controller
+// Form ID: #ContactsContactForm
+// Div to use for AJAX response: #contactStatus
+$data = $this->Js->get('#subcatViewForm input[type=checkbox]')->serializeForm(array('isForm' => true, 'inline' => true));
+$this->Js->get('#subcatViewForm input[type=checkbox]')->event(
+   'change',
+   $this->Js->request(
+    array('action' => 'getProducts', 'controller' => 'HistoricInvoices'),
+    array(
+        'update' => '#message',
+        'data' => $data,
+        'async' => true,
+        'dataExpression'=>true,
+        'method' => 'POST',
+        'complete'=> 'self.setInterval("updateProducts()",100);'
+    )
+  )
+);
+echo $this->Js->writeBuffer();
+?>
+
+<script>
+  function updateProducts()
+  {
+    $("#product-id").load(location.href+" #product-id");
+  }
+</script>

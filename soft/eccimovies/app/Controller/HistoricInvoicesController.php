@@ -48,23 +48,23 @@ class HistoricInvoicesController extends AppController
 		}
 		return $manager;
 	}
-    
+
     public function edit_status( $id = null )
 	{
 		if( !$id )
 		{
 			throw new NotFoundException(__('Invalid invoice.'));
 		}
-        
+
 		$hInvoice = $this->HistoricInvoice->findById($id);
-        
+
 		if( !$hInvoice )
 		{
 			throw new NotFoundException(__('Invalid invoice.'));
 		}
-        
+
         $this->set('thisInvoice', $this->HistoricInvoice->findById($id));
-        
+
 		if($this->request->is(array('post', 'put')))
 		{
 			if(isset($this->request->data['cancel']))
@@ -72,9 +72,9 @@ class HistoricInvoicesController extends AppController
 				$this->Flash->success(__('Action canceled.', true));
 				return $this->redirect(array('controller' => 'invoices', 'action' => 'view_invoice', $id));
 			}
-    
+
 			$this->HistoricInvoice->id = $id;
-            
+
 			if( $this->HistoricInvoice->save( $this->request->data ) )
 			{
 				$this->Flash->success(__('Invoice updated successfully.'));
@@ -91,22 +91,50 @@ class HistoricInvoicesController extends AppController
 			$this->request->data = $hInvoice;
 		}
 	}
-    
+
     public function view()
 	{
-		//$var = $this->HistoricInvoice->field('invoice_date');
-		//debug($var);
+
 
 		$this->loadModel('Category');
 		 $this->set('categories', $this->Category->find('all', array('conditions' => array('category_name != '=>'Unclassified'))));
-		 $this->loadModel('Subcategory');
-		 $this->Subcategory->recursive = 0;
 
-		 $this->set('subcategories', $this->Subcategory->find('all'));
 	}
 
 	public function printData()
 	{
-		
+		$this->Session->write('subcategories',array());
+		if ($this->request->is('ajax'))
+		{
+			$this->loadModel('Category');
+			$this->loadModel('Subcategory');
+
+			$this->Session->write('subcategories',$this->Category->find('all',
+			 array('conditions'=> array( 'category_name'=> $this->request->data ))));
+
+		}
+	}
+
+	public function getProducts()
+	{
+		$this->Session->write('products',array());
+		if ($this->request->is('ajax'))
+		{
+			$catego = array();
+			$tempo = $this->Session->read('subcategories');
+			for($i = 0; $i < count($tempo); ++$i)
+			{
+				array_push($catego,$tempo[$i]['Category']['category_name']);
+			}
+
+			$this->loadModel('Category');
+			$this->loadModel('Subcategory');
+
+			$var = $var[0]['Category']['category_name'];
+			$this->Session->write('products',$this->Subcategory->find('all',
+		array('conditions'=>array('subcategory_name'=>$this->request->data,
+			'category_name '=>$catego))));
+
+		}
 	}
 }
