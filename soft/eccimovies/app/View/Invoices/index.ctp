@@ -7,7 +7,7 @@
 <?php if($user_id != null && $custom){ ?>
 
     <header id="principal-header-text-invoice">
-    <h2> Payment and Shipping Information </h2>
+    <h2> <center> Payment and Shipping Information </center> </h2>
     </header>
 
     
