@@ -20,7 +20,7 @@ echo $this->Html->css('general');?>
                     <ul class="dropdown-menu scrollable-menu" role="menu">
                         <?php
                         foreach ($catego as $cat):
-                        if( $cat['Page']['category_name'] !== 'Unsorted')
+                        if( $cat['Page']['category_name'] !== 'Unclassified')
                         {
                             ?>
                             <li>
