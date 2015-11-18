@@ -53,14 +53,20 @@ if($user_id != null && $admin || $custom)
                                                                 'label' => array(
                                                                                     'class' => 'control-label col-sm-2',
                                                                                     'text' => 'New Password'
-                                                                                )
+                                                                                    
+                                                                                ),
+                                                                'name'=> 'pass',
+                                                                'value' => ''
                                                                 )
                                        );
                 echo $this->Form->input('password', array('div' => 'form-group',
                                                         'label' => array(
                                                                             'class' => 'control-label col-sm-2',
                                                                             'text' => 'Confirm Password'
-                                                                        )
+                                                                            
+                                                                        ),
+                                                          'name'=> 'confirm',
+                                                          'value'=> ''
                                                             )
                                        );
                 echo $this->Form->input('birthday', array( 'div' => 'form-group',
