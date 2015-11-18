@@ -11,10 +11,9 @@ if($user_id != null && $admin)
         <div>
           <ul class="nav nav-pills nav-justified" role="tablist">
             <li><?php echo $this->Html->link('Products', array('controller' => 'products', 'action' => 'index')); ?></li>
-            <li><?php echo $this->Html->link('Categories', array('controller' => 'categories', 'action' => 'index')); ?></li>
+            <li ><?php echo $this->Html->link('Categories', array('controller' => 'categories', 'action' => 'index')); ?></li>
             <li><a href="#">Users</a></li> 
-            <li><?php echo $this->Html->link('Orders', array('controller' => 'invoices', 'action' => 'my_invoices')); ?></li>
-            <li class="active"><?php echo $this->Html->link('Valid Accounts', array('controller' => 'valid_accounts', 'action' => 'index')); ?></li>
+            <li class="active"><?php echo $this->Html->link('Valid Accounts', array('controller' => 'valid_accounts', 'action' => 'index')); ?></li>  
           </ul>
         </div>
       </div>
@@ -46,7 +45,9 @@ if($user_id != null && $admin)
                                                                 'placeholder' => 'PayPal password'
                                                             )
                                 );
-        echo $this->Form->input('ValidAccount.funds',array(	'div' => 'form-group', 	
+        echo $this->Form->input('ValidAccount.funds',array(	    'type' => 'number',
+                                                                'min' => 0,
+                                                                'div' => 'form-group', 	
                                                                 'label' => array(	'class' => 'control-label col-sm-2',
                                                                                     'text' => 'Funds'
                                                                                 ),
