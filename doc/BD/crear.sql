@@ -108,6 +108,7 @@ CREATE TABLE products
 	code			VARCHAR( 8 ) UNIQUE,
 	name			VARCHAR( 64 )	NOT NULL,
 	price			DECIMAL( 5, 2 )	NOT NULL DEFAULT 0,
+	discount		INT NOT NULL DEFAULT 0,
 	stock_quantity	INT DEFAULT 0,
 	format			VARCHAR( 32 ),
 	languages		VARCHAR( 64 ),
@@ -309,13 +310,17 @@ BEGIN
 	DECLARE subtotal_anterior DECIMAL(8,2);
 	DECLARE precio DECIMAL(8,2);
 	DECLARE cantidad INT;
+	DECLARE descuento INT;
+	DECLARE precioOferta DECIMAL(8,2);
 
 	SET subtotal_anterior = ( SELECT c.subtotal FROM carts c WHERE c.id = NEW.cart_id );
 	SET precio = ( SELECT p.price FROM products p WHERE p.id = NEW.product_id );
 	SET cantidad = ( SELECT cp.quantity FROM carts_products cp WHERE cp.id = NEW.id );
+	SET descuento = ( SELECT p.discount FROM products p WHERE p.id = NEW.product_id );
+	SET precioOferta = ( precio - ( precio * ( descuento / 100 ) ) ) * cantidad;
 
 	UPDATE carts
-	SET subtotal = subtotal_anterior + ( precio * cantidad )
+	SET subtotal = subtotal_anterior + precioOferta
 	WHERE id = NEW.cart_id;
 END; //
 DELIMITER ;
@@ -332,16 +337,20 @@ BEGIN
 	DECLARE subtotal_nuevo DECIMAL(8,2);
 	DECLARE cantidad_nueva INT;
 	DECLARE precio DECIMAL(8,2);
+	DECLARE descuento INT;
+	DECLARE precioOferta DECIMAL(8,2);
 
 	SET subtotal_anterior = ( SELECT c.subtotal FROM carts c WHERE c.id = NEW.cart_id );
 	SET cantidad_anterior = ( SELECT OLD.quantity FROM carts_products cp WHERE cp.id = NEW.id );
 	SET cantidad_nueva = ( SELECT cp.quantity FROM carts_products cp WHERE cp.id = NEW.id );
 	SET precio = ( SELECT p.price FROM products p WHERE p.id = NEW.product_id );
+	SET descuento = ( SELECT p.discount FROM products p WHERE p.id = NEW.id );
+	SET precioOferta = ( precio - ( precio * ( descuento / 100 ) ) ) * cantidad;
 
 	IF cantidad_nueva > cantidad_anterior THEN
-		SET subtotal_nuevo = subtotal_anterior + ( precio * ( cantidad_nueva - cantidad_anterior ) );
+		SET subtotal_nuevo = subtotal_anterior + ( precioOferta * ( cantidad_nueva - cantidad_anterior ) );
 	ELSEIF cantidad_nueva < cantidad_anterior THEN
-		SET subtotal_nuevo = subtotal_anterior - ( precio * ( cantidad_anterior - cantidad_nueva ) );
+		SET subtotal_nuevo = subtotal_anterior - ( precioOferta * ( cantidad_anterior - cantidad_nueva ) );
 	END IF;
 
 	UPDATE carts
@@ -361,12 +370,16 @@ BEGIN
 	DECLARE cantidad_anterior INT;
 	DECLARE subtotal_nuevo DECIMAL(8,2);
 	DECLARE precio DECIMAL(8,2);
+	DECLARE descuento INT;
+	DECLARE precioOferta DECIMAL(8,2);
 
 	SET subtotal_anterior = ( SELECT c.subtotal FROM carts c WHERE c.id = OLD.cart_id );
 	SET cantidad_anterior = ( SELECT cp.quantity FROM carts_products cp WHERE cp.id = OLD.id );
 	SET precio = ( SELECT p.price FROM products p WHERE p.id = OLD.product_id );
+	SET descuento = ( SELECT p.discount FROM products p WHERE p.id = OLD.id );
+	SET precioOferta = ( precio - ( precio * ( descuento / 100 ) ) ) * cantidad_anterior;
 
-	SET subtotal_nuevo = subtotal_anterior - ( precio * cantidad_anterior );
+	SET subtotal_nuevo = subtotal_anterior - precioOferta;
 
 	UPDATE carts
 	SET subtotal = subtotal_nuevo
