@@ -6,7 +6,11 @@
 
 <div class="combos index">
 	<hr>
-	<h2><?php echo __('Combos'); ?></h2>
+
+	<div class="title">
+	<h2> <?php echo __('Manage combos'); ?> </h2>
+	</div>
+
 	<hr>
 		
         <p>
