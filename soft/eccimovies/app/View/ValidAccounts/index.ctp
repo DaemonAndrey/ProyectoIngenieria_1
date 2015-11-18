@@ -16,7 +16,8 @@
             <li><?php echo $this->Html->link('Products', array('controller' => 'products', 'action' => 'index')); ?></li>
             <li><?php echo $this->Html->link('Categories', array('controller' => 'categories', 'action' => 'index')); ?></li>
             <li><a href="#">Users</a></li> 
-            <li class="active" ><?php echo $this->Html->link('Valid Accounts', array('controller' => 'valid_accounts', 'action' => 'index')); ?></li>  
+            <li><?php echo $this->Html->link('Orders', array('controller' => 'invoices', 'action' => 'my_invoices')); ?></li>
+            <li class="active"><?php echo $this->Html->link('Valid Accounts', array('controller' => 'valid_accounts', 'action' => 'index')); ?></li>
           </ul>
         </div>
       </div>
