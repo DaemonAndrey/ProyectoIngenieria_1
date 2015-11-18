@@ -13,7 +13,7 @@
 
       <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li><a href="#" >NEW RELEASES</a></li>
+                <li><?php echo $this->Html->link('NEW RELEASES', array('controller' => 'pages', 'action' => 'display', 'home')); ?></li>
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" style="color:black">GENRES<span class="caret"></span></a>
                     <ul class="dropdown-menu scrollable-menu" role="menu">
