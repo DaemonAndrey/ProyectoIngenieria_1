@@ -297,7 +297,7 @@ FOR EACH ROW
 	UPDATE products
 	SET subcategory_id = 1
 	WHERE subcategory_id = old.id;
-/*
+
 -- Trigger para actualizar el subtotal en carrito cuando se agrega producto
 DELIMITER //
 CREATE TRIGGER on_insert_product_update_subtotal
@@ -384,7 +384,7 @@ BEGIN
 	WHERE id = OLD.cart_id;
 END; //
 DELIMITER ;
-*/
+
 
 -- Trigger para verificar los metodos de pagos antes de agregarlos
 DELIMITER //
