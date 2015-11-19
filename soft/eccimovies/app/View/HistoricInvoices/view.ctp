@@ -95,9 +95,7 @@
 
 
 <?php
-// JsHelper should be loaded in $helpers in controller
-// Form ID: #ContactsContactForm
-// Div to use for AJAX response: #contactStatus
+
 $data = $this->Js->get('#HistoricInvoiceViewForm input[type=checkbox]')->serializeForm(array('isForm' => true, 'inline' => true));
 $this->Js->get('#HistoricInvoiceViewForm input[type=checkbox]')->event(
    'change',
@@ -109,11 +107,11 @@ $this->Js->get('#HistoricInvoiceViewForm input[type=checkbox]')->event(
         'async' => true,
         'dataExpression'=>true,
         'method' => 'POST',
-        'complete'=> 'self.setInterval("updateSubcat()",100);'
+        'complete'=> 'updateSubcat()'
     )
   )
 );
-echo $this->Js->writeBuffer();
+//echo $this->Js->writeBuffer();
 ?>
 
 <script>
@@ -125,9 +123,8 @@ echo $this->Js->writeBuffer();
 
 
 <?php
-// JsHelper should be loaded in $helpers in controller
-// Form ID: #ContactsContactForm
-// Div to use for AJAX response: #contactStatus
+
+
 $data = $this->Js->get('#subcatViewForm input[type=checkbox]')->serializeForm(array('isForm' => true, 'inline' => true));
 $this->Js->get('#subcatViewForm input[type=checkbox]')->event(
    'change',
@@ -139,11 +136,11 @@ $this->Js->get('#subcatViewForm input[type=checkbox]')->event(
         'async' => true,
         'dataExpression'=>true,
         'method' => 'POST',
-        'complete'=> 'self.setInterval("updateProducts()",100);'
+        'complete'=> 'updateProducts()'
     )
   )
 );
-echo $this->Js->writeBuffer();
+//echo $this->Js->writeBuffer();
 ?>
 
 <script>
@@ -152,3 +149,7 @@ echo $this->Js->writeBuffer();
     $("#product-id").load(location.href+" #product-id");
   }
 </script>
+
+<?php
+	echo $this->Js->writeBuffer();
+?>
