@@ -298,6 +298,87 @@ FOR EACH ROW
 	SET subcategory_id = 1
 	WHERE subcategory_id = old.id;
 
+-- Trigger para verificar los metodos de pagos antes de agregarlos
+DELIMITER //
+CREATE TRIGGER `verificar_cuentas`
+BEFORE INSERT
+ON `payment_methods`
+FOR EACH ROW
+BEGIN
+	DECLARE total	INT; -- cantidad de tuplas del select
+	-- selecciona cuantas tuplas en valid_accounts cumplen las condiciones y pone la cantidad en 'total'
+	IF ( NEW.issuer = 'PayPal') -- si es una cuenta de paypal
+		THEN
+			SET total =	(	SELECT COUNT(*)
+							FROM valid_accounts V
+							WHERE	V.issuer = NEW.issuer
+							AND	V.account = NEW.account
+							AND V.password = NEW.password
+							);
+		ELSE -- si es una tarjeta
+			SET total =	(	SELECT COUNT(*)
+							FROM valid_accounts V
+							WHERE	V.issuer = NEW.issuer
+							AND	V.account = NEW.account
+							AND	V.name_card = NEW.name_card
+							AND V.expiration = NEW.expiration
+							AND	V.security_code = NEW.security_code
+							);
+	END IF;
+	-- si la cantidad de tuplas es diferente de 1
+	-- es porque no existe la cuenta nueva en la tabla de valid_accounts
+	IF ( total <> 1 )
+		THEN -- Cancela el insert y envia un mensaje
+			SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'The account is not valid.';
+	END IF;
+END; //
+DELIMITER ;
+
+-- Trigger que borra métodos de pago de un cliente 
+CREATE TRIGGER on_delete_valid_account_delete_payment_method
+BEFORE DELETE ON valid_accounts
+FOR EACH ROW
+    DELETE FROM payment_methods
+    WHERE account = old.account;
+	
+-- Trigger para verificar los metodos de pagos antes de agregarlos
+DELIMITER //
+CREATE TRIGGER on_update_validAccount_update_payment_method
+AFTER UPDATE
+ON valid_accounts 
+FOR EACH ROW
+BEGIN
+	DECLARE total	INT; -- cantidad de tuplas del select
+	-- selecciona cuantas tuplas en valid_accounts cumplen las condiciones y pone la cantidad en 'total'
+	IF ( OLD.issuer = 'PayPal') -- si es una cuenta de paypal
+		THEN
+			SET total =	(	SELECT COUNT(*)
+							FROM payment_methods P
+							WHERE	P.issuer = OLD.issuer
+							AND	P.account = OLD.account
+							AND P.password = OLD.password
+							);
+		ELSE -- si es una tarjeta
+			SET total =	(	SELECT COUNT(*)
+							FROM payment_methods P
+							WHERE	P.issuer = OLD.issuer
+							AND	P.account = OLD.account
+							AND	P.name_card = OLD.name_card
+							AND P.expiration = OLD.expiration
+							AND	P.security_code = OLD.security_code
+							);
+	END IF;
+	-- si la cantidad de tuplas es diferente de 1
+	-- es porque no existe la cuenta nueva en la tabla de valid_accounts
+	IF ( total = 1 )
+		THEN -- Cancela el insert y envia un mensaje
+            UPDATE payment_methods P
+            SET P.issuer = NEW.issuer, P.account = NEW.account, P.password = NEW.password, P.name_card = NEW.name_card, P.expiration = NEW.expiration, P.security_code = NEW.security_code;
+	END IF;
+END; //
+DELIMITER ;
+
+/*
 -- Trigger para actualizar el subtotal en carrito cuando se agrega producto
 DELIMITER //
 CREATE TRIGGER on_insert_product_update_subtotal
@@ -343,7 +424,7 @@ BEGIN
 	SET cantidad_nueva = ( SELECT cp.quantity FROM carts_products cp WHERE cp.id = NEW.id );
 	SET precio = ( SELECT p.price FROM products p WHERE p.id = NEW.product_id );
 	SET descuento = ( SELECT p.discount FROM products p WHERE p.id = NEW.id );
-	SET precioOferta = ( precio - ( precio * ( descuento / 100 ) ) ) * cantidad;
+	SET precioOferta = ( precio - ( precio * ( descuento / 100 ) ) ) * cantidad_anterior;
 
 	IF cantidad_nueva > cantidad_anterior THEN
 		SET subtotal_nuevo = subtotal_anterior + ( precioOferta * ( cantidad_nueva - cantidad_anterior ) );
@@ -384,47 +465,4 @@ BEGIN
 	WHERE id = OLD.cart_id;
 END; //
 DELIMITER ;
-
-
--- Trigger para verificar los metodos de pagos antes de agregarlos
-DELIMITER //
-CREATE TRIGGER `verificar_cuentas`
-BEFORE INSERT
-ON `payment_methods`
-FOR EACH ROW
-BEGIN
-	DECLARE total	INT; -- cantidad de tuplas del select
-	-- selecciona cuantas tuplas en valid_accounts cumplen las condiciones y pone la cantidad en 'total'
-	IF ( NEW.issuer = 'PayPal') -- si es una cuenta de paypal
-		THEN
-			SET total =	(	SELECT COUNT(*)
-							FROM valid_accounts V
-							WHERE	V.issuer = NEW.issuer
-							AND	V.account = NEW.account
-							AND V.password = NEW.password
-							);
-		ELSE -- si es una tarjeta
-			SET total =	(	SELECT COUNT(*)
-							FROM valid_accounts V
-							WHERE	V.issuer = NEW.issuer
-							AND	V.account = NEW.account
-							AND	V.name_card = NEW.name_card
-							AND V.expiration = NEW.expiration
-							AND	V.security_code = NEW.security_code
-							);
-	END IF;
-	-- si la cantidad de tuplas es diferente de 1
-	-- es porque no existe la cuenta nueva en la tabla de valid_accounts
-	IF ( total <> 1 )
-		THEN -- Cancela el insert y envia un mensaje
-			SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'The account is not valid.';
-	END IF;
-END; //
-DELIMITER ;
-
--- Trigger que borra métodos de pago de un cliente 
-CREATE TRIGGER on_delete_valid_account_delete_payment_method
-BEFORE DELETE ON valid_accounts
-FOR EACH ROW
-    DELETE FROM payment_methods
-    WHERE account = old.account;
+*/
