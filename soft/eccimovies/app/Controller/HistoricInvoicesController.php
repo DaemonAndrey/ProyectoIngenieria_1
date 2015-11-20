@@ -92,6 +92,17 @@ class HistoricInvoicesController extends AppController
 		}
 	}
 
+
+	public function chart()
+	{
+
+	}
+
+	public function table()
+	{
+		
+	}
+
     public function view()
 	{
 

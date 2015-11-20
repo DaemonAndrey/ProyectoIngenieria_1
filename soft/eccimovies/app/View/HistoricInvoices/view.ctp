@@ -1,5 +1,3 @@
-
-
 <div class="row">
   <div class="col-md-12">
     <h1 style="text-align:center">CONSUMER REPORTS</h1>
@@ -24,13 +22,13 @@
 
 
 
-<div class="row">
+<div class="row" id="forms">
 
     <div class="col-md-4 col-xs-12" id="category-id" style="padding-left:40px">
       <h5>CATEGORIES</h5>
 
         <?php
-        echo  $this->Form->create();
+        echo  $this->Form->create('Categories', array('url'=>array('controller'=>'historicinvoices', 'action'=>'printData')));
              foreach ($categories as $category)
              {
 
@@ -46,7 +44,10 @@
     <div class="col-md-4 col-xs-12" id="subcategory-id">
     <h5>SUBCATEGORIES</h5>
       <?php
-        echo $this->Form->create('subcat');
+
+        echo $this->Form->create('subcategories', array('url'=>array('controller'=>'historicinvoices','action'=>'getProducts')));
+
+        
           $sub = $this->Session->read('subcategories');
 
           for($i = 0; $i < count($sub); ++$i)
@@ -58,6 +59,7 @@
 
             }
           }
+        
         echo  $this->Form->end();
 
 
@@ -71,6 +73,7 @@
             echo $this->Form->create('product');
                 $pro = $this->Session->read('products');
 
+              
                 for($i = 0; $i < count($pro); ++$i)
                 {
                   for($j = 0; $j < count($pro[$i]['Product']); ++$j)
@@ -81,6 +84,9 @@
                   }
                 }
 
+           
+            echo $this->Form->button('Charts',array('type'=>'submit','formaction'=>'chart'));
+             echo $this->Form->button('Table',array('type'=>'submit','formaction'=>'table'));
             echo $this->Form->end();
 
          ?>
@@ -94,62 +100,49 @@
 </div>
 
 
-<?php
-
-$data = $this->Js->get('#HistoricInvoiceViewForm input[type=checkbox]')->serializeForm(array('isForm' => true, 'inline' => true));
-$this->Js->get('#HistoricInvoiceViewForm input[type=checkbox]')->event(
-   'change',
-   $this->Js->request(
-    array('action' => 'printData', 'controller' => 'HistoricInvoices'),
-    array(
-        'update' => '#message',
-        'data' => $data,
-        'async' => true,
-        'dataExpression'=>true,
-        'method' => 'POST',
-        'complete'=> 'updateSubcat()'
-    )
-  )
-);
-//echo $this->Js->writeBuffer();
-?>
 
 <script>
-  function updateSubcat()
-  {
-    $("#subcategory-id").load(location.href+" #subcategory-id");
-  }
+  $(document).ready(function () {
+     $('#subcategoriesViewForm ').on ('change',function(){
+        var formData = $(this).serialize();
+         var formUrl = $(this).attr('action');
+          $.ajax({
+            type: 'POST',
+            url: formUrl,
+            data: formData,
+            success: $("#product-id").load(location.href+" #product-id"),
+            error: $("#product-id").load(location.href+" #product-id")
+          });
+          return false;
+        });
+      });
+
+  </script>
+
+
+  <script>
+    $(document).ready(function () {
+       $('#CategoriesViewForm ').on("change",function(){
+          var formData = $(this).serialize();
+           var formUrl = $(this).attr('action');
+            $.ajax({
+              type: 'POST',
+              url: formUrl,
+              data: formData,
+              success: update() ,
+              complete: self.setInterval(update(),1000)
+            });
+            return false;
+          });
+        });
+
 </script>
 
 
-<?php
-
-
-$data = $this->Js->get('#subcatViewForm input[type=checkbox]')->serializeForm(array('isForm' => true, 'inline' => true));
-$this->Js->get('#subcatViewForm input[type=checkbox]')->event(
-   'change',
-   $this->Js->request(
-    array('action' => 'getProducts', 'controller' => 'HistoricInvoices'),
-    array(
-        'update' => '#message',
-        'data' => $data,
-        'async' => true,
-        'dataExpression'=>true,
-        'method' => 'POST',
-        'complete'=> 'updateProducts()'
-    )
-  )
-);
-//echo $this->Js->writeBuffer();
-?>
-
 <script>
-  function updateProducts()
-  {
-    $("#product-id").load(location.href+" #product-id");
+  function update () {
+   // $("#subcategory-id").load(location.href+" #subcategory-id");
+    
+    location.reload();
   }
 </script>
-
-<?php
-	echo $this->Js->writeBuffer();
-?>
