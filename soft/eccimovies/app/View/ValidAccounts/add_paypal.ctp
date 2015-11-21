@@ -45,7 +45,9 @@ if($user_id != null && $admin)
                                                                 'placeholder' => 'PayPal password'
                                                             )
                                 );
-        echo $this->Form->input('ValidAccount.funds',array(	'div' => 'form-group', 	
+        echo $this->Form->input('ValidAccount.funds',array(	    'type' => 'number',
+                                                                'min' => 0,
+                                                                'div' => 'form-group', 	
                                                                 'label' => array(	'class' => 'control-label col-sm-2',
                                                                                     'text' => 'Funds'
                                                                                 ),

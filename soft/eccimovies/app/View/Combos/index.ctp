@@ -6,7 +6,11 @@
 
 <div class="combos index">
 	<hr>
-	<h2><?php echo __('Combos'); ?></h2>
+
+	<div class="title">
+	<h2> <?php echo __('Manage combos'); ?> </h2>
+	</div>
+
 	<hr>
 		
         <p>
@@ -39,7 +43,7 @@
 	<tr>
 		<td><?php echo h($combo['Combo']['id']); ?>&nbsp;</td>
 		<td><?php echo h($combo['Combo']['code']); ?>&nbsp;</td>
-		<td><?php echo h($combo['Combo']['discount']); ?>&nbsp;</td>
+		<td><?php echo h($combo['Combo']['discount']).' %'; ?>&nbsp;</td>
 		<td>
 			<?php
 				echo $this->Html->link(
@@ -99,15 +103,16 @@
 	</div>
 -->
 
+	<hr>
 	<p>
 	<?php 
-		echo "<li id = 'fom-button'>"; 
+		echo "<div id = 'fom-button'>"; 
 		echo $this->Html->link(
-			'<span class="glyphicon glyphicon-arrow-left"></span> Home ',
+			'<span class="glyphicon glyphicon-home"></span> Go home',
 			array('controller' => 'pages', 'action' => 'home','display'),
 			array('target' => '_self', 'escape' => false)
 		);
-		echo "</li>";
+		echo "</div>";
 	?>
 	</p>
 

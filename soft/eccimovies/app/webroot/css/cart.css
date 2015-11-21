@@ -93,3 +93,24 @@ input[type=number]
     color: yellowgreen;
 }
 
+#checkout-button{
+    display: inline-block;
+    list-style-type: none;
+    border-radius: 8px;
+    margin-left: 2px;
+	background-color: yellowgreen;
+    border-color: white;  
+    font-size: 14;
+}
+
+
+#checkout-button:hover{
+	background-color:#6E6E6E;
+}
+
+#checkout-button a{
+	text-decoration:none;
+	line-height: 30px;
+	color: white;
+	padding: 5px;
+}

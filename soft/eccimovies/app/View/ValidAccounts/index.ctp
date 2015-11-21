@@ -1,12 +1,12 @@
 <div class="validAccounts index">
     
     <?php 
-
-    echo $this->Html->css('validAccount');
-    echo $this->Html->css('general'); 
-    echo $this->Html->css('product'); 
-    echo $this->Html->script('http://code.jquery.com/jquery.min.js');
-    
+        echo $this->Html->css('validAccount');
+        echo $this->Html->css('general'); 
+        echo $this->Html->css('product'); 
+        echo $this->Html->css('addresses'); 
+        echo $this->Html->css('signup');
+        echo $this->Html->script('http://code.jquery.com/jquery.min.js');  
     ?>
     
     <nav class="navbar navbar-inverse" id="navigation-bar">

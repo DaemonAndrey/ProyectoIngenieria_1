@@ -27,21 +27,7 @@
 </div>
 
     <hr>
-<!--
-<div class="validAccounts form">
-<?php echo $this->Form->create('ValidAccount'); ?>
-	<fieldset>
-	<?php
-		echo $this->Form->input('id');
-		echo $this->Form->input('issuer');
-		echo $this->Form->input('account');
-		echo $this->Form->input('name_card');
-		echo $this->Form->input('security_code');
-		echo $this->Form->input('funds');
-	?>
-	</fieldset>
-<?php echo $this->Form->end(__('Submit')); ?>
-</div> -->
+
 
 
 <?php if($user_id != null && $admin)
@@ -51,7 +37,10 @@
         <?php
                 echo $this->Form->input('id', array(  'type' => 'hidden',
                                                         'div' => 'form-group',
-                                                        'label' => array('class' => 'control-label col-sm-2')
+                                                        'label' => array(
+                                                                            'class' => 'control-label col-sm-2',
+                                                                            'text' => 'Id'
+                                                                        )
                                                     )
                                        );
                 echo $this->Form->input('issuer', array(  'div' => 'form-group',
@@ -82,14 +71,19 @@
                                                                             )
                                                           )
                                        );
-                echo $this->Form->input('funds', array(  'div' => 'form-group',
+                echo $this->Form->input('funds', array(  'type' => 'number',
+                                                          'min' => 0,
+                                                            'div' => 'form-group',
                                                                 'label' => array(
                                                                                     'class' => 'control-label col-sm-2',
                                                                                     'text' => 'Funds',
                                                                                 )
                                                             )
                                        );
+
                 ?>
+
+	</div>
     </div>
     <hr>
     <div id= "action" style="text-align:center">
@@ -98,7 +92,7 @@
         <?php echo $this->Form->submit(__('Cancel', true), array('name' => 'cancel', 'formnovalidate' => true, 'div' => false)); ?>
     </div>
     <?php echo $this->Form->end(); ?>
-    
+    <>
 <?php
 }
 // Si no estoy loggeado o si no soy admin

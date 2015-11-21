@@ -3,7 +3,7 @@ use BD_ECCIMovies;
 CREATE TABLE users
 (
 	id			INT				UNSIGNED AUTO_INCREMENT,
-	username	VARCHAR( 64 ),
+	username	VARCHAR( 64 )	UNIQUE,
 	password	VARCHAR( 255 )	NOT NULL,
 	first_name	VARCHAR( 32 )	NOT NULL,
 	last_name	VARCHAR( 32 )	NOT NULL,
@@ -64,13 +64,13 @@ CREATE TABLE payment_methods
 
 CREATE TABLE invoices
 (
-	id		INT	UNSIGNED AUTO_INCREMENT,
-	shippping_price DECIMAL (8,2),
-	tax     DECIMAL (8,2),
-	total   DECIMAL (8,2) DEFAULT 0,
+	id					INT	UNSIGNED AUTO_INCREMENT,
+	shippping_price 	DECIMAL (8,2),
+	tax     			DECIMAL (8,2),
+	total   			DECIMAL (8,2) DEFAULT 0,
 	payment_method_id	INT	UNSIGNED NOT NULL,
-	address_id INT	UNSIGNED NOT NULL,
-	date	DATE,
+	address_id 			INT	UNSIGNED NOT NULL,
+	date				DATE,
 
 	PRIMARY KEY ( id ),
 	FOREIGN KEY ( payment_method_id ) REFERENCES payment_methods ( id ),
@@ -108,6 +108,7 @@ CREATE TABLE products
 	code			VARCHAR( 8 ) UNIQUE,
 	name			VARCHAR( 64 )	NOT NULL,
 	price			DECIMAL( 5, 2 )	NOT NULL DEFAULT 0,
+	discount		INT NOT NULL DEFAULT 0,
 	stock_quantity	INT DEFAULT 0,
 	format			VARCHAR( 32 ),
 	languages		VARCHAR( 64 ),
@@ -124,25 +125,26 @@ CREATE TABLE products
 		ON DELETE SET NULL,
 	CHECK ( stock_quantity >= 0 ),
 	CHECK ( price >= 0 ),
+	CHECK ( discount >= 0 ),
 	CHECK ( runtime >= 0 )
 );
 
 CREATE TABLE combos
 (
-        id                              INT     UNSIGNED AUTO_INCREMENT,
-        code                    VARCHAR( 8 ) UNIQUE,
-        discount                DECIMAL( 5, 2 ) NOT NULL DEFAULT 0,
-        PRIMARY KEY ( id )
+	id				INT	UNSIGNED AUTO_INCREMENT,
+	code			VARCHAR( 8 ) UNIQUE,
+	discount		DECIMAL( 5, 2 )	NOT NULL DEFAULT 0,
+	PRIMARY KEY ( id )
 );
 
 CREATE TABLE combos_products
 (
-        id                              INT     UNSIGNED AUTO_INCREMENT,
-        combo_id                INT     UNSIGNED,
-        product_id              INT     UNSIGNED,
-        PRIMARY KEY ( id ),
-        FOREIGN KEY ( combo_id ) REFERENCES combos ( id ),
-        FOREIGN KEY ( product_id ) REFERENCES products ( id )
+	id				INT	UNSIGNED AUTO_INCREMENT,
+	combo_id		INT	UNSIGNED,
+	product_id		INT	UNSIGNED,
+	PRIMARY KEY ( id ),
+	FOREIGN KEY ( combo_id ) REFERENCES combos ( id ),
+	FOREIGN KEY ( product_id ) REFERENCES products ( id )
 );
 
 CREATE TABLE actors
@@ -199,7 +201,7 @@ CREATE TABLE carts_products
 	CHECK ( quantity > 0 )
 );
 
-CREATE TABLE wishlists_products
+CREATE TABLE products_wishlists
 (
 	id			INT	UNSIGNED AUTO_INCREMENT,
 	wishlist_id	INT	UNSIGNED NOT NULL,
@@ -242,17 +244,17 @@ CREATE TABLE valid_accounts
 
 CREATE TABLE historic_invoices
 (
-	id		INT	UNSIGNED AUTO_INCREMENT,
-	shippping_price DECIMAL (8,2) DEFAULT 0,
-	tax     DECIMAL (8,2) DEFAULT 0,
-	total   DECIMAL (8,2) DEFAULT 0,
-	payment_method_account	VARCHAR( 32 ) 	NOT NULL,
+	id						INT					UNSIGNED AUTO_INCREMENT,
+	shippping_price 		DECIMAL( 8, 2 ) 	DEFAULT 0,
+	tax     				DECIMAL( 8, 2 ) 	DEFAULT 0,
+	total					DECIMAL( 8, 2 ) 	DEFAULT 0,
+	payment_method_account	VARCHAR( 32 ) 		NOT NULL,
 	address_full_address	TEXT,
-    user_gender CHAR (1),
-    user_first_name VARCHAR (32),
-    user_last_name VARCHAR (32),
-    invoice_date DATETIME,
-    invoice_status varchar (32),
+    user_gender 			CHAR( 1 ),
+    user_first_name 		VARCHAR( 32 ),
+    user_last_name 			VARCHAR( 32 ),
+    invoice_date 			DATETIME,
+    invoice_status 			VARCHAR( 32 ),
 
 	PRIMARY KEY ( id )
 );
@@ -262,7 +264,7 @@ CREATE TABLE historic_products
 	id						INT	UNSIGNED AUTO_INCREMENT,
 	product_quantity		INT DEFAULT 0,
 	product_price			DECIMAL( 8, 2 ) DEFAULT 0,
-	product_name 			VARCHAR( 64 ),
+	product_name 			VARCHAR( 32 ),
 	product_format 			VARCHAR( 32 ),
 
 	PRIMARY KEY ( id )
@@ -295,81 +297,6 @@ FOR EACH ROW
 	UPDATE products
 	SET subcategory_id = 1
 	WHERE subcategory_id = old.id;
-
--- Trigger para actualizar el subtotal en carrito cuando se agrega producto
-DELIMITER //
-CREATE TRIGGER on_insert_product_update_subtotal
-AFTER INSERT
-ON carts_products
-FOR EACH ROW
-BEGIN
-	DECLARE subtotal_anterior DECIMAL(8,2);
-	DECLARE precio DECIMAL(8,2);
-	DECLARE cantidad INT;
-
-	SET subtotal_anterior = ( SELECT c.subtotal FROM carts c WHERE c.id = NEW.cart_id );
-	SET precio = ( SELECT p.price FROM products p WHERE p.id = NEW.product_id );
-	SET cantidad = ( SELECT cp.quantity FROM carts_products cp WHERE cp.id = NEW.id );
-
-	UPDATE carts
-	SET subtotal = subtotal_anterior + ( precio * cantidad )
-	WHERE id = NEW.cart_id;
-END; //
-DELIMITER ;
-
--- Trigger para actualizar el subtotal en carrito cuando se actualiza producto
-DELIMITER //
-CREATE TRIGGER on_update_cart_update_subtotal
-AFTER UPDATE
-ON carts_products
-FOR EACH ROW
-BEGIN
-	DECLARE subtotal_anterior DECIMAL(8,2);
-	DECLARE cantidad_anterior INT;
-	DECLARE subtotal_nuevo DECIMAL(8,2);
-	DECLARE cantidad_nueva INT;
-	DECLARE precio DECIMAL(8,2);
-
-	SET subtotal_anterior = ( SELECT c.subtotal FROM carts c WHERE c.id = NEW.cart_id );
-	SET cantidad_anterior = ( SELECT OLD.quantity FROM carts_products cp WHERE cp.id = NEW.id );
-	SET cantidad_nueva = ( SELECT cp.quantity FROM carts_products cp WHERE cp.id = NEW.id );
-	SET precio = ( SELECT p.price FROM products p WHERE p.id = NEW.product_id );
-
-	IF cantidad_nueva > cantidad_anterior THEN
-		SET subtotal_nuevo = subtotal_anterior + ( precio * ( cantidad_nueva - cantidad_anterior ) );
-	ELSEIF cantidad_nueva < cantidad_anterior THEN
-		SET subtotal_nuevo = subtotal_anterior - ( precio * ( cantidad_anterior - cantidad_nueva ) );
-	END IF;
-
-	UPDATE carts
-	SET subtotal = subtotal_nuevo
-	WHERE id = NEW.cart_id;
-END; //
-DELIMITER ;
-
--- Trigger para actualizar el subtotal en carrito cuando se elimina producto
-DELIMITER //
-CREATE TRIGGER on_delete_product_update_subtotal
-BEFORE DELETE
-ON carts_products
-FOR EACH ROW
-BEGIN
-	DECLARE subtotal_anterior DECIMAL(8,2);
-	DECLARE cantidad_anterior INT;
-	DECLARE subtotal_nuevo DECIMAL(8,2);
-	DECLARE precio DECIMAL(8,2);
-
-	SET subtotal_anterior = ( SELECT c.subtotal FROM carts c WHERE c.id = OLD.cart_id );
-	SET cantidad_anterior = ( SELECT cp.quantity FROM carts_products cp WHERE cp.id = OLD.id );
-	SET precio = ( SELECT p.price FROM products p WHERE p.id = OLD.product_id );
-
-	SET subtotal_nuevo = subtotal_anterior - ( precio * cantidad_anterior );
-
-	UPDATE carts
-	SET subtotal = subtotal_nuevo
-	WHERE id = OLD.cart_id;
-END; //
-DELIMITER ;
 
 -- Trigger para verificar los metodos de pagos antes de agregarlos
 DELIMITER //
@@ -413,3 +340,129 @@ BEFORE DELETE ON valid_accounts
 FOR EACH ROW
     DELETE FROM payment_methods
     WHERE account = old.account;
+	
+-- Trigger para verificar los metodos de pagos antes de agregarlos
+DELIMITER //
+CREATE TRIGGER on_update_validAccount_update_payment_method
+AFTER UPDATE
+ON valid_accounts 
+FOR EACH ROW
+BEGIN
+	DECLARE total	INT; -- cantidad de tuplas del select
+	-- selecciona cuantas tuplas en valid_accounts cumplen las condiciones y pone la cantidad en 'total'
+	IF ( OLD.issuer = 'PayPal') -- si es una cuenta de paypal
+		THEN
+			SET total =	(	SELECT COUNT(*)
+							FROM payment_methods P
+							WHERE	P.issuer = OLD.issuer
+							AND	P.account = OLD.account
+							AND P.password = OLD.password
+							);
+		ELSE -- si es una tarjeta
+			SET total =	(	SELECT COUNT(*)
+							FROM payment_methods P
+							WHERE	P.issuer = OLD.issuer
+							AND	P.account = OLD.account
+							AND	P.name_card = OLD.name_card
+							AND P.expiration = OLD.expiration
+							AND	P.security_code = OLD.security_code
+							);
+	END IF;
+	-- si la cantidad de tuplas es diferente de 1
+	-- es porque no existe la cuenta nueva en la tabla de valid_accounts
+	IF ( total = 1 )
+		THEN -- Cancela el insert y envia un mensaje
+            UPDATE payment_methods P
+            SET P.issuer = NEW.issuer, P.account = NEW.account, P.password = NEW.password, P.name_card = NEW.name_card, P.expiration = NEW.expiration, P.security_code = NEW.security_code;
+	END IF;
+END; //
+DELIMITER ;
+
+/*
+-- Trigger para actualizar el subtotal en carrito cuando se agrega producto
+DELIMITER //
+CREATE TRIGGER on_insert_product_update_subtotal
+AFTER INSERT
+ON carts_products
+FOR EACH ROW
+BEGIN
+	DECLARE subtotal_anterior DECIMAL(8,2);
+	DECLARE precio DECIMAL(8,2);
+	DECLARE cantidad INT;
+	DECLARE descuento INT;
+	DECLARE precioOferta DECIMAL(8,2);
+
+	SET subtotal_anterior = ( SELECT c.subtotal FROM carts c WHERE c.id = NEW.cart_id );
+	SET precio = ( SELECT p.price FROM products p WHERE p.id = NEW.product_id );
+	SET cantidad = ( SELECT cp.quantity FROM carts_products cp WHERE cp.id = NEW.id );
+	SET descuento = ( SELECT p.discount FROM products p WHERE p.id = NEW.product_id );
+	SET precioOferta = ( precio - ( precio * ( descuento / 100 ) ) ) * cantidad;
+
+	UPDATE carts
+	SET subtotal = subtotal_anterior + precioOferta
+	WHERE id = NEW.cart_id;
+END; //
+DELIMITER ;
+
+-- Trigger para actualizar el subtotal en carrito cuando se actualiza producto
+DELIMITER //
+CREATE TRIGGER on_update_cart_update_subtotal
+AFTER UPDATE
+ON carts_products
+FOR EACH ROW
+BEGIN
+	DECLARE subtotal_anterior DECIMAL(8,2);
+	DECLARE cantidad_anterior INT;
+	DECLARE subtotal_nuevo DECIMAL(8,2);
+	DECLARE cantidad_nueva INT;
+	DECLARE precio DECIMAL(8,2);
+	DECLARE descuento INT;
+	DECLARE precioOferta DECIMAL(8,2);
+
+	SET subtotal_anterior = ( SELECT c.subtotal FROM carts c WHERE c.id = NEW.cart_id );
+	SET cantidad_anterior = ( SELECT OLD.quantity FROM carts_products cp WHERE cp.id = NEW.id );
+	SET cantidad_nueva = ( SELECT cp.quantity FROM carts_products cp WHERE cp.id = NEW.id );
+	SET precio = ( SELECT p.price FROM products p WHERE p.id = NEW.product_id );
+	SET descuento = ( SELECT p.discount FROM products p WHERE p.id = NEW.id );
+	SET precioOferta = ( precio - ( precio * ( descuento / 100 ) ) ) * cantidad_anterior;
+
+	IF cantidad_nueva > cantidad_anterior THEN
+		SET subtotal_nuevo = subtotal_anterior + ( precioOferta * ( cantidad_nueva - cantidad_anterior ) );
+	ELSEIF cantidad_nueva < cantidad_anterior THEN
+		SET subtotal_nuevo = subtotal_anterior - ( precioOferta * ( cantidad_anterior - cantidad_nueva ) );
+	END IF;
+
+	UPDATE carts
+	SET subtotal = subtotal_nuevo
+	WHERE id = NEW.cart_id;
+END; //
+DELIMITER ;
+
+-- Trigger para actualizar el subtotal en carrito cuando se elimina producto
+DELIMITER //
+CREATE TRIGGER on_delete_product_update_subtotal
+BEFORE DELETE
+ON carts_products
+FOR EACH ROW
+BEGIN
+	DECLARE subtotal_anterior DECIMAL(8,2);
+	DECLARE cantidad_anterior INT;
+	DECLARE subtotal_nuevo DECIMAL(8,2);
+	DECLARE precio DECIMAL(8,2);
+	DECLARE descuento INT;
+	DECLARE precioOferta DECIMAL(8,2);
+
+	SET subtotal_anterior = ( SELECT c.subtotal FROM carts c WHERE c.id = OLD.cart_id );
+	SET cantidad_anterior = ( SELECT cp.quantity FROM carts_products cp WHERE cp.id = OLD.id );
+	SET precio = ( SELECT p.price FROM products p WHERE p.id = OLD.product_id );
+	SET descuento = ( SELECT p.discount FROM products p WHERE p.id = OLD.id );
+	SET precioOferta = ( precio - ( precio * ( descuento / 100 ) ) ) * cantidad_anterior;
+
+	SET subtotal_nuevo = subtotal_anterior - precioOferta;
+
+	UPDATE carts
+	SET subtotal = subtotal_nuevo
+	WHERE id = OLD.cart_id;
+END; //
+DELIMITER ;
+*/
