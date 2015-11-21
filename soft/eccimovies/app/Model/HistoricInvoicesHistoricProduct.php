@@ -8,7 +8,7 @@ App::uses('AppModel', 'Model');
 class HistoricInvoicesHistoricProduct extends AppModel {
 
 
-	publci $belongsTo = array('HistoricInvoice','HistoricProduct');
+	public $belongsTo = array('HistoricInvoice','HistoricProduct');
 
 
 }
