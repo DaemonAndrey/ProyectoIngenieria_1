@@ -10,7 +10,7 @@ CREATE TABLE users
 	gender		CHAR( 1 )      	NOT NULL,
 	birthday	DATE            NOT NULL,
 	role		INT( 1 )		DEFAULT 0,	-- 0 = Comprador, 1 = Administrador, 2 = Gerente
-	enable		BIT( 1 )		DEFAULT 1,	-- 1 = Activo, 0 = Inactivo
+	enable		INT( 1 )		DEFAULT 1,	-- 1 = Activo, 0 = Inactivo
 
 	PRIMARY KEY ( id )
 );
@@ -55,7 +55,7 @@ CREATE TABLE payment_methods
 	name_card		VARCHAR( 32 )	DEFAULT NULL,   -- name_on_card
 	expiration		DATE			DEFAULT NULL,	-- expiration_date
 	security_code	CHAR( 3 )		DEFAULT NULL,
-	enable			BIT( 1 )		DEFAULT 1,		-- 1 = Activo, 0 = Inactivo
+	enable			INT( 1 )		DEFAULT 1,		-- 1 = Activo, 0 = Inactivo
 
 	PRIMARY KEY ( id ),
 	FOREIGN KEY	( user_id ) REFERENCES users ( id )
@@ -117,7 +117,7 @@ CREATE TABLE products
 	runtime			SMALLINT UNSIGNED,
 	more_details	VARCHAR( 1500 ),
 	subcategory_id	INT	UNSIGNED,
-	enable			BIT( 1 ) DEFAULT 1,		-- 1 = Activo, 0 = Inactivo
+	enable			INT( 1 ) DEFAULT 1,		-- 1 = Activo, 0 = Inactivo
 
 	PRIMARY KEY ( id ),
 	FOREIGN KEY ( subcategory_id ) REFERENCES subcategories ( id )
@@ -334,18 +334,18 @@ BEGIN
 END; //
 DELIMITER ;
 
--- Trigger que borra métodos de pago de un cliente 
+-- Trigger que borra métodos de pago de un cliente
 CREATE TRIGGER on_delete_valid_account_delete_payment_method
 BEFORE DELETE ON valid_accounts
 FOR EACH ROW
     DELETE FROM payment_methods
     WHERE account = old.account;
-	
+
 -- Trigger para verificar los metodos de pagos antes de agregarlos
 DELIMITER //
 CREATE TRIGGER on_update_validAccount_update_payment_method
 AFTER UPDATE
-ON valid_accounts 
+ON valid_accounts
 FOR EACH ROW
 BEGIN
 	DECLARE total	INT; -- cantidad de tuplas del select
