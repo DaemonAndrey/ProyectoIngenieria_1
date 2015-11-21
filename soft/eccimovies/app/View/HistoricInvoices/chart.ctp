@@ -1,32 +1,68 @@
+ <?php
+    if(count($data) < 1)
+    {
+        echo "<h4>Lo sentimos, no hubo coincidencias en su búsqueda.\nVuelva a intentarlo</h4>";
+    }
+    else
+    {
+        echo " <h1>Graphic of Consumption</h1>";
+    }
+ ?>
+
+
+
+
  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script type="text/javascript">
+    google.load("visualization", "1", {packages:["corechart"]});
+    google.setOnLoadCallback(drawSeriesChart);
 
-      // Load the Visualization API and the piechart package.
-      google.load('visualization', '1.0', {'packages':['corechart']});
+    function drawSeriesChart() {
 
-      // Set a callback to run when the Google Visualization API is loaded.
-      google.setOnLoadCallback(drawChart);
+      var data = google.visualization.arrayToDataTable([
 
-      // Callback that creates and populates a data table,
-      // instantiates the pie chart, passes in the data and
-      // draws it.
-      function drawChart() {
+          ['Name', 'Amount Sold', 'Month', 'Gender'],
+          <?php
+          
+              $size  = count($data);
 
-        // Create the data table.
-        <?php
-        echo "var data = new google.visualization.DataTable();";
-       echo" data.addColumn('string', 'Topping');";
-        echo "data.addColumn('number', 'Slices');";
-        echo "data.addRows([['Mushrooms', 3],['Onions', 1],['Olives', 1],['Zucchini', 1],['Pepperoni', 2]]);";
+              for($i = 0; $i < ($size - 1); ++$i)
+              {
+                  $date = $data[$i]['HistoricInvoice']['invoice_date'];
+                  $date = split(' ', $date);
+                  $date = $date[0];
+                  $date = split('-',$date);
+                  echo "[ '".$data[$i]['HistoricProduct']['product_name']."', ".$data[$i]['HistoricProduct']['product_quantity'].", ".$date[1].", '".$data[$i]['HistoricInvoice']['user_gender']."'], ";
+              }
 
-        // Set chart options
-        echo "var options = {'title':'How Much Pizza I Ate Last Night','width':500,'height':300};";
+                $i = ($size - 1);
+                  $date = $data[$i]['HistoricInvoice']['invoice_date'];
+                  $date = split(' ', $date);
+                  $date = $date[0];
+                  $date = split('-',$date);
+                  echo "[ '".$data[$i]['HistoricProduct']['product_name']."', ".$data[$i]['HistoricProduct']['product_quantity'].", ".$date[1].", '".$data[$i]['HistoricInvoice']['user_gender']."']";
+            
+          ?>
 
-        // Instantiate and draw our chart, passing in some options.
-        echo"var chart = new google.visualization.BarChart(document.getElementById('chart_div'));";
-       echo " chart.draw(data, options);";
-        ?>
-      }
+      
+
+
+
+
+
+
+      ]);
+
+      var options = {
+        title: 'Consumption',
+        hAxis: {title: 'Amount Sold'},
+        vAxis: {title: 'Month'},
+        bubble: {textStyle: {fontSize: 11}}
+      };
+
+      var chart = new google.visualization.BubbleChart(document.getElementById('series_chart_div'));
+      chart.draw(data, options);
+    }
     </script>
 
-    <div id="chart_div"></div>
+    <div id="series_chart_div" style="width: 900px; height: 500px;"></div>

@@ -1,11 +1,29 @@
-<table class="table">
-	<tr>
-		<th>Name</th>
-		<th>Amount Sold</th>
-		<th>Gender</th>
-		<th>Date</th>
-		<th>Time </th>
-	</tr>
+ <?php
+    if(count($data) < 1)
+    {
+        echo "<h4>Lo sentimos, no hubo coincidencias en su búsqueda.\nVuelva a intentarlo</h4>";
+    }
+    else
+    {
+        echo " <h1>Table of Consumption</h1>";
+
+
+        echo "<table class='table'>";
+		echo "<tr>";
+			echo "<th>Name</th>";
+			echo "<th>Amount Sold</th>";
+			echo "<th>Gender</th>";
+			echo "<th>Date</th>";
+			echo "<th>Time </th>";
+		echo "</tr>";
+    }
+ ?>
+
+
+
+
+
+
 
 	<?php
 		$size = count($data);

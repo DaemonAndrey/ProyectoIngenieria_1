@@ -95,7 +95,9 @@ class HistoricInvoicesController extends AppController
 
 	public function chart()
 	{
-
+		$this->loadModel('HistoricInvoicesHistoricProduct');
+		$data = $this->HistoricInvoicesHistoricProduct->find('all', array('conditions'=>array('product_name'=>$this->request->data)));
+		$this->set('data', $data);
 	}
 
 	public function table()

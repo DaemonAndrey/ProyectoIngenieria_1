@@ -91,8 +91,13 @@
 
 			   
 		echo "</div>";
-				echo $this->Form->button('Charts',array('type'=>'submit','formaction'=>'chart', 'style'=>'color:black;margin-top:20px'));
-				 echo $this->Form->button('Table',array('type'=>'submit','formaction'=>'table', 'style'=>'color:black'));
+
+        if(count($this->Session->read('products')))
+        {
+            echo $this->Form->button('Charts',array('type'=>'submit','formaction'=>'chart', 'style'=>'color:black;margin-top:20px'));
+            echo $this->Form->button('Table',array('type'=>'submit','formaction'=>'table', 'style'=>'color:black'));
+        }
+
 				echo $this->Form->end();
 
 			 ?>
