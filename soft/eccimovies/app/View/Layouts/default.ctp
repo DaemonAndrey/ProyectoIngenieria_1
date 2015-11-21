@@ -14,6 +14,7 @@
 	<?php
 		echo $this->Html->meta('icon');
 		echo $this->Html->css('cake.generic');
+    echo $this->Html->script('jspdf.min');
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
 		echo $this->fetch('script');
@@ -27,6 +28,7 @@
 
     <!-- Latest compiled JavaScript -->
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
 
         <?php echo $this->Js->writeBuffer(array('cache'=>TRUE));?>
 
