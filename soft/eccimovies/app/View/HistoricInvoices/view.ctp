@@ -9,9 +9,9 @@
   <div class="row">
     <div class="col-md-4"><h3>DATA RANGE</h3></div>
   	<div class="col-md-1"><h4>BEGIN</h4></div>
-  	<div class="col-md-3"><input type="date" name="inferior_range" style="width:60%;float:left;color:black"></div>
+  	<div class="col-md-3"><input type="date" name="inferior_range" min = <?php echo $dates[0][0]?> max  = <?php echo $dates[1][0]?> style="width:60%;float:left;color:black"></div>
   	<div class="col-md-1 col-xs-12"><h4>END</h4></div>
-  	<div class="col-md-3 col-xs-12"><input type="date" name="inferior_range" style="width:60%;float:left;color:black"></div>
+  	<div class="col-md-3 col-xs-12"><input type="date" name="inferior_range" min = <?php echo $dates[0][0]?> max  = <?php echo $dates[1][0]?> style="width:60%;float:left;color:black"></div>
   </div>
 
 

@@ -100,16 +100,28 @@ class HistoricInvoicesController extends AppController
 
 	public function table()
 	{
-		
+		//debug($this->request->data);
+		$this->loadModel('HistoricInvoicesHistoricProduct');
+		$data = $this->HistoricInvoicesHistoricProduct->find('all', array('conditions'=>array('product_name'=>$this->request->data)));
+		$this->set('data', $data);
+
 	}
 
     public function view()
 	{
 
+		 $dates = $this->HistoricInvoice->find('first', array('fields' => array('MIN(invoice_date) as min', 'MAX(invoice_date) as max')));
+		 $min = split(' ', $dates[0]['min']);
+		 $max = split(' ', $dates[0]['max']);
+		 unset($min[1]);
+		 unset($max[1]);
+		 $dates[0] = $min;
+		 $dates[1] = $max;
 
 		 $this->loadModel('Category');
 		 $data = $this->Category->find('all', array('conditions' => array('category_name != '=>'Unclassified')));
 		 $this->set('categories', $data);
+		 $this->set('dates',$dates);
 
 	}
 
