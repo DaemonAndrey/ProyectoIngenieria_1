@@ -4,7 +4,7 @@ class WishlistFixture extends CakeTestFixture {
 
 	public $import = array(
 		'connection' => 'default',
-		'model' => 'Address',
+		'model' => 'Wishlist',
 		'records' => true
 	);
 

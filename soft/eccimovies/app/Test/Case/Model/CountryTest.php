@@ -9,6 +9,7 @@ class CountryTest extends CakeTestCase {
 	);
 
 	public $autoFixtures = false;
+	//public $dropTables = false;
 
 	public function testCountryModel() {
 		$result = $this->loadFixtures('Country');

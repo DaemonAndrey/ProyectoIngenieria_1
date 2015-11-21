@@ -4,7 +4,7 @@ class ActorsProductFixture extends CakeTestFixture {
 
 	public $import = array(
 		'connection' => 'default',
-		'model' => 'Address',
+		'model' => 'ActorsProduct',
 		'records' => true
 	);
 

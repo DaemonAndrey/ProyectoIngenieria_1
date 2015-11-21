@@ -4,7 +4,7 @@ class CountryFixture extends CakeTestFixture {
 
 	public $import = array(
 		'connection' => 'default',
-		'model' => 'Address',
+		'model' => 'Country',
 		'records' => true
 	);
 

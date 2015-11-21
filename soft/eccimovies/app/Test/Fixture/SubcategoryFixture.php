@@ -4,7 +4,7 @@ class SubcategoryFixture extends CakeTestFixture {
 
 	public $import = array(
 		'connection' => 'default',
-		'model' => 'Address',
+		'model' => 'Subcategory',
 		'records' => true
 	);
 

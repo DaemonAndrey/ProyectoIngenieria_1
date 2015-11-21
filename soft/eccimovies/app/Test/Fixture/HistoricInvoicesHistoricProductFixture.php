@@ -4,7 +4,7 @@ class HistoricInvoicesHistoricProductFixture extends CakeTestFixture {
 
 	public $import = array(
 		'connection' => 'default',
-		'model' => 'Address',
+		'model' => 'HistoricInvoicesHistoricProduct',
 		'records' => true
 	);
 

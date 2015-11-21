@@ -5,15 +5,15 @@ class AddressTest extends CakeTestCase {
 
 	public $fixtures = array(
 		'app.address',
-		'app.user',
 		'app.state',
-		'app.invoice'
+		'app.country'
 	);
 
 	public $autoFixtures = false;
+	//public $dropTables = false;
 
 	public function testAddressModel() {
-		$result = $this->loadFixtures('Address');
+		$result = $this->loadFixtures('Address','State','Country');
 		debug($result);
 	}
 

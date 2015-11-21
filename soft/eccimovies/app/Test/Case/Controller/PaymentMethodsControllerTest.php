@@ -3,14 +3,14 @@ App::uses('PaymentMethodsController', 'Controller');
 
 class PaymentMethodsControllerTest extends ControllerTestCase {
 
-	public $useDbConfig = 'test';
+	//public $useDbConfig = 'test';
 
 	public $fixtures = array(
 		'app.payment_method',
 //		'app.user'
 	);
 
-	public $autoFixtures = false;
+	//public $autoFixtures = false;
 
 	public function testIsOwnedBy() {
 		//$result = $this->testAction('/payment_methods/');

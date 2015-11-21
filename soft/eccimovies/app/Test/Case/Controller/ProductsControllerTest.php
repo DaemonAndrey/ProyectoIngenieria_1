@@ -1,11 +1,11 @@
 <?php
 class ProductsControllerTest extends ControllerTestCase {
-	
+
     public $fixtures = array('app.product');
-	public $dropTables = false;
-	public function truncate($db) { return null; }
-    public function drop($db) { return null; }
-	
+	//public $dropTables = false;
+	//public function truncate($db) { return null; }
+    //public function drop($db) { return null; }
+
 	public function testAgregarProducto() {
         $data = array('Product' => array('id'             => '561f3bdc-8120-46b2-a54d-2bb8b8373b57',
 									     'name'           => 'Whiplash',
@@ -24,8 +24,8 @@ class ProductsControllerTest extends ControllerTestCase {
 								   );
         debug($result);
     }
-	
-	public function testBorrarProducto() {	
+
+	public function testBorrarProducto() {
 		$data = array('Product' => array('id'             => '561f3bdc-8120-46b2-a54d-2bb8b8373b57',
 									     'name'           => 'Whiplash',
 									     'price'          =>  16.31,
@@ -41,7 +41,7 @@ class ProductsControllerTest extends ControllerTestCase {
         $result = $this->testAction('/products/delete/'.$data['Product']['id']);
         debug($result);
 	}
-	
+
 	public function testEditarProducto() {
 		$data = array('Product' => array('id'             => '561f3bdc-8120-46b2-a54d-2bb8b8373b57',
 									     'name'           => 'Whiplash',

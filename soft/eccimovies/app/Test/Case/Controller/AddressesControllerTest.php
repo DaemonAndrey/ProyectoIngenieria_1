@@ -3,11 +3,17 @@ App::uses('AddressesController', 'Controller');
 
 class AddressesControllerTest extends ControllerTestCase {
 
+	//public $useDbConfig = 'test';
+	//public $autoMock = true;
+
 	public $fixtures = array(
-		'app.address',
+		'app.country',
 		'app.state',
-		'app.country'
+		'app.address',
+		'app.user',
+		'app.invoice',
 	);
+	//public $dropTables = false;
 
 	public function testIndex() {
 		$result = $this->testAction('/addresses/index');

@@ -4,7 +4,7 @@ class UserFixture extends CakeTestFixture {
 
 	public $import = array(
 		'connection' => 'default',
-		'model' => 'Address',
+		'model' => 'User',
 		'records' => true
 	);
 

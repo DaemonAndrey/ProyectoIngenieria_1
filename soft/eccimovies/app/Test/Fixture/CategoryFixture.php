@@ -4,7 +4,7 @@ class CategoryFixture extends CakeTestFixture {
 
 	public $import = array(
 		'connection' => 'default',
-		'model' => 'Address',
+		'model' => 'Category',
 		'records' => true
 	);
 

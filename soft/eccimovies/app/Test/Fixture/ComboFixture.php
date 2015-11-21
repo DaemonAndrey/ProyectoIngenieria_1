@@ -4,7 +4,7 @@ class ComboFixture extends CakeTestFixture {
 
 	public $import = array(
 		'connection' => 'default',
-		'model' => 'Address',
+		'model' => 'Combo',
 		'records' => true
 	);
 

@@ -4,7 +4,7 @@ class CartFixture extends CakeTestFixture {
 
 	public $import = array(
 		'connection' => 'default',
-		'model' => 'Address',
+		'model' => 'Cart',
 		'records' => true
 	);
 

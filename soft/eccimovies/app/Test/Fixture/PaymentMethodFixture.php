@@ -4,7 +4,7 @@ class PaymentMethodFixture extends CakeTestFixture {
 
 	public $import = array(
 		'connection' => 'default',
-		'model' => 'Address',
+		'model' => 'PaymentMethod',
 		'records' => true
 	);
 

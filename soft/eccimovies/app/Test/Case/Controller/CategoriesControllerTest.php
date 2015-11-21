@@ -1,11 +1,11 @@
 <?php
 class CategoryControllerTest extends ControllerTestCase {
 	public $fixtures = array('app.category');
-	public $dropTables = false;
-	
-	public function truncate($db){ return null;	}
+	//public $dropTables = false;
 
-    public function drop($db){ return null; }
+	//public function truncate($db){ return null;	}
+
+    //public function drop($db){ return null; }
 
 	public function testCategoriasAdminIndex() {
 		$result = $this->testAction('/categories/admin_index');

@@ -1,26 +1,26 @@
 <?php
 class UsersControllerTest extends ControllerTestCase {
-	
+
     public $fixtures = array('app.user');
-	public $dropTables = false;
-	public function truncate($db) { return null; }
-    public function drop($db) { return null; }
-	
+	//public $dropTables = false;
+	//public function truncate($db) { return null; }
+    //public function drop($db) { return null; }
+
 	public function testIndex()	{
         $result = $this->testAction('/users/index');
         debug($result);
     }
-	
+
 	public function testLogged() {
 		$result = $this->testAction('/users/logged');
         debug($result);
 	}
-	
+
 	public function testLogout() {
 		$result = $this->testAction('/users/logout');
         debug($result);
 	}
-	
+
 	public function testSignup() {
         $data = array('User' => array('username' => 'nombre@gmail.com',
 									  'password' => 'contrapassword',
@@ -35,7 +35,7 @@ class UsersControllerTest extends ControllerTestCase {
                                     );
         debug($result);
     }
-	
+
 	public function testLogin() {
         $data = array('User' => array('username' => 'nombre@gmail.com',
 									  'password' => 'contrapassword',
@@ -48,7 +48,7 @@ class UsersControllerTest extends ControllerTestCase {
         $result = $this->testAction('/users/signup',
 									array('data' => $data, 'method' => 'post')
 									);
-		
+
 		$data2 = array('User' => array(
 										'username' => 'nombre@gmail.com',
 										'password' => 'contrapassword'

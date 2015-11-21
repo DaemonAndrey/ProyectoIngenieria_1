@@ -4,7 +4,7 @@ class ValidAccountFixture extends CakeTestFixture {
 
 	public $import = array(
 		'connection' => 'default',
-		'model' => 'Address',
+		'model' => 'ValidAccount',
 		'records' => true
 	);
 

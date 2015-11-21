@@ -6,27 +6,14 @@ class StateTest extends CakeTestCase {
 	public $fixtures = array(
 		'app.state',
 		'app.country',
-		'app.address',
-		'app.user',
-		'app.invoice',
-		'app.payment_method',
-		'app.product',
-		'app.subcategory',
-		'app.actor',
-		'app.actors_product',
-		'app.cart',
-		'app.carts_product',
-		'app.combo',
-		'app.combos_product',
-		'app.invoices_product',
-		'app.wishlist',
-		'app.products_wishlist'
+		'app.address'
 	);
 
 	public $autoFixtures = false;
+	//public $dropTables = false;
 
 	public function testStateModel() {
-		$result = $this->loadFixtures('State');
+		$result = $this->loadFixtures('State','Country');
 		debug($result);
 	}
 
