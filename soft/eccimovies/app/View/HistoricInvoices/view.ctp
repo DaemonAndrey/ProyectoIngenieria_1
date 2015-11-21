@@ -26,122 +26,126 @@
 
     <div class="col-md-4 col-xs-12" id="category-id" style="padding-left:40px">
       <h5>CATEGORIES</h5>
+		<div style= "padding-left:30px; overflow-y:scroll; overflow-x:hidden; height:300px;">
+			<?php
+			
+			echo  $this->Form->create('Categories', array('url'=>array('controller'=>'historicinvoices', 'action'=>'getCategories')));
+				 foreach ($categories as $category)
+				 {
+					$data = utf8_encode($category['Category']['category_name']);
+				   echo $this->Form->input($data, array('hiddenField'=>false,'type'=>'checkbox','name'=>$data, 'value'=>$data));
 
-        <?php
-        echo  $this->Form->create('Categories', array('url'=>array('controller'=>'historicinvoices', 'action'=>'printData')));
-             foreach ($categories as $category)
-             {
+				 }
+			  
 
-               echo $this->Form->input($category['Category']['category_name'], array('hiddenField'=>false,'type'=>'checkbox','name'=>$category['Category']['category_name'], 'value'=>$category['Category']['category_name']));
-
-             }
-
-          echo $this->Form->end();
-          unset($category);
-         ?>
+			  echo $this->Form->end();
+			  unset($category);
+			  
+			 ?>
+		</div>
     </div>
 
-    <div class="col-md-4 col-xs-12" id="subcategory-id">
+    <div class="col-md-4 col-xs-12" id="subcategory-id" >
     <h5>SUBCATEGORIES</h5>
-      <?php
+		<div style= "padding-left:30px; overflow-y:scroll; overflow-x:hidden; height:300px;">
+		  <?php
 
-        echo $this->Form->create('subcategories', array('url'=>array('controller'=>'historicinvoices','action'=>'getProducts')));
+			echo $this->Form->create('subcategories', array('url'=>array('controller'=>'historicinvoices','action'=>'getProducts')));
 
-        
-          $sub = $this->Session->read('subcategories');
+			
+			  $sub = $this->Session->read('subcategories');
 
-          for($i = 0; $i < count($sub); ++$i)
-          {
-            for($j = 0; $j < count($sub[$i]['Subcategory']); ++$j)
-            {
-              $name = $sub[$i]['Subcategory'][$j]['subcategory_name'];
-               echo $this->Form->input($name, array('hiddenField'=>false,'type'=>'checkbox','name'=>$name, 'value'=>$name));
+			  for($i = 0; $i < count($sub); ++$i)
+			  {
+				for($j = 0; $j < count($sub[$i]['Subcategory']); ++$j)
+				{
+				  $name = $sub[$i]['Subcategory'][$j]['subcategory_name'];
+				   echo $this->Form->input($name, array('hiddenField'=>false,'type'=>'checkbox','name'=>$name, 'value'=>$name));
 
-            }
-          }
-        
-        echo  $this->Form->end();
+				}
+			  }
 
+			echo  $this->Form->end();
 
-      ?>
+		  ?>
+		</div>
     </div>
 
     <div class="col-md-4 col-xs-12" id="product-id">
     <h5>PRODUCTS</h5>
+		<div style= "padding-left:30px; overflow-y:scroll; overflow-x:hidden; height:300px;">
+			<?php
+				echo $this->Form->create('product');
+					$pro = $this->Session->read('products');
 
-        <?php
-            echo $this->Form->create('product');
-                $pro = $this->Session->read('products');
+				  
+					for($i = 0; $i < count($pro); ++$i)
+					{
+					  for($j = 0; $j < count($pro[$i]['Product']); ++$j)
+					  {
+						$name = $pro[$i]['Product'][$j]['name'];
+						 echo $this->Form->input($name, array('hiddenField'=>false,'type'=>'checkbox','name'=>$name, 'value'=>$name));
 
-              
-                for($i = 0; $i < count($pro); ++$i)
-                {
-                  for($j = 0; $j < count($pro[$i]['Product']); ++$j)
-                  {
-                    $name = $pro[$i]['Product'][$j]['name'];
-                     echo $this->Form->input($name, array('hiddenField'=>false,'type'=>'checkbox','name'=>$name, 'value'=>$name));
+					  }
+					}
 
-                  }
-                }
+			   
+		echo "</div>";
+				echo $this->Form->button('Charts',array('type'=>'submit','formaction'=>'chart', 'style'=>'color:black;margin-top:20px'));
+				 echo $this->Form->button('Table',array('type'=>'submit','formaction'=>'table', 'style'=>'color:black'));
+				echo $this->Form->end();
 
-           
-            echo $this->Form->button('Charts',array('type'=>'submit','formaction'=>'chart'));
-             echo $this->Form->button('Table',array('type'=>'submit','formaction'=>'table'));
-            echo $this->Form->end();
-
-         ?>
+			 ?>
+	
     </div>
 </div>
 
-<div id="message">
-  <?php
-
-   ?>
-</div>
 
 
+<?php
 
-<script>
-  $(document).ready(function () {
-     $('#subcategoriesViewForm ').on ('change',function(){
-        var formData = $(this).serialize();
-         var formUrl = $(this).attr('action');
-          $.ajax({
-            type: 'POST',
-            url: formUrl,
-            data: formData,
-            success: $("#product-id").load(location.href+" #product-id"),
-            error: $("#product-id").load(location.href+" #product-id")
-          });
-          return false;
-        });
-      });
+$data = $this->Js->get('#CategoriesViewForm ')->serializeForm(array('isForm' => true, 'inline' => true));
+$this->Js->get('#CategoriesViewForm ')->event(
+   'change',
+   $this->Js->request(
+    array('action' => 'getCategories', 'controller' => 'HistoricInvoices'),
+    array(
+        'data' => $data,
+        'async' => true,    
+        'dataExpression'=>true,
+        'method' => 'POST',
+		'complete' => 'update()'
+    )
+  )
+);
 
-  </script>
+echo $this->Js->writeBuffer(); 
+?>
 
+<?php
 
-  <script>
-    $(document).ready(function () {
-       $('#CategoriesViewForm ').on("change",function(){
-          var formData = $(this).serialize();
-           var formUrl = $(this).attr('action');
-            $.ajax({
-              type: 'POST',
-              url: formUrl,
-              data: formData,
-              success: update() ,
-              complete: self.setInterval(update(),1000)
-            });
-            return false;
-          });
-        });
+$data = $this->Js->get('#subcategoriesViewForm ')->serializeForm(array('isForm' => true, 'inline' => true));
+$this->Js->get('#subcategoriesViewForm ')->event(
+   'change',
+   $this->Js->request(
+    array('action' => 'getProducts', 'controller' => 'HistoricInvoices'),
+    array(
+        'data' => $data,
+        'async' => true,    
+        'dataExpression'=>true,
+        'method' => 'POST',
+		'complete' => 'update()'
+    )
+  )
+);
 
-</script>
+echo $this->Js->writeBuffer(); 
+?>
 
 
 <script>
   function update () {
-   // $("#subcategory-id").load(location.href+" #subcategory-id");
+    //$("#subcategory-id").load(location.href+" #subcategory-id");
     
     location.reload();
   }

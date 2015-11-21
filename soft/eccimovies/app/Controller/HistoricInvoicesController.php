@@ -107,12 +107,13 @@ class HistoricInvoicesController extends AppController
 	{
 
 
-		$this->loadModel('Category');
-		 $this->set('categories', $this->Category->find('all', array('conditions' => array('category_name != '=>'Unclassified'))));
+		 $this->loadModel('Category');
+		 $data = $this->Category->find('all', array('conditions' => array('category_name != '=>'Unclassified')));
+		 $this->set('categories', $data);
 
 	}
 
-	public function printData()
+	public function getCategories()
 	{
 		$this->Session->write('subcategories',array());
 		if ($this->request->is('ajax'))
@@ -122,7 +123,11 @@ class HistoricInvoicesController extends AppController
 
 			$this->Session->write('subcategories',$this->Category->find('all',
 			 array('conditions'=> array( 'category_name'=> $this->request->data ))));
-
+			
+			if(count($this->Session->read('subcategories')) < 1)
+			{
+				$this->Session->write('products',array());
+			}
 		}
 	}
 
