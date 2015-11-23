@@ -8,18 +8,21 @@
 ?>
 
 
-<nav class="navbar navbar-inverse" id="navigation-bar">
-    <div class="container-fluid">
-        <div>
-          <ul class="nav nav-pills nav-justified" role="tablist">
-            <li><?php echo $this->Html->link('Products', array('controller' => 'products', 'action' => 'index')); ?></li>
-            <li><?php echo $this->Html->link('Categories', array('controller' => 'categories', 'action' => 'index')); ?></li>
-            <li><a href="#">Users</a></li> 
-            <li class="active"><?php echo $this->Html->link('Valid Accounts', array('controller' => 'valid_accounts', 'action' => 'index')); ?></li>  
-          </ul>
-        </div>
-    </div>
-</nav>
+<?php if($user_id != null && $admin)
+{ ?>
+    <nav class="navbar navbar-inverse" id="navigation-bar">
+          <div class="container-fluid">
+            <div>
+              <ul class="nav nav-pills nav-justified" role="tablist">
+                <li><?php echo $this->Html->link('Products', array('controller' => 'products', 'action' => 'index')); ?></li>
+                <li><?php echo $this->Html->link('Categories', array('controller' => 'categories', 'action' => 'index')); ?></li>
+                <li><?php echo $this->Html->link('Users', array('controller' => 'users', 'action' => 'index')); ?></li> 
+                <li><?php echo $this->Html->link('Orders', array('controller' => 'invoices', 'action' => 'my_invoices')); ?></li>
+                <li class="active"><?php echo $this->Html->link('Valid Accounts', array('controller' => 'valid_accounts', 'action' => 'index')); ?></li>
+              </ul>
+            </div>
+          </div>
+        </nav>
 
 
 <div class="title">
@@ -28,10 +31,6 @@
 
     <hr>
 
-
-
-<?php if($user_id != null && $admin)
-{ ?>
 <?php echo $this->Form->create('ValidAccount', array('class' => 'form-horizontal', 'role' => 'form'));?>
     <div class="updateProduct_form">
         <?php

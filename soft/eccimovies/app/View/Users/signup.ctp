@@ -1,3 +1,26 @@
+<?php echo $this->Html->css('addresses'); ?>
+<?php echo $this->Html->css('general'); ?>
+
+<?php // Campos para llenar informacion
+if( $user_id != null && $admin )
+{
+    ?>
+    <nav class="navbar navbar-inverse" id="navigation-bar">
+      <div class="container-fluid">
+        <div>
+          <ul class="nav nav-pills nav-justified" role="tablist">
+            <li><?php echo $this->Html->link('Products', array('controller' => 'products', 'action' => 'index')); ?></li>
+            <li><?php echo $this->Html->link('Categories', array('controller' => 'categories', 'action' => 'index')); ?></li>
+            <li class="active"><?php echo $this->Html->link('Users', array('controller' => 'users', 'action' => 'index')); ?></li> 
+            <li><?php echo $this->Html->link('Orders', array('controller' => 'invoices', 'action' => 'my_invoices')); ?></li>
+            <li><?php echo $this->Html->link('Valid Accounts', array('controller' => 'valid_accounts', 'action' => 'index')); ?></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <?php
+} ?>
+
 <hr>
 
 <h2 id="principal-header-text-signup">Registration Form </h2>
@@ -56,6 +79,23 @@
       echo "</div>";
     echo "</div>";
 
+if( $user_id != null && $admin )
+{
+    echo "<div class = 'row'>";
+    echo "<label class='col-md-3 control-label col-xs-12'>Gender: </label>";
+    echo "<div class='form-group col-md-9 col-xs-12'>";
+    echo $this->Form->input('role',array(
+                                                  'label' => 'Role: ',
+                        'options' => array(
+                                  0 => 'Customer',
+                                  1 => 'Administrator',
+                                  2 => 'Manager'
+                                  )
+                        )
+                                          );
+    echo "</div>";
+    echo "</div>";
+}
     echo "<div class = 'row row-centered'>";
       echo "<div class='form-group col-md-12 col-xs-12'>";
       echo $this->Form->button(	'Sign up!',array('type' => 'submit','id' => 'button-signup','class'=>'form-control','action'=>'login'),array('escape'=>false));
@@ -67,27 +107,3 @@
 
   echo $this->end();
 ?>
-
-
-<?php // Campos para llenar informacion
-if( $user_id != null && $admin )
-{ ?>
-<div class="row">
-      <div class="col-xs-12 col-md-12">
-          <div class="form-group" id = "form">
-              <?php // Campos para llenar informacion
-          echo $this->Form->input('role',array(
-                                                  'label' => 'Role: ',
-                        'options' => array(
-                                  0 => 'Customer',
-                                  1 => 'Administrator',
-                                  2 => 'Manager'
-                                  )
-                        )
-                                          );
-              ?>
-          </div>
-      </div>
-  </div>
-<?php
-} ?>

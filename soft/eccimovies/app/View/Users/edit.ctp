@@ -10,10 +10,11 @@ if($user_id != null && $admin)
       <div class="container-fluid">
         <div>
           <ul class="nav nav-pills nav-justified" role="tablist">
-            <li ><?php echo $this->Html->link('Products', array('controller' => 'products', 'action' => 'index')); ?></li>
+            <li><?php echo $this->Html->link('Products', array('controller' => 'products', 'action' => 'index')); ?></li>
             <li><?php echo $this->Html->link('Categories', array('controller' => 'categories', 'action' => 'index')); ?></li>
-            <li class="active"><?php echo $this->Html->link('Users', array('controller' => 'users', 'action' => 'add')); ?></li> 
-            <li><a href="#">Financial Entities</a></li>
+            <li class="active"><?php echo $this->Html->link('Users', array('controller' => 'users', 'action' => 'index')); ?></li> 
+            <li><?php echo $this->Html->link('Orders', array('controller' => 'invoices', 'action' => 'my_invoices')); ?></li>
+            <li><?php echo $this->Html->link('Valid Accounts', array('controller' => 'valid_accounts', 'action' => 'index')); ?></li>
           </ul>
         </div>
       </div>
@@ -222,7 +223,7 @@ if($custom)
    <?php 
 }
 // Si no estoy loggeado o si no soy admin
-else
+if(($user_id != null && $manager) || ($user_id == null))
 {
 	?> <h1> NOTHING TO DO HERE... </h1> <?php
 }
