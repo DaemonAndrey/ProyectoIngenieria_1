@@ -179,7 +179,7 @@ class UsersController extends AppController
 			if(isset($this->request->data['cancel']))
 			{
 				$this->Flash->success(__('Action canceled.', true));
-				return $this->redirect(array('action' => 'index'));
+				return $this->redirect(array('action' => 'settings'));
 			}
 			$this->User->id = $id;
 			if( $this->User->save( $this->request->data ) )

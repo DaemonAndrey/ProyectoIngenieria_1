@@ -1,15 +1,27 @@
 <?php echo $this->Html->css('addresses'); ?>
+<?php echo $this->Html->css('general'); ?> 
 <?php
 // Si soy cliente
 if($user_id != null && $custom)
 {
 	?>
+    <nav class="navbar navbar-inverse" id="navigation-bar">
+      <div class="container-fluid">
+        <div>
+          <ul class="nav nav-pills nav-justified" role="tablist">
+            <li class="active"><?php echo $this->Html->link('Account Settings',array('controller' => 'users', 'action' => 'settings'), array('class' => 'nav-buttons')); ?></li>
+            <li><?php echo $this->Html->link('Your Orders',array('controller' => 'invoices', 'action' => 'my_invoices'), array('class' => 'nav-buttons')); ?></li>
+            <li><?php echo $this->Html->link('Payment Methods',array('controller' => 'paymentMethods', 'action' => 'index'), array('class' => 'nav-buttons')); ?></li>
+            <li><?php echo $this->Html->link('Address Book', array('controller' => 'addresses', 'action' => 'index'), array('class' => 'nav-buttons')); ?></li>
+            <li><a href="#", class="nav-buttons">Wishlist</a></li>  
+          </ul>
+        </div>
+      </div>
+    </nav>
 	
 	<div class="_index">
         <hr>
 		<h2><?php echo __('Account Settings'); ?></h2>
-        <hr>
-        
         <hr>
 		
 		<table cellpadding="0" cellspacing="0">
