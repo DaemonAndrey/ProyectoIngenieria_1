@@ -459,6 +459,34 @@ INSERT INTO products ( code, name, price, stock_quantity, format, languages, sub
 	(	'MCU-0011',	'Avengers: Age of Ultron',						95.19,	283,	'Blu-Ray', 	'English, Spanish, French, Portuguese',	'English, Spanish, French, Portuguese',			2015,	141,	29,	1,	'Directed by: Joss Whedon; Story by: Joss Whedon ; Music by: Brian Tyler, Danny Elfman ; Synopsis: When Tony Stark and Bruce Banner try to jump-start a dormant peacekeeping program called Ultron, things go horribly wrong and it''s up to Earth''s Mightiest Heroes to stop the villainous Ultron from enacting his terrible plans.'	)
 	;
 
+INSERT INTO combos ( code, name, discount ) VALUES
+	(	'CMB-0101', 'Harry Potter'     ,       20		),
+	(	'CMB-0102', 'The Hunger Games' ,       10		),
+	(	'CMB-0103', 'Star Wars pack'   ,       15		),
+	(	'CMB-0104', 'X-Men'            ,       25		);
+
+INSERT INTO combos_products ( combo_id, product_id ) VALUES
+	(	1,	150		),
+	(	1,	151		),
+	(	1,	152		),
+	(	1,	153		),
+	(	1,	154		),
+	(	1,	155		),
+	(	1,	156		),
+	(	1,	157		),
+	(	2,	158		),
+	(	2,	159		),
+	(	2,	160		),
+	(	3,	90		),
+	(	3,	91		),
+	(	3,	92		),
+	(	3,	93		),
+	(	3,	94		),
+	(	3,	95		),
+	(	4,	161		),
+	(	4,	163		),
+	(	4,	164		),
+	(	4,	165		);
 
 INSERT INTO actors ( full_name ) VALUES
 	(	'Adam Sandler'			),

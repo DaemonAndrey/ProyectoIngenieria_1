@@ -12,10 +12,10 @@
 	</div>
 
 	<hr>
-		
+
         <p>
-        <?php 
-			echo "<li id = 'fom-button'>"; 
+        <?php
+			echo "<li id = 'fom-button'>";
 			echo $this->Html->link(
 				'<span class="glyphicon glyphicon-plus"></span> New combo ',
 				array('action' => 'add'),
@@ -30,8 +30,8 @@
 	<table cellpadding="0" cellspacing="0">
 	<thead>
 	<tr>
-			<th><?php echo $this->Paginator->sort('id'); ?></th>
 			<th><?php echo $this->Paginator->sort('code'); ?></th>
+			<th><?php echo $this->Paginator->sort('name'); ?></th>
 			<th><?php echo $this->Paginator->sort('discount'); ?></th>
 			<th class="actions"><?php echo __('Details'); ?></th>
 			<th class="actions"><?php echo __('Update'); ?></th>
@@ -41,8 +41,8 @@
 	<tbody>
 	<?php foreach ($combos as $combo): ?>
 	<tr>
-		<td><?php echo h($combo['Combo']['id']); ?>&nbsp;</td>
 		<td><?php echo h($combo['Combo']['code']); ?>&nbsp;</td>
+		<td><?php echo h($combo['Combo']['name']); ?>&nbsp;</td>
 		<td><?php echo h($combo['Combo']['discount']).' %'; ?>&nbsp;</td>
 		<td>
 			<?php
@@ -105,8 +105,8 @@
 
 	<hr>
 	<p>
-	<?php 
-		echo "<div id = 'fom-button'>"; 
+	<?php
+		echo "<div id = 'fom-button'>";
 		echo $this->Html->link(
 			'<span class="glyphicon glyphicon-home"></span> Go home',
 			array('controller' => 'pages', 'action' => 'home','display'),

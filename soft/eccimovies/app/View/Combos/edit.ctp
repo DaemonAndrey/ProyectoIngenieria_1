@@ -2,7 +2,7 @@
 	echo $this->Html->css('addresses');
 	echo $this->Html->css('general');
 	echo $this->Html->css('product');
-	echo $this->Html->css('signup');
+	//echo $this->Html->css('signup');
 ?>
 
 	<hr>
@@ -29,6 +29,15 @@
 		echo $this->Form->input('code',
 			array(
 				'div' => 'form-group',
+				'autofocus' => 'autofocus',
+				'label' => array(
+					'class' => 'control-label col-sm-2'
+				)
+			)
+		);
+		echo $this->Form->input('name',
+			array(
+				'div' => 'form-group',
 				'label' => array(
 					'class' => 'control-label col-sm-2'
 				)
@@ -42,28 +51,37 @@
 				)
 			)
 		);
+	?>
+	</div>
+	</fieldset>
+	<hr>
+	<div id= "action" style="text-align:center">
+		<?php echo $this->Form->submit(__('Add', true), array('name' => 'ok', 'div' => false)); ?>
+		&nbsp;
+		<?php echo $this->Form->submit(__('Cancel', true), array('name' => 'cancel', 'formnovalidate' => true, 'div' => false)); ?>
+	</div>
+
+	<fieldset>
+	<?php
 		echo $this->Form->input('Product',
 			array(
-				'div' => 'form-group',
-				'label' => array(
+				//'div' => 'form-group',
+				'multiple' => 'checkbox',
+				'label' => 'Modify product list',
+				/*'label' => array(
 					'class' => 'control-label col-sm-2'
-				)
+				)*/
 			)
 		);
 	?>
-	</div>
-	<div id= "action" style="text-align:center">
-		<?php echo $this->Form->end(__('Save changes')); ?>
-		<?php //echo $this->Form->submit(__('Add', true), array('name' => 'ok', 'div' => false)); ?>
-		&nbsp;
-		<?php //echo $this->Form->submit(__('Cancel', true), array('name' => 'cancel', 'formnovalidate' => true, 'div' => false)); ?>
-	</div>
 	</fieldset>
+
+	<?php echo $this->Form->end(); ?>
 
 	<hr>
 	<p>
-	<?php 
-		echo "<div id = 'goBack'>"; 
+	<?php
+		echo "<div id = 'goBack'>";
 		echo $this->Html->link(
 			'<span class="glyphicon glyphicon-arrow-left"></span> Go back',
 			array('action' => 'index'),
