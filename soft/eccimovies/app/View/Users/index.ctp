@@ -6,29 +6,8 @@ echo $this->Html->css('addresses');
 echo $this->Html->css('general'); ?>
 
 <?php 
-if( $user_id != null )
+if( $user_id != null && $admin)
 {
-	if($custom)
-	{
-		?>
-		<nav class="navbar navbar-inverse" id="navigation-bar">
-		  <div class="container-fluid">
-			<div>
-			  <ul class="nav nav-pills nav-justified" role="tablist">
-				<li><?php echo $this->Html->link('Account Settings',array('controller' => 'users', 'action' => 'settings'), array('class' => 'nav-buttons')); ?></li>
-				<li><?php echo $this->Html->link('Your Orders',array('controller' => 'invoices', 'action' => 'my_invoices'), array('class' => 'nav-buttons')); ?></li>
-				<li><?php echo $this->Html->link('Payment Methods',array('controller' => 'paymentMethods', 'action' => 'index'), array('class' => 'nav-buttons')); ?></li>
-				<li><?php echo $this->Html->link('Address Book', array('controller' => 'addresses', 'action' => 'index'), array('class' => 'nav-buttons')); ?></li>
-				<li><a href="#", class="nav-buttons">Wishlist</a></li>  
-			  </ul>
-			</div>
-		  </div>
-		</nav>
-		<?php
-	}
-	
-    if($admin)
-    { 
         ?>
         <nav class="navbar navbar-inverse" id="navigation-bar">
           <div class="container-fluid">
@@ -43,114 +22,105 @@ if( $user_id != null )
             </div>
           </div>
         </nav>
-    <hr>
-    <div class="catHeader">
-    	<h2>Manage Users</h2>
-    </div>
-	<hr>
-    <p>
-            <?php
-            echo "<li id = 'fom-button'>"; 
-            echo $this->Html->link(	'<span class="glyphicon glyphicon-plus"></span> Add user ',
-                                    array('controller'=>'users','action' => 'signup'),
-                                    array('target' => '_self', 'escape' => false)
-                                );
+        <hr>
+        <div class="catHeader">
+            <h2>Manage Users</h2>
+        </div>
+        <hr>
+        <p>
+                <?php
+                echo "<li id = 'fom-button'>"; 
+                echo $this->Html->link(	'<span class="glyphicon glyphicon-plus"></span> Add user ',
+                                        array('controller'=>'users','action' => 'signup'),
+                                        array('target' => '_self', 'escape' => false)
+                                    );
 
-            echo "</li>";
-            ?>
-        </p>
-	<hr>
-	<table cellpadding="0" cellspacing="0">
-			<tr>
-				<th>
-					<?php
-						echo $this->Paginator->sort('username', 'Username ', array(	'id' => 'sortCode-button'));
-						echo $this->Html->tag('span', null, array('class' => 'glyphicon glyphicon-sort-by-alphabet'));
-					?>
-				</th>
-				<th>
-					<?php
-						echo $this->Paginator->sort('first_name', 'First Name ');
-						echo $this->Html->tag('span', null, array('class' => 'glyphicon glyphicon-sort-by-alphabet'));
-					?>
-				</th>
-                <th>
-					<?php
-						echo $this->Paginator->sort('last_name', 'Last Name ');
-						echo $this->Html->tag('span', null, array('class' => 'glyphicon glyphicon-sort-by-alphabet'));
-					?>
-				</th>
-				<th>
-					Update
-				</th>
-				<th>
-					Delete
-				</th>
-			</tr>
+                echo "</li>";
+                ?>
+            </p>
+        <hr>
+        <table cellpadding="0" cellspacing="0">
+                <tr>
+                    <th>
+                        <?php
+                            echo $this->Paginator->sort('username', 'Username ', array(	'id' => 'sortCode-button'));
+                            echo $this->Html->tag('span', null, array('class' => 'glyphicon glyphicon-sort-by-alphabet'));
+                        ?>
+                    </th>
+                    <th>
+                        <?php
+                            echo $this->Paginator->sort('first_name', 'First Name ');
+                            echo $this->Html->tag('span', null, array('class' => 'glyphicon glyphicon-sort-by-alphabet'));
+                        ?>
+                    </th>
+                    <th>
+                        <?php
+                            echo $this->Paginator->sort('last_name', 'Last Name ');
+                            echo $this->Html->tag('span', null, array('class' => 'glyphicon glyphicon-sort-by-alphabet'));
+                        ?>
+                    </th>
+                    <th>
+                        Update
+                    </th>
+                    <th>
+                        Delete
+                    </th>
+                </tr>
 
-			<?php foreach ($users as $user): ?>
-			<?php
-			if( $user['User']['enable'] === '1' )
-			{
-				echo "<tr>";
-					echo "<td>";
-						echo (
-												$user['User']['username']
-												
-											  );
-					echo "</td>";
-					echo "<td>";
-						echo (
-												$user['User']['first_name']
-											  );
-					echo "</td>";
-                    echo "<td>";
-						echo (
-												$user['User']['last_name']
-											  );
-					echo "</td>";
-					echo "<td>";
-						echo $this->Html->link('<i class="glyphicon glyphicon-pencil"></i>', array('action' => 'edit', $user['User']['id']), array('escape' => false));
-					echo "</td>";
-					echo "<td>";
-						echo $this->Form->postLink(
-						   $this->Html->tag(
-							  'span', null, array('class' => 'glyphicon glyphicon-trash')
-						   ),
-						   array('action' => 'delete', $user['User']['id']),
-						   array('escape' => false, 'confirm' => 'Está seguro que desea eliminar el usuario?')
-						);
-					echo "</td>";
-				echo "</tr>";
-			}
-			?>
-			<?php endforeach; ?>
-			<?php unset($product); ?>
-		</table>
-    <div class="center_pagination">
-        <ul class="pagination">
-            <li><?php echo $this->Paginator->numbers(array('separator' => '')); ?></li>
-        </ul>
-    </div>
-	<hr>
+                <?php foreach ($users as $user): ?>
+                <?php
+                if( $user['User']['enable'] === '1' )
+                {
+                    echo "<tr>";
+                        echo "<td>";
+                            echo (
+                                                    $user['User']['username']
 
+                                                  );
+                        echo "</td>";
+                        echo "<td>";
+                            echo (
+                                                    $user['User']['first_name']
+                                                  );
+                        echo "</td>";
+                        echo "<td>";
+                            echo (
+                                                    $user['User']['last_name']
+                                                  );
+                        echo "</td>";
+                        echo "<td>";
+                            echo $this->Html->link('<i class="glyphicon glyphicon-pencil"></i>', array('action' => 'edit', $user['User']['id']), array('escape' => false));
+                        echo "</td>";
+                        echo "<td>";
+                            echo $this->Form->postLink(
+                               $this->Html->tag(
+                                  'span', null, array('class' => 'glyphicon glyphicon-trash')
+                               ),
+                               array('action' => 'delete', $user['User']['id']),
+                               array('escape' => false, 'confirm' => 'Está seguro que desea eliminar el usuario?')
+                            );
+                        echo "</td>";
+                    echo "</tr>";
+                }
+                ?>
+                <?php endforeach; ?>
+                <?php unset($product); ?>
+            </table>
+        <div class="center_pagination">
+            <ul class="pagination">
+                <li><?php echo $this->Paginator->numbers(array('separator' => '')); ?></li>
+            </ul>
+        </div>
+        <hr>
+
+    <h1>
     <?php
-    }
-    
-	if($manager)
-	{
-		
-	}
-	
-	?>
-	<h1>
-	WELCOME ! <br>
-	<?php echo $username; ?>
-	</h1>
-	<?php
+
 }
-else
+?>
+<?php
+if( $user_id == null || ($user_id != null && !$admin))
 {
-    ?> <h1> PLEASE LOGIN OR SIGNUP </h1><?php
+    ?> <h1> NOTHING TO SEE HERE </h1><?php
 }
 ?>

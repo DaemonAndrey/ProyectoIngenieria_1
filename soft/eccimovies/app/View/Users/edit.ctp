@@ -49,27 +49,6 @@ if($user_id != null && $admin)
                                                                         )
                                                     )
                                        );
-                /*echo $this->Form->input('password', array('div' => 'form-group',
-                                                          
-                                                                'label' => array(
-                                                                                    'class' => 'control-label col-sm-2',
-                                                                                    'text' => 'New Password'
-                                                                                    
-                                                                                ),
-                                                                'name'=> 'pass',
-                                                                'value' => ''
-                                                                )
-                                       );
-                echo $this->Form->input('password', array('div' => 'form-group',
-                                                        'label' => array(
-                                                                            'class' => 'control-label col-sm-2',
-                                                                            'text' => 'Confirm Password'
-                                                                            
-                                                                        ),
-                                                          'name'=> 'confirm',
-                                                          'value'=> ''
-                                                            )
-                                       );*/
                 echo $this->Form->input('birthday', array( 'div' => 'form-group',
                                                            'type' => 'date',
                                                            'dateFormat' => 'DMY','minYear' => date('Y') - 100,'maxYear' => date('Y'),
@@ -112,23 +91,29 @@ if($user_id != null && $admin)
     <?php
 }
 
-if($custom)
-    
+if($user_id == $user['User']['id'] && ($custom || $manager))
 {
-?>
-    <nav class="navbar navbar-inverse" id="navigation-bar">
-      <div class="container-fluid">
-        <div>
-          <ul class="nav nav-pills nav-justified" role="tablist">
-            <li class="active"><?php echo $this->Html->link('Account Settings',array('controller' => 'users', 'action' => 'settings'), array('class' => 'nav-buttons')); ?></li>
-            <li><?php echo $this->Html->link('Your Orders',array('controller' => 'invoices', 'action' => 'my_invoices'), array('class' => 'nav-buttons')); ?></li>
-            <li><?php echo $this->Html->link('Payment Methods',array('controller' => 'paymentMethods', 'action' => 'index'), array('class' => 'nav-buttons')); ?></li>
-            <li><?php echo $this->Html->link('Address Book', array('controller' => 'addresses', 'action' => 'index'), array('class' => 'nav-buttons')); ?></li>
-            <li><a href="#", class="nav-buttons">Wishlist</a></li>  
-          </ul>
-        </div>
-      </div>
-    </nav>
+    ?>
+    <?php
+    if($custom)
+    {
+        ?>
+        <nav class="navbar navbar-inverse" id="navigation-bar">
+          <div class="container-fluid">
+            <div>
+              <ul class="nav nav-pills nav-justified" role="tablist">
+                <li class="active"><?php echo $this->Html->link('Account Settings',array('controller' => 'users', 'action' => 'settings'), array('class' => 'nav-buttons')); ?></li>
+                <li><?php echo $this->Html->link('Your Orders',array('controller' => 'invoices', 'action' => 'my_invoices'), array('class' => 'nav-buttons')); ?></li>
+                <li><?php echo $this->Html->link('Payment Methods',array('controller' => 'paymentMethods', 'action' => 'index'), array('class' => 'nav-buttons')); ?></li>
+                <li><?php echo $this->Html->link('Address Book', array('controller' => 'addresses', 'action' => 'index'), array('class' => 'nav-buttons')); ?></li>
+                <li><a href="#", class="nav-buttons">Wishlist</a></li>  
+              </ul>
+            </div>
+          </div>
+        </nav>
+        <?php
+    }
+    ?>
     
     <hr>
 
@@ -160,27 +145,6 @@ if($custom)
                                                                         )
                                                     )
                                        );
-                /*echo $this->Form->input('password', array('div' => 'form-group',
-                                                          
-                                                                'label' => array(
-                                                                                    'class' => 'control-label col-sm-2',
-                                                                                    'text' => 'New Password'
-                                                                                    
-                                                                                ),
-                                                                'name'=> 'pass',
-                                                                'value' => ''
-                                                                )
-                                       );
-                echo $this->Form->input('password', array('div' => 'form-group',
-                                                        'label' => array(
-                                                                            'class' => 'control-label col-sm-2',
-                                                                            'text' => 'Confirm Password'
-                                                                            
-                                                                        ),
-                                                          'name'=> 'confirm',
-                                                          'value'=> ''
-                                                            )
-                                       );*/
                 echo $this->Form->input('birthday', array( 'div' => 'form-group',
                                                            'type' => 'date',
                                                            'dateFormat' => 'DMY','minYear' => date('Y') - 100,'maxYear' => date('Y'),
@@ -223,7 +187,7 @@ if($custom)
    <?php 
 }
 // Si no estoy loggeado o si no soy admin
-if(($user_id != null && $manager) || ($user_id == null))
+if($user_id == null || ($user_id != $user['User']['id'] && ($custom || $manager)))
 {
 	?> <h1> NOTHING TO DO HERE... </h1> <?php
 }

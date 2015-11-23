@@ -6,22 +6,31 @@
 $u_user_id = h($user['User']['id']);
 
 // Si soy cliente y me pertenece la direccion
-if($user_id != null && $custom && $user_id == $u_user_id)
+if($user_id != null && $user_id == $u_user_id)
 { 	
 	?>
-    <nav class="navbar navbar-inverse" id="navigation-bar">
-      <div class="container-fluid">
-        <div>
-          <ul class="nav nav-pills nav-justified" role="tablist">
-            <li class="active"><?php echo $this->Html->link('Account Settings',array('controller' => 'users', 'action' => 'settings'), array('class' => 'nav-buttons')); ?></li>
-            <li><?php echo $this->Html->link('Your Orders',array('controller' => 'invoices', 'action' => 'my_invoices'), array('class' => 'nav-buttons')); ?></li>
-            <li><?php echo $this->Html->link('Payment Methods',array('controller' => 'paymentMethods', 'action' => 'index'), array('class' => 'nav-buttons')); ?></li>
-            <li><?php echo $this->Html->link('Address Book', array('controller' => 'addresses', 'action' => 'index'), array('class' => 'nav-buttons')); ?></li>
-            <li><a href="#", class="nav-buttons">Wishlist</a></li>  
-          </ul>
-        </div>
-      </div>
-    </nav>
+    <?php
+    if($custom)
+    {  
+        ?>
+        <nav class="navbar navbar-inverse" id="navigation-bar">
+          <div class="container-fluid">
+            <div>
+              <ul class="nav nav-pills nav-justified" role="tablist">
+                <li class="active"><?php echo $this->Html->link('Account Settings',array('controller' => 'users', 'action' => 'settings'), array('class' => 'nav-buttons')); ?></li>
+                <li><?php echo $this->Html->link('Your Orders',array('controller' => 'invoices', 'action' => 'my_invoices'), array('class' => 'nav-buttons')); ?></li>
+                <li><?php echo $this->Html->link('Payment Methods',array('controller' => 'paymentMethods', 'action' => 'index'), array('class' => 'nav-buttons')); ?></li>
+                <li><?php echo $this->Html->link('Address Book', array('controller' => 'addresses', 'action' => 'index'), array('class' => 'nav-buttons')); ?></li>
+                <li><a href="#", class="nav-buttons">Wishlist</a></li>  
+              </ul>
+            </div>
+          </div>
+        </nav>
+        <?php
+    }
+    ?>
+
+
     <hr>
     <div class="_index">
 		<h2><?php echo $user['User']['first_name'] . ' ' . $user['User']['last_name']; ?></h2>
@@ -48,7 +57,7 @@ if($user_id != null && $custom && $user_id == $u_user_id)
 	<?php
 }
 // Si no estoy loggeado, o soy administrador o gerente
-else
+if($user_id == null || ($user_id != null && $user_id != $u_user_id))
 {
 	?> <h1> NOTHING TO SEE HERE... </h1> <?php
 }

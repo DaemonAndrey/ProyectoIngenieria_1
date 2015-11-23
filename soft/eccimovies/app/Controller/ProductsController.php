@@ -64,12 +64,12 @@ class ProductsController extends AppController
 
 		if( !$id )
 		{
-			throw new NotFoundException(__('Producto inválido.'));
+			throw new NotFoundException(__('Invalid Product.'));
 		}
 		$product = $this->Product->findById($id);
 		if( !$product )
 		{
-			throw new NotFoundException(__('Producto inválido.'));
+			throw new NotFoundException(__('Invalid Product.'));
 		}
 		$this->set('post', $product);
 

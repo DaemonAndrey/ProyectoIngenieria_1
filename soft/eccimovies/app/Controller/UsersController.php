@@ -56,6 +56,19 @@ class UsersController extends AppController
         $this->User->recursive = 0;
         $this->set('Pagina Principal', $this->paginate());
         $this->set('users', $this->User->find('all'));
+        
+        $logged = $this->User->find('first', array('conditions' => array('User.id' => $this->Auth->User('id'))));
+        
+        $this->set('users', $this->User->find('all'));
+        $this->set('loggedUser', $logged);
+    }
+    
+    public function my_account()
+	{
+        $logged = $this->User->find('first', array('conditions' => array('User.id' => $this->Auth->User('id'))));
+        
+        $this->set('users', $this->User->find('all'));
+        $this->set('loggedUser', $logged);
     }
 	
 	public function view($id = null)
@@ -88,7 +101,7 @@ class UsersController extends AppController
 				// Si pudo registrar el usuario
 				if ($this->User->save($this->request->data))
 				{
-					$this->Flash->set(__('¡ Usuario registrado exitosamente !'));
+					$this->Flash->set(__('Registered successfully!'));
 					return $this->redirect(array('action' => 'login')); // Se pasa a la vista de LOGIN
 				}
 				// Si no pudo registrar el usuario
@@ -103,12 +116,12 @@ class UsersController extends AppController
 			// Si la excepcion es por PRIMARY KEY
 			if( $e->getCode() == 23000 )
 			{
-				$this->Flash->set(__('Lo sentimos, ese correo ya está registrado') );
+				$this->Flash->set(__('This e-mail has been already registered.') );
 			}
 			// Si la excepcion es por otra cosa
 			else
 			{
-				$this->Flash->set(__('Oops ! Algo ha salido mal. Inténtalo de nuevo.') );
+				$this->Flash->set(__('Oops ! Something went wrong. Try again.') );
 			}
 		}
     }
@@ -137,7 +150,7 @@ class UsersController extends AppController
 		}
 		catch( Exception $e )
 		{
-			$this->Flash->set(__('Correo o contraseña inválido'));
+			$this->Flash->set(__('Wrong username or password'));
 		}
 	}
 	
@@ -179,13 +192,27 @@ class UsersController extends AppController
 			if(isset($this->request->data['cancel']))
 			{
 				$this->Flash->success(__('Action canceled.', true));
-				return $this->redirect(array('action' => 'settings'));
+                if($this->Auth->User('role') == 0 || $this->Auth->User('role') == 2)
+                {
+                    return $this->redirect(array('action' => 'settings'));
+                }
+                if($this->Auth->User('role') == 1)
+                {
+                    return $this->redirect(array('action' => 'index'));
+                }
 			}
 			$this->User->id = $id;
 			if( $this->User->save( $this->request->data ) )
 			{
 				$this->Flash->success(__('User updated successfully.'));
-				return $this->redirect(array('action' => 'index'));
+                if($this->Auth->User('role') == 0 || $this->Auth->User('role') == 2)
+                {
+                    return $this->redirect(array('action' => 'settings'));
+                }
+                if($this->Auth->User('role') == 1)
+                {
+                    return $this->redirect(array('action' => 'index'));
+                }
 			}
 			else
 			{

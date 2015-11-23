@@ -144,16 +144,57 @@
       <?php
       }
       ?>
-
+      
+      
       <!-- MY ACCOUNT -->
-      <li id="account">
       <?php
-      echo $this->Html->link(	'<span class="glyphicon glyphicon-cog" id="account-button"></span> MY ACCOUNT ',
-            array('controller'=>'users','action' => 'index'),
-            array('target' => '_self', 'escape' => false)
-          )
+      if($custom)
+      {
+          ?>
+              <li id="account">
+              <?php
+              echo $this->Html->link(	'<span class="glyphicon glyphicon-cog" id="account-button"></span> MY ACCOUNT ',
+                    array('controller'=>'users','action' => 'my_account'),
+                    array('target' => '_self', 'escape' => false)
+                  )
+              ?>
+              </li>
+            <?php
+      }
       ?>
-      </li>
+      <?php
+      if($admin)
+      {
+          ?>
+              <li id="account">
+              <?php
+              echo $this->Html->link(	'<span class="glyphicon glyphicon-cog" id="account-button"></span> MY ACCOUNT ',
+                    array('controller'=>'users','action' => 'settings'),
+                    array('target' => '_self', 'escape' => false)
+                  )
+              ?>
+              </li>
+            <?php
+      }
+      ?>
+      <?php
+      if($manager)
+      {
+          ?>
+              <li id="account">
+              <?php
+              echo $this->Html->link(	'<span class="glyphicon glyphicon-cog" id="account-button"></span> MY ACCOUNT ',
+                    array('controller'=>'users','action' => 'settings'),
+                    array('target' => '_self', 'escape' => false)
+                  )
+              ?>
+              </li>
+            <?php
+      }
+      ?>
+      
+              
+              
 
       <!--LOGOUT-->
       <li id="logout">

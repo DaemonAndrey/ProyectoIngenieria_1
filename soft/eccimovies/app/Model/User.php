@@ -14,33 +14,33 @@ class User extends AppModel {
 							'regla1' => array
 											(
 												'rule' => array('notBlank'),
-												'message' => 'Debe escribir un correo electrónico.'
+												'message' => 'Intrduce your e-mail address.'
 											),
 							'regla2' => array
 											(
 												'rule' => array('isUnique'),
-												'message' => 'Este correo ya ha sido registrado.'
+												'message' => 'This e-mail has been already registered.'
 											),
                             'regla3' => array
 											(
 												'rule' => array('isUnique'),
-												'message' => 'Este correo ya ha sido registrado.'
+												'message' => 'This e-mail has been already registered.'
 											)
 							),
         'password' => array(
 							'regla1' => array(
 											'rule' => 'notBlank',
-											'message' => 'Debe escribir una contaseña.'
+											'message' => 'Introduce a password.'
 											),
 							'regla2' => array(
 											'rule' => array('minLength', '8'),
-											'message' => 'Debe tener al menos 8 caracteres.'
+											'message' => 'Must contain at least 8 characters.'
 											)
 						),
         'repass' => array(
                                             'equaltofield' => array(
                                             'rule' => array('equaltofield','password'),
-                                            'message' => 'La contraseña no coincide.',
+                                            'message' => 'Passwords do not match.',
                                             //'allowEmpty' => false,
                                             //'required' => false,
                                             //'last' => false, // Stop validation after this rule
@@ -50,35 +50,35 @@ class User extends AppModel {
 		'first_name' => array(
 							'regla1' => array(
 											'rule' => 'notBlank',
-											'message' => 'Debe escribir su nombre de pila.'
+											'message' => 'Introduce your first name.'
 											),
 							'regla2' => array(
 											'rule'    => array('custom', '/^[a-zA-Z \-]*$/'),
-											'message' => 'No se permiten caracteres especiales.'
+											'message' => 'No special characters allowed.'
 											)
 							),
 		'last_name' => array(
 							'regla1' => array(
 											'rule' => 'notBlank',
-											'message' => 'Debe escribir sus apellidos.'
+											'message' => 'Introduce your last name.'
 											),
 							'regla2' => array(
 											'rule'    => array('custom', '/^[a-zA-Z \-]*$/'),
-											'message' => 'No se permiten caracteres especiales.'
+											'message' => 'No special characters allowed.'
 											)
 							),
 		'birthday' => array(
 							'regla1' => array(
 											'rule' => 'date',
 											'allowEmpty' => false,
-											'message' => 'Debe seleccionar su fecha de nacimiento.'
+											'message' => 'Select your birth date.'
 											)
 							),
 		'gender' => array(
 						'regla1' => array(
 										'rule' => array('inList', array('M', 'F')),
 										'allowEmpty' => false,
-										'message' => 'Debes seleccionar uno.'
+										'message' => 'Select one.'
 										)
 						)	
     );
