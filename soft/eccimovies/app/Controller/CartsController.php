@@ -128,8 +128,6 @@ class CartsController extends AppController
                        throw new Exception('Exception');
                        render('view');
                    }
-
-
                }
                else
                {
@@ -149,9 +147,11 @@ class CartsController extends AppController
         $user = $this->Cart->field('id',array('user_id' => $this->request->data['user_id']));
 
         $this->loadModel('CartProduct');
-        $this->CartProduct->id = $this->CartProduct->field(	'id',
-															array('product_id'=> $data['product_id'],
-															'cart_id'=>$user)
+		$this->CartProduct->id = $this->CartProduct->field(	'id',
+															array(  'product_id' => $data['product_id'],
+                                                                    'cart_id' => $user,
+                                                                    'product_price' => $data['product_price']
+                                                                 )
 														);
 
         if($this->CartProduct->id)
@@ -162,12 +162,12 @@ class CartsController extends AppController
         {
             $finalData = array(	'cart_id' => $user,
 								'product_id' => $data['product_id'],
-								'quantity' => $data['quantity']
+								'quantity' => $data['quantity'],
+                                'product_price' => $data['product_price']
 							);
             try
             {
                 $this->CartProduct->save($finalData);
-
             }
             catch (Exception $e)
             {
@@ -211,7 +211,6 @@ class CartsController extends AppController
         $this->loadModel('CartProduct');
         $cartProduct = $this->CartProduct->findById( $idCartProduct );
         $idCart = $cartProduct['Cart']['id'];
-        //$quantity = $cartProduct['quantity'];
 
         if( !$cartProduct )
         {
@@ -220,7 +219,6 @@ class CartsController extends AppController
 
         if( $this->request->is( array('post', 'put') ) )
         {
-            //if( $this->CartProduct->save( $this->request->data, false ) )
             $data = $this->request->data;
             $this->CartProduct->id = $idCartProduct;
 
@@ -345,8 +343,6 @@ class CartsController extends AppController
                 $resultado = $cartProduct->query($consulta);
 
                 // Cantidad de items en el carrito
-                //$conditions = array('carts_products.cart_id' => $idCart);
-                //$cantidad = $cartProduct->find('count', array('conditions' => $conditions));
                 $cantidad = $resultado[0][0]['COUNT(cart_id)'];
 
                 // Si ya no hay items en el carrito

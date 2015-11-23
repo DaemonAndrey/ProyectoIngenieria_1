@@ -3,24 +3,23 @@ App::uses('Address', 'Model');
 
 class AddressTest extends CakeTestCase {
 
-	public $useDbConfig = 'test';
-
 	public $fixtures = array(
 		'app.address',
+		'app.user',
 		'app.state',
-		'app.country'
+		'app.invoice'
 	);
 
 	public $autoFixtures = false;
 
+	public function testAddressModel() {
+		$result = $this->loadFixtures('Address');
+		debug($result);
+	}
+
 	public function setUp() {
 		parent::setUp();
 		$this->Address = ClassRegistry::init('Address');
-	}
-
-	public function testAddressModel() {
-		$result = $this->loadFixtures('Address', 'State', 'Country');
-		debug($result);
 	}
 
 	public function tearDown() {

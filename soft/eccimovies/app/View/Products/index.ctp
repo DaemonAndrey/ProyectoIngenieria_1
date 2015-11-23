@@ -11,14 +11,15 @@ echo $this->Html->css('general');
 if($user_id != null && $admin)
 {
 	?>
-	<nav class="navbar navbar-inverse" id="navigation-bar">
+    <nav class="navbar navbar-inverse" id="navigation-bar">
       <div class="container-fluid">
         <div>
           <ul class="nav nav-pills nav-justified" role="tablist">
             <li class="active"><?php echo $this->Html->link('Products', array('controller' => 'products', 'action' => 'index')); ?></li>
             <li><?php echo $this->Html->link('Categories', array('controller' => 'categories', 'action' => 'index')); ?></li>
             <li><a href="#">Users</a></li> 
-            <li><a href="#">Financial Entities</a></li>  
+            <li><?php echo $this->Html->link('Orders', array('controller' => 'invoices', 'action' => 'my_invoices')); ?></li>
+            <li><?php echo $this->Html->link('Valid Accounts', array('controller' => 'valid_accounts', 'action' => 'index')); ?></li> 
           </ul>
         </div>
       </div>
@@ -29,16 +30,24 @@ if($user_id != null && $admin)
     </div>
 	<hr>
     <p>
-            <?php
+		<?php
+			echo "<li id = 'fom-button'>"; 
+			echo $this->Html->link(	'<span class="glyphicon glyphicon-plus"></span> Add product ',
+									array('controller'=>'products','action' => 'add'),
+									array('target' => '_self', 'escape' => false)
+								);
+
+			echo "</li>";
+    
             echo "<li id = 'fom-button'>"; 
-            echo $this->Html->link(	'<span class="glyphicon glyphicon-plus"></span> Add product ',
-                                    array('controller'=>'products','action' => 'add'),
+            echo $this->Html->link(	'<span class="glyphicon glyphicon-plus"></span> Update discount ',
+                                    array('controller'=>'products','action' => 'updateDiscount'),
                                     array('target' => '_self', 'escape' => false)
                                 );
 
             echo "</li>";
-            ?>
-        </p>
+		?>
+    </p>
     <hr>
 	<table cellpadding="0" cellspacing="0">
 			<tr>

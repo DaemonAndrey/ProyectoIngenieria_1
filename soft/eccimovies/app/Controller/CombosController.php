@@ -38,7 +38,17 @@ class CombosController extends AppController {
 		if (!$this->Combo->exists($id)) {
 			throw new NotFoundException(__('Invalid combo'));
 		}
-		$options = array('conditions' => array('Combo.' . $this->Combo->primaryKey => $id));
+		//$this->Combo->Product->contain('Subcategory');
+		//$this->Combo->Product->Subcategory->contain('Category');
+		$options = array(
+			'conditions' => array('Combo.' . $this->Combo->primaryKey => $id),
+			'contain' => array(
+				'Product' => array(
+					'Subcategory' => array('Category')
+				)
+			)
+		);
+
 		$this->set('combo', $this->Combo->find('first', $options));
 	}
 

@@ -5,8 +5,16 @@
 <?php if($user_id != null && $custom){ ?>
 
     <header>
-        <h2 id="purchase-h"> 
-            Your order has been processed <?php echo $this->Html->image('Icon_check.png', array('class' => 'img-rounded', 'style' => 'width:20px; height:20px')); ?>
+        <h2 id="purchase-h">
+            <center>
+            Your order has been processed
+            <?php echo $this->Html->image('Icon_check.png',
+                                          array('class' => 'img-rounded',
+                                                'style' => 'width:20px; height:20px'
+                                               )
+                                         );
+            ?>
+            </center>
         </h2> 
 
     </header>

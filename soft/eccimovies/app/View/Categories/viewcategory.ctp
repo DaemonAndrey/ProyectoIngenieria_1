@@ -14,13 +14,13 @@ echo $this->Html->css('general');?>
 
       <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li><a href="#" >NEW RELEASES</a></li>
+                <li><?php echo $this->Html->link('NEW RELEASES', array('controller' => 'pages', 'action' => 'display', 'home')); ?></li>
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" style="color:black">GENRES<span class="caret"></span></a>
                     <ul class="dropdown-menu scrollable-menu" role="menu">
                         <?php
                         foreach ($catego as $cat):
-                        if( $cat['Page']['category_name'] !== 'Unsorted')
+                        if( $cat['Page']['category_name'] !== 'Unclassified')
                         {
                             ?>
                             <li>
@@ -40,8 +40,8 @@ echo $this->Html->css('general');?>
                     </ul>
                 </li>
 
-                <li><a href="#">BLU-RAY</a></li>
-                <li><a href="#">DVD</a></li>
+                <li><?php echo $this->Html->link('BLU-RAY', array('controller' => 'categories', 'action' => 'view_bluray')); ?></li>
+                <li><?php echo $this->Html->link('DVD', array('controller' => 'categories', 'action' => 'view_dvd')); ?></li>
                 <li><a href="#">COMING SOON</a></li>
                 <li><a href="#">TRENDING BLU-RAY</a></li>
                 <li><a href="#">TOP 10 SELLERS</a></li>

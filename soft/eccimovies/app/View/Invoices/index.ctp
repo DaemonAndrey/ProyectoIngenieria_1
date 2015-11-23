@@ -2,15 +2,12 @@
 
 <?php echo $this->Html->css('invoice'); ?>
 
-
-
 <?php if($user_id != null && $custom){ ?>
 
     <header id="principal-header-text-invoice">
-    <h2> Payment and Shipping Information </h2>
+    <h2> <center> Payment and Shipping Information </center> </h2>
     </header>
-
-    
+ 
     <hr>
 
     <table class="table">
@@ -32,11 +29,17 @@
                                                                                  array('target' => '_self', 'escape' => false));
                                 ?>
                             </td>
-                            <td><?php echo $product['Product']['name']; ?> </td>
+							<td><?php echo $product['Product']['name']; ?> </td>
                             <td><?php echo $carts_product['CartsProduct']['quantity']; ?></td>
-                            <td><?php echo '$ '.$product['Product']['price']; ?></tc>
+                            <td><?php 
+                                      $precioFinal = $product['Product']['price'] - $product['Product']['price']*$product['Product']['discount']/100;
+                                      echo '$ '.number_format((float)$precioFinal, 2, '.', ''); 
+                                ?>
+                            </td>
                             <td>
-                                <?php echo '$ '.$carts_product['CartsProduct']['quantity']*$product['Product']['price']; ?>
+                                <?php 
+                                      echo '$ '.number_format((float)$carts_product['CartsProduct']['quantity']*$precioFinal, 2, '.', '');
+                                ?>
                             </td>
                         </tr>
                     <?php endif; ?>
@@ -75,26 +78,22 @@
         </div>
     </div>
 
+	<?php echo $this->Form->create('Invoice', array('url'=> array('action'=>'view'), 'type' => 'post', 'id' => 'indexform', 'inputDefaults' => array('label'=>false, 'div'=>false))); 
 
-  
-        <?php echo $this->Form->create('Invoice', array('url'=> array('action'=>'view'), 'type' => 'post', 'id' => 'indexform', 'inputDefaults' => array('label'=>false, 'div'=>false))); 
+		echo "<div class='row'>";
+			 echo "<div class='control-label col-md-7'>";
+				 echo "<div class='form-group'>";
+					echo $this->Form->input('payment_method_id', array(
+																'div' => 'form-group',      
+																'label' => 'Payment Method',
+																'name' => 'payment_method_id'
+																)
+												  );
 
-        echo "<div class='row'>";
-             echo "<div class='control-label col-md-7'>";
-                 echo "<div class='form-group'>";
-                    echo $this->Form->input('payment_method_id', array(
-                                                                'div' => 'form-group',      
-                                                                'label' => 'Payment Method',
-                                                                'name' => 'payment_method_id'
-                                                                )
-                                                  );
-
-                 echo "</div>";
-            echo "</div>";     
-        echo "</div>";
-
-            
-        
+				 echo "</div>";
+			echo "</div>";     
+		echo "</div>";
+ 
         echo "<div class='row'>";
             echo "<div class='control-label col-md-8'>";
                 echo "<div class='form-group'>";
@@ -116,12 +115,8 @@
     echo $this->Form->end();
                                       
 } ?>
-
-            <?php if(!$custom || $user_id == null)
-            {
-                ?> <h1 id='nothing'> NOTHING TO SEE HERE... </h1> <?php
-            } ?>
-
-    
+<?php if(!$custom || $user_id == null)
+{
+	?> <h1 id='nothing'> NOTHING TO SEE HERE... </h1> <?php
+} ?>
 <hr>
-

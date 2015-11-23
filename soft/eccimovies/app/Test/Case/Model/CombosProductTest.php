@@ -1,37 +1,26 @@
 <?php
 App::uses('CombosProduct', 'Model');
 
-/**
- * CombosProduct Test Case
- */
 class CombosProductTest extends CakeTestCase {
 
-/**
- * Fixtures
- *
- * @var array
- */
 	public $fixtures = array(
 		'app.combos_product',
 		'app.combo',
 		'app.product'
 	);
 
-/**
- * setUp method
- *
- * @return void
- */
+	public $autoFixtures = false;
+
+	public function testCombosProductModel() {
+		$result = $this->loadFixtures('CombosProduct');
+		debug($result);
+	}
+
 	public function setUp() {
 		parent::setUp();
 		$this->CombosProduct = ClassRegistry::init('CombosProduct');
 	}
 
-/**
- * tearDown method
- *
- * @return void
- */
 	public function tearDown() {
 		unset($this->CombosProduct);
 

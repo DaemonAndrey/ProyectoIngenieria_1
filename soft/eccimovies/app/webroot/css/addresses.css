@@ -17,6 +17,11 @@ hr{
 	text-align: center;
 }
 
+._index h3
+{
+	text-align: left;
+}
+
 /** FORM.ctp **/
 
 .addAddress_form hr, .updateAddress_form hr, .addCard_form hr, .addPayPal_form hr, .addCategory_form hr, .updateCategory_form hr, .addProduct_form hr, updateProduct_form hr{
@@ -68,6 +73,28 @@ hr{
 	padding: 5px;
 }
 
+#editStatus-button{
+    display: inline-block;
+    list-style-type: none;
+    border-radius: 8px;
+    margin-left: 2px;
+	background-color: yellowgreen;
+    border-color: white;
+    
+}
+
+
+#editStatus-button:hover{
+	background-color:#6E6E6E;
+}
+
+#editStatus-button a{
+	text-decoration:none;
+	line-height: 30px;
+	color: white;
+	padding: 5px;
+}
+
 table {
      width: 100%;
 }
@@ -113,3 +140,7 @@ tbody tr:nth-child(odd) {
   background: #111;
 }
 
+._orderStatus{
+    background-color: #F07575
+    color: black;
+}

@@ -55,16 +55,25 @@ class UsersController extends AppController
 	{
         $this->User->recursive = 0;
         $this->set('Pagina Principal', $this->paginate());
+        $this->set('users', $this->User->find('all'));
     }
 	
 	public function view($id = null)
 	{
-        $this->User->id = $id;
-        if (!$this->User->exists()) {
-            throw new NotFoundException(__('Correo inválido'));
-        }
-        $this->set('user', $this->User->findById($id));
+		if (!$this->User->exists($id))
+		{
+			throw new NotFoundException(__('Invalid user'));
+		}
+		$user = $this->User->find('first', array('conditions' => array('User.id' => $id), 'recursive' => 2));
+
+		if( !$user )
+		{
+			throw new NotFoundException(__('Invalid user.'));
+		}
+
+		$this->set('user', $user);
     }
+    
 	
 	// Se pasa a la vista de REGISTRO
 	public function signup()
@@ -145,5 +154,117 @@ class UsersController extends AppController
 	public function manage()
 	{
 	}
+    
+    public function add()
+	{
+		        $this->set('users', $this->User->find('all'));
+	}
+    
+    public function edit( $id = null )
+	{
+		if( !$id )
+		{
+			throw new NotFoundException(__('Invalid user.'));
+		}
+		$user = $this->User->findById($id);
+		if( !$user )
+		{
+			throw new NotFoundException(__('Invalid user.'));
+		}
+        
+        $this->set('user', $user); 
+        
+		if($this->request->is(array('post', 'put')))
+		{
+			if(isset($this->request->data['cancel']))
+			{
+				$this->Flash->success(__('Action canceled.', true));
+				return $this->redirect(array('action' => 'index'));
+			}
+			$this->User->id = $id;
+			if( $this->User->save( $this->request->data ) )
+			{
+				$this->Flash->success(__('User updated successfully.'));
+				return $this->redirect(array('action' => 'index'));
+			}
+			else
+			{
+				$this->Flash->error(__('Could not update user.'));
+			}
+		}
+		else
+        {
+			$options = array('conditions' => array('User.' . $this->User->primaryKey => $id), 'recursive' => 2);
+			$this->request->data = $this->User->find('first', $options);
+		}
+		if(!$this->request->data)
+		{
+			$this->request->data = $user;
+		}
+	}
+    
+    public function delete( $id = null )
+	{
+		if( !$id )
+		{
+			throw new NotFoundException(__('Invalid user.'));
+		}
+		if( $this->request->is('get') )
+		{
+			throw new MethodNotAllowedException();
+		}
+		$user = $this->User->findById($id);
+		if( !$user )
+		{
+			throw new NotFoundException(__('Invalid user.'));
+		}
+		if( $this->request->is(array('post', 'put')) )
+		{
+			if( $this->User->updateAll(array("enable" => "0"),array("User.id" => "$id")) )
+			{
+				$this->Flash->success(__('User deleted successfully!'));
+				return $this->redirect(array('action' => 'index'));
+			}
+			$this->Flash->error(__('Could not delete user.'));
+		}
+		return $this->redirect(array('action' => 'index'));
+	}
+    
+    public function settings()
+	{
+		$this->set('settings', $this->User->find('all', array('recursive' => 2)));
+	}
+    
+    public function change( $id = null)
+    {  
+        if( !$id )
+		{
+			throw new NotFoundException(__('Invalid user.'));
+		}
+		$user = $this->User->findById($id);
+		if( !$user )
+		{
+			throw new NotFoundException(__('Invalid user.'));
+		}
+		if($this->request->is(array('post', 'put')))
+		{
+			if(isset($this->request->data['cancel']))
+			{
+				$this->Flash->success(__('Action canceled.', true));
+				return $this->redirect(array('action' => 'index'));
+			}
+			$this->User->id = $id;
+			if( $this->User->save( $this->request->data ) )
+			{
+                
+				$this->Flash->success(__('User updated successfully.'));
+				return $this->redirect(array('action' => 'index'));
+			}
+			else
+			{
+				$this->Flash->error(__('Could not update user.'));
+			}
+		}
+    }
 }
 ?>

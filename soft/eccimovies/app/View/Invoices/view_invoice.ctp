@@ -16,10 +16,8 @@ endforeach;
 unset($pMethod);
 
 // Si soy admin, o soy cliente y me pertenece la orden
-if($user_id != null && ($admin || ($custom && $user_id == $invoice_user)))
+if($user_id != null && ( $admin || ($custom && $user_id == $invoice_user)))
 { 	
-    ?>
-	<?php
     if($custom)
     {
         ?>
@@ -58,7 +56,7 @@ if($user_id != null && ($admin || ($custom && $user_id == $invoice_user)))
                 <li><?php echo $this->Html->link('Categories', array('controller' => 'categories', 'action' => 'index')); ?></li>
                 <li><a href="#">Users</a></li> 
                 <li class="active"><?php echo $this->Html->link('Orders', array('controller' => 'invoices', 'action' => 'my_invoices')); ?></li>
-                <li><a href="#">Financial Entities</a></li>  
+                <li><?php echo $this->Html->link('Valid Accounts', array('controller' => 'valid_accounts', 'action' => 'index')); ?></li> 
               </ul>
             </div>
           </div>
@@ -71,8 +69,51 @@ if($user_id != null && ($admin || ($custom && $user_id == $invoice_user)))
 
     <div class="_index">
         <h2><?php echo __('Order # ' . h($post['HistoricInvoice']['id'])); ?></h2>
+
+        <hr>
+        
+        <?php
+        if($custom)
+        {
+            ?>
+            <b> <font size="4"> <?php echo 'Order placed:  ' ?> </font></b>
+                <font size="4"><?php echo $post['HistoricInvoice']['invoice_date']; ?> </font>
+            <br>
+            <b> <font size="4"> <?php echo 'Total:  ' ?> </font></b>
+                <font size="4"><?php echo '$' . $post['HistoricInvoice']['total']; ?> </font>
+            <br>
+            <b> <font size="4"> <?php echo 'Status:  ' ?> </font></b>
+                <font size="4"><?php  echo $post['HistoricInvoice']['invoice_status']; ?> </font>
+            <?php
+        }
+        if($admin)
+        {
+            ?>
+            <b> <font size="4"> <?php echo 'Order placed:  ' ?> </font> </b> 
+                <font size="4"> <?php echo $post['HistoricInvoice']['invoice_date']; ?> </font>
+            <br>
+            <b> <font size="4"> <?php echo 'Total:  ' ?> </font> </b>
+                <font size="4"> <?php echo '$' . $post['HistoricInvoice']['total']; ?> </font>
+            <br>
+            <b> <font size="4"> <?php echo 'Status:  ' ?></font> </b>  
+                <font size="4"> <?php echo $post['HistoricInvoice']['invoice_status']; ?> </font>
+            <?php    
+            if($post['HistoricInvoice']['invoice_status'] !== 'Delivered')
+            {
+                echo "<li id = 'editStatus-button'>"; 
+                echo $this->Html->link(	'Update <span class="glyphicon glyphicon-pencil"></span>',
+                                        array('controller'=>'historicInvoices','action' => 'edit_status', $post['HistoricInvoice']['id']),
+                                        array('target' => '_self', 'escape' => false)
+                                    );
+
+                echo "</li>";
+            }
+        }
+        ?>
+        
+        <hr>
     </div>
-    <hr>
+
     <table cellpadding="0" cellspacing="0">
          <tr>
             <th>Quantity</th>
@@ -127,7 +168,8 @@ if($user_id != null && ($admin || ($custom && $user_id == $invoice_user)))
     <table cellpadding="0" cellspacing="0">
         <?php 
             echo $this->Html->tableCells(
-                                        array(  array('Shipping Address :', h($post['HistoricInvoice']['address_full_address'])),
+                                        array(  array('Full name :', h($post['HistoricInvoice']['user_first_name']) . ' ' . h($post['HistoricInvoice']['user_last_name'])),
+                                                array('Shipping Address :', h($post['HistoricInvoice']['address_full_address'])),
                                                 array('Account :', h($post['HistoricInvoice']['payment_method_account'])),
                                                 array('Taxes :', '$ '.h($post['HistoricInvoice']['tax'])),
                                                 array('Shipping Price :', '$ '.h($post['HistoricInvoice']['shippping_price'])),
@@ -143,7 +185,7 @@ if($user_id != null && ($admin || ($custom && $user_id == $invoice_user)))
 	
 	<?php
 }
-// Si no estoy loggeado
+// Si no estoy loggeado, soy manager, o no me pertenece la factura
 if($user_id == null || ($user_id != null && ($manager || ($custom && $user_id != $invoice_user))))
 {
 	?> <h1> NOTHING TO SEE HERE... </h1> <?php

@@ -180,7 +180,7 @@ class InvoicesController extends AppController {
             date_default_timezone_set('America/Costa_Rica');
             $date = date('Y-m-d H:i:s');
             
-            $status = "Preparing for shipment";
+            $status = "Preparing for Shipment";
         
  
             $this->ValidAccount->id=$validAccount_account['ValidAccount']['id'];

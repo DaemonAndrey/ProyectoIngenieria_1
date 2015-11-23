@@ -6,7 +6,7 @@ class CategoriesController extends AppController
 {
 	public $helpers = array('Html', 'Form', 'Flash');
 	public $components = array('Flash');
-	
+    	
 	public function beforeFilter()
 	{
         parent::beforeFilter();
@@ -182,5 +182,42 @@ class CategoriesController extends AppController
 
 		return $this->redirect(array('action' => 'index'));
 	}
+    
+    public function view_bluray()
+	{	
+        $this->loadModel('Page');
+        $this->set('catego',$this->Page->find('all'));
+        
+        $this->loadModel('Product');
+        
+        $this->set('product',
+                   $this->Product->find('all',
+                                          array('conditions' => array('Product.enable' => '1',
+                                                                      'Product.format' => 'Blu-Ray'
+                                                                     ),
+                                                'order' => array('Product.name')
+                                               )
+                                         )
+                  );
+    }
+    
+    public function view_dvd()
+	{		
+        $this->loadModel('Page');
+        $this->set('catego',$this->Page->find('all'));
+        
+        $this->loadModel('Product');
+        
+        $this->set('product',
+                   $this->Product->find('all',
+                                          array('conditions' => array('Product.enable' => '1',
+                                                                      'Product.format' => 'DVD'
+                                                                     ),
+                                                'order' => array('Product.name')
+                                               )
+                                         )
+                  );
+    }
 }
 ?>
+
