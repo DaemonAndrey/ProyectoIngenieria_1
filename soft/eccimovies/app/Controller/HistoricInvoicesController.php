@@ -95,8 +95,10 @@ class HistoricInvoicesController extends AppController
 
 	public function chart()
 	{
+		
 		$this->loadModel('HistoricInvoicesHistoricProduct');
 		$data = $this->HistoricInvoicesHistoricProduct->find('all', array('conditions'=>array('product_name'=>$this->request->data)));
+
 		$this->set('data', $data);
 	}
 
@@ -122,6 +124,7 @@ class HistoricInvoicesController extends AppController
 
 		 $this->loadModel('Category');
 		 $data = $this->Category->find('all', array('conditions' => array('category_name != '=>'Unclassified')));
+		
 		 $this->set('categories', $data);
 		 $this->set('dates',$dates);
 
@@ -145,6 +148,7 @@ class HistoricInvoicesController extends AppController
 		}
 	}
 
+	//TODO:Acá estoy recuperando subcategorias, no categorías, revisar!!!!
 	public function getProducts()
 	{
 		$this->Session->write('products',array());

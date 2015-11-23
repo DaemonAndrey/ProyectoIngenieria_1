@@ -31,8 +31,7 @@
           var data = google.visualization.arrayToDataTable([
 
               ['Name', 'Amount Sold', 'Month', 'Gender'],
-              <?php
-              
+              <?php				  
                   $size  = count($data);
 
                   for($i = 0; $i < ($size - 1); ++$i)
@@ -64,14 +63,16 @@
 
           var div = document.getElementById('series_chart_div');
           var chart = new google.visualization.BubbleChart(div);
+		  /**
             google.visualization.events.addListener(chart, 'ready', function () {
               div.innerHTML = '<img  class="image" src="' + chart.getImageURI() + '">';
               console.log(div.innerHTML);
 
             });
+			**/
           chart.draw(data, options);
 
-        document.getElementById('png').outerHTML = '<a href="' + chart.getImageURI() + '">Printable version</a>';
+        //document.getElementById('png').outerHTML = '<a href="' + chart.getImageURI() + '">Printable version</a>';
 
 
         }

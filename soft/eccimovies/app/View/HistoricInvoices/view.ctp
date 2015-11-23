@@ -26,10 +26,12 @@
 
     <div class="col-md-4 col-xs-12" id="category-id" style="padding-left:40px">
       <h5>CATEGORIES</h5>
-		<div style= "padding-left:30px; overflow-y:scroll; overflow-x:hidden; height:300px;">
-			<?php
+	  <?php
+		echo "<div style= 'padding-left:30px; overflow-y:scroll; overflow-x:hidden; height:300px;'>";
+			
 			
 			echo  $this->Form->create('Categories', array('url'=>array('controller'=>'historicinvoices', 'action'=>'getCategories')));
+			
 				 foreach ($categories as $category)
 				 {
 					$data = utf8_encode($category['Category']['category_name']);
@@ -37,38 +39,48 @@
 
 				 }
 			  
-
-			  echo $this->Form->end();
-			  unset($category);
 			  
-			 ?>
-		</div>
+			  
+			  
+			
+		echo "</div>";
+		echo $this->Form->submit('Get Products');
+		echo $this->Form->end();
+			  unset($category);
+		 ?>
     </div>
 
     <div class="col-md-4 col-xs-12" id="subcategory-id" >
     <h5>SUBCATEGORIES</h5>
-		<div style= "padding-left:30px; overflow-y:scroll; overflow-x:hidden; height:300px;">
-		  <?php
+		<?php
+		echo "<div style= 'padding-left:30px; overflow-y:scroll; overflow-x:hidden; height:300px;'>";
+		  
 
 			echo $this->Form->create('subcategories', array('url'=>array('controller'=>'historicinvoices','action'=>'getProducts')));
-
+				
 			
 			  $sub = $this->Session->read('subcategories');
-
+				
 			  for($i = 0; $i < count($sub); ++$i)
 			  {
+				echo $sub[$i]['Category']['category_name']."<br>";
 				for($j = 0; $j < count($sub[$i]['Subcategory']); ++$j)
 				{
+				  
 				  $name = $sub[$i]['Subcategory'][$j]['subcategory_name'];
 				   echo $this->Form->input($name, array('hiddenField'=>false,'type'=>'checkbox','name'=>$name, 'value'=>$name));
 
 				}
 			  }
 
-			echo  $this->Form->end();
+			
 
-		  ?>
-		</div>
+		 
+		echo "</div>"; 
+		
+		
+		echo  $this->Form->end('Get Products');
+		?>
     </div>
 
     <div class="col-md-4 col-xs-12" id="product-id">
@@ -81,6 +93,8 @@
 				  
 					for($i = 0; $i < count($pro); ++$i)
 					{
+						echo $pro[$i]['Category']['category_name']." - ";
+					   echo $pro[$i]['Subcategory']['subcategory_name'];
 					  for($j = 0; $j < count($pro[$i]['Product']); ++$j)
 					  {
 						$name = $pro[$i]['Product'][$j]['name'];
@@ -111,7 +125,7 @@
 
 $data = $this->Js->get('#CategoriesViewForm ')->serializeForm(array('isForm' => true, 'inline' => true));
 $this->Js->get('#CategoriesViewForm ')->event(
-   'change',
+   'submit',
    $this->Js->request(
     array('action' => 'getCategories', 'controller' => 'HistoricInvoices'),
     array(
@@ -131,7 +145,7 @@ echo $this->Js->writeBuffer();
 
 $data = $this->Js->get('#subcategoriesViewForm ')->serializeForm(array('isForm' => true, 'inline' => true));
 $this->Js->get('#subcategoriesViewForm ')->event(
-   'change',
+   'submit',
    $this->Js->request(
     array('action' => 'getProducts', 'controller' => 'HistoricInvoices'),
     array(
