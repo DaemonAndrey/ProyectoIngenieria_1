@@ -44,8 +44,8 @@
 			  
 			
 		echo "</div>";
-		echo $this->Form->submit('Get Products');
-		echo $this->Form->end();
+
+		echo $this->Form->end('Get Subcategories');
 			  unset($category);
 		 ?>
     </div>
@@ -53,6 +53,8 @@
     <div class="col-md-4 col-xs-12" id="subcategory-id" >
     <h5>SUBCATEGORIES</h5>
 		<?php
+
+
 		echo "<div style= 'padding-left:30px; overflow-y:scroll; overflow-x:hidden; height:300px;'>";
 		  
 
@@ -76,10 +78,13 @@
 			
 
 		 
-		echo "</div>"; 
+  		echo "</div>"; 
+  		
+  		if(count($this->Session->read('subcategories')) > 0)
+      {
+        echo  $this->Form->end('Get Products');
+      }
 		
-		
-		echo  $this->Form->end('Get Products');
 		?>
     </div>
 
@@ -87,15 +92,20 @@
     <h5>PRODUCTS</h5>
 		<div style= "padding-left:30px; overflow-y:scroll; overflow-x:hidden; height:300px;">
 			<?php
-				echo $this->Form->create('product');
+
+				  echo $this->Form->create('product');
 					$pro = $this->Session->read('products');
 
-				  
-					for($i = 0; $i < count($pro); ++$i)
+          
+				  $size = count($pro);
+					for($i = 0; $i < $size; ++$i)
 					{
 						echo $pro[$i]['Category']['category_name']." - ";
-					   echo $pro[$i]['Subcategory']['subcategory_name'];
-					  for($j = 0; $j < count($pro[$i]['Product']); ++$j)
+					  echo $pro[$i]['Subcategory']['subcategory_name'];
+            echo "<hr>";
+            $sizeP = count($pro[$i]['Product']); //Obtenemos la cantidad de elementos del subarray
+
+					  for($j = 0; $j < $sizeP; ++$j)
 					  {
 						$name = $pro[$i]['Product'][$j]['name'];
 						 echo $this->Form->input($name, array('hiddenField'=>false,'type'=>'checkbox','name'=>$name, 'value'=>$name));
@@ -106,18 +116,27 @@
 			   
 		echo "</div>";
 
-        if(count($this->Session->read('products')))
-        {
-            echo $this->Form->button('Charts',array('type'=>'submit','formaction'=>'chart', 'style'=>'color:black;margin-top:20px'));
-            echo $this->Form->button('Table',array('type'=>'submit','formaction'=>'table', 'style'=>'color:black'));
-        }
-
 				echo $this->Form->end();
 
 			 ?>
 	
     </div>
 </div>
+
+
+
+<div class="row text-center" style="margin-top: 40px">
+  <div class="col-md-6">
+      <button onclick="generateChart()" style="float:right">Generate Chart</button>
+
+  </div>
+
+  <div class="col-md-6">
+      <button onclick="generateTable()" style="float:left">Generate Table</button>
+
+  </div>
+</div>
+
 
 
 
@@ -164,8 +183,49 @@ echo $this->Js->writeBuffer();
 
 <script>
   function update () {
-    //$("#subcategory-id").load(location.href+" #subcategory-id");
     
     location.reload();
+  }
+</script>
+
+<script>
+  function generateChart()
+  {
+  
+
+    if($("#productViewForm input:checked").length > 0)
+    {
+       $("#productViewForm").attr('action', '/Tienda/soft/eccimovies/HistoricInvoices/chart/1');
+       $("#productViewForm").submit();
+    }
+    else if($("#subcategoriesViewForm input:checked").length > 0)
+    {
+        
+    }
+    else
+    {
+
+    }
+  }
+</script>
+
+<script>
+  function generateTable()
+  {
+  
+
+    if($("#productViewForm input:checked").length > 0)
+    {
+       $("#productViewForm").attr('action', '/Tienda/soft/eccimovies/HistoricInvoices/table/1');
+       $("#productViewForm").submit();
+    }
+    else if($("#subcategoriesViewForm input:checked").length > 0)
+    {
+        
+    }
+    else
+    {
+
+    }
   }
 </script>

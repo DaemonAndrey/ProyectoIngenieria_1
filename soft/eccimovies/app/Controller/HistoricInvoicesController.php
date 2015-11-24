@@ -93,21 +93,54 @@ class HistoricInvoicesController extends AppController
 	}
 
 
-	public function chart()
+	public function chart($id = null)
 	{
-		
 		$this->loadModel('HistoricInvoicesHistoricProduct');
-		$data = $this->HistoricInvoicesHistoricProduct->find('all', array('conditions'=>array('product_name'=>$this->request->data)));
+		switch ($id) {
+			case 1:
+				$data = $this->HistoricInvoicesHistoricProduct->find('all', array('conditions'=>array('product_name'=>$this->request->data)));
+				$this->set('data', $data);
+				break;
+			case 2:
+				# code...
+				break;
+			
+			case 3:
+				# code...
+				break;
+			default:
+				# code...
+				break;
+		}
 
-		$this->set('data', $data);
+		
+
 	}
 
-	public function table()
+	public function table($id = null)
 	{
 		//debug($this->request->data);
 		$this->loadModel('HistoricInvoicesHistoricProduct');
-		$data = $this->HistoricInvoicesHistoricProduct->find('all', array('conditions'=>array('product_name'=>$this->request->data)));
-		$this->set('data', $data);
+
+
+		switch ($id) {
+			case 1:
+				$data = $this->HistoricInvoicesHistoricProduct->find('all', array('conditions'=>array('product_name'=>$this->request->data)));
+				$this->set('data', $data);
+				break;
+
+			case 2:
+				# code...
+				break;
+
+			case 3:
+				# code...
+				break;
+			
+			default:
+				# code...
+				break;
+		}
 
 	}
 
@@ -133,10 +166,13 @@ class HistoricInvoicesController extends AppController
 	public function getCategories()
 	{
 		$this->Session->write('subcategories',array());
+		$this->Session->write('categories', array());
+
 		if ($this->request->is('ajax'))
 		{
 			$this->loadModel('Category');
 			$this->loadModel('Subcategory');
+
 
 			$this->Session->write('subcategories',$this->Category->find('all',
 			 array('conditions'=> array( 'category_name'=> $this->request->data ))));
@@ -155,6 +191,7 @@ class HistoricInvoicesController extends AppController
 		if ($this->request->is('ajax'))
 		{
 			$catego = array();
+
 			$tempo = $this->Session->read('subcategories');
 			for($i = 0; $i < count($tempo); ++$i)
 			{
