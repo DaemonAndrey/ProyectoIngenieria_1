@@ -4,11 +4,11 @@
 <?php
 
 $invoice_id = h($post['HistoricInvoice']['id']);
-$invoice_account = h($post['HistoricInvoice']['payment_method_account']);
+$invoice_user_id = h($post['HistoricInvoice']['user_id']);
 $invoice_user;
 
 foreach ($paymentMethods as $pMethod):
-if( $pMethod['PaymentMethod']['account'] === $invoice_account)
+if( $pMethod['PaymentMethod']['user_id'] === $invoice_user_id)
 {
     $invoice_user = $pMethod['PaymentMethod']['user_id'];
 }

@@ -193,7 +193,8 @@ class InvoicesController extends AppController {
                 $this->request->data['Invoice']['shippping_price'] = $this->shippingPrice;
                 $this->request->data['Invoice']['total'] = $this->totalAmmount;
                 $this->Invoice->save($this->request->data);
-                 
+                
+                $this->request->data['HistoricInvoice']['user_id'] = $this->Auth->User('id');
                 $this->request->data['HistoricInvoice']['shippping_price'] = $this->shippingPrice;
                 $this->request->data['HistoricInvoice']['tax'] = $this->totalTax;
                 $this->request->data['HistoricInvoice']['total'] = $this->totalAmmount;
@@ -316,11 +317,9 @@ class InvoicesController extends AppController {
 	public function my_invoices()
     {
         $this->loadModel('HistoricInvoice');
-        $this->loadModel('PaymentMethod');
 		$this->Invoice->recursive = 0;
-        
-        $this->set('paymentMethods', $this->PaymentMethod->find('all'));        
-        $this->set('historicInvoices', $this->HistoricInvoice->find('all'));
+             
+        $this->set('historicInvoices', $this->HistoricInvoice->find('all', array('order'=>'HistoricInvoice.user_id')));
     }
     
     public function view_invoice( $id = null )

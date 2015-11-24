@@ -90,102 +90,83 @@ if($user_id != null && ($admin || $custom))
 						<?php echo ('Details '); ?>
 					</th>
 				</tr>
-                
+            
                 <?php
                 if($custom)
                 {
-                    foreach ($paymentMethods as $pMethod ):
-                    if( $pMethod['PaymentMethod']['user_id'] === $user_id)
+                    foreach ($historicInvoices as $hInvoice):
+                    if( $hInvoice['HistoricInvoice']['user_id'] === $user_id)
                     {
-                        $user_account = $pMethod['PaymentMethod']['account'];
-
-                        foreach ($historicInvoices as $hInvoice):
-                        if( $hInvoice['HistoricInvoice']['payment_method_account'] === $user_account)
-                        {
-                            ?>
-                            <tr>
-                                <td>
-                                <?php
-                                echo $hInvoice['HistoricInvoice']['invoice_date'];
-                                ?>
-                                </td>
-                                <td>
-                                <?php echo $hInvoice['HistoricInvoice']['id']; ?>
-                                </td>
-                                <td>
-                                <?php echo '$ '.$hInvoice['HistoricInvoice']['total']; ?>
-                                </td>
-                                <td>
-                                <?php echo $hInvoice['HistoricInvoice']['invoice_status']; ?>
-                                </td>
-                                <td>
-                                <?php echo $this->Html->link('<i class="glyphicon glyphicon-eye-open"></i>',
-                                                             array('action' => 'view_invoice', $hInvoice['HistoricInvoice']['id']),
-                                                             array('escape' => false)
-                                                            );
-                                ?>
-                                </td>
-                            </tr>
+                        ?>
+                        <tr>
+                            <td>
                             <?php
-                        }
-                        endforeach;
-                        unset($hInvoice);
+                            echo $hInvoice['HistoricInvoice']['invoice_date'];
+                            ?>
+                            </td>
+                            <td>
+                            <?php echo $hInvoice['HistoricInvoice']['id']; ?>
+                            </td>
+                            <td>
+                            <?php echo '$ '.$hInvoice['HistoricInvoice']['total']; ?>
+                            </td>
+                            <td>
+                            <?php echo $hInvoice['HistoricInvoice']['invoice_status']; ?>
+                            </td>
+                            <td>
+                            <?php echo $this->Html->link('<i class="glyphicon glyphicon-eye-open"></i>',
+                                                         array('action' => 'view_invoice', $hInvoice['HistoricInvoice']['id']),
+                                                         array('escape' => false)
+                                                        );
+                            ?>
+                            </td>
+                        </tr>
+                        <?php
                     }
                     endforeach;
-                    unset($pMethod);
+                    unset($hInvoice);
                 }
                 if($admin)
                 {
-                    foreach ($paymentMethods as $pMethod ):
-                    {
-                        $user_account = $pMethod['PaymentMethod']['account'];
-
-                        foreach ($historicInvoices as $hInvoice):
-                        if( $hInvoice['HistoricInvoice']['payment_method_account'] === $user_account)
-                        {
+                    foreach ($historicInvoices as $hInvoice): ?>
+                        <tr>
+                            <td>
+                            <?php echo $hInvoice['HistoricInvoice']['user_first_name'] . ' ' . $hInvoice['HistoricInvoice']['user_last_name']; ?>
+                            </td>
+                            <td>
+                            <?php echo $hInvoice['HistoricInvoice']['invoice_date'];?>
+                            </td>
+                            <td>
+                            <?php echo $hInvoice['HistoricInvoice']['id']; ?>
+                            </td>
+                            <td>
+                            <?php echo '$ '.$hInvoice['HistoricInvoice']['total']; ?>
+                            </td>
+                            <td>
+                            <?php echo $hInvoice['HistoricInvoice']['invoice_status']; ?>
+                            </td>
+                            <td>
+                            <?php echo $this->Html->link('<i class="glyphicon glyphicon-eye-open"></i>',
+                                                         array('action' => 'view_invoice', $hInvoice['HistoricInvoice']['id']),
+                                                         array('escape' => false)
+                                                        );
                             ?>
-                            <tr>
-                                <td>
-                                <?php echo $hInvoice['HistoricInvoice']['user_first_name'] . ' ' . $hInvoice['HistoricInvoice']['user_last_name']; ?>
-                                </td>
-                                <td>
-                                <?php echo $hInvoice['HistoricInvoice']['invoice_date'];?>
-                                </td>
-                                <td>
-                                <?php echo $hInvoice['HistoricInvoice']['id']; ?>
-                                </td>
-                                <td>
-                                <?php echo '$ '.$hInvoice['HistoricInvoice']['total']; ?>
-                                </td>
-                                <td>
-                                <?php echo $hInvoice['HistoricInvoice']['invoice_status']; ?>
-                                </td>
-                                <td>
-                                <?php echo $this->Html->link('<i class="glyphicon glyphicon-eye-open"></i>',
-                                                             array('action' => 'view_invoice', $hInvoice['HistoricInvoice']['id']),
-                                                             array('escape' => false)
-                                                            );
-                                ?>
-                                </td>
-                            </tr>
-                            <?php
-                        }
-                        endforeach;
-                        unset($hInvoice);
-                    }
+                            </td>
+                        </tr>
+                        <?php
                     endforeach;
-                    unset($pMethod);
+                    unset($hInvoice);
                 }
                 ?>   
                 
 			</table>
+        </div>
+            <hr>
+        </div>
         <div class="center_pagination">
         <ul class="pagination">
             <li><?php echo $this->Paginator->numbers(array('separator' => '')); ?></li>
         </ul>
-    </div>
-        <hr>
-	</div>
 	<?php
 }
 // Si soy gerente
