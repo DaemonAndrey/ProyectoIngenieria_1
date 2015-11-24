@@ -206,7 +206,7 @@ class HistoricInvoicesController extends AppController
 			$this->loadModel('Category');
 			$this->loadModel('Subcategory');
 
-			$var = $var[0]['Category']['category_name'];
+			//$var = $var[0]['Category']['category_name'];
 			$values = $this->Subcategory->find('all',array('conditions'=>array('subcategory_name'=>$this->request->data,'category_name '=>$catego)));
 
 			$this->Session->write('products',$values);
