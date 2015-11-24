@@ -135,7 +135,8 @@ CREATE TABLE combos
 (
 	id				INT	UNSIGNED AUTO_INCREMENT,
 	code			VARCHAR( 8 ) UNIQUE,
-	discount		DECIMAL( 5, 2 )	NOT NULL DEFAULT 0,
+	name			VARCHAR( 64 )	NOT NULL,
+	discount		INT NOT NULL DEFAULT 0,
 	PRIMARY KEY ( id )
 );
 
