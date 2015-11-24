@@ -126,21 +126,26 @@ class HistoricInvoicesController extends AppController
 		switch ($id) {
 			case 1:
 				$data = $this->HistoricInvoicesHistoricProduct->find('all', array('conditions'=>array('product_name'=>$this->request->data)));
-				$this->set('data', $data);
+
 				break;
 
 			case 2:
-				# code...
+				$data = $this->HistoricInvoicesHistoricProduct->find('all', array('conditions'=>array('subcategory_product'=>$this->request->data),
+						'fields'=>array('SUM(product_quantity) AS product_quantity', 'subcategory_product AS product_name'), 'group'=>'subcategory_product'));				
 				break;
 
 			case 3:
-				# code...
+				$data = $this->HistoricInvoicesHistoricProduct->find('all', array('conditions'=>array('category_product'=>$this->request->data),
+						'fields'=>array('SUM(product_quantity) AS product_quantity', 'category_product AS product_name'), 'group'=> 'category_product'));
+							
 				break;
 			
 			default:
 				# code...
 				break;
 		}
+
+		$this->set('data', $data);	
 
 	}
 
@@ -155,9 +160,10 @@ class HistoricInvoicesController extends AppController
 		 $dates[0] = $min;
 		 $dates[1] = $max;
 
-		 $this->loadModel('Category');
-		 $data = $this->Category->find('all', array('conditions' => array('category_name != '=>'Unclassified')));
-		
+		 $this->loadModel('Subcategory');
+		 $this->recursive = 1;
+		 $data = $this->Subcategory->find('all', array('fields' => 'DISTINCT category.category_name',
+		  'conditions'=> array('category_name != '=> 'Unclassified'),'group' => array('category.category_name')));
 		 $this->set('categories', $data);
 		 $this->set('dates',$dates);
 
@@ -168,8 +174,8 @@ class HistoricInvoicesController extends AppController
 		$this->Session->write('subcategories',array());
 		$this->Session->write('categories', array());
 
-		if ($this->request->is('ajax'))
-		{
+		//if ($this->request->is('ajax'))
+		//{
 			$this->loadModel('Category');
 			$this->loadModel('Subcategory');
 
@@ -181,15 +187,17 @@ class HistoricInvoicesController extends AppController
 			{
 				$this->Session->write('products',array());
 			}
-		}
+
+			return $this->redirect(array('action'=>'view'));
+		//}
 	}
 
 	//TODO:Acá estoy recuperando subcategorias, no categorías, revisar!!!!
 	public function getProducts()
 	{
 		$this->Session->write('products',array());
-		if ($this->request->is('ajax'))
-		{
+		//if ($this->request->is('ajax'))
+		//{
 			$catego = array();
 
 			$tempo = $this->Session->read('subcategories');
@@ -206,6 +214,8 @@ class HistoricInvoicesController extends AppController
 
 			$this->Session->write('products',$values);
 
-		}
+			return $this->redirect(array('action'=>'view'));
+
+		//}
 	}
 }

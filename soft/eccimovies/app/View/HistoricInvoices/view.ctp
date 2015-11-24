@@ -45,6 +45,8 @@
 			
 		echo "</div>";
 
+    echo $this->Form->button('Chart', array('formaction'=>'chart'));
+    echo $this->Form->button('Table', array('formaction'=>'table/3'));
 		echo $this->Form->end('Get Subcategories');
 			  unset($category);
 		 ?>
@@ -82,6 +84,8 @@
   		
   		if(count($this->Session->read('subcategories')) > 0)
       {
+        echo $this->Form->button('Chart', array('formaction'=>'chart'));
+        echo $this->Form->button('Table', array('formaction'=>'table/2'));
         echo  $this->Form->end('Get Products');
       }
 		
@@ -116,6 +120,11 @@
 			   
 		echo "</div>";
 
+        if(count($this->Session->read('products')) > 0)
+        {
+          echo $this->Form->button('Chart', array('formaction'=>'chart'));
+          echo $this->Form->button('Table', array('formaction'=>'table/1'));
+        }
 				echo $this->Form->end();
 
 			 ?>
@@ -125,23 +134,12 @@
 
 
 
-<div class="row text-center" style="margin-top: 40px">
-  <div class="col-md-6">
-      <button onclick="generateChart()" style="float:right">Generate Chart</button>
-
-  </div>
-
-  <div class="col-md-6">
-      <button onclick="generateTable()" style="float:left">Generate Table</button>
-
-  </div>
-</div>
 
 
 
 
 <?php
-
+/**
 $data = $this->Js->get('#CategoriesViewForm ')->serializeForm(array('isForm' => true, 'inline' => true));
 $this->Js->get('#CategoriesViewForm ')->event(
    'submit',
@@ -158,10 +156,11 @@ $this->Js->get('#CategoriesViewForm ')->event(
 );
 
 echo $this->Js->writeBuffer(); 
+**/
 ?>
 
 <?php
-
+/**
 $data = $this->Js->get('#subcategoriesViewForm ')->serializeForm(array('isForm' => true, 'inline' => true));
 $this->Js->get('#subcategoriesViewForm ')->event(
    'submit',
@@ -178,6 +177,7 @@ $this->Js->get('#subcategoriesViewForm ')->event(
 );
 
 echo $this->Js->writeBuffer(); 
+**/
 ?>
 
 
@@ -204,7 +204,8 @@ echo $this->Js->writeBuffer();
     }
     else
     {
-
+       $("#CategoriesViewForm").attr('action', '/Tienda/soft/eccimovies/HistoricInvoices/chart/3');
+       $("#CategoriesViewForm").submit();
     }
   }
 </script>
@@ -226,6 +227,11 @@ echo $this->Js->writeBuffer();
     else
     {
 
-    }
+      
+       $("#CategoriesViewForm").attr('action', '/Tienda/soft/eccimovies/HistoricInvoices/table/3');
+       $("#CategoriesViewForm").submit();
+     }
+
+    
   }
 </script>

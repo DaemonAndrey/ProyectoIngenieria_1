@@ -8,7 +8,7 @@ App::uses('AppController', 'Controller');
 class InvoicesController extends AppController {
 
 
-	public $helpers = array('Html', 'Form', 'Flash','Js');
+    public $helpers = array('Html', 'Form', 'Flash','Js');
     public $components = array('Flash', 'Paginator');
     
     var $shippingPrice = 10.00;
@@ -18,15 +18,15 @@ class InvoicesController extends AppController {
     var $paymentMethods2;
 
     public function beforeFilter()
-	{
+    {
         parent::beforeFilter();
         $this->Auth->allow();
-		$this->Auth->authError = 'Please login to view that page';
-		$this->set('custom',$this->_isCustomer());
-		$this->set('admin',$this->_isAdmin());
-		$this->set('manager',$this->_isManager());
-		$this->set('user_id', $this->Auth->User('id'));
-		$this->set('username', $this->Auth->User('username'));
+        $this->Auth->authError = 'Please login to view that page';
+        $this->set('custom',$this->_isCustomer());
+        $this->set('admin',$this->_isAdmin());
+        $this->set('manager',$this->_isManager());
+        $this->set('user_id', $this->Auth->User('id'));
+        $this->set('username', $this->Auth->User('username'));
     }
     
     public function index($id = null, &$subtotal = null, &$totalTax = null , &$shippingPrice = null, &$totalAmmount = null) {
@@ -36,6 +36,8 @@ class InvoicesController extends AppController {
         $this->loadModel('Cart');
         $this->loadModel('CartsProduct');
         $this->loadModel('Product');
+        $this->loadModel('Subcategory');
+        
         
         $id = $this->Auth->User('id');
         $tax = 0.10;
@@ -50,6 +52,8 @@ class InvoicesController extends AppController {
         
         $this->set('carts_products', $this->CartsProduct->find('all'));
         $this->set('products', $this->Product->find('all'));
+        $this->set('subcategories', $this->Subcategory->find('all'));
+        
         
         $conditions2[]= array('Cart.user_id '=>$id);
         
@@ -64,48 +68,48 @@ class InvoicesController extends AppController {
         $this->set('totalAmmount', $this->totalAmmount);
         
         
-		//$this->Invoice->recursive = 0;
-		//$this->set('invoices', $this->paginate());
-	}
-	
-	function _isCustomer()
-	{
-		$custom = FALSE;
-		if ($this->Auth->User('role') == 0)
-		{
-			$custom = TRUE;
-		}
-		return $custom;
-	}
+        //$this->Invoice->recursive = 0;
+        //$this->set('invoices', $this->paginate());
+    }
     
-	function _isAdmin()
-	{
-		$admin = FALSE;
-		if ($this->Auth->User('role') == 1)
-		{
-			$admin = TRUE;
-		}
-		return $admin;
-	}
-	
-	function _isManager()
-	{
-		$manager = FALSE;
-		if ($this->Auth->User('role') == 2)
-		{
-			$manager = TRUE;
-		}
-		return $manager;
-	}
+    function _isCustomer()
+    {
+        $custom = FALSE;
+        if ($this->Auth->User('role') == 0)
+        {
+            $custom = TRUE;
+        }
+        return $custom;
+    }
+    
+    function _isAdmin()
+    {
+        $admin = FALSE;
+        if ($this->Auth->User('role') == 1)
+        {
+            $admin = TRUE;
+        }
+        return $admin;
+    }
+    
+    function _isManager()
+    {
+        $manager = FALSE;
+        if ($this->Auth->User('role') == 2)
+        {
+            $manager = TRUE;
+        }
+        return $manager;
+    }
     
     /*
-	public function view($id = null) {
-		if (!$this->Invoice->exists($id)) {
-			throw new NotFoundException(__('Invalid invoice'));
-		}
-		$options = array('conditions' => array('Invoice.' . $this->Invoice->primaryKey => $id));
-		$this->set('invoice', $this->Invoice->find('first', $options));
-	}*/
+    public function view($id = null) {
+        if (!$this->Invoice->exists($id)) {
+            throw new NotFoundException(__('Invalid invoice'));
+        }
+        $options = array('conditions' => array('Invoice.' . $this->Invoice->primaryKey => $id));
+        $this->set('invoice', $this->Invoice->find('first', $options));
+    }*/
     
     public function view($id = null, &$subtotal = null, &$totalTax = null , &$shippingPrice = null, &$totalAmmount = null) {    
         
@@ -120,6 +124,8 @@ class InvoicesController extends AppController {
         $this->loadModel('InvoicesProduct');
         $this->loadModel('ValidAccount');
         $this->loadModel('User');
+        $this->loadModel('Category');
+        $this->loadModel('Subcategory');
         
         $id = $this->Auth->User('id');
         $tax = 0.10;
@@ -134,7 +140,7 @@ class InvoicesController extends AppController {
         $this->set('totalAmmount', $this->totalAmmount);
         
         if ($this->request->is('post')) {
-			$this->Invoice->create();
+            $this->Invoice->create();
              
             $conditions6[] = array('PaymentMethod.id '=> $this->request->data['payment_method_id']);
             $method = $this->PaymentMethod->find('list', array ('recursive'=> -1, 'conditions'=> $conditions6, 'fields' => array('PaymentMethod.account')));
@@ -154,13 +160,19 @@ class InvoicesController extends AppController {
             $this->set('addresses', $this->Address->find('list', array ('recursive'=> -1, 'conditions'=> $conditions, 'fields' => 'Address.full_address')));
         
             $conditions1[] = array('PaymentMethod.user_id '=> $id);
-        $this->set('paymentMethods', $this->PaymentMethod->find('list', array ('recursive'=> -1, 'conditions'=> $conditions1, 'fields' => array('PaymentMethod.account'))));
+            $this->set('paymentMethods', $this->PaymentMethod->find('list', array ('recursive'=> -1, 'conditions'=> $conditions1, 'fields' => array('PaymentMethod.account'))));
             
             $carts_products= $this->CartsProduct->find('all');
             $this->set('carts_products', $carts_products);
                  
             $products=$this->Product->find('all');    
             $this->set('products', $this->Product->find('all'));
+            
+            $subcategories=$this->Subcategory->find('all');    
+            $this->set('subcategories', $this->Subcategory->find('all'));
+            
+            $categories=$this->Category->find('all');    
+            $this->set('categories', $this->Category->find('all'));
              
             $conditions3[] = array('Address.id '=> $this->request->data['address_id']);
             $address2 =  $this->Address->find('first', array ('recursive'=> -1, 'conditions'=> $conditions3, 'fields' => 'Address.full_address'));
@@ -185,7 +197,7 @@ class InvoicesController extends AppController {
  
             $this->ValidAccount->id=$validAccount_account['ValidAccount']['id'];
             $this->request->data['ValidAccount']['funds']=($validAccount_account['ValidAccount']['funds']-$this->totalAmmount);
-        $this->ValidAccount->save($this->request->data);
+            $this->ValidAccount->save($this->request->data);
         
             if ($this->Invoice->save($this->request->data)) {
                 
@@ -222,6 +234,18 @@ class InvoicesController extends AppController {
                                 $this->request->data['HistoricProduct']['product_price'] = $product['Product']['price'];
                                 $this->request->data['HistoricProduct']['product_name'] = $product['Product']['name'];
                                 $this->request->data['HistoricProduct']['product_format'] = $product['Product']['format'];
+                                foreach ($subcategories as $subcategory):
+                                    if ($subcategory['Subcategory']['id']==$product['Product']['subcategory_id']):
+                                        $this->request->data['HistoricProduct']['subcategory_product'] = $subcategory['Subcategory']['subcategory_name'];
+                                        foreach ($categories as $category):
+                                            if ($category['Category']['id']==$subcategory['Subcategory']['category_id']):
+                                                $this->request->data['HistoricProduct']['category_product'] = $category['Category']['category_name'];
+                                            endif;
+                                        endforeach;
+                                        unset($category);
+                                    endif;
+                                endforeach;
+                                unset($subcategory);
                                 $this->HistoricProduct->save($this->request->data);
                 
                                 $this->HistoricInvoicesHistoricProduct->create();
@@ -255,69 +279,69 @@ class InvoicesController extends AppController {
             
             }
               
-	}
+    }
 
-	public function add() {
-		if ($this->request->is('post')) {
-			$this->Invoice->create();
-			if ($this->Invoice->save($this->request->data)) {
-				$this->Session->setFlash(__('The invoice has been saved'));
-				return $this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The invoice could not be saved. Please, try again.'));
-			}
-		}
-		$addresses = $this->Invoice->Address->find('list');
-		$paymentMethods = $this->Invoice->PaymentMethod->find('list');
-		$products = $this->Invoice->Product->find('list');
-		$this->set(compact('addresses', 'paymentMethods', 'products'));
-	}
+    public function add() {
+        if ($this->request->is('post')) {
+            $this->Invoice->create();
+            if ($this->Invoice->save($this->request->data)) {
+                $this->Session->setFlash(__('The invoice has been saved'));
+                return $this->redirect(array('action' => 'index'));
+            } else {
+                $this->Session->setFlash(__('The invoice could not be saved. Please, try again.'));
+            }
+        }
+        $addresses = $this->Invoice->Address->find('list');
+        $paymentMethods = $this->Invoice->PaymentMethod->find('list');
+        $products = $this->Invoice->Product->find('list');
+        $this->set(compact('addresses', 'paymentMethods', 'products'));
+    }
 
-	public function edit($id = null) {
-		if (!$this->Invoice->exists($id)) {
-			throw new NotFoundException(__('Invalid invoice'));
-		}
-		if ($this->request->is('post') || $this->request->is('put')) {
-			if ($this->Invoice->save($this->request->data)) {
-				$this->Session->setFlash(__('The invoice has been saved'));
-				return $this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The invoice could not be saved. Please, try again.'));
-			}
-		} else {
-			$options = array('conditions' => array('Invoice.' . $this->Invoice->primaryKey => $id));
-			$this->request->data = $this->Invoice->find('first', $options);
-		}
-		$addresses = $this->Invoice->Address->find('list');
-		$paymentMethods = $this->Invoice->PaymentMethod->find('list');
-		$products = $this->Invoice->Product->find('list');
-		$this->set(compact('addresses', 'paymentMethods', 'products'));
-	}
+    public function edit($id = null) {
+        if (!$this->Invoice->exists($id)) {
+            throw new NotFoundException(__('Invalid invoice'));
+        }
+        if ($this->request->is('post') || $this->request->is('put')) {
+            if ($this->Invoice->save($this->request->data)) {
+                $this->Session->setFlash(__('The invoice has been saved'));
+                return $this->redirect(array('action' => 'index'));
+            } else {
+                $this->Session->setFlash(__('The invoice could not be saved. Please, try again.'));
+            }
+        } else {
+            $options = array('conditions' => array('Invoice.' . $this->Invoice->primaryKey => $id));
+            $this->request->data = $this->Invoice->find('first', $options);
+        }
+        $addresses = $this->Invoice->Address->find('list');
+        $paymentMethods = $this->Invoice->PaymentMethod->find('list');
+        $products = $this->Invoice->Product->find('list');
+        $this->set(compact('addresses', 'paymentMethods', 'products'));
+    }
 
-	public function delete($id = null) {
-		$this->Invoice->id = $id;
-		if (!$this->Invoice->exists()) {
-			throw new NotFoundException(__('Invalid invoice'));
-		}
-		$this->request->onlyAllow('post', 'delete');
-		if ($this->Invoice->delete()) {
-			$this->Session->setFlash(__('The invoice has been deleted.'));
-		} else {
-			$this->Session->setFlash(__('The invoice could not be deleted. Please, try again.'));
-		}
-		return $this->redirect(array('action' => 'index'));
-	}
+    public function delete($id = null) {
+        $this->Invoice->id = $id;
+        if (!$this->Invoice->exists()) {
+            throw new NotFoundException(__('Invalid invoice'));
+        }
+        $this->request->onlyAllow('post', 'delete');
+        if ($this->Invoice->delete()) {
+            $this->Session->setFlash(__('The invoice has been deleted.'));
+        } else {
+            $this->Session->setFlash(__('The invoice could not be deleted. Please, try again.'));
+        }
+        return $this->redirect(array('action' => 'index'));
+    }
         
     public function check(){
 
         
     }
-	
-	public function my_invoices()
+    
+    public function my_invoices()
     {
         $this->loadModel('HistoricInvoice');
         $this->loadModel('PaymentMethod');
-		$this->Invoice->recursive = 0;
+        $this->Invoice->recursive = 0;
         
         $this->set('paymentMethods', $this->PaymentMethod->find('all'));        
         $this->set('historicInvoices', $this->HistoricInvoice->find('all'));
