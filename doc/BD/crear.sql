@@ -73,7 +73,9 @@ CREATE TABLE invoices
 	date				DATE,
 
 	PRIMARY KEY ( id ),
-	FOREIGN KEY ( payment_method_id ) REFERENCES payment_methods ( id ),
+	FOREIGN KEY ( payment_method_id ) REFERENCES payment_methods ( id )
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
 	FOREIGN KEY ( address_id ) REFERENCES addresses ( id ),
 	CHECK ( total >= 0 )
 );
@@ -221,7 +223,9 @@ CREATE TABLE invoices_products
 	price		DECIMAL( 8, 2 ) DEFAULT 0,
 
 	PRIMARY KEY ( id ),
-	FOREIGN KEY ( invoice_id ) REFERENCES invoices ( id ),
+	FOREIGN KEY ( invoice_id ) REFERENCES invoices ( id )
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
 	FOREIGN KEY ( product_id ) REFERENCES products ( id ),
 	CHECK ( quantity > 0 ),
 	CHECK ( price >= 0 )
@@ -245,6 +249,7 @@ CREATE TABLE valid_accounts
 CREATE TABLE historic_invoices
 (
 	id						INT					UNSIGNED AUTO_INCREMENT,
+	user_id					INT					NOT NULL,
 	shippping_price 		DECIMAL( 8, 2 ) 	DEFAULT 0,
 	tax     				DECIMAL( 8, 2 ) 	DEFAULT 0,
 	total					DECIMAL( 8, 2 ) 	DEFAULT 0,
@@ -266,6 +271,8 @@ CREATE TABLE historic_products
 	product_price			DECIMAL( 8, 2 ) DEFAULT 0,
 	product_name 			VARCHAR( 32 ),
 	product_format 			VARCHAR( 32 ),
+    category_product        VARCHAR( 32 ),
+    subcategory_product     VARCHAR( 32 ),
 
 	PRIMARY KEY ( id )
 );
@@ -341,7 +348,7 @@ FOR EACH ROW
     DELETE FROM payment_methods
     WHERE account = old.account;
 
--- Trigger para verificar los metodos de pagos antes de agregarlos
+-- Trigger actualizar métodos de pago cuando se actualizan las cuentas válidas.
 DELIMITER //
 CREATE TRIGGER on_update_validAccount_update_payment_method
 AFTER UPDATE
@@ -373,12 +380,13 @@ BEGIN
 	IF ( total = 1 )
 		THEN -- Cancela el insert y envia un mensaje
             UPDATE payment_methods P
-            SET P.issuer = NEW.issuer, P.account = NEW.account, P.password = NEW.password, P.name_card = NEW.name_card, P.expiration = NEW.expiration, P.security_code = NEW.security_code;
+            SET P.issuer = NEW.issuer, P.account = NEW.account, P.password = NEW.password, P.name_card = NEW.name_card, P.expiration = NEW.expiration, P.security_code = NEW.security_code
+            WHERE P.account = OLD.account;
 	END IF;
 END; //
 DELIMITER ;
 
-/*
+
 -- Trigger para actualizar el subtotal en carrito cuando se agrega producto
 DELIMITER //
 CREATE TRIGGER on_insert_product_update_subtotal
@@ -465,4 +473,3 @@ BEGIN
 	WHERE id = OLD.cart_id;
 END; //
 DELIMITER ;
-*/
