@@ -193,10 +193,11 @@ CREATE TABLE wishlists
 
 CREATE TABLE carts_products
 (
-	id			INT	UNSIGNED AUTO_INCREMENT,
-	cart_id		INT	UNSIGNED,
-	product_id	INT	UNSIGNED,
-	quantity	INT DEFAULT 1,
+	id				INT	UNSIGNED AUTO_INCREMENT,
+	cart_id			INT	UNSIGNED,
+	product_id		INT	UNSIGNED,
+	quantity		INT DEFAULT 1,
+	product_price	DECIMAL( 8, 2 ),
 
 	PRIMARY KEY ( id ),
 	FOREIGN KEY ( cart_id ) REFERENCES carts ( id ),
@@ -274,7 +275,6 @@ CREATE TABLE historic_products
 	product_format 			VARCHAR( 32 ),
     category_product        VARCHAR( 32 ),
     subcategory_product     VARCHAR( 32 ),
-
 	PRIMARY KEY ( id )
 );
 
@@ -388,6 +388,34 @@ END; //
 DELIMITER ;
 
 
+-- Trigger para actualizar el subtotal en carrito cuando se elimina producto
+DELIMITER //
+CREATE TRIGGER on_delete_product_update_subtotal
+BEFORE DELETE
+ON carts_products
+FOR EACH ROW
+BEGIN
+	DECLARE subtotal_anterior DECIMAL(8,2);
+	DECLARE cantidad_anterior INT;
+	DECLARE subtotal_nuevo DECIMAL(8,2);
+	DECLARE precio DECIMAL(8,2);
+	DECLARE descuento INT;
+	DECLARE precioOferta DECIMAL(8,2);
+
+	SET subtotal_anterior = ( SELECT c.subtotal FROM carts c WHERE c.id = OLD.cart_id );
+	SET cantidad_anterior = ( SELECT cp.quantity FROM carts_products cp WHERE cp.id = OLD.id );
+	SET precio = ( SELECT p.price FROM products p WHERE p.id = OLD.product_id );
+	SET descuento = ( SELECT p.discount FROM products p WHERE p.id = OLD.product_id );
+	SET precioOferta = ( precio - ( precio * ( descuento / 100 ) ) ) * cantidad_anterior;
+
+	SET subtotal_nuevo = subtotal_anterior - precioOferta;
+
+	UPDATE carts
+	SET subtotal = subtotal_nuevo
+	WHERE id = OLD.cart_id;
+END; //
+DELIMITER ;
+
 -- Trigger para actualizar el subtotal en carrito cuando se agrega producto
 DELIMITER //
 CREATE TRIGGER on_insert_product_update_subtotal
@@ -397,18 +425,18 @@ FOR EACH ROW
 BEGIN
 	DECLARE subtotal_anterior DECIMAL(8,2);
 	DECLARE precio DECIMAL(8,2);
-	DECLARE cantidad INT;
+	DECLARE cantidad2 INT;
 	DECLARE descuento INT;
 	DECLARE precioOferta DECIMAL(8,2);
 
 	SET subtotal_anterior = ( SELECT c.subtotal FROM carts c WHERE c.id = NEW.cart_id );
 	SET precio = ( SELECT p.price FROM products p WHERE p.id = NEW.product_id );
-	SET cantidad = ( SELECT cp.quantity FROM carts_products cp WHERE cp.id = NEW.id );
+	SET cantidad2 = ( SELECT cp.quantity FROM carts_products cp WHERE cp.id = NEW.id );
 	SET descuento = ( SELECT p.discount FROM products p WHERE p.id = NEW.product_id );
-	SET precioOferta = ( precio - ( precio * ( descuento / 100 ) ) ) * cantidad;
-
-	UPDATE carts
-	SET subtotal = subtotal_anterior + precioOferta
+	SET precioOferta = ( precio - ( precio * ( descuento / 100 ) ) );
+    
+    UPDATE carts
+	SET subtotal = subtotal_anterior + precioOferta*cantidad2
 	WHERE id = NEW.cart_id;
 END; //
 DELIMITER ;
@@ -432,8 +460,8 @@ BEGIN
 	SET cantidad_anterior = ( SELECT OLD.quantity FROM carts_products cp WHERE cp.id = NEW.id );
 	SET cantidad_nueva = ( SELECT cp.quantity FROM carts_products cp WHERE cp.id = NEW.id );
 	SET precio = ( SELECT p.price FROM products p WHERE p.id = NEW.product_id );
-	SET descuento = ( SELECT p.discount FROM products p WHERE p.id = NEW.id );
-	SET precioOferta = ( precio - ( precio * ( descuento / 100 ) ) ) * cantidad_anterior;
+	SET descuento = ( SELECT p.discount FROM products p WHERE p.id = NEW.product_id );
+	SET precioOferta = ( precio - ( precio * ( descuento / 100 ) ) );
 
 	IF cantidad_nueva > cantidad_anterior THEN
 		SET subtotal_nuevo = subtotal_anterior + ( precioOferta * ( cantidad_nueva - cantidad_anterior ) );
@@ -444,33 +472,5 @@ BEGIN
 	UPDATE carts
 	SET subtotal = subtotal_nuevo
 	WHERE id = NEW.cart_id;
-END; //
-DELIMITER ;
-
--- Trigger para actualizar el subtotal en carrito cuando se elimina producto
-DELIMITER //
-CREATE TRIGGER on_delete_product_update_subtotal
-BEFORE DELETE
-ON carts_products
-FOR EACH ROW
-BEGIN
-	DECLARE subtotal_anterior DECIMAL(8,2);
-	DECLARE cantidad_anterior INT;
-	DECLARE subtotal_nuevo DECIMAL(8,2);
-	DECLARE precio DECIMAL(8,2);
-	DECLARE descuento INT;
-	DECLARE precioOferta DECIMAL(8,2);
-
-	SET subtotal_anterior = ( SELECT c.subtotal FROM carts c WHERE c.id = OLD.cart_id );
-	SET cantidad_anterior = ( SELECT cp.quantity FROM carts_products cp WHERE cp.id = OLD.id );
-	SET precio = ( SELECT p.price FROM products p WHERE p.id = OLD.product_id );
-	SET descuento = ( SELECT p.discount FROM products p WHERE p.id = OLD.id );
-	SET precioOferta = ( precio - ( precio * ( descuento / 100 ) ) ) * cantidad_anterior;
-
-	SET subtotal_nuevo = subtotal_anterior - precioOferta;
-
-	UPDATE carts
-	SET subtotal = subtotal_nuevo
-	WHERE id = OLD.cart_id;
 END; //
 DELIMITER ;
