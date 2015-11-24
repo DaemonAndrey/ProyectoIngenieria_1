@@ -99,27 +99,28 @@ class HistoricInvoicesController extends AppController
 		switch ($id) {
 			case 1:
 				$data = $this->HistoricInvoicesHistoricProduct->find('all', array('conditions'=>array('product_name'=>$this->request->data)));
-				$this->set('data', $data);
+
 				break;
 			case 2:
-				# code...
+				$data = $this->HistoricInvoicesHistoricProduct->find('all', array('conditions'=>array('subcategory_product'=>$this->request->data),
+						'fields'=>array('SUM(product_quantity) AS product_quantity', 'subcategory_product AS product_name', 'HistoricInvoice.invoice_date'), 'group'=>'subcategory_product'));
 				break;
 			
 			case 3:
-				# code...
+				$data = $this->HistoricInvoicesHistoricProduct->find('all', array('conditions'=>array('category_product'=>$this->request->data),
+						'fields'=>array('SUM(product_quantity) AS product_quantity', 'category_product AS product_name', 'HistoricInvoice.invoice_date'), 'group'=> 'category_product'));
 				break;
-			default:
-				# code...
-				break;
+
 		}
 
-		
+
+	$this->set('data', $data);
 
 	}
 
 	public function table($id = null)
 	{
-		//debug($this->request->data);
+
 		$this->loadModel('HistoricInvoicesHistoricProduct');
 
 
@@ -131,18 +132,14 @@ class HistoricInvoicesController extends AppController
 
 			case 2:
 				$data = $this->HistoricInvoicesHistoricProduct->find('all', array('conditions'=>array('subcategory_product'=>$this->request->data),
-						'fields'=>array('SUM(product_quantity) AS product_quantity', 'subcategory_product AS product_name'), 'group'=>'subcategory_product'));				
+						'fields'=>array('SUM(product_quantity) AS product_quantity', 'subcategory_product AS product_name', 'HistoricInvoice.invoice_date'), 'group'=>'subcategory_product'));				
 				break;
 
 			case 3:
 				$data = $this->HistoricInvoicesHistoricProduct->find('all', array('conditions'=>array('category_product'=>$this->request->data),
-						'fields'=>array('SUM(product_quantity) AS product_quantity', 'category_product AS product_name'), 'group'=> 'category_product'));
-							
+						'fields'=>array('SUM(product_quantity) AS product_quantity', 'category_product AS product_name', 'HistoricInvoice.invoice_date'), 'group'=> 'category_product'));
 				break;
 			
-			default:
-				# code...
-				break;
 		}
 
 		$this->set('data', $data);	

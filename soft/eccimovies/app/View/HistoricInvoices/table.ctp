@@ -20,6 +20,7 @@
 						{
 							echo "<th>Name</th>";
 							echo "<th>Amount Sold</th>";
+
 						}
 						else
 						{
@@ -58,6 +59,7 @@
 						echo "<td>";
 						echo $data[$i][0]['product_quantity']; 
 						echo "</td>";	
+						
 					echo "</tr>";				
 
 				}

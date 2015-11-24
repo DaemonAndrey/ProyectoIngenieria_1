@@ -45,7 +45,7 @@
 			
 		echo "</div>";
 
-    echo $this->Form->button('Chart', array('formaction'=>'chart'));
+    echo $this->Form->button('Chart', array('formaction'=>'chart/3'));
     echo $this->Form->button('Table', array('formaction'=>'table/3'));
 		echo $this->Form->end('Get Subcategories');
 			  unset($category);
@@ -84,7 +84,7 @@
   		
   		if(count($this->Session->read('subcategories')) > 0)
       {
-        echo $this->Form->button('Chart', array('formaction'=>'chart'));
+        echo $this->Form->button('Chart', array('formaction'=>'chart/2'));
         echo $this->Form->button('Table', array('formaction'=>'table/2'));
         echo  $this->Form->end('Get Products');
       }
@@ -122,7 +122,7 @@
 
         if(count($this->Session->read('products')) > 0)
         {
-          echo $this->Form->button('Chart', array('formaction'=>'chart'));
+          echo $this->Form->button('Chart', array('formaction'=>'chart/1'));
           echo $this->Form->button('Table', array('formaction'=>'table/1'));
         }
 				echo $this->Form->end();

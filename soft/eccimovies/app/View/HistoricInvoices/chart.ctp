@@ -30,25 +30,56 @@
 
           var data = google.visualization.arrayToDataTable([
 
-              ['Name', 'Amount Sold', 'Month', 'Gender'],
-              <?php				  
+           
+              <?php		
+
+                if(isset($data[0][0]))
+                {
+                  echo "['Name', 'Amount Sold', 'Month'],";
                   $size  = count($data);
+                    for($i = 0; $i < ($size - 1); ++$i)
+                    {
+                         $date = $data[$i]['HistoricInvoice']['invoice_date'];
+                        $date = split(' ', $date);
+                        $date = $date[0];
+                        $date = split('-',$date);
+                        echo "[ '".$data[$i]['HistoricProduct']['product_name']."', ".$data[$i][0]['product_quantity'].", ".$date[1]."], ";
+                    }
 
-                  for($i = 0; $i < ($size - 1); ++$i)
-                  {
-                      $date = $data[$i]['HistoricInvoice']['invoice_date'];
-                      $date = split(' ', $date);
-                      $date = $date[0];
-                      $date = split('-',$date);
-                      echo "[ '".$data[$i]['HistoricProduct']['product_name']."', ".$data[$i]['HistoricProduct']['product_quantity'].", ".$date[1].", '".$data[$i]['HistoricInvoice']['user_gender']."'], ";
-                  }
 
-                    $i = ($size - 1);
-                      $date = $data[$i]['HistoricInvoice']['invoice_date'];
-                      $date = split(' ', $date);
-                      $date = $date[0];
-                      $date = split('-',$date);
-                      echo "[ '".$data[$i]['HistoricProduct']['product_name']."', ".$data[$i]['HistoricProduct']['product_quantity'].", ".$date[1].", '".$data[$i]['HistoricInvoice']['user_gender']."']";
+                      $i = ($size - 1);
+                        $date = $data[$i]['HistoricInvoice']['invoice_date'];
+                        $date = split(' ', $date);
+                        $date = $date[0];
+                        $date = split('-',$date);
+                        echo "[ '".$data[$i]['HistoricProduct']['product_name']."', ".$data[$i][0]['product_quantity'].", ".$date[1]."]"; 
+
+
+
+
+                }	
+                else
+                {
+                  echo "['Name', 'Amount Sold', 'Month', 'Gender'],";
+                    $size  = count($data);
+
+                    for($i = 0; $i < ($size - 1); ++$i)
+                    {
+                        $date = $data[$i]['HistoricInvoice']['invoice_date'];
+                        $date = split(' ', $date);
+                        $date = $date[0];
+                        $date = split('-',$date);
+                        echo "[ '".$data[$i]['HistoricProduct']['product_name']."', ".$data[$i]['HistoricProduct']['product_quantity'].", ".$date[1].", '".$data[$i]['HistoricInvoice']['user_gender']."'], ";
+                    }
+
+                      $i = ($size - 1);
+                        $date = $data[$i]['HistoricInvoice']['invoice_date'];
+                        $date = split(' ', $date);
+                        $date = $date[0];
+                        $date = split('-',$date);
+                        echo "[ '".$data[$i]['HistoricProduct']['product_name']."', ".$data[$i]['HistoricProduct']['product_quantity'].", ".$date[1].", '".$data[$i]['HistoricInvoice']['user_gender']."']";                  
+                }	  
+
                 
               ?>
 
