@@ -205,7 +205,7 @@ CREATE TABLE carts_products
 	CHECK ( quantity > 0 )
 );
 
-CREATE TABLE products_wishlists
+CREATE TABLE wishlists_products
 (
 	id			INT	UNSIGNED AUTO_INCREMENT,
 	wishlist_id	INT	UNSIGNED NOT NULL,
