@@ -2,15 +2,12 @@
 
 <?php echo $this->Html->css('invoice'); ?>
 
-
-
 <?php if($user_id != null && $custom){ ?>
 
     <header id="principal-header-text-invoice">
     <h2> <center> Payment and Shipping Information </center> </h2>
     </header>
 
-    
     <hr>
 
     <table class="table">
@@ -34,9 +31,15 @@
                             </td>
                             <td><?php echo $product['Product']['name']; ?> </td>
                             <td><?php echo $carts_product['CartsProduct']['quantity']; ?></td>
-                            <td><?php echo '$ '.$product['Product']['price']; ?></tc>
+                            <td><?php 
+                                      $precioFinal = $product['Product']['price'] - $product['Product']['price']*$product['Product']['discount']/100;
+                                      echo '$ '.number_format((float)$precioFinal, 2, '.', ''); 
+                                ?>
+                            </td>
                             <td>
-                                <?php echo '$ '.$carts_product['CartsProduct']['quantity']*$product['Product']['price']; ?>
+                                <?php 
+                                      echo '$ '.number_format((float)$carts_product['CartsProduct']['quantity']*$precioFinal, 2, '.', '');
+                                ?>
                             </td>
                         </tr>
                     <?php endif; ?>
@@ -75,9 +78,7 @@
         </div>
     </div>
 
-
-  
-        <?php echo $this->Form->create('Invoice', array('url'=> array('action'=>'view'), 'type' => 'post', 'id' => 'indexform', 'inputDefaults' => array('label'=>false, 'div'=>false))); 
+    <?php echo $this->Form->create('Invoice', array('url'=> array('action'=>'view'), 'type' => 'post', 'id' => 'indexform', 'inputDefaults' => array('label'=>false, 'div'=>false))); 
 
         echo "<div class='row'>";
              echo "<div class='control-label col-md-7'>";
@@ -92,8 +93,6 @@
                  echo "</div>";
             echo "</div>";     
         echo "</div>";
-
-            
         
         echo "<div class='row'>";
             echo "<div class='control-label col-md-8'>";
@@ -116,12 +115,8 @@
     echo $this->Form->end();
                                       
 } ?>
-
-            <?php if(!$custom || $user_id == null)
-            {
-                ?> <h1 id='nothing'> NOTHING TO SEE HERE... </h1> <?php
-            } ?>
-
-    
+<?php if(!$custom || $user_id == null)
+{
+	?> <h1 id='nothing'> NOTHING TO SEE HERE... </h1> <?php
+} ?>
 <hr>
-

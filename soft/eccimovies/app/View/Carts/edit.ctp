@@ -48,86 +48,49 @@ if($user_id != null && $custom && $user_id == $cart_user_id)
             ?>
 
             <tr>
-                <td>
-                    <?php echo $this->Html->image($cartProduct['Product']['code'].'.jpg',
-                                                  array('alt' => $cartProduct['Product']['name'],
-                                                        'class' => 'img-rounded',
-                                                        'style' => 'width: 150px; height: 200px;',
-                                                        'code' => 'movies-picture-img'
-                                                       )
-                                                 );
-                    ?>
-                </td>
-                <td>
-                    <?php echo $cartProduct['Product']['name']; ?>
-                </td>
+                <td><?php echo $this->Html->image($cartProduct['Product']['code'].'.jpg', array('alt' => $cartProduct['Product']['name'], 'class' => 'img-rounded', 'style' => 'width: 150px; height: 200px;', 'code' => 'movies-picture-img')); ?></td>
+                <td><?php echo $cartProduct['Product']['name']; ?></td>
                 <td>
                     <?php
-                        echo $this->Form->create('CartProduct',
-                                                 array('url' => array('controller' => 'carts',
-                                                                      'action' => 'editCartProduct',
-                                                                      $cartProduct['id']
-                                                                     ),
-                                                       'action'=>'editCartProduct',
-                                                       'type' => 'post',
-                                                       'inputDefaults' => array('label'=>false,
-                                                                                'div'=>false
-                                                                               )
-                                                      )
-                                                );
+                        echo $this->Form->create('CartProduct', array('url' => array('controller' => 'carts', 'action' => 'editCartProduct', $cartProduct['id']), 'action'=>'editCartProduct', 'type' => 'post', 'inputDefaults' => array('label'=>false, 'div'=>false)));
                         echo $this->Form->input('id', array('type' => 'hidden'));
 
-                        echo $this->Form->input('quantity',
-                                                array('type' => 'number',
-                                                      'label' => false,
-                                                      'min' => 1,
-                                                      'max' => $cartProduct['Product']['stock_quantity'],
-                                                      'value'=>$cartProduct['quantity']
-                                                     )
-                                               );
-                        echo $this->Form->button('<span class="glyphicon glyphicon-ok" id="updateCart-btn1"></span>',
-                                                 array('type'=>'submit',
-                                                       'id' => 'updateCart-btn'
-                                                      )
-                                                );
+                        echo $this->Form->input('quantity', array('type' => 'number', 'label' => false, 'min' => 1, 'max' => $cartProduct['Product']['stock_quantity'], 'value'=>$cartProduct['quantity']));
+                        echo $this->Form->button('<span class="glyphicon glyphicon-ok" id="updateCart-btn1"></span>',array('type'=>'submit', 'id' => 'updateCart-btn'));
 
                         echo $this->Form->end();
                     ?>
                 </td>
-                <td>
-                    <?php echo $cartProduct['Product']['price']; ?>
-                </td>
-                <td>
-                    <?php echo $cartProduct['Product']['price']*$cartProduct['quantity']; ?>
-                </td>
-                <td>
-                    <?php
-                    echo $this->Form->postLink($this->Html->tag('span',
-                                                                null,
-                                                                array('class' => 'glyphicon glyphicon-remove')
-                                                               ),
-                                               array('action' => 'removeProductFromCart',
-                                                     $cartProduct['id'],
-                                                     $post['Cart']['id']
-                                                    ),
-                                               array('escape' => false,
-                                                     'confirm' => 'Are you sure you want to remove this item from your cart?'
-                                                    )
-                                              );
-                    ?>
-                </td>
-                <td>
-                    <?php
-                    echo $this->Html->link('<i class="glyphicon glyphicon-plus"></i>',
-                                           array('action' => 'sendToWishlist',
-                                                 $cartProduct['id']
-                                                ),
-                                           array('escape' => false)
-                                          );
-                    ?>
-                </td>
-            </tr>
+                <?php 
+                    $descuento = $cartProduct['Product']['discount'];
+                    $precioNormal = $cartProduct['Product']['price'];
+                    $cantidad = $cartProduct['quantity'];
+     
+                    if( $descuento > 0 )
+                    {
+                        $precioDescuento = $cartProduct['product_price'];
+                        echo "<td>";
+                            echo "<p id=".'"regularPrice">'.'$ '.$precioNormal."</p>".'$ '.number_format((float)$precioDescuento,2, '.', '');
+                        echo "</td>";
 
+                        echo "<td>";
+                            echo "<p id=".'"regularPrice">'.'$ '.$precioNormal*$cantidad."</p>".'$  '.number_format((float)$precioDescuento, 2, '.', '')*$cantidad;
+                        echo "</td>";
+                    }
+                    else
+                    {
+                        echo "<td>";
+                            echo '$ '.number_format((float)$precioNormal, 2, '.', '');
+                        echo "</td>";
+                        
+                        echo "<td>";
+                            echo '$ '.number_format((float)$precioNormal, 2, '.', '')*$cantidad;
+                        echo "</td>";
+                    }
+                ?>
+                <td><?php echo $this->Form->postLink($this->Html->tag('span', null, array('class' => 'glyphicon glyphicon-remove')),array('action' => 'removeProductFromCart', $cartProduct['id'], $post['Cart']['id']),array('escape' => false, 'confirm' => 'Are you sure you want to remove this item from your cart?')); ?></td>
+                <td><?php echo $this->Html->link('<i class="glyphicon glyphicon-plus"></i>', array('action' => 'sendToWishlist', $cartProduct['id']), array('escape' => false)); ?></td>
+            </tr>
             <?php
             endforeach;
             unset($cartProducts);
@@ -137,10 +100,12 @@ if($user_id != null && $custom && $user_id == $cart_user_id)
         <hr>
 
         <div class="row">
-            <div class="control-label col-md-12">
-                <p class="label-class">
-                    <b>Subtotal: </b> $ <?php echo $post['Cart']['subtotal']; ?>
-                </p>
+            <div class="control-label col-md-10">
+                <p class="label-class">Subtotal: </p>
+            </div>
+
+            <div class="control-label col-md-1">
+                <p class="amount-class"><?php echo '$ '.$post['Cart']['subtotal']; ?></p>
             </div>
         </div>
 	</div>

@@ -114,3 +114,13 @@ input[type=number]
 	color: white;
 	padding: 5px;
 }
+
+#regularPrice
+{
+    text-decoration: line-through; 
+    color: red; 
+    font-size: 12pt; 
+    text-align: center; 
+    letter-spacing: 1px;
+    font-weight: bold;
+}

@@ -56,7 +56,6 @@ hr{
     
 }
 
-
 #fom-button:hover{
 	background-color:#6E6E6E;
 }
@@ -103,6 +102,7 @@ th, td {
 .actions{
     width: 5%;
 }
+
 caption {
   padding: 0.3em;
   color: #fff;

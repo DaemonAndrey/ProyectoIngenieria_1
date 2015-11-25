@@ -12,7 +12,7 @@ if($user_id != null && $admin)
           <ul class="nav nav-pills nav-justified" role="tablist">
             <li class="active"><?php echo $this->Html->link('Products', array('controller' => 'products', 'action' => 'index')); ?></li>
             <li><?php echo $this->Html->link('Categories', array('controller' => 'categories', 'action' => 'index')); ?></li>
-            <li><a href="#">Users</a></li> 
+            <li><?php echo $this->Html->link('Users', array('controller' => 'users', 'action' => 'index')); ?></li>
             <li><?php echo $this->Html->link('Orders', array('controller' => 'invoices', 'action' => 'my_invoices')); ?></li>
             <li><?php echo $this->Html->link('Valid Accounts', array('controller' => 'valid_accounts', 'action' => 'index')); ?></li> 
           </ul>
@@ -47,6 +47,15 @@ if($user_id != null && $admin)
                                                                             'class' => 'control-label col-sm-2',
                                                                             'text' => 'Price'
                                                                         )
+                                                    )
+                                       );
+                echo $this->Form->input('discount', array(  'div' => 'form-group',
+                                                            'label' => array(
+                                                                            'class' => 'control-label col-sm-2',
+                                                                            'text' => 'Discount'
+                                                                        ),
+                                                            'min' => 0,
+                                                            'max' => 100
                                                     )
                                        );
                 echo $this->Form->input('stock_quantity', array('div' => 'form-group',

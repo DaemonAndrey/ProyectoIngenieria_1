@@ -30,7 +30,7 @@ if($user_id != null && $admin)
     </div>
 	<hr>
     <p>
-            <?php
+        <?php
             echo "<li id = 'fom-button'>"; 
             echo $this->Html->link(	'<span class="glyphicon glyphicon-plus"></span> Add product ',
                                     array('controller'=>'products','action' => 'add'),
@@ -38,9 +38,22 @@ if($user_id != null && $admin)
                                 );
 
             echo "</li>";
-            ?>
-        </p>
-    <hr>
+		?>
+    </p>
+	<p>
+		<?php
+            echo "<li id = 'fom-button'>"; 
+            echo $this->Html->link(	'<span class="glyphicon glyphicon-plus"></span> Update discount ',
+                                    array('controller'=>'products','action' => 'updateDiscount'),
+                                    array('target' => '_self', 'escape' => false)
+                                );
+
+            echo "</li>";
+        ?>
+	</p>
+    
+	<hr>
+	
 	<table cellpadding="0" cellspacing="0">
 			<tr>
 				<th>

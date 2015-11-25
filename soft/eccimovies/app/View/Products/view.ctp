@@ -24,9 +24,7 @@
                             ?>
                             <li>
                                     <?php
-
                                         echo $this->Html->link($cat['Page']['category_name'], array('controller' => 'categories', 'action'=> 'viewcategory',$cat['Page']['category_name']), array('category_name' => 'dropdown-categories'));
-
                                     ?>
                                 </a>
                             </li>
@@ -95,15 +93,41 @@
                     {
                         echo $this->Html->tableCells(	array(	array('Code:', h($post['Product']['code']))));
                     }
-                    echo $this->Html->tableCells(	array(	array('Price:', '$ '.h($post['Product']['price'])),
-                                                            array('In Stock:', h($post['Product']['stock_quantity'])),
+                    
+                    $descuento = h($post['Product']['discount']);
+                    $precioNormal = h($post['Product']['price']);
+                        
+                    if( $descuento > 0 )
+                    {
+                        $precioDescuento = $precioNormal - $precioNormal*($descuento/100);
+                        
+                        echo "<tr>";
+                            echo "<td>";
+                                echo 'Price: ';
+                            echo "</td>";
+                            echo "<td>";
+                                echo "<p style='color: red; text-decoration: line-through; display: inline' id=".'"regularPrice">'.'$ '.$precioNormal."</p>".'  $ '.round($precioDescuento,2).' ( '.$descuento.'% off )';
+                            echo "</td>";
+                        echo "</tr>";
+                    }
+                    else
+                    {
+                        echo "<tr>";
+                            echo "<td>";
+                                echo 'Price: ';
+                            echo "</td>";
+                            echo "<td>";
+                                echo '$ '.$precioNormal;
+                            echo "</td>";
+                        echo "</tr>";
+                    }
+                    
+                    echo $this->Html->tableCells(	array(	array('In Stock:', h($post['Product']['stock_quantity'])),
                                                             array('Format:', h($post['Product']['format'])),
                                                             array('Languages:', h($post['Product']['languages'])),
                                                             array('Subtitles:', h($post['Product']['subtitles'])),
                                                             array('Year:', h($post['Product']['release_year'])),
                                                             array('Run Time:', h($post['Product']['runtime']).' minutes'),
-                                                            //array('Categoría', h($post['Category']['category_name'])),
-                                                            //array('Subcategoría', h($post['Subcategory']['subcategory_name'])),
                                                             array('More Details:', h($post['Product']['more_details']))
                                                         )
                                                 );
@@ -133,11 +157,13 @@
 // Form ID: #ContactsContactForm
 // Div to use for AJAX response: #contactStatus
 
+$precioProducto = $post['Product']['price'] - $post['Product']['price']*($post['Product']['discount']/100);
+
 $this->Js->get('#CartsViewForm')->event('submit',
 										$this->Js->request(
 															array(	'action' => 'ajaxRequest', 'controller' => 'carts'),
 															array(	'update' => '#message',
-																	'data' => '{subtotal:0, user_id:'.$user_id.', product_id:'.$post['Product']['id'].',quantity:$("#cartCant").val()}',
+																	'data' => '{subtotal:0, user_id:'.$user_id.', product_id:'.$post['Product']['id'].',quantity:$("#cartCant").val(), product_price:'.$precioProducto.'}',
 																	'async' => true,
 																	'dataExpression'=>true,
 																	'method' => 'POST',
@@ -145,7 +171,6 @@ $this->Js->get('#CartsViewForm')->event('submit',
 																)
 														  )
 									);
-
 
 echo $this->Js->writeBuffer();
 ?>

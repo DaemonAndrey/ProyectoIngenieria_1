@@ -54,6 +54,16 @@ if($user_id != null && $admin)
 																'placeholder' => 'Price in dollars'
 															)
 										);
+				echo $this->Form->input('Product.discount', array('div' => 'form-group',
+															   'label' => array(
+																				'class' => 'control-label col-sm-2',
+																				'text' => 'Discount'
+																			   ),
+                                                                'min' => 0,
+                                                                'max' => 100,
+																'placeholder' => 'Discount if applicable'
+															)
+										);
 				echo $this->Form->input('Product.stock_quantity', array('div' => 'form-group',
 																		'label' => array(
 																						'class' => 'control-label col-sm-2',

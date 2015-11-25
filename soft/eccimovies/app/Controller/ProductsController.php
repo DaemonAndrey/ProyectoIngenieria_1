@@ -4,6 +4,7 @@ class ProductsController extends AppController
 {
 	public $helpers = array('Html', 'Form', 'Flash', 'Js');
 	public $components = array('Flash', 'Paginator','RequestHandler');
+	
 	// Permite que los productos se muestren por páginas
 	public $paginate = array(
 		'limit' => 15,
@@ -51,6 +52,7 @@ class ProductsController extends AppController
 		}
 		return $manager;
 	}
+	
 	// Se pasa a la vista principal de Administrar Productos
 	public function index()
 	{
@@ -58,6 +60,7 @@ class ProductsController extends AppController
 		$this->Paginator->settings = $this->paginate;
 		$this->set('products', $this->Paginator->paginate());
 	}
+	
 	public function view( $id = null )
 	{
 		$this->loadModel('Page');
@@ -66,7 +69,9 @@ class ProductsController extends AppController
 		{
 			throw new NotFoundException(__('Invalid Product.'));
 		}
+		
 		$product = $this->Product->findById($id);
+		
 		if( !$product )
 		{
 			throw new NotFoundException(__('Invalid Product.'));
@@ -75,6 +80,7 @@ class ProductsController extends AppController
 
 		$this->set('catego',$this->Page->find('all'));
 	}
+	
 	public function add()
 	{
 		// Por si falla el INSERT
@@ -87,7 +93,9 @@ class ProductsController extends AppController
 					$this->Flash->success(__('Action canceled.', true));
 					return $this->redirect(array('action' => 'index'));
 				}
+				
 				$this->Product->create();
+				
 				// Si pudo agregar el producto
 				if($this->Product->save($this->request->data))
 				{
@@ -99,11 +107,11 @@ class ProductsController extends AppController
 				{
 					throw new Exception('Exception');
 				}
-			} else {
+			} 
+			else 
+			{
 				$categories = $this->Product->Subcategory->Category->find('list');
-				//debug($categories);
 				$subcategories = $this->Product->Subcategory->find('list');
-				//debug($subcategories);
 				$this->set(compact('categories', 'subcategories'));
 			}
 		}
@@ -121,17 +129,21 @@ class ProductsController extends AppController
 			}
 		}
 	}
+	
 	public function edit( $id = null )
 	{
 		if( !$id )
 		{
 			throw new NotFoundException(__('Invalid product.'));
 		}
+		
 		$product = $this->Product->findById($id);
+		
 		if( !$product )
 		{
 			throw new NotFoundException(__('Invalid product.'));
 		}
+		
 		if($this->request->is(array('post', 'put')))
 		{
 			if(isset($this->request->data['cancel']))
@@ -139,7 +151,9 @@ class ProductsController extends AppController
 				$this->Flash->success(__('Action canceled.', true));
 				return $this->redirect(array('action' => 'index'));
 			}
+			
 			$this->Product->id = $id;
+			
 			if( $this->Product->save( $this->request->data ) )
 			{
 				$this->Flash->success(__('Product updated successfully.'));
@@ -147,7 +161,6 @@ class ProductsController extends AppController
 			}
 			else
 			{
-				//debug($this->Product->validationErrors);
 				$this->Flash->error(__('Could not update product.'));
 			}
 		}
@@ -171,15 +184,19 @@ class ProductsController extends AppController
 		{
 			throw new NotFoundException(__('Invalid product.'));
 		}
+		
 		if( $this->request->is('get') )
 		{
 			throw new MethodNotAllowedException();
 		}
+		
 		$product = $this->Product->findById($id);
+		
 		if( !$product )
 		{
 			throw new NotFoundException(__('Invalid product.'));
 		}
+		
 		if( $this->request->is(array('post', 'put')) )
 		{
 			if( $this->Product->updateAll(array("enable" => "0"),array("Product.id" => "$id")) )
@@ -275,5 +292,55 @@ class ProductsController extends AppController
 
 		return $products;
 	}
+	
+	function updateDiscount()
+    {
+        if($this->request->is('post'))
+        {
+            if(isset($this->request->data['cancel']))
+            {
+                $this->Flash->success(__('Action canceled.', true));
+                return $this->redirect(array('action' => 'index'));
+            }
+            
+            $categoryId = $this->request->data['Product']['category_id'];
+            $discount = $this->request->data['Product']['discount'];
+            
+            $this->loadModel('Subcategory');
+            $subcategories = $this->Subcategory->query("SELECT id FROM Subcategories where category_id = ".$categoryId."");
+
+            $i = 0;
+            $updatedCategories = 0;
+            
+            foreach($subcategories as $id )
+            {
+                $id = $subcategories[$i]['Subcategories']['id'];
+                
+                if( $this->Product->updateAll( array('Product.discount' => $discount), array('Product.subcategory_id' => $id) ) )
+                {
+                    $updatedCategories++;
+                }
+                $i++;
+            }
+            
+            if( $i > $updatedCategories )
+            {
+                $this->Flash->error(__('There was an error trying to update the discount of some of the categories!'));
+                return $this->redirect(array('action' => 'index'));
+            }
+            else if( $i == $updatedCategories )
+            {
+                $this->Flash->success(__('The discount has been updated for the products of the selected category!'));
+                return $this->redirect(array('action' => 'index'));
+            }
+            
+            return $this->redirect(array('action' => 'index'));
+        }
+        else
+        {
+            $categories = $this->Product->Subcategory->Category->find('list');
+            $this->set(compact('categories'));
+        }
+    }
 }
 ?>
