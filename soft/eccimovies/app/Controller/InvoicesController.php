@@ -126,6 +126,8 @@ class InvoicesController extends AppController {
         $this->loadModel('User');
         $this->loadModel('Category');
         $this->loadModel('Subcategory');
+        $this->loadModel('Combo');
+        $this->loadModel('CombosProduct');
         
         $id = $this->Auth->User('id');
         $tax = 0.10;
@@ -188,6 +190,11 @@ class InvoicesController extends AppController {
             $conditions8[] = array('User.id'=> $id);
             $users=  $this->User->find('first', array ('recursive'=> -1, 'conditions'=> $conditions8, 'fields' => array('User.gender','User.first_name','User.last_name')));
             $this->set('users',$users);
+            
+            //Esto es para los combos
+            $combos=$this->Combo->find('all');            
+            $combos_products= $this->CombosProduct->find('all');
+            $products_in_combos=$this->Product->find('all');
             
             date_default_timezone_set('America/Costa_Rica');
             $date = date('Y-m-d H:i:s');
@@ -257,7 +264,29 @@ class InvoicesController extends AppController {
                 
                                 $this->Product->id=$product['Product']['id'];
                                 $this->request->data['Product']['stock_quantity']=($product['Product']['stock_quantity']-$carts_product['CartsProduct']['quantity']);
-                                $this->Product->save($this->request->data);              
+                                $this->Product->save($this->request->data);  
+                
+                                foreach ($combos as $combo):
+                                    if($combo['Combo']['product_id']==$product['Product']['id']): 
+                                        
+                                        foreach ($combos_products as $combos_product):
+                                            if($combos_product['CombosProduct']['combo_id']==$combo['Combo']['id']):
+                                                foreach($products_in_combos as $products_in_combo):
+                                                    if($products_in_combo['Product']['id']==$combos_product['CombosProduct']['product_id']):
+                                                        $this->Product->id=$products_in_combo['Product']['id'];
+                                                        $this->request->data['Product']['stock_quantity']=($products_in_combo['Product']['stock_quantity']-$carts_product['CartsProduct']['quantity']);
+                                                        $this->Product->save($this->request->data);
+                                                        
+                                                    endif;
+                                                endforeach;
+                                                unset($products_in_combo);
+                                            endif;
+                                        endforeach;
+                                        unset($combos_product);
+                                    endif;
+                                endforeach;
+                                unset($combo);
+                                            
                             endif;
                         endforeach;
                         unset($product);
