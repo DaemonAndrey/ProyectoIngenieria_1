@@ -133,11 +133,15 @@ CREATE TABLE products
 
 CREATE TABLE combos
 (
-	id				INT	UNSIGNED AUTO_INCREMENT,
-	code			VARCHAR( 8 ) UNIQUE,
-	name			VARCHAR( 64 )	NOT NULL,
-	discount		INT NOT NULL DEFAULT 0,
-	PRIMARY KEY ( id )
+        id                      INT     		UNSIGNED AUTO_INCREMENT,
+        product_id              INT     		UNSIGNED,
+        code                    VARCHAR( 8 )	UNIQUE,
+        name                    VARCHAR( 64 )   NOT NULL,
+        discount                INT 			NOT NULL DEFAULT 0,
+        price                   DECIMAL( 5, 2 ) NOT NULL DEFAULT 0,
+        stock_quantity 			INT 			DEFAULT 0,
+        enable                  INT( 1 ) 		DEFAULT 1, -- 1 = Activo, 0 = Inactivo
+        PRIMARY KEY ( id )
 );
 
 CREATE TABLE combos_products
