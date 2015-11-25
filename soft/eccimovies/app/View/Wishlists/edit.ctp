@@ -13,7 +13,8 @@
 
         <p id="wishlists_title">
             <span class="glyphicon glyphicon-heart"></span>
-           <?php echo __('My wishlist'); ?>
+            <?php echo __('My Wishlist'); ?>
+            <span class="glyphicon glyphicon-heart"></span>
         </p>
         <hr>
 
