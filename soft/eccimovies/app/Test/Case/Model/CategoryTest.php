@@ -5,7 +5,6 @@ class CategoryTest extends CakeTestCase {
 
 	public $fixtures = array(
 		'app.category',
-		'app.subcategory'
 	);
 
 	public $autoFixtures = false;

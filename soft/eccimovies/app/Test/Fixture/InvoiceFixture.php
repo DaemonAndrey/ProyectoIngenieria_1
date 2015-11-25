@@ -5,7 +5,7 @@ class InvoiceFixture extends CakeTestFixture {
 	public $import = array(
 		'connection' => 'default',
 		'model' => 'Invoice',
-		'records' => true
+	//	'records' => true
 	);
 
 	public $records = array(

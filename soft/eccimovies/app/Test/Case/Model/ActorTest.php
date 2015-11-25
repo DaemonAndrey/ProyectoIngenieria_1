@@ -5,8 +5,6 @@ class ActorTest extends CakeTestCase {
 
 	public $fixtures = array(
 		'app.actor',
-		'app.product',
-		'app.actors_product'
 	);
 
 	public $autoFixtures = false;

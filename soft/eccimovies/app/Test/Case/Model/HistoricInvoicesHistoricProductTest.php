@@ -5,8 +5,6 @@ class HistoricInvoicesHistoricProductTest extends CakeTestCase {
 
 	public $fixtures = array(
 		'app.historic_invoices_historic_product',
-		'app.historic_invoice',
-		'app.historic_product'
 	);
 
 	public $autoFixtures = false;

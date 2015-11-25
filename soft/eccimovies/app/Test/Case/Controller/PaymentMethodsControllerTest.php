@@ -3,20 +3,11 @@ App::uses('PaymentMethodsController', 'Controller');
 
 class PaymentMethodsControllerTest extends ControllerTestCase {
 
-	//public $useDbConfig = 'test';
-
 	public $fixtures = array(
 		'app.payment_method',
-//		'app.user'
+		'app.user'
 	);
 
-	//public $autoFixtures = false;
-
-	public function testIsOwnedBy() {
-		//$result = $this->testAction('/payment_methods/');
-		//debug($result);
-	}
-/*
 	public function testIndex() {
 		$result = $this->testAction('/payment_methods/index');
 		debug($result);
@@ -26,7 +17,7 @@ class PaymentMethodsControllerTest extends ControllerTestCase {
 		$result = $this->testAction('/payment_methods/view/1');
 		debug($result);
 	}
-*/
+
 	public function testAddCard() {
 		$result = $this->testAction('/payment_methods/add_card');
 		debug($result);
@@ -43,5 +34,3 @@ class PaymentMethodsControllerTest extends ControllerTestCase {
 	}
 
 }
-
-?>

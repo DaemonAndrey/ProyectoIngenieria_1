@@ -5,9 +5,6 @@ class CartTest extends CakeTestCase {
 
 	public $fixtures = array(
 		'app.cart',
-		'app.user',
-		'app.product',
-		'app.carts_product'
 	);
 
 	public $autoFixtures = false;

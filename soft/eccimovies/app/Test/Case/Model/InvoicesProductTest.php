@@ -5,12 +5,6 @@ class InvoicesProductTest extends CakeTestCase {
 
 	public $fixtures = array(
 		'app.invoices_product',
-		'app.invoice',
-		'app.payment_method',
-		'app.address',
-		'app.user',
-		'app.state',
-		'app.product'
 	);
 
 	public $autoFixtures = false;

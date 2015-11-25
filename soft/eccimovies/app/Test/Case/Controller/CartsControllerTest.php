@@ -1,110 +1,61 @@
 <?php
 App::uses('CartsController', 'Controller');
 
-/**
- * CartsController Test Case
- */
 class CartsControllerTest extends ControllerTestCase {
 
-/**
- * Fixtures
- *
- * @var array
- */
 	public $fixtures = array(
 		'app.cart',
-/*		'app.user',
-		'app.cart_product',
-		'app.product',*/
+		'app.user',
+		'app.carts_product',
+		'app.product',
 	);
 
-/**
- * testIndex method
- *
- * @return void
- */
-/*	public function testIndex() {
+	public function testIndex() {
 		$result = $this->testAction('/carts/index');
 		debug($result);
-	}*/
+	}
 
-/**
- * testAdd method
- *
- * @return void
- */
 	public function testAdd() {
 		$result = $this->testAction('/carts/add');
 		debug($result);
 	}
 
-/**
- * testAjaxRequest method
- *
- * @return void
- */
-/*	public function testAjaxRequest() {
-		$result = $this->testAction('/carts/ajax_request');
+	public function testAjaxRequest() {
+		$result = $this->testAction('/carts/ajaxRequest');
 		debug($result);
-	}*/
+	}
 
-/**
- * testAddToCart method
- *
- * @return void
- */
-/*	public function testAddToCart() {
-		$result = $this->testAction('/carts/AddToCart/2');
+	public function testAddToCart() {
+/*		$data = array(
+			'product_id' => 1,
+			'quantity' => 3
+		);
+		$result = $this->testAction('/carts/addToCart/$data');
 		debug($result);
-	}*/
+*/	}
 
-/**
- * testDelete method
- *
- * @return void
- */
 	public function testDelete() {
 		$result = $this->testAction('/carts/delete/1');
 		debug($result);
 	}
 
-/**
- * testEditCartProduct method
- *
- * @return void
- */
-/*	public function testEditCartProduct() {
-		$result = $this->testAction('/carts/EditCartProduct');
+	public function testEditCartProduct() {
+/*		$result = $this->testAction('/carts/editCartProduct/1');
 		debug($result);
-	}*/
+*/	}
 
-/**
- * testEdit method
- *
- * @return void
- */
-/*	public function testEdit() {
+	public function testEdit() {
 		$result = $this->testAction('/carts/edit/1');
 		debug($result);
-	}*/
+	}
 
-/**
- * testView method
- *
- * @return void
- */
-/*	public function testView() {
+	public function testView() {
 		$result = $this->testAction('/carts/view/1');
 		debug($result);
-	}*/
+	}
 
-/**
- * testRemoveProductFromCart method
- *
- * @return void
- */
 	public function testRemoveProductFromCart() {
-		$result = $this->testAction('/carts/removeProductFromCart');
+		$result = $this->testAction('/carts/removeProductFromCart/1/1');
 		debug($result);
 	}
 

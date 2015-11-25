@@ -10,7 +10,6 @@ class AddressTest extends CakeTestCase {
 	);
 
 	public $autoFixtures = false;
-	//public $dropTables = false;
 
 	public function testAddressModel() {
 		$result = $this->loadFixtures('Address','State','Country');

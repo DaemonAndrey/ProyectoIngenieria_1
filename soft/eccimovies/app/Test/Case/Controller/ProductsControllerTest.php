@@ -1,62 +1,60 @@
 <?php
+App::uses('ProductsController', 'Controller');
+
 class ProductsControllerTest extends ControllerTestCase {
 
-    public $fixtures = array('app.product');
-	//public $dropTables = false;
-	//public function truncate($db) { return null; }
-    //public function drop($db) { return null; }
+	public $fixtures = array(
+		'app.product',
+		'app.subcategory',
+		'app.carts_product',
+		'app.actors_product',
+		'app.actor',
+		'app.category',
+	);
 
-	public function testAgregarProducto() {
-        $data = array('Product' => array('id'             => '561f3bdc-8120-46b2-a54d-2bb8b8373b57',
-									     'name'           => 'Whiplash',
-									     'price'          =>  16.31,
-									     'stock_quantity' =>  383,
-									     'format'         => 'Bluray',
-									     'languages'      => 'Inglés, Español',
-								         'subtitles'      => 'Español, Inglés, Francés, Alemán',
-									     'release_year'   => '2014',
-									     'runtime'        =>  107,
-									     'more_details'   => 'Director: Damien Chazelle; Productor: David Lancaste',
-									    )
-					);
-        $result = $this->testAction('/products/add',
-									array('data' => $data, 'method' => 'post')
-								   );
-        debug($result);
-    }
-
-	public function testBorrarProducto() {
-		$data = array('Product' => array('id'             => '561f3bdc-8120-46b2-a54d-2bb8b8373b57',
-									     'name'           => 'Whiplash',
-									     'price'          =>  16.31,
-									     'stock_quantity' =>  383,
-									     'format'         => 'DVD',
-									     'languages'      => 'Inglés, Chino',
-									     'subtitles'      => 'Español, Inglés, Francés, Chino',
-									     'release_year'   => '2014',
-									     'runtime'        =>  107,
-								         'more_details'   => 'Director: Damien Chazelle; Productor: David Lancaste',
-									    )
-					);
-        $result = $this->testAction('/products/delete/'.$data['Product']['id']);
-        debug($result);
+	public function testIndex() {
+		$result = $this->testAction('/products/index');
+		debug($result);
 	}
 
-	public function testEditarProducto() {
-		$data = array('Product' => array('id'             => '561f3bdc-8120-46b2-a54d-2bb8b8373b57',
-									     'name'           => 'Whiplash',
-									     'price'          =>  16.31,
-									     'stock_quantity' =>  383,
-									     'format'         => 'DVD',
-									     'languages'      => 'Inglés, Chino',
-									     'subtitles'      => 'Español, Inglés, Francés, Chino',
-									     'release_year'   => '2014',
-								         'runtime'        =>  107,
-								         'more_details'   => 'Director: Damien Chazelle; Productor: David Lancaste',
-									    )
-					);
-        $result = $this->testAction('/products/edit/'.$data['Product']['id']);
-        debug($result);
+	public function testView() {
+		$result = $this->testAction('/products/view/1');
+		debug($result);
 	}
+
+	public function testAdd() {
+		$result = $this->testAction('/products/add');
+		debug($result);
+	}
+
+	public function testEdit() {
+		$result = $this->testAction('/products/edit/1');
+		debug($result);
+	}
+
+	public function testDelete() {
+		$result = $this->testAction('/products/delete/1');
+		debug($result);
+	}
+
+	public function testBuscar() {
+/*		$result = $this->testAction('/products/buscar');
+		debug($result);*/
+	}
+
+	public function testSearchTitle() {
+/*		$result = $this->testAction('/products/searchTitle/');
+		debug($result);*/
+	}
+
+	public function testSearchActor() {
+/*		$result = $this->testAction('/products/searchActor/');
+		debug($result);*/
+	}
+
+	public function testSearchDirector() {
+/*		$result = $this->testAction('/products/searchDirector/');
+		debug($result);*/
+	}
+
 }
-?>

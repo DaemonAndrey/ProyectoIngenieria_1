@@ -5,11 +5,9 @@ class CountryTest extends CakeTestCase {
 
 	public $fixtures = array(
 		'app.country',
-		'app.state'
 	);
 
 	public $autoFixtures = false;
-	//public $dropTables = false;
 
 	public function testCountryModel() {
 		$result = $this->loadFixtures('Country');

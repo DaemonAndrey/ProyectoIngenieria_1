@@ -5,8 +5,6 @@ class CombosProductTest extends CakeTestCase {
 
 	public $fixtures = array(
 		'app.combos_product',
-		'app.combo',
-		'app.product'
 	);
 
 	public $autoFixtures = false;

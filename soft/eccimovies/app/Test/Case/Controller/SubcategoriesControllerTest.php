@@ -1,24 +1,42 @@
 <?php
-class SubcategoryControllerTest extends ControllerTestCase{
+App::uses('SubcategoriesController', 'Controller');
 
-	public $fixtures = array('app.subcategory');
-	//public $dropTables = false;
-	//public function truncate($db){ return null; }
-    //public function drop($db){ return null; }
+class SubcategoriesControllerTest extends ControllerTestCase {
 
-	public function testAdminIndex() {
-		$result = $this->testAction('/subcategories/admin_index');
+	public $fixtures = array(
+		'app.subcategory',
+		'app.category',
+		'app.product',
+	);
+
+	public function testIndex() {
+		$result = $this->testAction('/subcategories/index');
 		debug($result);
 	}
 
-	public function testAgregarSubcategorias() {
+	public function testView() {
+		$result = $this->testAction('/subcategories/view/1');
+		debug($result);
+	}
+
+	public function testAdd() {
 		$result = $this->testAction('/subcategories/add');
 		debug($result);
 	}
 
-	public function testEditarSubcategorias() {
+	public function testEdit() {
 		$result = $this->testAction('/subcategories/edit/1');
 		debug($result);
 	}
+
+	public function testDelete() {
+		$result = $this->testAction('/subcategories/delete/1');
+		debug($result);
+	}
+
+	public function testGetByCategory() {
+/*		$result = $this->testAction('/subcategories/getByCategory');
+		debug($result);*/
+	}
+
 }
-?>
