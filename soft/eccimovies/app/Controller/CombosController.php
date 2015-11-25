@@ -87,11 +87,54 @@ class CombosController extends AppController {
 				$this->Flash->success(__('Action canceled.', true));
 				return $this->redirect( array('action' => 'index'));
 			}
-			$this->Combo->create();
-			if ($this->Combo->save($this->request->data)) {
+            
+            $sum = 0;
+            $stock_quantity = PHP_INT_MAX;
+            //debug($this->request->data);
+            $combo = $this->request->data['Product'];
+            foreach ($combo['Product'] as $id):
+                $product = $this->Combo->Product->findById($id);
+                //debug($product);
+                $sum += $product['Product']['price'];
+                if ($stock_quantity > $product['Product']['stock_quantity']):
+				    $stock_quantity = $product['Product']['stock_quantity'];
+                endif;
+            endforeach;
+            $comboPrice = $sum; //* (1 - $this->request->data['Combo']['discount'] / 100.0);
+            
+			$this->Combo->Product->create();
+			$data = array(
+                'code' => $this->request->data['Combo']['code'],
+                'name' => $this->request->data['Combo']['name'],
+                'price' => $comboPrice,
+                'discount' => $this->request->data['Combo']['discount'],
+                'stock_quantity' => $stock_quantity,
+                'subcategory_id' => 2
+            );
+            
+            if ($this->Combo->Product->save($data)) 
+            {
+				$this->Flash->success(__('The combo has been saved.'));
+				//return $this->redirect(array('action' => 'index'));
+			} 
+            else 
+            {
+				$this->Flash->error(__('The combo could not be saved. Please, try again.'));
+			}
+            
+            $this->Combo->create();
+			$data['product_id'] = $this->Combo->Product->id;
+            $lista = $this->request->data['Product'];
+            $data['Product'] = $lista;
+            //debug($data);
+            
+            if ($this->Combo->save($data)) 
+            {
 				$this->Flash->success(__('The combo has been saved.'));
 				return $this->redirect(array('action' => 'index'));
-			} else {
+			} 
+            else 
+            {
 				$this->Flash->error(__('The combo could not be saved. Please, try again.'));
 			}
 		}

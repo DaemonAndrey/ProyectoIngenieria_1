@@ -21,22 +21,36 @@
 				$min = $product['stock_quantity'];
 			endif;
 		endforeach;
-		$tot = $sum * (1 - $combo['Combo']['discount'] / 100.0);
+        $tot = $sum;
+		$totCombo = $sum * (1 - $combo['Combo']['discount'] / 100.0);
 	?>
 
 <div class="combos view">
 	<table class="table">
 	<?php
+        if( $admin )
+        {
+            echo $this->Html->tableCells(array('Code:', h($combo['Combo']['code'])));
+        }
+    ?>
+    <?php
 		echo $this->Html->tableCells(
 			array(
-				array('Code:', h($combo['Combo']['code'])),
+				//array('Code:', h($combo['Combo']['code'])),
 				array('Name:', h($combo['Combo']['name'])),
 				array('Discount:', h($combo['Combo']['discount']).' %'),
-				array('Price:', '$ '.$tot),
-				array('Stock Quantity:', $min),
+				array('Regular price:', '$ '.number_format((float)$tot, 2, '.', '')),
+                array('Combo price:', '$ '.number_format((float)$totCombo, 2, '.', '')),
+				//array('Stock Quantity:', $min),
 			)
 		);
 	?>
+    <?php
+        if( $admin )
+        {
+            echo $this->Html->tableCells(array('Stock Quantity:', $min));
+        }
+    ?>
 	</table>
     <?php
     // Si soy cliente puedo tener carrito
@@ -82,7 +96,7 @@
                 <td><?php echo $product['code']; ?></td>
 			<?php } ?>
             <td><?php echo $product['name']; ?></td>
-			<td><?php echo '$ '.$product['price']; ?></td>
+			<td><?php echo '$ '.number_format((float)$product['price'], 2, '.', ''); ?></td>
 			<?php if($admin) { ?>
                 <td><?php echo $product['stock_quantity']; ?></td>
 			<?php } ?>
@@ -117,7 +131,7 @@ $this->Js->get('#CartsViewForm')->event('submit',
 										$this->Js->request(
 															array(	'action' => 'ajaxRequest', 'controller' => 'carts'),
 															array(	'update' => '#message',
-																	'data' => '{subtotal:0, user_id:'.$user_id.', product_id:'.$combo['Combo']['product_id'].',quantity:$("#cartCant").val(), product_price:'.$tot.'}',
+																	'data' => '{subtotal:0, user_id:'.$user_id.', product_id:'.$combo['Combo']['product_id'].',quantity:$("#cartCant").val(), product_price:'.$totCombo.'}',
 																	'async' => true,
 																	'dataExpression'=>true,
 																	'method' => 'POST',
