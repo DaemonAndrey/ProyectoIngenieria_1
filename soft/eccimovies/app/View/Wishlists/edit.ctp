@@ -1,15 +1,47 @@
-<hr>
 <?php echo $this->Html->css('wishlists'); ?>
 <?php echo $this->Html->css('product.css'); ?>
+<?php echo $this->Html->css('addresses'); ?>
+<?php echo $this->Html->css('general'); ?>
 
 <?php
-    $wishlist_user_id = h($post['Wishlist']['user_id']);
+$wishlist_user_id = h($post['Wishlist']['user_id']);
+
+// Si soy cliente y me pertenece la wishlist
+if($user_id != null && $custom && $user_id == $wishlist_user_id)
+{	
+    ?>
+    <nav class="navbar navbar-inverse" id="navigation-bar">
+      <div class="container-fluid">
+        <div>
+          <ul class="nav nav-pills nav-justified" role="tablist">
+            <li><?php echo $this->Html->link('Account Settings',array('controller' => 'users', 'action' => 'settings'), array('class' => 'nav-buttons')); ?></li>
+            <li><?php echo $this->Html->link('Your Orders',array('controller' => 'invoices', 'action' => 'my_invoices'), array('class' => 'nav-buttons')); ?></li>
+            <li><?php echo $this->Html->link('Payment Methods',array('controller' => 'paymentMethods', 'action' => 'index'), array('class' => 'nav-buttons')); ?></li>
+            <li><?php echo $this->Html->link('Address Book', array('controller' => 'addresses', 'action' => 'index'), array('class' => 'nav-buttons')); ?></li>
+            <li class="active"><?php
+                    $options = array('controller'=>'wishlists','action' => 'edit', -1);
+					if(isset($_SESSION['Auth']['User']['wishlist']))
+                    {
+                        $options = array('controller'=>'wishlists','action' => 'edit', $_SESSION['Auth']['User']['wishlist']);
+					}
+					echo $this->Html->link(	'Wishlist',
+                                           $options,
+                                           array('target' => '_self',
+                                                 'escape' => false,
+                                                 'class' => 'nav-buttons'
+                                                )
+                                          )
+                ?>
+              </li> 
+              
+          </ul>
+        </div>
+      </div>
+    </nav>
     
-    // Si soy cliente y me pertenece la wishlist
-    if($user_id != null && $custom && $user_id == $wishlist_user_id)
-    {	
-?>
-<div>
+    <hr>
+
+    <div>
 
         <p id="wishlists_title">
             <span class="glyphicon glyphicon-heart"></span>
