@@ -29,7 +29,7 @@ if($user_id != null && $admin)
         <hr>
 
         <div class="title">
-        <h2> <?php echo __('Manage combos'); ?> </h2>
+        <h2> <?php echo __('Manage Combos'); ?> </h2>
         </div>
 
         <hr>
