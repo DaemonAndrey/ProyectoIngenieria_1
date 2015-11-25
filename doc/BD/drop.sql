@@ -1,14 +1,11 @@
 use BD_ECCIMovies;
 
 DROP TABLE carts_products;
-DROP TABLE products_wishlists;
+DROP TABLE wishlists_products;
 DROP TABLE actors_products;
 DROP TABLE invoices_products;
 DROP TABLE combos_products;
 DROP TABLE combos;
-DROP TABLE products;
-DROP TABLE subcategories;
-DROP TABLE categories;
 DROP TABLE actors;
 DROP TABLE historic_invoices_historic_products;
 DROP TABLE historic_invoices;
@@ -21,4 +18,7 @@ DROP TABLE payment_methods;
 DROP TABLE addresses;
 DROP TABLE states;
 DROP TABLE countries;
+DROP TABLE products;
+DROP TABLE subcategories;
+DROP TABLE categories;
 DROP TABLE users;
