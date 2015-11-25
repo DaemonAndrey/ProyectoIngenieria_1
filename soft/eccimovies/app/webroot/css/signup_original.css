@@ -3,8 +3,17 @@
   font-family: sans-serif;
   font-weight: 100;
   letter-spacing:1px;
-  font-size: 125%;
-  width: 450px;
+  margin: auto;
+}
+
+#form-signup
+{
+    width: 450px;
+    margin: auto;
+}
+
+.barra{
+  text-align: left;
   margin: auto;
 }
 
@@ -60,6 +69,13 @@
 }
 
 #gender-select{
+  width: 145px;
+  margin-top: 30px;
+  background-color: #d3d3d3;
+  float: left;
+}
+
+#role-select{
   width: 145px;
   margin-top: 30px;
   background-color: #d3d3d3;

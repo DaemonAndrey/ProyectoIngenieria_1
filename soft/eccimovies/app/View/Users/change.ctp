@@ -50,7 +50,8 @@ if($admin)
                                                                             'text' => 'Confirm Password'
                                                                             
                                                                         ),
-                                                        'value'=> ''
+                                                        'value'=> '',
+                                                        'type'=> 'password'
                                                         )
                                        );
                 ?>

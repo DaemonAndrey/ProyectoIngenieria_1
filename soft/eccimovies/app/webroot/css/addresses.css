@@ -38,14 +38,9 @@ hr{
     margin-left: 220px;
 }
 
-.addCard_form, .addPayPal_form, .addCategory_form, .addProduct_form, .updateProduct_form, .updateDiscount_form{
+.addCard_form, .addPayPal_form, .addCategory_form, .addProduct_form, .updateProduct_form{
     margin-left: 280px;
 }
-
-.updateDiscount_form{
-    margin-left: 350px;
-}
-
 
 .updateCategory_form{
     margin-left: 215px;
@@ -148,4 +143,27 @@ tbody tr:nth-child(odd) {
 ._orderStatus{
     background-color: #F07575
     color: black;
+}
+
+
+#change-button{
+    display: inline-block;
+    list-style-type: none;
+    border-radius: 8px;
+    margin-left: 525px;
+	background-color: deepskyblue;
+    border-color: white;
+    
+}
+
+
+#change-button:hover{
+	background-color:#6E6E6E;
+}
+
+#change-button a{
+	text-decoration:none;
+	line-height: 30px;
+	color: white;
+	padding: 5px;
 }

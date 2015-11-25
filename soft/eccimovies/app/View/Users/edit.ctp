@@ -69,17 +69,16 @@ if($user_id != null && $admin)
                                        );
                 ?>
     </div>
-    <div class="row text-right">
-        <div class="col-md-12">
-			<?php
-				echo "<tr>";
-					
-					echo "<td>";
-						echo $this->Html->link('Change Password', array('controller'=>'Users','action' => 'change', $user['User']['id']), array('escape' => false));
-					echo "</td>";
-				echo "</tr>";
-			?>
-        </div>
+                <p>
+                <?php
+                echo "<li id = 'change-button'>"; 
+                echo $this->Html->link(	'Change Password ',
+                                        array('controller'=>'Users','action' => 'change', $user['User']['id']), array('escape' => false)
+                                    );
+
+                echo "</li>";
+                ?>
+                </p>
     </div>
     <hr>
     <div id= "action" style="text-align:center">
@@ -106,21 +105,7 @@ if($user_id == $user['User']['id'] && ($custom || $manager))
                 <li><?php echo $this->Html->link('Your Orders',array('controller' => 'invoices', 'action' => 'my_invoices'), array('class' => 'nav-buttons')); ?></li>
                 <li><?php echo $this->Html->link('Payment Methods',array('controller' => 'paymentMethods', 'action' => 'index'), array('class' => 'nav-buttons')); ?></li>
                 <li><?php echo $this->Html->link('Address Book', array('controller' => 'addresses', 'action' => 'index'), array('class' => 'nav-buttons')); ?></li>
-                <li><?php
-                    $options = array('controller'=>'wishlists','action' => 'edit', -1);
-					if(isset($_SESSION['Auth']['User']['wishlist']))
-                    {
-                        $options = array('controller'=>'wishlists','action' => 'edit', $_SESSION['Auth']['User']['wishlist']);
-					}
-					echo $this->Html->link(	'Wishlist',
-                                           $options,
-                                           array('target' => '_self',
-                                                 'escape' => false,
-                                                 'class' => 'nav-buttons'
-                                                )
-                                          )
-                ?>
-              </li>  
+                <li><a href="#", class="nav-buttons">Wishlist</a></li>  
               </ul>
             </div>
           </div>
@@ -130,8 +115,7 @@ if($user_id == $user['User']['id'] && ($custom || $manager))
     ?>
     
     <hr>
-
-    <div class="title">
+<div class="title">
     <h2> <?php echo __('Update User'); ?> </h2>
     </div>
 
@@ -179,17 +163,16 @@ if($user_id == $user['User']['id'] && ($custom || $manager))
                                        );
                 ?>
     </div>
-    <div class="row text-right">
-        <div class="col-md-12">
-			<?php
-				echo "<tr>";
-					
-					echo "<td>";
-						echo $this->Html->link('Change Password', array('controller'=>'Users','action' => 'change', $user['User']['id']), array('escape' => false));
-					echo "</td>";
-				echo "</tr>";
-			?>
-        </div>
+                <p>
+                <?php
+                echo "<li id = 'change-button'>"; 
+                echo $this->Html->link(	'Change Password ',
+                                        array('controller'=>'Users','action' => 'change', $user['User']['id']), array('escape' => false)
+                                    );
+
+                echo "</li>";
+                ?>
+                </p>
     </div>
     <hr>
     <div id= "action" style="text-align:center">
@@ -197,7 +180,7 @@ if($user_id == $user['User']['id'] && ($custom || $manager))
         &nbsp;
         <?php echo $this->Form->submit(__('Cancel', true), array('name' => 'cancel', 'formnovalidate' => true, 'div' => false)); ?>
     </div>
-    <?php echo $this->Form->end(); ?>   
+    <?php echo $this->Form->end(); ?>
    <?php 
 }
 // Si no estoy loggeado o si no soy admin
