@@ -48,23 +48,23 @@ class HistoricInvoicesController extends AppController
 		}
 		return $manager;
 	}
-    
+
     public function edit_status( $id = null )
 	{
 		if( !$id )
 		{
 			throw new NotFoundException(__('Invalid invoice.'));
 		}
-        
+
 		$hInvoice = $this->HistoricInvoice->findById($id);
-        
+
 		if( !$hInvoice )
 		{
 			throw new NotFoundException(__('Invalid invoice.'));
 		}
-        
+
         $this->set('thisInvoice', $this->HistoricInvoice->findById($id));
-        
+
 		if($this->request->is(array('post', 'put')))
 		{
 			if(isset($this->request->data['cancel']))
@@ -72,9 +72,9 @@ class HistoricInvoicesController extends AppController
 				$this->Flash->success(__('Action canceled.', true));
 				return $this->redirect(array('controller' => 'invoices', 'action' => 'view_invoice', $id));
 			}
-    
+
 			$this->HistoricInvoice->id = $id;
-            
+
 			if( $this->HistoricInvoice->save( $this->request->data ) )
 			{
 				$this->Flash->success(__('Invoice updated successfully.'));
@@ -91,22 +91,128 @@ class HistoricInvoicesController extends AppController
 			$this->request->data = $hInvoice;
 		}
 	}
-    
-    public function view()
+
+
+	public function chart($id = null)
 	{
-		//$var = $this->HistoricInvoice->field('invoice_date');
-		//debug($var);
+		$this->loadModel('HistoricInvoicesHistoricProduct');
+		switch ($id) {
+			case 1:
+				$data = $this->HistoricInvoicesHistoricProduct->find('all', array('conditions'=>array('product_name'=>$this->request->data)));
 
-		$this->loadModel('Category');
-		 $this->set('categories', $this->Category->find('all', array('conditions' => array('category_name != '=>'Unclassified'))));
-		 $this->loadModel('Subcategory');
-		 $this->Subcategory->recursive = 0;
+				break;
+			case 2:
+				$data = $this->HistoricInvoicesHistoricProduct->find('all', array('conditions'=>array('subcategory_product'=>$this->request->data),
+						'fields'=>array('SUM(product_quantity) AS product_quantity', 'subcategory_product AS product_name', 'HistoricInvoice.invoice_date'), 'group'=>'subcategory_product'));
+				break;
+			
+			case 3:
+				$data = $this->HistoricInvoicesHistoricProduct->find('all', array('conditions'=>array('category_product'=>$this->request->data),
+						'fields'=>array('SUM(product_quantity) AS product_quantity', 'category_product AS product_name', 'HistoricInvoice.invoice_date'), 'group'=> 'category_product'));
+				break;
 
-		 $this->set('subcategories', $this->Subcategory->find('all'));
+		}
+
+
+	$this->set('data', $data);
+
 	}
 
-	public function printData()
+	public function table($id = null)
 	{
-		
+
+		$this->loadModel('HistoricInvoicesHistoricProduct');
+
+
+		switch ($id) {
+			case 1:
+				$data = $this->HistoricInvoicesHistoricProduct->find('all', array('conditions'=>array('product_name'=>$this->request->data)));
+
+				break;
+
+			case 2:
+				$data = $this->HistoricInvoicesHistoricProduct->find('all', array('conditions'=>array('subcategory_product'=>$this->request->data),
+						'fields'=>array('SUM(product_quantity) AS product_quantity', 'subcategory_product AS product_name', 'HistoricInvoice.invoice_date'), 'group'=>'subcategory_product'));				
+				break;
+
+			case 3:
+				$data = $this->HistoricInvoicesHistoricProduct->find('all', array('conditions'=>array('category_product'=>$this->request->data),
+						'fields'=>array('SUM(product_quantity) AS product_quantity', 'category_product AS product_name', 'HistoricInvoice.invoice_date'), 'group'=> 'category_product'));
+				break;
+			
+		}
+
+		$this->set('data', $data);	
+
+	}
+
+    public function view()
+	{
+
+		 $dates = $this->HistoricInvoice->find('first', array('fields' => array('MIN(invoice_date) as min', 'MAX(invoice_date) as max')));
+		 $min = split(' ', $dates[0]['min']);
+		 $max = split(' ', $dates[0]['max']);
+		 unset($min[1]);
+		 unset($max[1]);
+		 $dates[0] = $min;
+		 $dates[1] = $max;
+
+		 $this->loadModel('Subcategory');
+		 $this->recursive = 1;
+		 $data = $this->Subcategory->find('all', array('fields' => 'DISTINCT category.category_name',
+		  'conditions'=> array('category_name != '=> 'Unclassified'),'group' => array('category.category_name')));
+		 $this->set('categories', $data);
+		 $this->set('dates',$dates);
+
+	}
+
+	public function getCategories()
+	{
+		$this->Session->write('subcategories',array());
+		$this->Session->write('categories', array());
+
+		//if ($this->request->is('ajax'))
+		//{
+			$this->loadModel('Category');
+			$this->loadModel('Subcategory');
+
+
+			$this->Session->write('subcategories',$this->Category->find('all',
+			 array('conditions'=> array( 'category_name'=> $this->request->data ))));
+			
+			if(count($this->Session->read('subcategories')) < 1)
+			{
+				$this->Session->write('products',array());
+			}
+
+			return $this->redirect(array('action'=>'view'));
+		//}
+	}
+
+	//TODO:Acá estoy recuperando subcategorias, no categorías, revisar!!!!
+	public function getProducts()
+	{
+		$this->Session->write('products',array());
+		//if ($this->request->is('ajax'))
+		//{
+			$catego = array();
+
+			$tempo = $this->Session->read('subcategories');
+			for($i = 0; $i < count($tempo); ++$i)
+			{
+				array_push($catego,$tempo[$i]['Category']['category_name']);
+			}
+
+			$this->loadModel('Category');
+			$this->loadModel('Subcategory');
+
+			//$var = $var[0]['Category']['category_name'];
+			$values = $this->Subcategory->find('all',array('conditions'=>array('subcategory_name'=>$this->request->data,'category_name '=>$catego)));
+
+			$this->Session->write('products',$values);
+
+			return $this->redirect(array('action'=>'view'));
+
+		//}
 	}
 }
