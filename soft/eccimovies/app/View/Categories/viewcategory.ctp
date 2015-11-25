@@ -8,47 +8,55 @@ echo $this->Html->css('general');?>
                 <span class="sr-only">Toggle Navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
-                <span class="icon-bar"></span> 
+                <span class="icon-bar"></span>
             </button>
         </div>
 
       <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li><?php echo $this->Html->link('NEW RELEASES', array('controller' => 'pages', 'action' => 'display', 'home')); ?></li>
+                <li><?php echo $this->Html->link('NEW RELEASES',
+                                                 array('controller' => 'pages',
+                                                       'action' => 'display',
+                                                       'home'
+                                                      )
+                                                );
+                    ?>
+                </li>
                 <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" style="color:black">GENRES<span class="caret"></span></a>
+                    <a class="dropdown-toggle" data-toggle="dropdown" style="color:black">
+                        GENRES
+                        <span class="caret"></span>
+                    </a>
                     <ul class="dropdown-menu scrollable-menu" role="menu">
-                        <?php
-                        foreach ($catego as $cat):
-                        if( $cat['Page']['category_name'] !== 'Unclassified')
-                        {
-                            ?>
-                            <li>
-                                    <?php
-
-                                        echo $this->Html->link($cat['Page']['category_name'], array('controller' => 'categories', 'action'=> 'viewcategory',$cat['Page']['category_name']), array('category_name' => 'dropdown-categories'));
-
+                        <?php foreach ($catego as $cat):
+                                if( $cat['Page']['category_name'] !== 'Unclassified')
+                                {
                                     ?>
-                                </a>
-                            </li>
-
-                           <?php 
-                        }
-                        endforeach; ?>
-                       <?php unset($cat);?>
-
+                                    <li>
+                                    <?php echo $this->Html->link($cat['Page']['category_name'],
+                                                                 array('controller' => 'categories',
+                                                                       'action'=> 'viewcategory',
+                                                                       $cat['Page']['category_name']
+                                                                      ),
+                                                                 array('category_name' => 'dropdown-categories')
+                                                                );
+                                    ?>
+                                    </li>
+                                    <?php
+                                }
+                            endforeach;
+                            unset($cat);
+                        ?>
                     </ul>
                 </li>
-
                 <li><?php echo $this->Html->link('BLU-RAY', array('controller' => 'categories', 'action' => 'view_bluray')); ?></li>
                 <li><?php echo $this->Html->link('DVD', array('controller' => 'categories', 'action' => 'view_dvd')); ?></li>
-                <li><a href="#">COMING SOON</a></li>
-                <li><a href="#">TRENDING BLU-RAY</a></li>
+                <li><?php echo $this->Html->link('COMBOS', array('controller' => 'combos', 'action' => 'view_combos')); ?></li>
+                <li><a href="#">DEALS</a></li>
                 <li><a href="#">TOP 10 SELLERS</a></li>
             </ul>
-        </div> 
+        </div>
     </div>
-
 </div>
 
 <?php
