@@ -38,9 +38,14 @@ hr{
     margin-left: 220px;
 }
 
-.addCard_form, .addPayPal_form, .addCategory_form, .addProduct_form, .updateProduct_form{
+.addCard_form, .addPayPal_form, .addCategory_form, .addProduct_form, .updateProduct_form, .updateDiscount_form{
     margin-left: 280px;
 }
+
+.updateDiscount_form{
+    margin-left: 350px;
+}
+
 
 .updateCategory_form{
     margin-left: 215px;

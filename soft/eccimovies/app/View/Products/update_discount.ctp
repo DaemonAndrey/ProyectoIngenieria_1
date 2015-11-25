@@ -32,7 +32,7 @@ if($user_id != null && $admin)
     <hr>
 
     <?php echo $this->Form->create('Product', array('class' => 'form-horizontal', 'role' => 'form'));?>
-    <div class="updateProductDiscount_form">
+    <div class="updateDiscount_form">
         <?php
             echo $this->Form->input(
                 'Product.category_id',

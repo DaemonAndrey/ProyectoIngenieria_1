@@ -1,0 +1,44 @@
+.chart{
+    background: #D94119;
+    border: none;
+    font-family:sans-serif;
+    border-radius: 7px;
+    font-weight: bold;
+    color : white;
+    margin-top: 25px;
+    padding-right = 1px;
+    width: 100px;
+    height: 30px;
+    font-size: 100%;
+    margin-right: 10px;
+    }
+
+.tableH{
+    background: deepskyblue;
+    border: none;
+    font-family:sans-serif;
+    border-radius: 7px;
+    font-weight: bold;
+    color : white;
+    margin-top: 25px;
+    padding-right = 1px;
+    width: 100px;
+    height: 30px;
+    font-size: 100%;
+    margin-right: 10px;
+    }
+
+input[type=submit]{
+    background: yellowgreen;
+    border: none;
+    font-family:sans-serif;
+    border-radius: 7px;
+    font-weight: bold;
+    color : white;
+    margin-top: 25px;
+    padding-right = 1px;
+    width: 140px;
+    height: 30px;
+    font-size: 100%;
+    margin-right: 10px;
+    }

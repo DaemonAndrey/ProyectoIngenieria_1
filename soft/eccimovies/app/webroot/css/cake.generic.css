@@ -35,6 +35,11 @@
 }
 
 /**Botones LOGIN, SIGNUP, CART **/
+#header-nav ul  {
+    padding-left: 0px;
+}
+
+
 #header-nav ul li {
     display: inline-block;
     list-style-type: none;
@@ -90,6 +95,12 @@
     height: 45px;
 }
 
+#stats{
+    background-color: yellowgreen;
+    border-color: white;
+    height: 45px;
+}
+
 #adminButton{
     background-color: yellowgreen;
     border-color: white;
@@ -103,6 +114,11 @@
 
 #login{
     background-color: yellowgreen;
+    height: 45px;
+}
+
+#home{
+    background-color: darkorange;
     height: 45px;
 }
 
@@ -186,7 +202,6 @@
 /* Empieza la modificacion de estilo de search */
 
 form.form-inline{
-    float: right;
     border-color: white;
     margin-right: 10%;
 }
@@ -198,17 +213,20 @@ form.form-inline{
     font-size: 90%;
     position: absolute;
     font-family: 'Ubuntu',sans-serif;
+    margin-left: 65px;
 }
 
 
 .btn-default{
     position: absolute;
     margin: 20px 50px 10px 0px;
+    margin-left: 120px;
+    
 }
 
 #search-text{
     width: 180px;
-    margin-left: 100px;
+    margin-left: 150px;
     margin-top: 20px;
     font-family: sans-serif;
 }
@@ -217,6 +235,8 @@ form.form-inline{
     position: relative;
     width: 200px;
 }
+
+
 
 /* Termina la modificacion de estilo de search */
 

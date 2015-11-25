@@ -39,6 +39,50 @@ hr{
 .actions{
     width: 5%;
 }
+
+#addWishlistBtn
+{
+    border: none;
+    font-family:sans-serif;
+    text-shadow: 1px 1px 1px darkgrey;
+    border-radius: 7px;
+    font-weight: bold;
+    color : white;
+    width: 162px;
+    height: 34px;
+    font-size: 80%;
+    margin-top: 20px;
+    margin-right: 70px;
+
+    
+}
+    
+#addCartBtn
+{
+    background: yellowgreen;
+    border: none;
+    font-family:sans-serif;
+    text-shadow: 1px 1px 1px darkgrey;
+    border-radius: 7px;
+    font-weight: bold;
+    color : white;
+    width: 128px;
+    height: 34px;
+    font-size: 80%;
+    margin-top: 20px;
+}
+
+
+#cant{
+    width:110px;
+    margin-right: 12px;
+}
+
+#cartCant{
+    width:100px;
+    margin-top: 20px;
+}
+
 caption {
   padding: 0.3em;
   color: #fff;
@@ -158,10 +202,6 @@ textarea{
     color:white;
 }
 
-.
-{
-    width: 50%;
-}
 
 input[type="text"], input[type="number"], select
 {
@@ -173,43 +213,3 @@ input[type="text"], input[type="number"], select
 	width: 250px;
 }
 
-#addCartBtn
-{
-    background: yellowgreen;
-    border: none;
-    font-family:sans-serif;
-    text-shadow: 1px 1px 1px darkgrey;
-    border-radius: 7px;
-    font-weight: bold;
-    color : white;
-    width: 128px;
-    height: 34px;
-    font-size: 80%;
-    margin-top: 20px;
-}
-
-#addWishlistBtn
-{
-    border: none;
-    font-family:sans-serif;
-    text-shadow: 1px 1px 1px darkgrey;
-    border-radius: 7px;
-    font-weight: bold;
-    color : white;
-    width: 162px;
-    height: 34px;
-    font-size: 80%;
-    margin-top: 20px;
-    margin-right: 70px;
-
-    
-}
-#cant{
-    width:110px;
-    margin-right: 12px;
-}
-
-#cartCant{
-    width:100px;
-    margin-top: 20px;
-}
