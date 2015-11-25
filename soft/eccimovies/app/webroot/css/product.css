@@ -79,25 +79,6 @@ td{
     background-color: #1C1C1C;
 }
 
-#addCartBtn
-{
-    background: yellowgreen;
-    border: none;
-    font-family:sans-serif;
-    text-shadow: 1px 1px 1px darkgrey;
-    border-radius: 7px;
-    font-weight: bold;
-    color : white;
-    width: 128px;
-    height: 34px;
-    font-size: 80%;
-    margin-right: 200px;
-    margin-left: 5px;
-    margin-top: 50px;
-    margin-bottom: 50px;
-    
-}
-
 #message{
     color: greenyellow;
     font-family: sans-serif;
@@ -190,4 +171,45 @@ input[type="text"], input[type="number"], select
 .product_add form fieldset textarea
 {
 	width: 250px;
+}
+
+#addCartBtn
+{
+    background: yellowgreen;
+    border: none;
+    font-family:sans-serif;
+    text-shadow: 1px 1px 1px darkgrey;
+    border-radius: 7px;
+    font-weight: bold;
+    color : white;
+    width: 128px;
+    height: 34px;
+    font-size: 80%;
+    margin-top: 20px;
+}
+
+#addWishlistBtn
+{
+    border: none;
+    font-family:sans-serif;
+    text-shadow: 1px 1px 1px darkgrey;
+    border-radius: 7px;
+    font-weight: bold;
+    color : white;
+    width: 162px;
+    height: 34px;
+    font-size: 80%;
+    margin-top: 20px;
+    margin-right: 70px;
+
+    
+}
+#cant{
+    width:110px;
+    margin-right: 12px;
+}
+
+#cartCant{
+    width:100px;
+    margin-top: 20px;
 }

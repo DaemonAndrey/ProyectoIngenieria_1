@@ -139,6 +139,8 @@ class UsersController extends AppController
 				{
 							$this->loadModel('Cart');
 							$_SESSION['Auth']['User']['cart'] = $this->Cart->field('id',array('user_id' => $this->Auth->User('id')));
+							$this->loadModel('Wishlist');
+							$_SESSION['Auth']['User']['wishlist'] = $this->Wishlist->field('id',array('user_id' => $this->Auth->User('id')));
 					return $this->redirect($this->Auth->redirectURL());
 					//return $this->redirect(array('action' => 'view')); // Se pasa a la vista de LOGEADO
 				}

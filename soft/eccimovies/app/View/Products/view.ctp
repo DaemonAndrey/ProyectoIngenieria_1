@@ -71,17 +71,33 @@
                     // Si soy cliente puedo tener carrito
                     if($user_id != null && $custom)
                     {
-                        echo $this->Form->create('Carts', array('default' => false,'class'=>'form-inline', 'inputDefaults' => array('label'=>false, 'div'=>false)));
-                        // default = false sets the submit button not to submit
-                        // so we can use AJAX. Still works for users w/o javascript
-                        $quantity = $post['Product']['stock_quantity'];
-                        $min = ($quantity > 0)? 1: $quantity;
-                        echo "<div class='form-group'>";
-                        echo $this->Form->input('add', array('name'=>'addCart','type' => 'number','value' => $min,'min' => $min,'max' => $quantity,'class'=>'form-control', 'size'=>'1px','id'=>'cartCant', 'value'=>1));
-                        echo "</div>";
-                        echo $this->Form->button('<span class="glyphicon glyphicon-shopping-cart"></span> ADD TO CART ',array('type'=>'submit', 'class'=>'btn btn-primary','id'=>'addCartBtn'));
-                        echo $this->Form->end();
                         ?>
+                        <table class="table table-responsive">
+                            <tr>
+                                <td>
+                                    <?php echo $this->Form->create('Carts', array('default' => false,'class'=>'form-inline','inputDefaults' => array('label'=>false, 'div'=>false)));
+                                    // default = false sets the submit button not to submit
+                                    // so we can use AJAX. Still works for users w/o javascript
+                                    $quantity = $post['Product']['stock_quantity'];
+                                    $min = ($quantity > 0)? 1: $quantity;?>
+                                    <div class="form-group" id="cant">
+                                        <?php echo $this->Form->input('add', array('name'=>'addCart','type' => 'number','value' => $min,'min' => $min,'max' => $quantity,'class'=>'form-control','size'=>'1px','id'=>'cartCant', 'value'=>1)); ?>
+                                    </div>
+                        
+                                    <?php echo $this->Form->button('<span class="glyphicon glyphicon-shopping-cart"></span> ADD TO CART ',array('type'=>'submit', 'class'=>'btn btn-primary','id'=>'addCartBtn'));
+                        echo $this->Form->end();?>
+                                </td>
+                        
+                        
+                                <td>
+                                    <?php echo $this->Form->create('Wishlists', array('default' => false, 'inputDefaults' => array('label'=>false, 'div'=>false)));
+                                    echo $this->Form->button('<span class="glyphicon glyphicon-heart"></span> ADD TO WISHLIST',array('type'=>'submit', 'class'=>'btn btn-primary','id'=>'addWishlistBtn'));
+                                    echo $this->Form->end();?>
+                                </td>
+                            </tr>
+                        </table> 
+              
+                        
                         <div id="message"> </div>
                         <?php
                     }
@@ -164,6 +180,19 @@ $this->Js->get('#CartsViewForm')->event('submit',
 															array(	'action' => 'ajaxRequest', 'controller' => 'carts'),
 															array(	'update' => '#message',
 																	'data' => '{subtotal:0, user_id:'.$user_id.', product_id:'.$post['Product']['id'].',quantity:$("#cartCant").val(), product_price:'.$precioProducto.'}',
+																	'async' => true,
+																	'dataExpression'=>true,
+																	'method' => 'POST',
+																	'complete' => 'self.setInterval("updateSession()",1000);'
+																)
+														  )
+									);
+									
+$this->Js->get('#WishlistsViewForm')->event('submit',
+										$this->Js->request(
+															array(	'action' => 'ajaxRequest', 'controller' => 'wishlists'),
+															array(	'update' => '#message',
+																	'data' => '{user_id:'.$user_id.', product_id:'.$post['Product']['id'].'}',
 																	'async' => true,
 																	'dataExpression'=>true,
 																	'method' => 'POST',
