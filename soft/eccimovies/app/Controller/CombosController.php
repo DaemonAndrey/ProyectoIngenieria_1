@@ -47,15 +47,18 @@ class CombosController extends AppController {
 		return $manager;
 	}
 
-	public function index() {
-		$this->Combo->recursive = 0;
+	public function index()
+    {   
+        $this->loadModel('Page');
+        $this->set('catego',$this->Page->find('all'));
+        
+        // Para no-loggeado o no-admin
+        $combos = $this->Combo->find('all');
+		$this->set('comb', $combos);
+        
+        // Para admin
+        $this->Combo->recursive = 0;
 		$this->set('combos', $this->Paginator->paginate());
-	}
-
-	public function combos() {
-		$combos = $this->Combo->find('all');
-		//debug($combos);
-		$this->set('combos', $combos);
 	}
 
 	public function view($id = null) {
