@@ -39,7 +39,6 @@ if($user_id != null && $custom && $user_id == $cart_user_id)
                 <th>Price</th>
                 <th>Total item</th>
                 <th>Remove</th>
-                <th>Add to Wishlist</th>
             </tr>
 
             <?php
@@ -89,7 +88,6 @@ if($user_id != null && $custom && $user_id == $cart_user_id)
                     }
                 ?>
                 <td><?php echo $this->Form->postLink($this->Html->tag('span', null, array('class' => 'glyphicon glyphicon-remove')),array('action' => 'removeProductFromCart', $cartProduct['id'], $post['Cart']['id']),array('escape' => false, 'confirm' => 'Are you sure you want to remove this item from your cart?')); ?></td>
-                <td><?php echo $this->Html->link('<i class="glyphicon glyphicon-plus"></i>', array('action' => 'sendToWishlist', $cartProduct['id']), array('escape' => false)); ?></td>
             </tr>
             <?php
             endforeach;
