@@ -4,10 +4,96 @@
 	echo $this->Html->css('addresses');
 ?>
 
+<?php 
+// Si soy admin
+if( $user_id != null && $admin )
+{
+	?>
+    <nav class="navbar navbar-inverse" id="navigation-bar">
+      <div class="container-fluid">
+        <div>
+          <ul class="nav nav-pills nav-justified" role="tablist">
+            <li><?php echo $this->Html->link('Products', array('controller' => 'products', 'action' => 'index')); ?></li>
+            <li class="active"><?php echo $this->Html->link('Combos', array('controller' => 'combos', 'action' => 'index')); ?></li>
+            <li><?php echo $this->Html->link('Categories', array('controller' => 'categories', 'action' => 'index')); ?></li>
+            <li><?php echo $this->Html->link('Users', array('controller' => 'users', 'action' => 'index')); ?></li> 
+            <li><?php echo $this->Html->link('Orders', array('controller' => 'invoices', 'action' => 'my_invoices')); ?></li>
+            <li><?php echo $this->Html->link('Valid Accounts', array('controller' => 'valid_accounts', 'action' => 'index')); ?></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+	<?php
+}
+// Si no estoy loggeado o no soy admin
+else
+{
+	?>
+    <div class="navbar navbar-inverse" role="navigation" id="principal-nav">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle Navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+          <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><?php echo $this->Html->link('NEW RELEASES',
+                                                     array('controller' => 'pages',
+                                                           'action' => 'display',
+                                                           'home'
+                                                          )
+                                                    );
+                        ?>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" style="color:black">
+                            GENRES
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu scrollable-menu" role="menu">
+                            <?php foreach ($catego as $cat):
+                                    if( $cat['Page']['category_name'] !== 'Unclassified')
+                                    {
+                                        ?>
+                                        <li>
+                                        <?php echo $this->Html->link($cat['Page']['category_name'],
+                                                                     array('controller' => 'categories',
+                                                                           'action'=> 'viewcategory',
+                                                                           $cat['Page']['category_name']
+                                                                          ),
+                                                                     array('category_name' => 'dropdown-categories')
+                                                                    );
+                                        ?>
+                                        </li>
+                                        <?php
+                                    }
+                                endforeach;
+                                unset($cat);
+                            ?>
+                        </ul>
+                    </li>
+                    <li><?php echo $this->Html->link('BLU-RAY', array('controller' => 'categories', 'action' => 'view_bluray')); ?></li>
+                    <li><?php echo $this->Html->link('DVD', array('controller' => 'categories', 'action' => 'view_dvd')); ?></li>
+                    <li><?php echo $this->Html->link('COMBOS', array('controller' => 'combos', 'action' => 'view_combos')); ?></li>
+                    <li><a href="#">DEALS</a></li>
+                    <li><a href="#">TOP 10 SELLERS</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+	<?php
+}
+?>
+
 	<hr>
 
 	<div class="title">
-	<h2> <?php echo __('Combo'); ?> </h2>
+	<h2> <?php echo __(h($combo['Combo']['name']) . ' Combo'); ?> </h2>
 	</div>
 
 	<hr>
@@ -36,12 +122,9 @@
     <?php
 		echo $this->Html->tableCells(
 			array(
-				//array('Code:', h($combo['Combo']['code'])),
-				array('Name:', h($combo['Combo']['name'])),
-				array('Discount:', h($combo['Combo']['discount']).' %'),
 				array('Regular price:', '$ '.number_format((float)$tot, 2, '.', '')),
                 array('Combo price:', '$ '.number_format((float)$totCombo, 2, '.', '')),
-				//array('Stock Quantity:', $min),
+                array('Discount:', h($combo['Combo']['discount']).' %')
 			)
 		);
 	?>
@@ -110,13 +193,29 @@
 	<hr>
 	<p>
 	<?php
-		echo "<div id = 'goBack'>";
-		echo $this->Html->link(
-			'<span class="glyphicon glyphicon-arrow-left"></span> Go back',
-			array('action' => 'index'),
-			array('class' => 'btn btn-default', 'target' => '_self', 'escape' => false)
-		);
-		echo "</div>";
+        echo "<div id = 'goBack'>";
+            if($user_id != null && $admin)
+            {
+                echo $this->Html->link('<span class="glyphicon glyphicon-arrow-left"></span> Go back',
+                                       array('action' => 'index'),
+                                       array('class' => 'btn btn-default',
+                                             'target' => '_self',
+                                             'escape' => false
+                                            )
+                                      );
+            }
+            else
+            {
+                echo $this->Html->link('<span class="glyphicon glyphicon-arrow-left"></span> Go back',
+                                       array('action' => 'view_combos'),
+                                       array('class' => 'btn btn-default',
+                                             'target' => '_self',
+                                             'escape' => false
+                                            )
+                                      );
+            }
+        echo "</div>";
+		
 	?>
 	</p>
 
