@@ -56,7 +56,7 @@
                 <li><?php echo $this->Html->link('BLU-RAY', array('controller' => 'categories', 'action' => 'view_bluray')); ?></li>
                 <li><?php echo $this->Html->link('DVD', array('controller' => 'categories', 'action' => 'view_dvd')); ?></li>
                 <li class="active"><?php echo $this->Html->link('COMBOS', array('controller' => 'combos', 'action' => 'view_combos')); ?></li>
-                <li><a href="#">DEALS</a></li>
+                <li><?php echo $this->Html->link('DEALS', array('controller' => 'categories', 'action' => 'view_deals')); ?></li>
                 <li><a href="#">TOP 10 SELLERS</a></li>
             </ul>
         </div>
@@ -73,7 +73,6 @@
     <hr>
 
     <?php foreach ($comb as $combo): ?>
-    <?php if($combo['Combo']['enable'] == 1 ){ ?>
         <p id="tituloSubCategoria">
             <?php echo $this->Html->link($combo['Combo']['name'],
                                          array('action' => 'view',
@@ -151,7 +150,6 @@
     </div>
 
     <hr>
-    <?php } ?>
     <?php endforeach; ?>
     <?php unset($combo); ?>
 </div>
