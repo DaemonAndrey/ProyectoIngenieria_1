@@ -79,6 +79,8 @@ class CombosController extends AppController {
 
 		$this->set('combo', $this->Combo->find('first', $options));
 		//debug($this->Combo->find('first', $options));
+        $this->loadModel('Page');
+        $this->set('catego',$this->Page->find('all'));
 	}
 
 	public function add() {

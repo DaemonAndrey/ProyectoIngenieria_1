@@ -1,7 +1,6 @@
 <?php
 	echo $this->Html->css('general');
 	echo $this->Html->css('product');
-	echo $this->Html->css('addresses');
 ?>
 
 <?php 
@@ -90,107 +89,245 @@ else
 }
 ?>
 
-	<hr>
+<?php
+    $sum = 0;
+    $min = PHP_INT_MAX;
+    foreach ($combo['Product'] as $product):
+        $sum += $product['price'];
+        if ($min > $product['stock_quantity']):
+            $min = $product['stock_quantity'];
+        endif;
+    endforeach;
+    $tot = $sum;
+    $totCombo = $sum * (1 - $combo['Combo']['discount'] / 100.0);
+?>
 
-	<div class="title">
-	<h2> <?php echo __(h($combo['Combo']['name']) . ' Combo'); ?> </h2>
-	</div>
-
-	<hr>
-
-	<?php
-		$sum = 0;
-		$min = PHP_INT_MAX;
-		foreach ($combo['Product'] as $product):
-			$sum += $product['price'];
-			if ($min > $product['stock_quantity']):
-				$min = $product['stock_quantity'];
-			endif;
-		endforeach;
-        $tot = $sum;
-		$totCombo = $sum * (1 - $combo['Combo']['discount'] / 100.0);
-	?>
-
-<div class="combos view">
-	<table class="table">
-	<?php
-        if( $admin )
-        {
-            echo $this->Html->tableCells(array('Code:', h($combo['Combo']['code'])));
-        }
-    ?>
-    <?php
-		echo $this->Html->tableCells(
-			array(
-				array('Regular price:', '$ '.number_format((float)$tot, 2, '.', '')),
-                array('Combo price:', '$ '.number_format((float)$totCombo, 2, '.', '')),
-                array('Discount:', h($combo['Combo']['discount']).' %')
-			)
-		);
-	?>
-    <?php
-        if( $admin )
-        {
-            echo $this->Html->tableCells(array('Stock Quantity:', $min));
-        }
-    ?>
-	</table>
-    <?php
-    // Si soy cliente puedo tener carrito
-    if($user_id != null && $custom)
-    {
-        echo $this->Form->create('Carts', array('default' => false,'class'=>'form-inline', 'inputDefaults' => array('label'=>false, 'div'=>false)));
-        // default = false sets the submit button not to submit
-        // so we can use AJAX. Still works for users w/o javascript
-        $quantity = $combo['Combo']['stock_quantity'];
-        $min = ($quantity > 0)? 1: $quantity;
-        echo "<div class='form-group'>";
-        echo $this->Form->input('add', array('name'=>'addCart','type' => 'number','value' => $min,'min' => $min,'max' => $quantity,'class'=>'form-control', 'size'=>'1px','id'=>'cartCant', 'value'=>1));
-        echo "</div>";
-        echo $this->Form->button('<span class="glyphicon glyphicon-shopping-cart"></span> ADD TO CART ',array('type'=>'submit', 'class'=>'btn btn-primary','id'=>'addCartBtn'));
-        echo $this->Form->end();
-        ?>
-        <div id="message"> </div>
-        <?php
-    }
-    ?>
+<div class="row">
+    <div class="col-md-12">
+        <h2> <?php echo __(h($combo['Combo']['name']) . ' Combo'); ?> </h2>
+    </div>
 </div>
 
-<div class="related">
-	<h3><?php echo __('Products'); ?></h3>
-	<?php if (!empty($combo['Product'])): ?>
-	<table cellpadding = "0" cellspacing = "0">
-	<tr>
-    
-    <?php if($admin) { ?>
-		<th><?php echo __('Code'); ?></th>
-    <?php } ?>
-		<th><?php echo __('Name'); ?></th>
-		<th><?php echo __('Price'); ?></th>
-    <?php if($admin) { ?>
-		<th><?php echo __('Stock Quantity'); ?></th>
-    <?php } ?>
-        <th><?php echo __('Category'); ?></th>
-		<th><?php echo __('Subcategory'); ?></th>
-	</tr>
-	<?php foreach ($combo['Product'] as $product): ?>
-		<tr>
-            <?php if($admin) { ?>
-                <td><?php echo $product['code']; ?></td>
-			<?php } ?>
-            <td><?php echo $product['name']; ?></td>
-			<td><?php echo '$ '.number_format((float)$product['price'], 2, '.', ''); ?></td>
-			<?php if($admin) { ?>
-                <td><?php echo $product['stock_quantity']; ?></td>
-			<?php } ?>
-            <td><?php echo $product['Subcategory']['Category']['category_name']; ?></td>
-			<td><?php echo $product['Subcategory']['subcategory_name']; ?></td>
-		</tr>
-	<?php endforeach; ?>
-	</table>
-<?php endif; ?>
-
-	<hr>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-responsive">
+            <tr> <!-- Fila de todo -->
+                <td> <!-- Columna foto -->
+                    <?php
+                        $image = $combo['Combo']['code'].'.jpg';
+                        echo $this->Html->image($image, array('alt' => $combo['Combo']['name'], 'class' => 'img-rounded', 'width' => '400px', 'id' => 'img-product'));
+                    ?>
+                </td><!-- Fin Columna foto -->
+                <td> <!-- columna info -->
+					<table class="table table-responsive">
+						<?php
+						// Si soy cliente puedo tener carrito
+						if($user_id != null && $custom)
+						{
+							?>
+							<tr> <!-- fila carrito -->
+								<td> <!-- Columna 1 -->
+									<?php
+									echo $this->Form->create('Carts', array('default' => false,'class'=>'form-inline', 'inputDefaults' => array('label'=>false, 'div'=>false)));
+									// default = false sets the submit button not to submit
+									// so we can use AJAX. Still works for users w/o javascript
+									$quantity = h($combo['Combo']['stock_quantity']);
+									$min = ($quantity > 0)? 1: $quantity;
+									echo "<div class='form-group'>";
+									echo $this->Form->input('add', array('name'=>'addCart','type' => 'number','value' => $min,'min' => $min,'max' => $quantity,'class'=>'form-control', 'size'=>'1px','id'=>'cartCant', 'value'=>1));
+									echo "</div>";
+									echo $this->Form->button('<span class="glyphicon glyphicon-shopping-cart"></span> ADD TO CART ',array('type'=>'submit', 'class'=>'btn btn-primary','id'=>'addCartBtn'));
+									echo $this->Form->end();
+									?>
+									<div id="message"> </div>
+								</td>
+								<td></td> <!-- Columna 2 -->
+							</tr> <!-- fin fila carrito -->
+							<?php
+						}
+						?>
+						
+						<?php
+							if( $admin )
+							{
+								?>
+								<tr> <!-- Fila codigo -->
+									<td> 
+										<?php echo 'Code: ' ?>
+									</td>
+									<td>
+										<?php echo h($combo['Combo']['code']) ?>
+									</td>
+									<td>
+									</td>
+								</tr>
+								<?php
+							}
+						?>
+						
+						<tr>
+							<td>
+								<?php echo 'Regular price: ' ?>
+							</td>
+							<td>
+								<?php echo '$ '.number_format((float)$tot, 2, '.', '') ?>
+							</td>
+							<?php
+							if($admin)
+							{
+								?>
+								<td></td>
+								<?php
+							}
+							?>
+						</tr>
+						<tr>
+							<td>
+								<?php echo 'Combo price: ' ?>
+							</td>
+							<td>
+								<?php echo '$ '.number_format((float)$totCombo, 2, '.', '') ?>
+							</td>
+							<?php
+							if($admin)
+							{
+								?>
+								<td></td>
+								<?php
+							}
+							?>
+						</tr>
+						<tr>
+							<td>
+								<?php echo 'Discount: ' ?>
+							</td>
+							<td>
+								<?php echo h($combo['Combo']['discount']) . ' %' ?>
+							</td>
+							<?php
+							if($admin)
+							{
+								?>
+								<td></td>
+								<?php
+							}
+							?>
+						</tr>
+						
+						<?php
+							if( $admin )
+							{
+								?>
+								<tr> <!-- Fila codigo -->
+									<td> 
+										<?php echo 'In stock: ' ?>
+									</td>
+									<td>
+										<?php echo $min ?>
+									</td>
+									<td>
+									</td>
+								</tr>
+								<?php
+							}
+						?>
+						<tr>
+                            <td></td>
+                            <td></td>
+                            <?php
+                            if( $admin )
+							{
+								?>
+								<td></td>
+								<?php
+							}
+                            ?>
+                        
+                        </tr>
+						<tr>
+							<td> 
+                                <b>
+								<?php echo 'PRODUCTS' ?>
+                                    </b>
+							</td>
+							<td></td>
+							<?php
+							if($admin)
+							{
+								?>
+								<td></td>
+								<?php
+							}
+							?>
+						</tr>
+						
+						<tr>
+                            
+							<?php
+							if( $admin )
+							{
+								?>
+								<td> 
+                                    <b>
+									<?php echo 'Code' ?>
+                                        </b>
+								</td>
+								<?php
+							}
+							?>
+							<td>
+                                <b>
+								<?php echo 'Name' ?>
+                                    </b>
+							</td>
+							<td>
+                                <b>
+								<?php echo 'Price' ?>
+                                </b>
+							</td>
+                            
+						</tr>
+						
+						<?php
+						foreach ($combo['Product'] as $product): ?>
+							<tr>
+								<?php 
+								if($admin)
+								{
+									?>
+									<td>
+                                        <font size="2">
+										<?php echo $product['code']; ?>
+                                        </font>
+									</td>
+									<?php
+								}
+								?>
+								<td> 
+                                    <font size="2">
+                                        <?php echo $product['name']; ?> 
+                                    </font>
+                                </td>
+								<td> 
+                                    <font size="2">
+                                        <?php echo '$ '.number_format((float)$product['price'], 2, '.', ''); ?>
+                                    </font>
+                                </td>
+							</tr>
+							<?php
+						endforeach;
+						?>
+						
+						
+						
+						
+					</table>
+                </td> <!-- Fin columna info -->
+            </tr> <!-- Fin fila todo -->
+        </table>
+    </div>
+</div>
+<hr>
 	<p>
 	<?php
         echo "<div id = 'goBack'>";
