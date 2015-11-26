@@ -11,6 +11,11 @@
           else
           {
               echo " <h1>Graphic of Consumption</h1>";
+              if(isset($begin))
+              {
+                echo " <h3>Date Range: ".$begin." -- ".$end."</h3>";
+              }
+
           }
        ?>
     </div>
@@ -35,7 +40,7 @@
 
                 if(isset($data[0][0]))
                 {
-                  echo "['Name', 'Amount Sold', 'Month'],";
+                  echo "['Name', 'Amount Sold', 'Month','Gender'],";
                   $size  = count($data);
                     for($i = 0; $i < ($size - 1); ++$i)
                     {
@@ -43,7 +48,7 @@
                         $date = split(' ', $date);
                         $date = $date[0];
                         $date = split('-',$date);
-                        echo "[ '".$data[$i]['HistoricProduct']['product_name']."', ".$data[$i][0]['product_quantity'].", ".$date[1]."], ";
+                        echo "[ '".$data[$i]['HistoricProduct']['product_name']."', ".$data[$i][0]['product_quantity'].", ".$date[1].", '".$data[$i]['HistoricInvoice']['user_gender']."'], ";
                     }
 
 
@@ -52,7 +57,7 @@
                         $date = split(' ', $date);
                         $date = $date[0];
                         $date = split('-',$date);
-                        echo "[ '".$data[$i]['HistoricProduct']['product_name']."', ".$data[$i][0]['product_quantity'].", ".$date[1]."]"; 
+                        echo "[ '".$data[$i]['HistoricProduct']['product_name']."', ".$data[$i][0]['product_quantity'].", ".$date[1].", '".$data[$i]['HistoricInvoice']['user_gender']."' ]"; 
 
 
 

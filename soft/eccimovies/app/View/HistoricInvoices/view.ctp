@@ -9,12 +9,47 @@
 
 
   <div class="row">
-    <div class="col-md-4"><h3>DATA RANGE</h3></div>
-  	<div class="col-md-1"><h4>BEGIN</h4></div>
-  	<div class="col-md-3"><input type="date" name="inferior_range" min = <?php echo $dates[0][0]?> max  = <?php echo $dates[1][0]?> style="width:60%;float:left;color:black"></div>
-  	<div class="col-md-1 col-xs-12"><h4>END</h4></div>
-  	<div class="col-md-3 col-xs-12"><input type="date" name="inferior_range" min = <?php echo $dates[0][0]?> max  = <?php echo $dates[1][0]?> style="width:60%;float:left;color:black"></div>
+
+  <div class="col-md-2">
+    <h4>Date Range</h4>
   </div>
+
+    <div class="col-md-10">
+        <?php
+        echo $this->Form->create("date", array('class'=>'form-inline'));
+
+          $date = $this->Session->read('date');
+          $min = "";
+          $max = "";
+          if(isset($date['date']))
+          {
+            $min = $date['date']['Begin']['year']."-".$date['date']['Begin']['day']."-".$date['date']['Begin']['month'];
+            $max = $date['date']['End']['year']."-".$date['date']['End']['day']."-".$date['date']['End']['month'];
+          }
+          else
+          {
+              $min = $dates[0][0];
+              $max = $dates[1][0];
+          }
+          
+          echo "<div class = 'form-group'>";
+           echo  $this->Form->input('Begin',array('type'=>'date', 'class'=>'form-control', 'min'=>$min, 'max'=>$max, 'value'=>$min));
+          echo "</div>";
+
+          echo "&nbsp&nbsp&nbsp&nbsp";
+          echo "<div class = 'form-group'>";
+            echo $this->Form->input('End', array('type'=>'date', 'class'=>'form-control','min'=>$min, 'max'=>$max, 'value'=>$max));
+          echo "</div>";
+
+         echo $this->Form->submit('Set Date', array('class'=>'form-control', 'formaction'=>'setDate'));
+         echo  $this->Form->end();
+
+         ?>
+
+    </div>
+      
+</div>
+
 
 
 <br>
@@ -57,6 +92,7 @@
     <div class="col-md-4 col-xs-12" id="subcategory-id" >
     <h5>SUBCATEGORIES</h5>
 		<?php
+
 
 
 		echo "<div style= 'padding-left:30px; overflow-y:scroll; overflow-x:hidden; height:300px;'>";
@@ -140,17 +176,17 @@
 
 <?php
 /**
-$data = $this->Js->get('#CategoriesViewForm ')->serializeForm(array('isForm' => true, 'inline' => true));
-$this->Js->get('#CategoriesViewForm ')->event(
-   'submit',
+$data = $this->Js->get('#dateViewForm ')->serializeForm(array('isForm' => true, 'inline' => true));
+$this->Js->get('#dateViewForm ')->event(
+   'change',
    $this->Js->request(
-    array('action' => 'getCategories', 'controller' => 'HistoricInvoices'),
+    array('action' => 'setDate', 'controller' => 'HistoricInvoices'),
     array(
         'data' => $data,
         'async' => true,    
         'dataExpression'=>true,
         'method' => 'POST',
-		'complete' => 'update()'
+    'complete' => 'update()'
     )
   )
 );
