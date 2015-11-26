@@ -3,6 +3,8 @@
 <div class="row text-center">
     <div class="col-md-12">
       
+
+
        <?php
           if(count($data) < 1)
           {
@@ -117,26 +119,11 @@
         <div id="series_chart_div" style="width: 100%; height: 400px;"></div>
 
 
-
-
-    </div>
-
-</div>
-
-
-
-
-
-<div class="row text-center">
-    <div class="col-md-12">
-
-      <div id='png'></div>
+      </div>
 
     </div>
-</div>
 
-<script>
-  
-  var url = $(".image").prop("src");
-  console.log(url);
-</script>
+
+
+
+
