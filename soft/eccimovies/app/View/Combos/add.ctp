@@ -2,6 +2,7 @@
 	echo $this->Html->css('addresses');
 	echo $this->Html->css('general');
 	echo $this->Html->css('product');
+    echo $this->Html->css('signup');
 ?>
 
 <?php
