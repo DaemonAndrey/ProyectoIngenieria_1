@@ -210,15 +210,23 @@ class CombosController extends AppController {
 		$this->set(compact('products'));
 	}
 
-	public function delete($id = null) {
+	public function delete($id = null) 
+    {
 		$this->Combo->id = $id;
-		if (!$this->Combo->exists()) {
+		if (!$this->Combo->exists()) 
+        {
 			throw new NotFoundException(__('Invalid combo'));
 		}
-		$this->request->allowMethod('post', 'delete');
-		if ($this->Combo->delete()) {
+		
+        $this->request->allowMethod('post', 'delete');
+		
+        if ($this->Combo->delete()) 
+        {
+            
 			$this->Flash->success(__('The combo has been deleted.'));
-		} else {
+		} 
+        else 
+        {
 			$this->Flash->error(__('The combo could not be deleted. Please, try again.'));
 		}
 		return $this->redirect(array('action' => 'index'));
