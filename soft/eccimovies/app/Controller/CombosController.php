@@ -142,22 +142,67 @@ class CombosController extends AppController {
 		$this->set(compact('products'));
 	}
 
-	public function edit($id = null) {
-		if (!$this->Combo->exists($id)) {
+	public function edit($id = null) 
+    {
+		if (!$this->Combo->exists($id)) 
+        {
 			throw new NotFoundException(__('Invalid combo'));
 		}
-		if ($this->request->is(array('post', 'put'))) {
-			if (isset( $this->request->data['cancel'])) {
+		
+        if ($this->request->is(array('post', 'put'))) 
+        {
+			if (isset( $this->request->data['cancel'])) 
+            {
 				$this->Flash->success(__('Action canceled.', true));
 				return $this->redirect( array('action' => 'index'));
 			}
-			if ($this->Combo->save($this->request->data)) {
-				$this->Flash->success(__('The combo has been saved.'));
-				return $this->redirect(array('action' => 'index'));
-			} else {
+
+            $sum = 0;
+            $stock_quantity = PHP_INT_MAX;
+            //debug($this->request->data);
+            $combo = $this->request->data['Product'];
+            foreach ($combo['Product'] as $id):
+                $product = $this->Combo->Product->findById($id);
+                //debug($product);
+                $sum += $product['Product']['price'];
+                if ($stock_quantity > $product['Product']['stock_quantity']):
+				    $stock_quantity = $product['Product']['stock_quantity'];
+                endif;
+            endforeach;
+            $comboPrice = $sum; //* (1 - $this->request->data['Combo']['discount'] / 100.0);
+            
+            $productId = $this->Combo->findByCode($this->request->data['Combo']['code']);
+            
+            if ($this->Combo->save($this->request->data)) 
+            {
+                $comboId = $productId['Combo']['product_id'];
+                
+				$data = array(
+                    'code' => "'".$this->request->data['Combo']['code']."'",
+                    'name' => "'".$this->request->data['Combo']['name']."'",
+                    'price' => $comboPrice,
+                    'discount' => $this->request->data['Combo']['discount'],
+                    'stock_quantity' => $stock_quantity
+                );
+                debug($data);
+
+                if ($this->Combo->Product->updateAll($data, array('Product.id' => $comboId))) 
+                {
+                    $this->Flash->success(__('The combo has been updated.'));
+                    return $this->redirect(array('action' => 'index'));
+                } 
+                else 
+                {
+                    $this->Flash->error(__('The products in the combo could not be updated. Please, try again.'));
+                }
+            } 
+            else 
+            {
 				$this->Flash->error(__('The combo could not be saved. Please, try again.'));
 			}
-		} else {
+		} 
+        else 
+        {
 			$options = array('conditions' => array('Combo.' . $this->Combo->primaryKey => $id));
 			$this->request->data = $this->Combo->find('first', $options);
 		}
