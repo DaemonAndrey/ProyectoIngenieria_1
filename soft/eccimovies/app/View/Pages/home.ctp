@@ -14,7 +14,7 @@
 
                       <div class="navbar-collapse collapse">
                             <ul class="nav navbar-nav">
-                                <li><?php echo $this->Html->link('NEW RELEASES',
+                                <li class="active"><?php echo $this->Html->link('NEW RELEASES',
                                                                  array('controller' => 'pages',
                                                                        'action' => 'display',
                                                                        'home'

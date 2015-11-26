@@ -50,7 +50,7 @@ echo $this->Html->css('general');?>
                     </ul>
                 </li>
                 <li><?php echo $this->Html->link('BLU-RAY', array('controller' => 'categories', 'action' => 'view_bluray')); ?></li>
-                <li><?php echo $this->Html->link('DVD', array('controller' => 'categories', 'action' => 'view_dvd')); ?></li>
+                <li class="active"><?php echo $this->Html->link('DVD', array('controller' => 'categories', 'action' => 'view_dvd')); ?></li>
                 <li><?php echo $this->Html->link('COMBOS', array('controller' => 'combos', 'action' => 'view_combos')); ?></li>
                 <li><a href="#">DEALS</a></li>
                 <li><a href="#">TOP 10 SELLERS</a></li>
