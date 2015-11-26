@@ -177,7 +177,7 @@
 											<li id="stats">
 												<?php
 												echo $this->Html->link(	'<span class="glyphicon glyphicon-stats"></span> STATS ',
-																		array('controller'=>'historicinvoices','action' => 'view'),
+																		array('controller'=>'historicInvoices','action' => 'view'),
 																		array('target' => '_self', 'escape' => false)
 																	)
 												?>

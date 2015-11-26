@@ -192,8 +192,9 @@ class HistoricInvoicesController extends AppController
 
 		 $this->loadModel('Subcategory');
 		 $this->recursive = 1;
-		 $data = $this->Subcategory->find('all', array('fields' => 'DISTINCT category.category_name',
-		  'conditions'=> array('category_name != '=> 'Unclassified'),'group' => array('category.category_name')));
+		 $data = $this->Subcategory->find('all', array('fields' => 'DISTINCT Category.category_name',
+		  'conditions'=> array('category_name != '=> 'Unclassified'),'group' => array('Category.category_name')));
+		 //debug($data);
 		 $this->set('categories', $data);
 		 $this->set('dates',$dates);
 

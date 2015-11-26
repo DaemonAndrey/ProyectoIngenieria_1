@@ -61,6 +61,7 @@ if($user_id != null && $admin)
         </thead>
         <tbody>
         <?php foreach ($combos as $combo): ?>
+        <?php if($combo['Combo']['enable'] == 1 ){ ?>
         <tr>
             <td><?php echo h($combo['Combo']['code']); ?>&nbsp;</td>
             <td><?php echo h($combo['Combo']['name']); ?>&nbsp;</td>
@@ -96,6 +97,7 @@ if($user_id != null && $admin)
                 ?>
             </td>
         </tr>
+    <?php } ?>
     <?php endforeach; ?>
         </tbody>
         </table>

@@ -80,7 +80,7 @@ if($user_id != null && $admin)
         </fieldset>
         <hr>
         <div id= "action" style="text-align:center">
-            <?php echo $this->Form->submit(__('Add', true), array('name' => 'ok', 'div' => false)); ?>
+            <?php echo $this->Form->submit(__('Change', true), array('name' => 'ok', 'div' => false)); ?>
             &nbsp;
             <?php echo $this->Form->submit(__('Cancel', true), array('name' => 'cancel', 'formnovalidate' => true, 'div' => false)); ?>
         </div>
