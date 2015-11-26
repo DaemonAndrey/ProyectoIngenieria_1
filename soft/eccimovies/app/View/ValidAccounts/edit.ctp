@@ -7,7 +7,6 @@
     echo $this->Html->script('http://code.jquery.com/jquery.min.js');  
 ?>
 
-
 <?php if($user_id != null && $admin)
 { ?>
     <nav class="navbar navbar-inverse" id="navigation-bar">
@@ -57,20 +56,23 @@
                                                                         )
                                                     )
                                        );
-                echo $this->Form->input('name_card', array('div' => 'form-group',
+                if($account['ValidAccount']['issuer'] != 'PayPal')
+                {
+                    echo $this->Form->input('name_card', array('div' => 'form-group',
                                                         'label' => array(
                                                                             'class' => 'control-label col-sm-2',
                                                                             'text' => 'Name Card'
                                                                         )
                                                     )
                                        );
-                echo $this->Form->input('security_code', array( 'div' => 'form-group',
+                    echo $this->Form->input('security_code', array( 'div' => 'form-group',
                                                             'label' => array(
                                                                                 'class' => 'control-label col-sm-2',
                                                                                 'text' => 'Security Code'
                                                                             )
                                                           )
                                        );
+                }
                 echo $this->Form->input('funds', array(  'type' => 'number',
                                                           'min' => 0,
                                                             'div' => 'form-group',
@@ -92,7 +94,6 @@
         <?php echo $this->Form->submit(__('Cancel', true), array('name' => 'cancel', 'formnovalidate' => true, 'div' => false)); ?>
     </div>
     <?php echo $this->Form->end(); ?>
-    <>
 <?php
 }
 // Si no estoy loggeado o si no soy admin

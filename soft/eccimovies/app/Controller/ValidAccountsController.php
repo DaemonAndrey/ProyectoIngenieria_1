@@ -220,6 +220,15 @@ class ValidAccountsController extends AppController {
         {
 			throw new NotFoundException(__('Invalid valid account'));
 		}
+        $account = $this->ValidAccount->findById($id);
+        
+        if (!$account) 
+        {
+			throw new NotFoundException(__('Invalid valid account'));
+		}
+        
+        $this->set('account', $account);
+        
 		if ($this->request->is(array('post', 'put'))) {
 			if ($this->ValidAccount->save($this->request->data))
             {
