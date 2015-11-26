@@ -18,7 +18,11 @@ class Combo extends AppModel {
 			'isUnique' => array(
 				'rule' => 'isUnique',
 				'message' => 'A combo with this code already exists'
-			)
+			),
+			'regla3' => array(
+								'rule' => array('custom', '/^[A-Z]{3}\-[0-9]{4}$/'),
+								'message' => 'The right format is AAA-0000.'
+							 )
 		),
 		'name' => array(
 			'notBlank' => array(
