@@ -275,6 +275,9 @@ class UsersController extends AppController
 		{
 			throw new NotFoundException(__('Invalid user.'));
 		}
+                
+        $this->set('user', $user); 
+
 		if($this->request->is(array('post', 'put')))
 		{
 			if(isset($this->request->data['cancel']))
