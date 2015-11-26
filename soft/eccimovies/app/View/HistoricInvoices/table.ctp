@@ -20,6 +20,11 @@
 						{
 							echo "<th>Name</th>";
 							echo "<th>Amount Sold</th>";
+							echo "<th>Gender</th>";
+							if(isset($begin))
+							{
+								echo "<th> Date Range </th>";
+							}
 
 						}
 						else
@@ -29,6 +34,7 @@
 							echo "<th>Gender</th>";
 							echo "<th>Date</th>";
 							echo "<th>Time </th>";
+							echo "<th> Date</th>";
 						}
 
 					echo "</tr>";
@@ -48,6 +54,7 @@
 
 			$size = count($data);
 
+
 			if(isset($data[0][0]))
 			{
 				for($i = 0; $i < $size; ++$i)
@@ -58,8 +65,14 @@
 						echo "</td>";
 						echo "<td>";
 						echo $data[$i][0]['product_quantity']; 
+						echo "</td>";
+						echo "<td>";
+						echo $data[$i]['HistoricInvoice']['user_gender']; 
 						echo "</td>";	
-						
+						if(isset($begin))
+						{
+							echo "<td>".$begin." - ".$end."</td>";
+						}
 					echo "</tr>";				
 
 				}

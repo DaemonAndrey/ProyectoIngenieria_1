@@ -96,25 +96,41 @@ class HistoricInvoicesController extends AppController
 	public function chart($id = null)
 	{
 		$this->loadModel('HistoricInvoicesHistoricProduct');
+
+		$date = $this->Session->read('date');
+		if(isset($date['date']))
+		{
+			$begin = $date['date']['Begin']['year']."-".$date['date']['Begin']['month']."-".$date['date']['Begin']['day'];
+			$end = $date['date']['End']['year']."-".$date['date']['End']['month']."-".$date['date']['End']['day'];
+			$options = array("invoice_date >="=>$begin, "invoice_date <= "=>$end);
+			$this->set('begin', $begin);	
+			$this->set('end', $end);
+		}
+
+
 		switch ($id) {
 			case 1:
-				$data = $this->HistoricInvoicesHistoricProduct->find('all', array('conditions'=>array('product_name'=>$this->request->data)));
+				$options["product_name"] = $this->request->data;
+				$data = $this->HistoricInvoicesHistoricProduct->find('all', array('conditions'=>$options));
 
 				break;
 			case 2:
-				$data = $this->HistoricInvoicesHistoricProduct->find('all', array('conditions'=>array('subcategory_product'=>$this->request->data),
-						'fields'=>array('SUM(product_quantity) AS product_quantity', 'subcategory_product AS product_name', 'HistoricInvoice.invoice_date'), 'group'=>'subcategory_product'));
+				$options["subcategory_product"] = $this->request->data;
+				$data = $this->HistoricInvoicesHistoricProduct->find('all', array('conditions'=>$options,
+						'fields'=>array('SUM(product_quantity) AS product_quantity', 'subcategory_product AS product_name', 'HistoricInvoice.invoice_date', 'HistoricInvoice.user_gender'), 'group'=>array('subcategory_product', 'user_gender')));
 				break;
 			
 			case 3:
-				$data = $this->HistoricInvoicesHistoricProduct->find('all', array('conditions'=>array('category_product'=>$this->request->data),
-						'fields'=>array('SUM(product_quantity) AS product_quantity', 'category_product AS product_name', 'HistoricInvoice.invoice_date'), 'group'=> 'category_product'));
+				$options["category_product"] = $this->request->data;
+				$data = $this->HistoricInvoicesHistoricProduct->find('all', array('conditions'=>$options,
+						'fields'=>array('SUM(product_quantity) AS product_quantity', 'category_product AS product_name', 'HistoricInvoice.invoice_date','HistoricInvoice.user_gender'), 'group'=> array('category_product', 'user_gender')));
 				break;
 
 		}
 
 
-	$this->set('data', $data);
+		$this->set('data', $data);
+
 
 	}
 
@@ -123,26 +139,43 @@ class HistoricInvoicesController extends AppController
 
 		$this->loadModel('HistoricInvoicesHistoricProduct');
 
+		$date = $this->Session->read('date');
+		if(isset($date['date']))
+		{
+			$begin = $date['date']['Begin']['year']."-".$date['date']['Begin']['month']."-".$date['date']['Begin']['day'];
+			$end = $date['date']['End']['year']."-".$date['date']['End']['month']."-".$date['date']['End']['day'];
+			$options = array("invoice_date >="=>$begin, "invoice_date <= "=>$end);
+
+			$this->set('begin', $begin);	
+			$this->set('end', $end);
+		}
+
 
 		switch ($id) {
 			case 1:
-				$data = $this->HistoricInvoicesHistoricProduct->find('all', array('conditions'=>array('product_name'=>$this->request->data)));
+				$options["product_name"] = $this->request->data;
+				$data = $this->HistoricInvoicesHistoricProduct->find('all', array('conditions'=>$options));
 
 				break;
 
 			case 2:
-				$data = $this->HistoricInvoicesHistoricProduct->find('all', array('conditions'=>array('subcategory_product'=>$this->request->data),
-						'fields'=>array('SUM(product_quantity) AS product_quantity', 'subcategory_product AS product_name', 'HistoricInvoice.invoice_date'), 'group'=>'subcategory_product'));				
+				$options["subcategory_product"] = $this->request->data;
+				$data = $this->HistoricInvoicesHistoricProduct->find('all', array('conditions'=>$options,
+						'fields'=>array('SUM(product_quantity) AS product_quantity', 'subcategory_product AS product_name', 'HistoricInvoice.invoice_date', 'HistoricInvoice.user_gender'), 'group'=>array('subcategory_product','user_gender')));				
+				
 				break;
 
 			case 3:
-				$data = $this->HistoricInvoicesHistoricProduct->find('all', array('conditions'=>array('category_product'=>$this->request->data),
-						'fields'=>array('SUM(product_quantity) AS product_quantity', 'category_product AS product_name', 'HistoricInvoice.invoice_date'), 'group'=> 'category_product'));
+				$options["category_product"] = $this->request->data;
+				$data = $this->HistoricInvoicesHistoricProduct->find('all', array('conditions'=>$options,
+						'fields'=>array('SUM(product_quantity) AS product_quantity', 'category_product AS product_name', 'HistoricInvoice.invoice_date', 'HistoricInvoice.user_gender'), 'group'=> array('category_product','user_gender')));
+				
 				break;
 			
 		}
 
 		$this->set('data', $data);	
+	
 
 	}
 
@@ -171,8 +204,7 @@ class HistoricInvoicesController extends AppController
 		$this->Session->write('subcategories',array());
 		$this->Session->write('categories', array());
 
-		//if ($this->request->is('ajax'))
-		//{
+
 			$this->loadModel('Category');
 			$this->loadModel('Subcategory');
 
@@ -186,15 +218,14 @@ class HistoricInvoicesController extends AppController
 			}
 
 			return $this->redirect(array('action'=>'view'));
-		//}
+
 	}
 
-	//TODO:Acá estoy recuperando subcategorias, no categorías, revisar!!!!
+
 	public function getProducts()
 	{
 		$this->Session->write('products',array());
-		//if ($this->request->is('ajax'))
-		//{
+
 			$catego = array();
 
 			$tempo = $this->Session->read('subcategories');
@@ -206,13 +237,23 @@ class HistoricInvoicesController extends AppController
 			$this->loadModel('Category');
 			$this->loadModel('Subcategory');
 
-			//$var = $var[0]['Category']['category_name'];
+		
 			$values = $this->Subcategory->find('all',array('conditions'=>array('subcategory_name'=>$this->request->data,'category_name '=>$catego)));
 
 			$this->Session->write('products',$values);
 
 			return $this->redirect(array('action'=>'view'));
+	}
 
-		//}
+
+	public function setDate()
+	{
+
+		$this->Session->write('date', $this->request->data);
+
+		$data = $this->Session->read('date');
+
+		return $this->redirect(array('action'=>'view'));
+		
 	}
 }
