@@ -328,6 +328,7 @@ else
     </div>
 </div>
 <hr>
+<div>
 	<p>
 	<?php
         echo "<div id = 'goBack'>";
