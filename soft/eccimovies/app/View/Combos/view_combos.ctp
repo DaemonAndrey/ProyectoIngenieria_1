@@ -73,6 +73,7 @@
     <hr>
 
     <?php foreach ($comb as $combo): ?>
+	<?php if($combo['Combo']['enable'] == 1) { ?>
         <p id="tituloSubCategoria">
             <?php echo $this->Html->link($combo['Combo']['name'],
                                          array('action' => 'view',
@@ -150,6 +151,7 @@
     </div>
 
     <hr>
+	<?php } ?>
     <?php endforeach; ?>
     <?php unset($combo); ?>
 </div>
