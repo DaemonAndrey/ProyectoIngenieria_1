@@ -96,7 +96,6 @@ class CombosController extends AppController {
             $combo = $this->request->data['Product'];
             foreach ($combo['Product'] as $id):
                 $product = $this->Combo->Product->findById($id);
-                //debug($product);
                 $sum += $product['Product']['price'];
                 if ($stock_quantity > $product['Product']['stock_quantity']):
 				    $stock_quantity = $product['Product']['stock_quantity'];
@@ -220,13 +219,18 @@ class CombosController extends AppController {
 			throw new MethodNotAllowedException();
 		}
 		$combo = $this->Combo->findById($id);
+        //debug($combo);
 		if( !$combo ) {
 			throw new NotFoundException(__('Invalid combo.'));
 		}
 		if( $this->request->is(array('post', 'put')) ) {
 			if( $this->Combo->updateAll(array("enable" => "0"),array("Combo.id" => "$id")) ) {
+				$product = $this->Combo->Product->findById($combo['Combo']['product_id']);
+                //debug($product);
+				$this->Combo->Product->id = $product['Product']['id'];
+				$this->Combo->Product->saveField('enable', 0);
 				$this->Flash->success(__('Combo deleted successfully!'));
-				//return $this->redirect(array('action' => 'index'));
+				return $this->redirect(array('action' => 'index'));
 			} else
 				$this->Flash->error(__('Could not delete combo.'));
 		}
@@ -248,7 +252,7 @@ class CombosController extends AppController {
 			} else
 				$this->Flash->error(__('Could not delete product.'));
 		}*/
-		return $this->redirect(array('action' => 'index'));
+		//return $this->redirect(array('action' => 'index'));
 
 /*		$this->Combo->id = $id;
 		if (!$this->Combo->exists()) {
