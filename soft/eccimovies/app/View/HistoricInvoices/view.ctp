@@ -67,7 +67,7 @@
 		echo "<div style= 'padding-left:30px; overflow-y:scroll; overflow-x:hidden; height:300px;'>";
 			
 			
-			echo  $this->Form->create('Categories', array('url'=>array('controller'=>'historicinvoices', 'action'=>'getCategories')));
+			echo  $this->Form->create('Categories', array('url'=>array('controller'=>'historicInvoices', 'action'=>'getCategories')));
 			
 				 foreach ($categories as $category)
 				 {
@@ -98,7 +98,7 @@
 		echo "<div style= 'padding-left:30px; overflow-y:scroll; overflow-x:hidden; height:300px;'>";
 		  
 
-			echo $this->Form->create('subcategories', array('url'=>array('controller'=>'historicinvoices','action'=>'getProducts')));
+			echo $this->Form->create('subcategories', array('url'=>array('controller'=>'historicInvoices','action'=>'getProducts')));
 				
 			
 			  $sub = $this->Session->read('subcategories');

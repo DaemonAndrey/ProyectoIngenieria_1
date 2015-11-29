@@ -218,6 +218,24 @@ class CategoriesController extends AppController
                                          )
                   );
     }
+    
+    public function view_deals()
+	{		
+        $this->loadModel('Page');
+        $this->set('catego',$this->Page->find('all'));
+        
+        $this->loadModel('Product');
+        
+        $this->set('product',
+                   $this->Product->find('all',
+                                          array('conditions' => array('Product.enable' => '1',
+                                                                      'Product.discount >' => '0'
+                                                                     ),
+                                                'order' => array('Product.name')
+                                               )
+                                         )
+                  );
+    }
 }
 ?>
 

@@ -2,7 +2,8 @@
 	echo $this->Html->css('addresses');
 	echo $this->Html->css('general');
 	echo $this->Html->css('product');
-	echo $this->Html->css('signup');
+    echo $this->Html->css('combos');
+
 ?>
 
 <?php
@@ -48,6 +49,7 @@ if($user_id != null && $admin)
             );
             echo $this->Form->input('code',
                 array(
+                    'class' => 'input-combos',
                     'div' => 'form-group',
                     'autofocus' => 'autofocus',
                     'label' => array(
@@ -57,6 +59,7 @@ if($user_id != null && $admin)
             );
             echo $this->Form->input('name',
                 array(
+                    'class' => 'input-combos',
                     'div' => 'form-group',
                     'label' => array(
                         'class' => 'control-label col-sm-2'
@@ -65,6 +68,7 @@ if($user_id != null && $admin)
             );
             echo $this->Form->input('discount',
                 array(
+                    'class' => 'input-combos',
                     'div' => 'form-group',
                     'label' => array(
                         'class' => 'control-label col-sm-2'
@@ -76,16 +80,19 @@ if($user_id != null && $admin)
         </fieldset>
         <hr>
         <div id= "action" style="text-align:center">
-            <?php echo $this->Form->submit(__('Add', true), array('name' => 'ok', 'div' => false)); ?>
+            <?php echo $this->Form->submit(__('Change', true), array('name' => 'ok', 'div' => false)); ?>
             &nbsp;
             <?php echo $this->Form->submit(__('Cancel', true), array('name' => 'cancel', 'formnovalidate' => true, 'div' => false)); ?>
         </div>
+        
+        <hr>
 
         <fieldset>
         <?php
             echo $this->Form->input('Product',
                 array(
                     //'div' => 'form-group',
+                    'class' => 'checkB',
                     'multiple' => 'checkbox',
                     'label' => 'Modify product list',
                     /*'label' => array(

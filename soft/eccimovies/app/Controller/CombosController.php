@@ -79,6 +79,8 @@ class CombosController extends AppController {
 
 		$this->set('combo', $this->Combo->find('first', $options));
 		//debug($this->Combo->find('first', $options));
+        $this->loadModel('Page');
+        $this->set('catego',$this->Page->find('all'));
 	}
 
 	public function add() {
@@ -210,26 +212,55 @@ class CombosController extends AppController {
 		$this->set(compact('products'));
 	}
 
-	public function delete($id = null) 
-    {
-		$this->Combo->id = $id;
-		if (!$this->Combo->exists()) 
-        {
+	public function delete($id = null) {
+		if( !$id ) {
+			throw new NotFoundException(__('Invalid combo.'));
+		}
+		if( $this->request->is('get') ) {
+			throw new MethodNotAllowedException();
+		}
+		$combo = $this->Combo->findById($id);
+		if( !$combo ) {
+			throw new NotFoundException(__('Invalid combo.'));
+		}
+		if( $this->request->is(array('post', 'put')) ) {
+			if( $this->Combo->updateAll(array("enable" => "0"),array("Combo.id" => "$id")) ) {
+				$this->Flash->success(__('Combo deleted successfully!'));
+				//return $this->redirect(array('action' => 'index'));
+			} else
+				$this->Flash->error(__('Could not delete combo.'));
+		}
+/*
+		if( !$this->Combo->product_id ) {
+			throw new NotFoundException(__('Invalid product.'));
+		}
+		if( $this->request->is('get') ) {
+			throw new MethodNotAllowedException();
+		}
+		$product = $this->Combo->Product->findById($this->Combo->product_id);
+		if( !$product ) {
+			throw new NotFoundException(__('Invalid product.'));
+		}
+		if( $this->request->is(array('post', 'put')) ) {
+			if( $this->Combo->Product->updateAll(array("enable" => "0"),array("Product.id" => "$this->Combo->product_id")) ) {
+				$this->Flash->success(__('Product deleted successfully!'));
+				//return $this->redirect(array('action' => 'index'));
+			} else
+				$this->Flash->error(__('Could not delete product.'));
+		}*/
+		return $this->redirect(array('action' => 'index'));
+
+/*		$this->Combo->id = $id;
+		if (!$this->Combo->exists()) {
 			throw new NotFoundException(__('Invalid combo'));
 		}
-		
-        $this->request->allowMethod('post', 'delete');
-		
-        if ($this->Combo->delete()) 
-        {
-            
+		$this->request->allowMethod('post', 'delete');
+		if ($this->Combo->delete()) {
 			$this->Flash->success(__('The combo has been deleted.'));
-		} 
-        else 
-        {
+		} else {
 			$this->Flash->error(__('The combo could not be deleted. Please, try again.'));
 		}
-		return $this->redirect(array('action' => 'index'));
+		return $this->redirect(array('action' => 'index'));*/
 	}
 
 }

@@ -2,7 +2,8 @@
 	echo $this->Html->css('addresses');
 	echo $this->Html->css('general');
 	echo $this->Html->css('product');
-    echo $this->Html->css('signup');
+    echo $this->Html->css('combos');
+
 ?>
 
 <?php
@@ -40,6 +41,7 @@ if($user_id != null && $admin)
             echo $this->Form->input(
                 'code',
                 array(
+                    'class' => 'input-combos',
                     'placeholder' => 'ABC-1234',
                     'autofocus' => 'autofocus',
                     'div' => 'form-group',
@@ -51,6 +53,7 @@ if($user_id != null && $admin)
             echo $this->Form->input(
                 'name',
                 array(
+                    'class' => 'input-combos',
                     'placeholder' => 'Combo description',
                     'div' => 'form-group',
                     'label' => array(
@@ -61,6 +64,7 @@ if($user_id != null && $admin)
             echo $this->Form->input(
                 'discount',
                 array(
+                    'class' => 'input-combos',
                     'placeholder' => '0',
                     'div' => 'form-group',
                     'label' => array(
@@ -77,11 +81,13 @@ if($user_id != null && $admin)
             <?php echo $this->Form->submit(__('Cancel', true), array('name' => 'cancel', 'formnovalidate' => true, 'div' => false)); ?>
         </div>
 
+        <hr>
+            
         <fieldset>
         <?php
             echo $this->Form->input('Product',
                 array(
-                    //'div' => 'form-group',
+                    'class' => 'checkB',
                     'multiple' => 'checkbox',
                     'label' => 'Pick products',
                     /*'label' => array(
