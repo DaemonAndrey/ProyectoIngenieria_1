@@ -307,14 +307,14 @@ class ProductsController extends AppController
             $discount = $this->request->data['Product']['discount'];
             
             $this->loadModel('Subcategory');
-            $subcategories = $this->Subcategory->query("SELECT id FROM Subcategories where category_id = ".$categoryId."");
+            $subcategories = $this->Subcategory->query("SELECT id FROM subcategories where category_id = ".$categoryId."");
 
             $i = 0;
             $updatedCategories = 0;
             
             foreach($subcategories as $id )
             {
-                $id = $subcategories[$i]['Subcategories']['id'];
+                $id = $subcategories[$i]['subcategories']['id'];
                 
                 if( $this->Product->updateAll( array('Product.discount' => $discount), array('Product.subcategory_id' => $id) ) )
                 {
