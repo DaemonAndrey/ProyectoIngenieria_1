@@ -11,7 +11,7 @@ class ProductsControllerTest extends ControllerTestCase {
 		'app.actor',
 		'app.category',
 	);
-
+    
 	public function testIndex() {
 		$result = $this->testAction('/products/index');
 		debug($result);
@@ -56,5 +56,8 @@ class ProductsControllerTest extends ControllerTestCase {
 /*		$result = $this->testAction('/products/searchDirector/');
 		debug($result);*/
 	}
-
+	public function testUpdateDiscount() {
+		$result = $this->testAction('/products/UpdateDiscount');
+		debug($result);
+	} 
 }
